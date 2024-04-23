@@ -2,7 +2,7 @@
   "name": "drawing-2d",
   "private": true,
   "version": "1.0.0",
-  "homepage": "https://DmNVlop.github.io/encimerasProject",
+  "homepage": "https://DmNVlop.github.io/2d-drawing",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
