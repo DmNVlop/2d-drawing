@@ -22,9 +22,10 @@ const RoutersApp = () => {
       <Suspense fallback={<div>Cargando...</div>}>
         <Routes>
           <Route path="/" element={<Navigate to="/countertop" />} />
+          <Route path="/" element={<Navigate to="/countertop" />} />
           {/* <Route path="/" element={<HomePage />} /> */}
 
-          <Route path="not-found" element={<NotFoundPage />} />
+          <Route path="/not-found" element={<NotFoundPage />} />
 
           <Route path="*" element={<Navigate to="/not-found" />} />
           {/* <Route path="*" element={<NotFoundPage />} /> */}
@@ -37,11 +38,32 @@ const RoutersApp = () => {
               </CountetopContextProvider>
             }
           >
-            <Route path="simple" element={<SimpleCTPage shape={"simple"} title="Encimera Simple" />} />
-            <Route path="square" element={<SimpleCTPage shape={"square"} title="Encimera Cuadrada" />} />
-            <Route path="circle" element={<SimpleCTPage shape={"circle"} title="Encimera Circular" />} />
-            <Route path="l-shaped" element={<LShapedPage shape={"L"} title="Encimera en L" />} />
-            <Route path="u-shaped" element={<UShapedPage shape={"U"} title="Encimera en U" />} />
+            <Route
+              path="simple"
+              element={
+                <SimpleCTPage shape={"simple"} title="Encimera Simple" />
+              }
+            />
+            <Route
+              path="square"
+              element={
+                <SimpleCTPage shape={"square"} title="Encimera Cuadrada" />
+              }
+            />
+            <Route
+              path="circle"
+              element={
+                <SimpleCTPage shape={"circle"} title="Encimera Circular" />
+              }
+            />
+            <Route
+              path="l-shaped"
+              element={<LShapedPage shape={"L"} title="Encimera en L" />}
+            />
+            <Route
+              path="u-shaped"
+              element={<UShapedPage shape={"U"} title="Encimera en U" />}
+            />
 
             <Route path="*" element={<Navigate to="/not-found" />} />
           </Route>

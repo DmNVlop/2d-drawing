@@ -15,7 +15,7 @@ function App() {
   //     if (!woodyItem?.tarifa) return;
   //     const modo = woodyItem.tarifa.sku;
   // const routeToMode = {
-  //   E2000: () => navigate("/simple"),
+  //   E2000: () => navigate(simple"),
   //   E2002: () => navigate("/simple"),
   //   E2003: () => navigate("/uct"),
   //   E2004: () => navigate("/lct"),

@@ -2,13 +2,14 @@
   "name": "2d-drawing",
   "private": true,
   "version": "1.0.0",
-  "homepage": "https://dmnvlop.github.io/2d-drawing/",
+  "homepage": "http://localhost:5173/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
+    "build1": "vite build --base=/2d-drawing/",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
