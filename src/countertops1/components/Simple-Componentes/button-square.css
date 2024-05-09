@@ -1,0 +1,25 @@
+.button-square {
+  width: 100%;
+  height: 100%;
+  max-width: 100px;
+  display: block;
+  background-color: white;
+  border: 2px solid #dbdbdb;
+  /* border-radius: 5px; */
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  font-family: sans-serif;
+  transition: border-color 0.25s ease;
+  padding: 4px;
+}
+
+.button-square:hover {
+  border-color: #7962ad;
+}
+
+.button-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

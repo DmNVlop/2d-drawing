@@ -11,6 +11,8 @@ html {
 body {
   background-color: #fff;
   font-family: sans-serif;
+  overflow: hidden;
+  width: 100vw;
 }
 
 #header {
@@ -156,16 +158,3 @@ h2 {
 .btns .slide_right:hover {
   box-shadow: inset 400px 0 0 0 #d80286;
 }
-
-/****************************************
-*****************************************
-****************************************/
-
-/* .dimension-text-badge {
-  color: #162944;
-}
-
-.dimension-text-badge::before {
-  content: "\270E"; /* Unicode character for edit icon (✎) */
-/*margin-right: 5px;
-} */

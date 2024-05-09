@@ -1,0 +1,19 @@
+#sidebar-right {
+  position: absolute;
+  right: 0;
+  padding: 16px;
+  border: 4px solid rgb(164, 164, 182);
+  border-right: none;
+  margin-top: 20px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  width: 320px;
+  height: calc(100vh - 40px);
+  overflow: auto;
+  background-color: aliceblue;
+  transition: all 0.3s ease;
+}
+
+.close-sidebar-right {
+  right: -400px !important;
+}

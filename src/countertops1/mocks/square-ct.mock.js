@@ -1,4 +1,8 @@
+import { DIRECTION_TYPES } from "./LINES_CONST";
+import { SHAPE_TYPES } from "./SHAPE_TYPES";
+
 export const SQUARE_CT_M = {
+  shapeType: SHAPE_TYPES.SQUARE,
   layerData: { xLayer: 0, yLayer: 0 },
   partsData: [
     {
@@ -13,12 +17,14 @@ export const SQUARE_CT_M = {
       // fillPatternImage: "",
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
-      cornerRadius: [0, 32, 0, 0],
+      cornerRadius: [0, 0, 0, 0],
+      cornerRadiusDisabled: [false, false, false, false],
     },
   ],
 };
 
 export const SQUARE_LINE_CT_M = {
+  shapeType: SHAPE_TYPES.SQUARE,
   layerData: { xLayer: 0, yLayer: 0 },
   linesData: [
     {
@@ -30,26 +36,28 @@ export const SQUARE_LINE_CT_M = {
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
+      direction: DIRECTION_TYPES.VERTIICAL,
     },
     {
       id: 2,
-      xRef: 500,
+      xRef: 0,
       yRef: 0,
       xInitRef: 0,
-      length: 32,
-      level: 2,
+      length: 500,
+      level: 1,
       // widthOnLevel: 50,
-      rotation: 90,
+      rotation: 0,
+      direction: DIRECTION_TYPES.HORIZONTAL,
     },
-    {
-      id: 3,
-      xRef: 500,
-      yRef: 32,
-      xInitRef: 0,
-      length: 468,
-      level: 2,
-      // widthOnLevel: 50,
-      rotation: 90,
-    },
+    // {
+    //   id: 3,
+    //   xRef: 500,
+    //   yRef: 32,
+    //   xInitRef: 0,
+    //   length: 468,
+    //   level: 2,
+    //   // widthOnLevel: 50,
+    //   rotation: 90,
+    // },
   ],
 };

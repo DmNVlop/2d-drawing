@@ -164,6 +164,7 @@ export const U3_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusDisabled: [false, false, true, false],
     },
     {
       id: 2,
@@ -180,6 +181,7 @@ export const U3_CT_M = {
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusDisabled: [false, false, true, false],
     },
   ],
 };
