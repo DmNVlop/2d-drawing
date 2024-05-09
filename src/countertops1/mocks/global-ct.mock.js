@@ -1,4 +1,6 @@
 export const GLOBAL_CT_M = {
-  xStage: 60,
-  yStage: 60,
+  xGlobalStage: 0,
+  yGlobalStage: 0,
+  xGlobalLayer: 4,
+  yGlobalLayer: 80,
 };

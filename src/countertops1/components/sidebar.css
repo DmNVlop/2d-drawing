@@ -1,0 +1,22 @@
+.ant-input-number-group-addon {
+  padding: 0 6px !important;
+}
+
+.ant-input-number-group-addon img {
+  width: 24px;
+  height: 24px;
+}
+
+.ant-col a {
+  display: block;
+}
+
+.ant-col a img {
+  width: 100%;
+}
+
+.ant-col a.assembly:active,
+.ant-col a.assembly:focus {
+  background-color: #edf3f9;
+  border: 4px solid #7eb8db;
+}

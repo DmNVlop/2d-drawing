@@ -1,34 +1,52 @@
-import { Stage } from "react-konva";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Stage } from "react-konva";
+
+import { useCountertopContext } from "../context/ct-context";
+import { useWindowsSizes } from "../helpers/widowsSizes.hook";
 
 import RectTemplate from "../components/rect.template";
-import LineTemplate from "../components/line.template";
+import LineTemplateVertical from "../components/line-vertical.template";
+import LineTemplateHorizontal from "../components/line-horizontal.template";
+import ChaflanCNCWork from "../components/CNC-Works/chaflan.template";
 
 import { SIMPLE_CT_M, SIMPLE_LINE_CT_M } from "../mocks/simple-ct.mock";
 import { SQUARE_CT_M, SQUARE_LINE_CT_M } from "../mocks/square-ct.mock";
 import { CIRCLE_CT_M, CIRCLE_LINE_CT_M } from "../mocks/circle-ct.mock";
-import { useEffect, useState } from "react";
-import { useWindowsSizes } from "../helpers/widowsSizes.hook";
+import { useLocation } from "react-router-dom";
+import { DIRECTION_TYPES } from "../mocks/LINES_CONST";
+import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 
 export default function SimpleCTPage(props) {
+  const { countertops, setCountertops } = useCountertopContext();
+
   const [partsData, setPartsData] = useState([]);
   const [linesData, setLinesData] = useState([]);
 
-  // const elementRef = useElementRefContext();
+  const location = useLocation();
 
   const selectingData = (shape) => {
     const shapeType = {
       simple: () => {
-        setPartsData(SIMPLE_CT_M.partsData);
-        setLinesData(SIMPLE_LINE_CT_M.linesData);
+        setCountertops({
+          shapeType: SIMPLE_CT_M.shapeType,
+          partsData: SIMPLE_CT_M.partsData,
+          linesData: SIMPLE_LINE_CT_M.linesData,
+        });
       },
       square: () => {
-        setPartsData(SQUARE_CT_M.partsData);
-        setLinesData(SQUARE_LINE_CT_M.linesData);
+        setCountertops({
+          shapeType: SQUARE_CT_M.shapeType,
+          partsData: SQUARE_CT_M.partsData,
+          linesData: SQUARE_LINE_CT_M.linesData,
+        });
       },
       circle: () => {
-        setPartsData(CIRCLE_CT_M.partsData);
-        setLinesData(CIRCLE_LINE_CT_M.linesData);
+        setCountertops({
+          shapeType: CIRCLE_CT_M.shapeType,
+          partsData: CIRCLE_CT_M.partsData,
+          linesData: CIRCLE_LINE_CT_M.linesData,
+        });
       },
     };
 
@@ -37,7 +55,14 @@ export default function SimpleCTPage(props) {
 
   useEffect(() => {
     selectingData(props?.shape || "simple");
-  });
+  }, [location]);
+
+  useEffect(() => {
+    if (countertops) {
+      setPartsData(countertops.partsData);
+      setLinesData(countertops.linesData);
+    }
+  }, [countertops]);
 
   // const elementRefWidth = elementRef?.elementRef?.width || 0;
   // const elementRefMarginTop = elementRef?.elementRef?.marginTop || 0;
@@ -56,12 +81,27 @@ export default function SimpleCTPage(props) {
       <h2>{props.title}</h2>
 
       <Stage width={stageWidth} height={stageHeight} draggable>
-        {partsData.map((item) => (
-          <RectTemplate itemData={item} key={item.id} />
-        ))}
-        {linesData.map((item) => (
-          <LineTemplate itemData={item} key={item.id} />
-        ))}
+        {partsData.map((item) => {
+          return <RectTemplate itemData={item} key={item.id} />;
+        })}
+
+        {linesData.map((item) => {
+          if (item.direction === DIRECTION_TYPES.HORIZONTAL) {
+            return <LineTemplateHorizontal itemData={item} key={item.id} />;
+          }
+
+          if (item.direction === DIRECTION_TYPES.VERTIICAL) {
+            return <LineTemplateVertical itemData={item} key={item.id} />;
+          }
+        })}
+
+        {partsData.map((item) => {
+          if (Array.isArray(item?.works) && item?.works?.length > 0) {
+            return item?.works.map((work) => (
+              <WorksSelectorCNCWorks workData={work} key={work.id} />
+            ));
+          }
+        })}
       </Stage>
     </>
   );
