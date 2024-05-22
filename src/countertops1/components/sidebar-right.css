@@ -17,3 +17,23 @@
 .close-sidebar-right {
   right: -400px !important;
 }
+
+#work-select-section .opacity-works {
+  opacity: 0.4 !important;
+}
+
+#work-corner-select-section .ant-col a.button-square {
+  transition: all 0.1s ease-in-out;
+}
+
+#work-corner-select-section .ant-col a.button-square:hover {
+  background-color: #edf3f9;
+  border: 4px solid #e4ecf0;
+}
+
+#work-corner-select-section .ant-col a.active,
+#work-corner-select-section .ant-col a.button-square:active,
+#work-corner-select-section .ant-col a.button-square:focus {
+  background-color: #edf3f9;
+  border: 4px solid #7eb8db;
+}

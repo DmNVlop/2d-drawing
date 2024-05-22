@@ -1,16 +1,18 @@
+import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES";
 import { DIRECTION_TYPES } from "./LINES_CONST";
 import { SHAPE_TYPES } from "./SHAPE_TYPES";
 import { WORKS_TYPES } from "./WORKS.types";
 
 export const SIMPLE_CT_M = {
   shapeType: SHAPE_TYPES.SIMPLE,
+  assemblyType: { type: ASSEMBLY_TYPES.SIMPLE, selected: true },
   partsData: [
     {
       id: 1,
       x: 0,
       y: 0,
-      width: 500,
-      height: 200,
+      width: 700,
+      height: 400,
       fill: "#c7aa89",
       stroke: "black",
       rotation: 0,
@@ -19,7 +21,7 @@ export const SIMPLE_CT_M = {
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
-      cornerRadiusDisabled: [false, false, false, false],
+      cornerRadiusDisabled: [0, 0, 0, 0],
       works: [
         {
           id: 1,
@@ -28,14 +30,14 @@ export const SIMPLE_CT_M = {
           type: WORKS_TYPES.CCCHAFLAN,
           // top-left, top-right, bottom-right, bottom-left
           cornerPosition: [1, 0, 0, 0],
-          selected: true,
+          selected: false,
         },
         {
           id: 2,
           width: 20,
           height: 20,
           type: WORKS_TYPES.CCFALESC,
-          cornerPosition: [0, 1, 1, 0],
+          cornerPosition: [0, 1, 0, 0],
           selected: false,
         },
         {
@@ -56,10 +58,10 @@ export const SIMPLE_LINE_CT_M = {
   linesData: [
     {
       id: 1,
-      xRef: 500,
+      xRef: 700,
       yRef: 0,
       xInitRef: 0,
-      length: 200,
+      length: 400,
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
@@ -70,7 +72,7 @@ export const SIMPLE_LINE_CT_M = {
       xRef: 0,
       yRef: 0,
       xInitRef: 0,
-      length: 500,
+      length: 700,
       level: 1,
       // widthOnLevel: 50,
       rotation: 0,

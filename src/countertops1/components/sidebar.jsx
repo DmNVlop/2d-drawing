@@ -20,16 +20,19 @@ import {
   Button,
   Empty,
   Dropdown,
+  Modal,
 } from "antd";
 import { INPUT_DISABLED_LOGIC, SHAPE_TYPES } from "../mocks/SHAPE_TYPES";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
 import menuProps from "../const/lista-parts-dropdown-nav.const";
+import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {
   const location = useNavigate();
 
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
+  // const _ASSEMBLY_DATA = ASSEMBLY_DATA;
 
   // Context
   const sidenavElementRef = useRef(null);
@@ -52,6 +55,28 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   // Disabled Input State
   const [disabledInputSlider, setDisabledInputSlider] =
     useState(INPUT_DISABLED_LOGIC);
+
+  // ASSEMBLY DATA State
+  const [_assemblyData, setAssemblyData] = useState(ASSEMBLY_DATA);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const configModal = {
+    title: "Ensamblaje Simple",
+    content: (
+      <>
+        <h2>Ensamblaje Simple</h2>
+        <p>Ensamblaje de dos piezas en angulo de 90 grados.</p>
+      </>
+    ),
+  };
 
   const disabledSliderLogic = (shapeType) => {
     if (!shapeType) {
@@ -117,7 +142,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
     // if (workType === WORKS_TYPES.CCCHAFLAN) {
     //   const temp = { ...countertops.partsData[0].works };
-    //   console.log("🚀 ~ handleClickWork ~ temp:", temp);
     //   const result = temp.filter((item) => {
     //     if (item.type == WORKS_TYPES.CCCHAFLAN) {
     //       item.selected = !item.selected;
@@ -131,6 +155,18 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     event.preventDefault();
 
     sidebarRightOpenedControl(true);
+  };
+
+  const handleAssemblyClick = (item, index) => {
+    setAssemblyData((prev) => {
+      let tempAssemblyClean = [...prev];
+      tempAssemblyClean = tempAssemblyClean.map((item) => {
+        item.selected = false;
+        return item;
+      });
+      tempAssemblyClean[index].selected = true;
+      return tempAssemblyClean;
+    });
   };
 
   const onChangeCorners = (newValue, position) => {
@@ -176,11 +212,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   }, [location, countertops?.shapeType]);
 
   useMemo(() => {
-    console.log(
-      "🚀 ~ useMemo ~ countertops?.partsData[0]?.cornersDisabled:",
-      countertops?.partsData[0]?.cornerRadiusDisabled
-    );
-
     if (countertops?.partsData[0]?.cornerRadiusDisabled) {
       setCornersDisabled(countertops?.partsData[0]?.cornerRadiusDisabled);
     }
@@ -290,6 +321,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               menu={menuProps}
               trigger={["click"]}
               onClick={(e) => e.preventDefault()}
+              style={{ marginBottom: 10 }}
+              disabled={disabledInputSlider?.p1_width}
             >
               Selecciona una pieza
             </Dropdown.Button>
@@ -299,7 +332,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               <Col span={12}>
                 <Slider
                   min={100}
-                  max={1500}
+                  max={3600}
                   disabled={disabledInputSlider?.p1_width}
                   onChange={onChangeLargo}
                   value={
@@ -310,7 +343,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               <Col span={4}>
                 <InputNumber
                   min={100}
-                  max={1500}
+                  max={3600}
                   disabled={disabledInputSlider?.p1_width}
                   style={{ margin: "0 16px" }}
                   onChange={onChangeLargo}
@@ -324,7 +357,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               <Col span={12}>
                 <Slider
                   min={100}
-                  max={800}
+                  max={2800}
                   disabled={disabledInputSlider?.p1_height}
                   onChange={onChangeAncho}
                   value={
@@ -335,7 +368,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               <Col span={4}>
                 <InputNumber
                   min={100}
-                  max={800}
+                  max={2800}
                   disabled={disabledInputSlider?.p1_height}
                   style={{ margin: "0 16px" }}
                   onChange={onChangeAncho}
@@ -438,6 +471,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               <Button
                 type="primary"
                 onClick={(event) => handleClickAddWork(event)}
+                disabled={disabledInputSlider?.p1_width}
               >
                 Agregar Trabajos
               </Button>
@@ -451,53 +485,33 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
             <Typography.Title level={4} style={{ marginBottom: 10 }}>
               Tipo de Ensamble
             </Typography.Title>
+            {/* 
+            <Modal
+              title="Ensamblaje Simple!"
+              open={isModalOpen}
+              onOk={handleOk}
+            >
+              <p>Description del Assembly...</p>
+              <p>FIGURE...</p>
+              <p>Some Footer...</p>
+            </Modal> */}
 
             <Row gutter={[16, 16]}>
-              <Col span={8}>
-                <Link to="#" className="assembly">
-                  <img
-                    src="/images/assembly/assembly-simple.png"
-                    alt="Ensamblaje simple"
-                    title="Ensamblaje simple"
-                  />
-                </Link>
-              </Col>
-              <Col span={8}>
-                <Link to="#" className="assembly">
-                  <img
-                    src="/images/assembly/assembly-recto-chaflan.png"
-                    alt="Ensamblaje recto chaflan"
-                    title="Ensamblaje recto chaflan"
-                  />
-                </Link>
-              </Col>
-              <Col span={8}>
-                <Link to="#" className="assembly">
-                  <img
-                    src="/images/assembly/assembly-diagonal.png"
-                    alt="Ensamblaje ángulo variable"
-                    title="Ensamblaje ángulo variable"
-                  />
-                </Link>
-              </Col>
-              <Col span={8}>
-                <Link to="#" className="assembly">
-                  <img
-                    src="/images/assembly/assembly-noventa-grados.png"
-                    alt="Ensamblaje ángulos de 90 grados"
-                    title="Ensamblaje ángulos de 90 grados"
-                  />
-                </Link>
-              </Col>
-              <Col span={8}>
-                <Link to="#" className="assembly">
-                  <img
-                    src="/images/assembly/assembly-recto.png"
-                    alt="Ensamblaje en Recto"
-                    title="Ensamblaje en Recto"
-                  />
-                </Link>
-              </Col>
+              {_assemblyData.map((item, index) => {
+                return (
+                  <Col span={8} key={index}>
+                    <Link
+                      to={(e) => {
+                        e.preventDefault();
+                      }}
+                      onClick={() => handleAssemblyClick(item, index)}
+                      className={item.selected ? "assembly active" : "assembly"}
+                    >
+                      <img src={item.src} alt={item.alt} title={item.title} />
+                    </Link>
+                  </Col>
+                );
+              })}
             </Row>
           </section>
         </section>
@@ -510,5 +524,5 @@ Sidebar.displayName = "Sidebar";
 export default Sidebar;
 
 Sidebar.propTypes = {
-  setSidebarRightOpened: PropTypes.func,
+  sidebarRightOpenedControl: PropTypes.func,
 };

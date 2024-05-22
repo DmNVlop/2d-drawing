@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 function ChaflanCNCWork(props) {
   useEffect(() => {
-    console.log("🚀 ~ ChaflanCNCWork ~ props:", props);
+    // console.log("🚀 ~ ChaflanCNCWork ~ props:", props);
   }, [props]);
 
   return (
