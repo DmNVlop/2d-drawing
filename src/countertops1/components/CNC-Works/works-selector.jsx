@@ -26,5 +26,6 @@ export default WorksSelectorCNCWorks;
 
 WorksSelectorCNCWorks.propTypes = {
   workData: PropTypes.object,
+  id: PropTypes.number,
 };
 

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 
 export default function LineTemplateHorizontal(props) {
+  console.log("🚀 ~ LineTemplateHorizontal ~ props:", props)
   const rotation = props?.itemData?.rotation || 0;
   const lengthBase = props?.itemData?.length || 0;
   const xRefBase = props?.itemData?.xRef || 0;
@@ -60,4 +61,5 @@ export default function LineTemplateHorizontal(props) {
 
 LineTemplateHorizontal.propTypes = {
   itemData: PropTypes.object,
+  id: PropTypes.number,
 };

@@ -2,7 +2,7 @@ import "./sidebar-right.css";
 
 import PropTypes from "prop-types";
 
-import { Button, Checkbox, Col, Input, Row } from "antd";
+import { Button, Col, Input, Row } from "antd";
 import {
   CloseOutlined,
   ColumnHeightOutlined,
@@ -13,9 +13,12 @@ import { useState } from "react";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_WORKS from "../mocks/WORKS_BUTTOMS.data";
 import { WORKS_CORNERS } from "../mocks/WORKS_CORNERS.data";
+import { useCountertopContext } from "../context/ct-context";
 
 function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const _WORKS_CORNERS = WORKS_CORNERS;
+
+  const { countertops, setCountertops } = useCountertopContext();
 
   const [_buttomSquareWorks, setButtomSquareWorks] =
     useState(BUTTON_SQUARE_WORKS);

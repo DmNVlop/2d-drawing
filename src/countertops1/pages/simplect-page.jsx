@@ -8,7 +8,6 @@ import { useWindowsSizes } from "../helpers/widowsSizes.hook";
 import RectTemplate from "../components/rect.template";
 import LineTemplateVertical from "../components/line-vertical.template";
 import LineTemplateHorizontal from "../components/line-horizontal.template";
-import ChaflanCNCWork from "../components/CNC-Works/chaflan.template";
 
 import { SIMPLE_CT_M, SIMPLE_LINE_CT_M } from "../mocks/simple-ct.mock";
 import { SQUARE_CT_M, SQUARE_LINE_CT_M } from "../mocks/square-ct.mock";
@@ -53,6 +52,22 @@ export default function SimpleCTPage(props) {
     shapeType[shape]();
   };
 
+  const setRealSizes = (realSizes, index) => {
+    // console.log("🚀 ~ setRealSizes ~ index:", index);
+    // console.log("🚀 ~ setRealSizes ~ realSizes:", realSizes);
+    // console.log("🚀 ~ setRealSizes ~ countertops.partsData:", countertops?.partsData[index]);
+    
+    setCountertops((prev) => {
+      const t = { ...prev };
+      t.partsData[index].realWidth = realSizes.width;
+      t.partsData[index].realHeight = realSizes.height;
+      return {
+        ...prev,
+        ...t,
+      };
+    });
+  };
+
   useEffect(() => {
     selectingData(props?.shape || "simple");
   }, [location]);
@@ -62,7 +77,7 @@ export default function SimpleCTPage(props) {
       setPartsData(countertops.partsData);
       setLinesData(countertops.linesData);
     }
-  }, [countertops]);
+  }, [countertops?.partsData, countertops?.linesData]);
 
   // const elementRefWidth = elementRef?.elementRef?.width || 0;
   // const elementRefMarginTop = elementRef?.elementRef?.marginTop || 0;
@@ -81,24 +96,35 @@ export default function SimpleCTPage(props) {
       <h2>{props.title}</h2>
 
       <Stage width={stageWidth} height={stageHeight} draggable>
-        {partsData.map((item) => {
-          return <RectTemplate itemData={item} key={item.id} />;
+        {partsData.map((item, index) => {
+          return (
+            <RectTemplate
+              itemData={item}
+              key={index}
+              id={index}
+              setRealSizes={setRealSizes}
+            />
+          );
         })}
 
-        {linesData.map((item) => {
+        {linesData.map((item, index) => {
           if (item.direction === DIRECTION_TYPES.HORIZONTAL) {
-            return <LineTemplateHorizontal itemData={item} key={item.id} />;
+            return (
+              <LineTemplateHorizontal itemData={item} key={index} id={index} />
+            );
           }
 
           if (item.direction === DIRECTION_TYPES.VERTIICAL) {
-            return <LineTemplateVertical itemData={item} key={item.id} />;
+            return (
+              <LineTemplateVertical itemData={item} key={index} id={index} />
+            );
           }
         })}
 
         {partsData.map((item) => {
           if (Array.isArray(item?.works) && item?.works?.length > 0) {
-            return item?.works.map((work) => (
-              <WorksSelectorCNCWorks workData={work} key={work.id} />
+            return item?.works.map((work, idx) => (
+              <WorksSelectorCNCWorks workData={work} key={idx} id={idx} />
             ));
           }
         })}

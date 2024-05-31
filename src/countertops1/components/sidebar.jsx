@@ -13,20 +13,17 @@ import {
   Col,
   InputNumber,
   Row,
-  Slider,
   Typography,
   Space,
   Flex,
   Button,
   Empty,
-  Dropdown,
-  Modal,
 } from "antd";
-import { INPUT_DISABLED_LOGIC, SHAPE_TYPES } from "../mocks/SHAPE_TYPES";
+import { INPUT_DISABLED_LOGIC } from "../mocks/SHAPE_TYPES";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
-import menuProps from "../const/lista-parts-dropdown-nav.const";
 import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA";
+import DimensionsInput from "./Sidebar-Components/dimensions-input";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {
   const location = useNavigate();
@@ -45,12 +42,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
   // Corners State
   const [cornersState, setCornersState] = useState([]);
-  const [cornersDisabled, setCornersDisabled] = useState([
-    true,
-    true,
-    true,
-    true,
-  ]);
+  const [cornersDisabled, setCornersDisabled] = useState([1, 1, 1, 1]);
 
   // Disabled Input State
   const [disabledInputSlider, setDisabledInputSlider] =
@@ -58,6 +50,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
   // ASSEMBLY DATA State
   const [_assemblyData, setAssemblyData] = useState(ASSEMBLY_DATA);
+
+  // Pieza Selected
+  const [piezaSelectedParent, setPiezaSelectedParent] = useState(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -78,63 +73,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     ),
   };
 
-  const disabledSliderLogic = (shapeType) => {
-    if (!shapeType) {
-      throw new Error("shapeType is required GG");
-    }
-
-    if (shapeType === SHAPE_TYPES.SIMPLE) {
-      setDisabledInputSlider((prev) => {
-        const tempLogic = {
-          ...INPUT_DISABLED_LOGIC,
-          ...{ p1_width: false, p1_height: false },
-        };
-        return {
-          ...prev,
-          ...tempLogic,
-        };
-      });
-    }
-
-    if (shapeType === SHAPE_TYPES.SQUARE) {
-      setDisabledInputSlider((prev) => {
-        const tempLogic = {
-          ...INPUT_DISABLED_LOGIC,
-          ...{ p1_width: false },
-        };
-        return {
-          ...prev,
-          ...tempLogic,
-        };
-      });
-    }
-
-    if (shapeType === SHAPE_TYPES.CIRCLE) {
-      setDisabledInputSlider((prev) => {
-        const tempLogic = {
-          ...INPUT_DISABLED_LOGIC,
-          ...{ p1_width: false },
-        };
-        return {
-          ...prev,
-          ...tempLogic,
-        };
-      });
-    }
-  };
-
-  const onChangeLargo = (newValue) => {
-    setInputValueLargo(newValue);
-    if (countertops?.shapeType == SHAPE_TYPES.SQUARE) {
-      setInputValueAncho(newValue);
-    }
-  };
-
-  const onChangeAncho = (newValue) => {
-    setInputValueAncho(newValue);
-    if (countertops?.shapeType == SHAPE_TYPES.SQUARE) {
-      setInputValueLargo(newValue);
-    }
+  const onSelectPiezaParent = (piezaSelected) => {
+    setPiezaSelectedParent(piezaSelected);
   };
 
   const handleClickWork = (workType, event) => {
@@ -205,17 +145,11 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     }
   }, [countertops?.partsData[0]?.width, countertops?.partsData[0]?.height]);
 
-  useMemo(() => {
-    if (countertops?.shapeType) {
-      disabledSliderLogic(countertops.shapeType);
-    }
-  }, [location, countertops?.shapeType]);
-
-  useMemo(() => {
+  useEffect(() => {
     if (countertops?.partsData[0]?.cornerRadiusDisabled) {
       setCornersDisabled(countertops?.partsData[0]?.cornerRadiusDisabled);
     }
-  }, [countertops?.partsData[0]?.cornerRadiusDisabled]);
+  }, [piezaSelectedParent]);
 
   useEffect(() => {
     const tempSizes = {
@@ -231,10 +165,17 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
       const tempData = countertops.partsData;
       const tempDataLines = countertops.linesData;
 
-      tempData[0].width = inputValueLargo;
-      tempDataLines[0].xRef = inputValueLargo;
+      tempData[piezaSelectedParent?.value - 1 || 0].width = inputValueLargo;
+      tempDataLines[piezaSelectedParent?.value - 1 || 0].xRef =
+        tempData[piezaSelectedParent?.value - 1 || 0].realWidth;
 
-      tempDataLines[1].length = inputValueLargo;
+      tempDataLines[piezaSelectedParent?.value || 1].length =
+        tempData[piezaSelectedParent?.value - 1 || 0].realWidth;
+
+      console.log(
+        "🚀 ~ useEffect ~ tempData[piezaSelectedParent?.value - 1 || 0].realWidth:",
+        tempData[piezaSelectedParent?.value - 1 || 0].realWidth
+      );
 
       setCountertops({
         ...countertops,
@@ -247,8 +188,14 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
       const tempData = countertops.partsData;
       const tempDataLines = countertops.linesData;
 
-      tempData[0].height = inputValueAncho;
-      tempDataLines[0].length = inputValueAncho;
+      console.log(
+        "🚀 ~ useEffect ~ ANCHO[piezaSelectedParent?.value - 1 || 0]:",
+        tempData[piezaSelectedParent?.value - 1]
+      );
+
+      tempData[piezaSelectedParent?.value - 1 || 0].height = inputValueAncho;
+      tempDataLines[piezaSelectedParent?.value - 1 || 0].length =
+        tempData[piezaSelectedParent?.value - 1 || 0].realHeight;
 
       setCountertops({
         ...countertops,
@@ -311,72 +258,13 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
         {/* CONTROLS */}
         <section id="ct-controls">
-          {/*  SIZES CONTROLS */}
-          <section className="ct-sizes-controls">
-            <Typography.Title level={4} style={{ marginBottom: 10 }}>
-              Dimensiones
-            </Typography.Title>
-
-            <Dropdown.Button
-              menu={menuProps}
-              trigger={["click"]}
-              onClick={(e) => e.preventDefault()}
-              style={{ marginBottom: 10 }}
-              disabled={disabledInputSlider?.p1_width}
-            >
-              Selecciona una pieza
-            </Dropdown.Button>
-
-            <div>Largo</div>
-            <Row>
-              <Col span={12}>
-                <Slider
-                  min={100}
-                  max={3600}
-                  disabled={disabledInputSlider?.p1_width}
-                  onChange={onChangeLargo}
-                  value={
-                    typeof inputValueLargo === "number" ? inputValueLargo : 100
-                  }
-                />
-              </Col>
-              <Col span={4}>
-                <InputNumber
-                  min={100}
-                  max={3600}
-                  disabled={disabledInputSlider?.p1_width}
-                  style={{ margin: "0 16px" }}
-                  onChange={onChangeLargo}
-                  value={inputValueLargo}
-                />
-              </Col>
-            </Row>
-
-            <div>Ancho</div>
-            <Row>
-              <Col span={12}>
-                <Slider
-                  min={100}
-                  max={2800}
-                  disabled={disabledInputSlider?.p1_height}
-                  onChange={onChangeAncho}
-                  value={
-                    typeof inputValueAncho === "number" ? inputValueAncho : 100
-                  }
-                />
-              </Col>
-              <Col span={4}>
-                <InputNumber
-                  min={100}
-                  max={2800}
-                  disabled={disabledInputSlider?.p1_height}
-                  style={{ margin: "0 16px" }}
-                  onChange={onChangeAncho}
-                  value={inputValueAncho}
-                />
-              </Col>
-            </Row>
-          </section>
+          <DimensionsInput
+            inputValueAncho={inputValueAncho}
+            inputValueLargo={inputValueLargo}
+            setInputValueAncho={setInputValueAncho}
+            setInputValueLargo={setInputValueLargo}
+            onSelectPiezaParent={onSelectPiezaParent}
+          />
 
           {/*  CORNERS CONTROLS */}
           <section className="ct-corners-controls">
@@ -391,7 +279,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                     min={0}
                     max={1800}
                     addonBefore={<img src="/images/drawings/corner-TL.png" />}
-                    disabled={cornersDisabled[0]}
+                    disabled={!piezaSelectedParent || cornersDisabled[0]}
                     onChange={(event) => onChangeCorners(event, 0)}
                     value={
                       Array.isArray(cornersState) &&
@@ -408,7 +296,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                     min={0}
                     max={1800}
                     addonAfter={<img src="/images/drawings/corner-TR.png" />}
-                    disabled={cornersDisabled[1]}
+                    disabled={!piezaSelectedParent || cornersDisabled[1]}
                     onChange={(event) => onChangeCorners(event, 1)}
                     value={
                       Array.isArray(cornersState) &&
@@ -428,7 +316,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                     min={0}
                     max={1800}
                     addonBefore={<img src="/images/drawings/corner-BL.png" />}
-                    disabled={cornersDisabled[3]}
+                    disabled={!piezaSelectedParent || cornersDisabled[3]}
                     onChange={(event) => onChangeCorners(event, 3)}
                     value={
                       Array.isArray(cornersState) &&
@@ -445,7 +333,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                     min={0}
                     max={1800}
                     addonAfter={<img src="/images/drawings/corner-BR.png" />}
-                    disabled={cornersDisabled[2]}
+                    disabled={!piezaSelectedParent || cornersDisabled[2]}
                     onChange={(event) => onChangeCorners(event, 2)}
                     value={
                       Array.isArray(cornersState) &&
@@ -471,7 +359,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               <Button
                 type="primary"
                 onClick={(event) => handleClickAddWork(event)}
-                disabled={disabledInputSlider?.p1_width}
+                disabled={!piezaSelectedParent}
               >
                 Agregar Trabajos
               </Button>

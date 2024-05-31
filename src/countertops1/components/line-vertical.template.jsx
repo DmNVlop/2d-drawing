@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 
 export default function LineTemplateVertical(props) {
+  console.log("🚀 ~ LineTemplateVertical ~ props:", props);
   const rotation = props?.itemData?.rotation || 0;
   const lengthBase = props?.itemData?.length || 0;
   const xRefBase = props?.itemData?.xRef || 0;
@@ -10,7 +11,7 @@ export default function LineTemplateVertical(props) {
   const levelAdjust = props?.itemData?.level == 1 ? 20 : 60;
 
   const textX = props?.itemData?.level == 1 ? xRefBase + 36 : xRefBase + 76;
-  const textY = yRefBase + (lengthBase / 2) - 10;
+  const textY = yRefBase + lengthBase / 2 - 10;
 
   return (
     <Layer x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
@@ -60,4 +61,5 @@ export default function LineTemplateVertical(props) {
 
 LineTemplateVertical.propTypes = {
   itemData: PropTypes.object,
+  id: PropTypes.number,
 };

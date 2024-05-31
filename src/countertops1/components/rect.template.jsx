@@ -2,6 +2,7 @@ import { Layer, Rect } from "react-konva";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
+import { RectHelperCalcSizes } from "./Rect-Helpers/rect-helper";
 
 export default function RectTemplate(props) {
   const rect_REF = useRef();
@@ -10,8 +11,8 @@ export default function RectTemplate(props) {
   const [cornerRadiusState, setCornerRadiusState] = useState([0, 0, 0, 0]);
 
   const [dimensions, setDimensions] = useState({
-    width: props?.itemData?.width,
-    height: props?.itemData?.height,
+    width: props?.itemData?.realWidth,
+    height: props?.itemData?.realHeight,
   });
 
   const setFillPriority = (priority, imgPath) => {
@@ -49,124 +50,90 @@ export default function RectTemplate(props) {
   // const aspectRadio = props?.itemData?.width / props?.itemData?.height;
 
   // INIT Dimensions
-  useEffect(() => {
-    setDimensions(() => {
-      return {
-        width: props?.itemData?.width,
-        height: props?.itemData?.height,
-      };
-    });
-  }, []);
+  // useEffect(() => {
+  //   setDimensions(() => {
+  //     return {
+  //       width: props?.itemData?.realWidth,
+  //       height: props?.itemData?.realHeight,
+  //     };
+  //   });
+  // }, []);
 
   // MOD Width
   useEffect(() => {
-    const aspectRadio = props?.itemData?.width / props?.itemData?.height;
+    if (props?.itemData?.width && props?.itemData?.height) {
+      const aspectRadio = props?.itemData?.width / props?.itemData?.height;
 
-    setDimensions(() => {
-      if (
-        props?.itemData?.width <= maxWidth &&
-        props?.itemData?.height <= maxHeight
-      ) {
-        return {
-          width: props?.itemData?.width,
-          height: props?.itemData?.height,
-        };
-      }
+      const rectHelperCalcSizes = RectHelperCalcSizes(
+        props?.itemData?.width,
+        props?.itemData?.height,
+        maxWidth,
+        maxHeight,
+        aspectRadio
+      );
 
-      if (
-        props?.itemData?.width > maxWidth &&
-        props?.itemData?.height <= maxHeight
-      ) {
-        return {
-          width: maxWidth,
-          height: maxWidth / aspectRadio,
-        };
-      }
+      props.setRealSizes(rectHelperCalcSizes, props?.id);
 
-      if (
-        props?.itemData?.width <= maxWidth &&
-        props?.itemData?.height > maxHeight
-      ) {
-        return {
-          width: props?.itemData?.width,
-          height: maxHeight,
-        };
-      }
-
-      if (
-        props?.itemData?.width > maxWidth &&
-        props?.itemData?.height > maxHeight
-      ) {
-        if (props?.itemData?.width > props?.itemData?.height) {
-          return {
-            width: maxWidth,
-            height: maxWidth / aspectRadio,
-          };
-        }
-        if (props?.itemData?.width < props?.itemData?.height) {
-          return {
-            width: maxHeight * aspectRadio,
-            height: maxHeight,
-          };
-        }
-      }
-    });
-  }, [props?.itemData?.width]);
+      setDimensions(() => {
+        return rectHelperCalcSizes;
+      });
+    }
+  }, [props?.itemData?.width, props?.itemData?.height]);
 
   // MOD Height
-  useEffect(() => {
-    const aspectRadio = props?.itemData?.width / props?.itemData?.height;
+  // useEffect(() => {
+  //   const aspectRadio = props?.itemData?.width / props?.itemData?.height;
 
-    setDimensions(() => {
-      if (
-        props?.itemData?.width <= maxWidth &&
-        props?.itemData?.height <= maxHeight
-      ) {
-        return {
-          width: props?.itemData?.width,
-          height: props?.itemData?.height,
-        };
-      }
+  //   setDimensions(() => {
+  //     if (
+  //       props?.itemData?.width <= maxWidth &&
+  //       props?.itemData?.height <= maxHeight
+  //     ) {
+  //       return {
+  //         width: props?.itemData?.width,
+  //         height: props?.itemData?.height,
+  //       };
+  //     }
 
-      if (
-        props?.itemData?.width > maxWidth &&
-        props?.itemData?.height <= maxHeight
-      ) {
-        return {
-          width: maxWidth,
-          height: maxWidth / aspectRadio,
-        };
-      }
+  //     if (
+  //       props?.itemData?.width > maxWidth &&
+  //       props?.itemData?.height <= maxHeight
+  //     ) {
+  //       return {
+  //         width: maxWidth,
+  //         height: maxWidth / aspectRadio,
+  //       };
+  //     }
 
-      if (
-        props?.itemData?.width <= maxWidth &&
-        props?.itemData?.height > maxHeight
-      ) {
-        return {
-          width: maxHeight * aspectRadio,
-          height: maxHeight,
-        };
-      }
+  //     if (
+  //       props?.itemData?.width <= maxWidth &&
+  //       props?.itemData?.height > maxHeight
+  //     ) {
+  //       return {
+  //         width: maxHeight * aspectRadio,
+  //         height: maxHeight,
+  //       };
+  //     }
 
-      if (
-        props?.itemData?.width > maxWidth &&
-        props?.itemData?.height > maxHeight
-      ) {
-        if (props?.itemData?.width > props?.itemData?.height) {
-          return {
-            width: maxWidth,
-            height: maxWidth / aspectRadio,
-          };
-        }
-        if (props?.itemData?.width < props?.itemData?.height) {
-          return {
-            width: maxHeight * aspectRadio,
-            height: maxHeight,
-          };
-        }
-      }
-    });
-  }, [props?.itemData?.height]);
+  //     if (
+  //       props?.itemData?.width > maxWidth &&
+  //       props?.itemData?.height > maxHeight
+  //     ) {
+  //       if (props?.itemData?.width > props?.itemData?.height) {
+  //         return {
+  //           width: maxWidth,
+  //           height: maxWidth / aspectRadio,
+  //         };
+  //       }
+  //       if (props?.itemData?.width < props?.itemData?.height) {
+  //         return {
+  //           width: maxHeight * aspectRadio,
+  //           height: maxHeight,
+  //         };
+  //       }
+  //     }
+  //   });
+  // }, [props?.itemData?.height]);
 
   return (
     <Layer x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
@@ -174,8 +141,8 @@ export default function RectTemplate(props) {
         ref={rect_REF}
         x={props?.itemData?.x}
         y={props?.itemData?.y}
-        width={dimensions?.width || 0}
-        height={dimensions?.height || 0}
+        width={dimensions?.width || 10}
+        height={dimensions?.height || 10}
         fill={props?.itemData?.fill}
         fillPriority={imageData.fillPriority}
         fillPatternImage={imageData.img}
@@ -189,4 +156,6 @@ export default function RectTemplate(props) {
 
 RectTemplate.propTypes = {
   itemData: PropTypes.object,
+  setRealSizes: PropTypes.func,
+  id: PropTypes.number,
 };
