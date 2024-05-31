@@ -67,7 +67,8 @@ export const SIMPLE_LINE_CT_M = {
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
-      direction: DIRECTION_TYPES.VERTIICAL,
+      text: "",
+      direction: DIRECTION_TYPES.VERTICAL,
     },
     {
       id: 2,
@@ -78,6 +79,7 @@ export const SIMPLE_LINE_CT_M = {
       level: 1,
       // widthOnLevel: 50,
       rotation: 0,
+      text: "",
       direction: DIRECTION_TYPES.HORIZONTAL,
     },
     // {
@@ -89,7 +91,8 @@ export const SIMPLE_LINE_CT_M = {
     //   level: 2,
     //   // widthOnLevel: 50,
     //   rotation: 90,
-    //   direction: DIRECTION_TYPES.VERTIICAL,
+    //   text: "",
+    //   direction: DIRECTION_TYPES.VERTICAL,
     // },
     // {
     //   id: 3,
@@ -100,7 +103,8 @@ export const SIMPLE_LINE_CT_M = {
     //   level: 2,
     //   // widthOnLevel: 50,
     //   rotation: 90,
-    //   direction: DIRECTION_TYPES.VERTIICAL,
+    //   text: "",
+    //   direction: DIRECTION_TYPES.VERTICAL,
     // },
     // {
     //   id: 5,
@@ -111,6 +115,7 @@ export const SIMPLE_LINE_CT_M = {
     //   level: 2,
     //   // widthOnLevel: 50,
     //   rotation: 0,
+    //   text: "",	
     //   direction: DIRECTION_TYPES.HORIZONTAL,
     // },
   ],

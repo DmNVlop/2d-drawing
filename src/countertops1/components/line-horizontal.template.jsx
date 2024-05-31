@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 
 export default function LineTemplateHorizontal(props) {
-  console.log("🚀 ~ LineTemplateHorizontal ~ props:", props)
   const rotation = props?.itemData?.rotation || 0;
   const lengthBase = props?.itemData?.length || 0;
+  const textBase = props?.itemData?.text || "";
   const xRefBase = props?.itemData?.xRef || 0;
   const yRefBase = props?.itemData?.yRef || 0;
   const levelAdjust = props?.itemData?.level == 1 ? 20 : 60;
@@ -51,7 +51,7 @@ export default function LineTemplateHorizontal(props) {
       <Text
         x={textX}
         y={textY}
-        text={lengthBase}
+        text={textBase}
         rotation={rotation}
         fontSize={16}
       />

@@ -53,10 +53,6 @@ export default function SimpleCTPage(props) {
   };
 
   const setRealSizes = (realSizes, index) => {
-    // console.log("🚀 ~ setRealSizes ~ index:", index);
-    // console.log("🚀 ~ setRealSizes ~ realSizes:", realSizes);
-    // console.log("🚀 ~ setRealSizes ~ countertops.partsData:", countertops?.partsData[index]);
-    
     setCountertops((prev) => {
       const t = { ...prev };
       t.partsData[index].realWidth = realSizes.width;
@@ -114,7 +110,7 @@ export default function SimpleCTPage(props) {
             );
           }
 
-          if (item.direction === DIRECTION_TYPES.VERTIICAL) {
+          if (item.direction === DIRECTION_TYPES.VERTICAL) {
             return (
               <LineTemplateVertical itemData={item} key={index} id={index} />
             );

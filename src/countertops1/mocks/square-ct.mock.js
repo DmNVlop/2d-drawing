@@ -36,7 +36,7 @@ export const SQUARE_LINE_CT_M = {
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
-      direction: DIRECTION_TYPES.VERTIICAL,
+      direction: DIRECTION_TYPES.VERTICAL,
     },
     {
       id: 2,

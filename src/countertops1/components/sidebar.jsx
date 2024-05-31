@@ -24,6 +24,7 @@ import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
 import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA";
 import DimensionsInput from "./Sidebar-Components/dimensions-input";
+import { DIRECTION_TYPES } from "../mocks/LINES_CONST";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {
   const location = useNavigate();
@@ -44,51 +45,14 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   const [cornersState, setCornersState] = useState([]);
   const [cornersDisabled, setCornersDisabled] = useState([1, 1, 1, 1]);
 
-  // Disabled Input State
-  const [disabledInputSlider, setDisabledInputSlider] =
-    useState(INPUT_DISABLED_LOGIC);
-
   // ASSEMBLY DATA State
   const [_assemblyData, setAssemblyData] = useState(ASSEMBLY_DATA);
 
   // Pieza Selected
   const [piezaSelectedParent, setPiezaSelectedParent] = useState(null);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const configModal = {
-    title: "Ensamblaje Simple",
-    content: (
-      <>
-        <h2>Ensamblaje Simple</h2>
-        <p>Ensamblaje de dos piezas en angulo de 90 grados.</p>
-      </>
-    ),
-  };
-
   const onSelectPiezaParent = (piezaSelected) => {
     setPiezaSelectedParent(piezaSelected);
-  };
-
-  const handleClickWork = (workType, event) => {
-    event.preventDefault();
-
-    // if (workType === WORKS_TYPES.CCCHAFLAN) {
-    //   const temp = { ...countertops.partsData[0].works };
-    //   const result = temp.filter((item) => {
-    //     if (item.type == WORKS_TYPES.CCCHAFLAN) {
-    //       item.selected = !item.selected;
-    //       return item;
-    //     }
-    //   });
-    // }
   };
 
   const handleClickAddWork = (event) => {
@@ -127,27 +91,88 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     });
   };
 
+  const uppdateSizesAndLines = () => {
+    if (countertops && inputValueLargo && inputValueAncho) {
+      const tempData = [...(countertops?.partsData || [])];
+      let tempDataLines = [...(countertops?.linesData || [])];
+
+      tempData[piezaSelectedParent?.value - 1 || 0].width = inputValueLargo;
+      tempData[piezaSelectedParent?.value - 1 || 0].height = inputValueAncho;
+
+      const _piece = tempData[piezaSelectedParent?.value - 1 || 0];
+      tempDataLines = tempDataLines.map((itemLine) => {
+        if (itemLine.direction === DIRECTION_TYPES.HORIZONTAL) {
+          itemLine.text = inputValueLargo;
+          itemLine.length = _piece.realWidth;
+        }
+
+        if (itemLine.direction === DIRECTION_TYPES.VERTICAL) {
+          itemLine.text = inputValueAncho;
+          itemLine.length = _piece.realHeight;
+          itemLine.xRef = _piece.realWidth;
+        }
+
+        return itemLine;
+      });
+
+      // fnCalcLinesValues(width, height, realWidth, realHeight, direction, level);
+
+      setCountertops({
+        ...countertops,
+        partsData: tempData,
+        linesData: tempDataLines,
+      });
+    }
+  };
+
   useMemo(() => {
-    if (countertops?.partsData[0]?.width && countertops?.partsData[0]?.height) {
-      const tempFirstPartData = countertops.partsData[0];
+    if (
+      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.width &&
+      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.height
+    ) {
+      const tempFirstPartData =
+        countertops.partsData[piezaSelectedParent?.value - 1 || 0];
 
       setInputValueLargo(tempFirstPartData.width);
       setInputValueAncho(tempFirstPartData.height);
+
+      setTimeout(() => {
+        uppdateSizesAndLines();
+      }, 1);
     }
 
     if (
-      Array.isArray(countertops?.partsData[0]?.cornerRadius) &&
-      countertops?.partsData[0]?.cornerRadius?.length > 0
+      Array.isArray(
+        countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+          ?.cornerRadius
+      ) &&
+      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.cornerRadius
+        ?.length > 0
     ) {
-      const tempArray = countertops?.partsData[0]?.cornerRadius;
+      const tempArray =
+        countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+          ?.cornerRadius;
 
       setCornersState(tempArray);
     }
-  }, [countertops?.partsData[0]?.width, countertops?.partsData[0]?.height]);
+  }, [
+    countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.width,
+    countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.height,
+  ]);
+
+  useMemo(() => {
+    uppdateSizesAndLines();
+  }, [inputValueLargo, inputValueAncho]);
 
   useEffect(() => {
-    if (countertops?.partsData[0]?.cornerRadiusDisabled) {
-      setCornersDisabled(countertops?.partsData[0]?.cornerRadiusDisabled);
+    if (
+      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+        ?.cornerRadiusDisabled
+    ) {
+      setCornersDisabled(
+        countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+          ?.cornerRadiusDisabled
+      );
     }
   }, [piezaSelectedParent]);
 
@@ -159,51 +184,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     };
     if (sidenavElementRef) setElementRef(tempSizes);
   }, [sidenavElementRef]);
-
-  useEffect(() => {
-    if (countertops && inputValueLargo) {
-      const tempData = countertops.partsData;
-      const tempDataLines = countertops.linesData;
-
-      tempData[piezaSelectedParent?.value - 1 || 0].width = inputValueLargo;
-      tempDataLines[piezaSelectedParent?.value - 1 || 0].xRef =
-        tempData[piezaSelectedParent?.value - 1 || 0].realWidth;
-
-      tempDataLines[piezaSelectedParent?.value || 1].length =
-        tempData[piezaSelectedParent?.value - 1 || 0].realWidth;
-
-      console.log(
-        "🚀 ~ useEffect ~ tempData[piezaSelectedParent?.value - 1 || 0].realWidth:",
-        tempData[piezaSelectedParent?.value - 1 || 0].realWidth
-      );
-
-      setCountertops({
-        ...countertops,
-        partsData: tempData,
-        linesData: tempDataLines,
-      });
-    }
-
-    if (countertops && inputValueAncho) {
-      const tempData = countertops.partsData;
-      const tempDataLines = countertops.linesData;
-
-      console.log(
-        "🚀 ~ useEffect ~ ANCHO[piezaSelectedParent?.value - 1 || 0]:",
-        tempData[piezaSelectedParent?.value - 1]
-      );
-
-      tempData[piezaSelectedParent?.value - 1 || 0].height = inputValueAncho;
-      tempDataLines[piezaSelectedParent?.value - 1 || 0].length =
-        tempData[piezaSelectedParent?.value - 1 || 0].realHeight;
-
-      setCountertops({
-        ...countertops,
-        partsData: tempData,
-        linesData: tempDataLines,
-      });
-    }
-  }, [inputValueLargo, inputValueAncho]);
 
   return (
     <>
