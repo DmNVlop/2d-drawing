@@ -45,6 +45,7 @@ export const WORKS_CORNERS = {
         img: "/images/works/ccred2lados-4y1.png",
         alt: "Corte Redondo de 2 Lados, Lado Izquierdo",
         title: "Corte Redondo de 2 Lados, Lado Izquierdo",
+        code: "ccred2lados-IZQ",
         selected: false,
       },
       {
@@ -52,6 +53,15 @@ export const WORKS_CORNERS = {
         img: "/images/works/ccred2lados-2y3.png",
         alt: "Corte Redondo de 2 Lados, Lado Derecho",
         title: "Corte Redondo de 2 Lados, Lado Derecho",
+        code: "ccred2lados-DER",
+        selected: false,
+      },
+      {
+        url: "#",
+        img: "/images/works/ccred4lados.png",
+        alt: "Corte Redondo de 4 Lados",
+        title: "Corte Redondo de 4 Lados",
+        code: "ccred4lados",
         selected: false,
       },
     ],

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { Stage } from "react-konva";
 
@@ -22,29 +22,41 @@ export default function SimpleCTPage(props) {
   const [partsData, setPartsData] = useState([]);
   const [linesData, setLinesData] = useState([]);
 
+  // let selectedPiece = null;
+
   const location = useLocation();
 
   const selectingData = (shape) => {
+    let selectedPiece = countertops?.selectedPiece || null;
     const shapeType = {
       simple: () => {
-        setCountertops({
-          shapeType: SIMPLE_CT_M.shapeType,
-          partsData: SIMPLE_CT_M.partsData,
-          linesData: SIMPLE_LINE_CT_M.linesData,
+        setCountertops((prev) => {
+          let tempPrev = { ...prev };
+          tempPrev.shapeType = SIMPLE_CT_M.shapeType; // countertops?.shapeType ||
+          tempPrev.partsData = SIMPLE_CT_M.partsData; // countertops?.partsData ||
+          tempPrev.linesData = SIMPLE_LINE_CT_M.linesData; // countertops?.linesData ||
+          tempPrev.selectedPiece = selectedPiece;
+          return tempPrev;
         });
       },
       square: () => {
-        setCountertops({
-          shapeType: SQUARE_CT_M.shapeType,
-          partsData: SQUARE_CT_M.partsData,
-          linesData: SQUARE_LINE_CT_M.linesData,
+        setCountertops((prev) => {
+          let tempPrev = { ...prev };
+          tempPrev.shapeType = SQUARE_CT_M.shapeType;
+          tempPrev.partsData = SQUARE_CT_M.partsData;
+          tempPrev.linesData = SQUARE_LINE_CT_M.linesData;
+          tempPrev.selectedPiece = selectedPiece;
+          return tempPrev;
         });
       },
       circle: () => {
-        setCountertops({
-          shapeType: CIRCLE_CT_M.shapeType,
-          partsData: CIRCLE_CT_M.partsData,
-          linesData: CIRCLE_LINE_CT_M.linesData,
+        setCountertops((prev) => {
+          let tempPrev = { ...prev };
+          tempPrev.shapeType = CIRCLE_CT_M.shapeType;
+          tempPrev.partsData = CIRCLE_CT_M.partsData;
+          tempPrev.linesData = CIRCLE_LINE_CT_M.linesData;
+          tempPrev.selectedPiece = selectedPiece;
+          return tempPrev;
         });
       },
     };
@@ -57,18 +69,16 @@ export default function SimpleCTPage(props) {
       const t = { ...prev };
       t.partsData[index].realWidth = realSizes.width;
       t.partsData[index].realHeight = realSizes.height;
-      return {
-        ...prev,
-        ...t,
-      };
+      return t;
     });
   };
 
-  useEffect(() => {
+  useMemo(() => {
     selectingData(props?.shape || "simple");
   }, [location]);
 
   useEffect(() => {
+    // console.log("🚀 ~ useEffect ~ countertops:", countertops?.partsData);
     if (countertops) {
       setPartsData(countertops.partsData);
       setLinesData(countertops.linesData);

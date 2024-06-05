@@ -16,6 +16,7 @@ export const U1_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
     },
     {
       id: 2,
@@ -32,6 +33,7 @@ export const U1_CT_M = {
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
     },
   ],
 };
@@ -90,6 +92,7 @@ export const U2_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
     },
     {
       id: 2,
@@ -106,6 +109,7 @@ export const U2_CT_M = {
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
     },
   ],
 };
@@ -164,6 +168,7 @@ export const U3_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [false, false, true, false],
     },
     {
@@ -181,6 +186,7 @@ export const U3_CT_M = {
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [false, false, true, false],
     },
   ],
@@ -240,6 +246,7 @@ export const U4_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
     },
     {
       id: 2,
@@ -256,6 +263,7 @@ export const U4_CT_M = {
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
     },
   ],
 };

@@ -2,23 +2,24 @@ import "./sidebar-right.css";
 
 import PropTypes from "prop-types";
 
-import { Button, Col, Input, Row } from "antd";
+import { Button, Col, Flex, Input, Row } from "antd";
 import {
   CloseOutlined,
   ColumnHeightOutlined,
   ColumnWidthOutlined,
   RadiusSettingOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_WORKS from "../mocks/WORKS_BUTTOMS.data";
 import { WORKS_CORNERS } from "../mocks/WORKS_CORNERS.data";
 import { useCountertopContext } from "../context/ct-context";
+import { setWorksOnSelectRightBar } from "./CNC-Works/woks-calcs-logic";
 
 function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const _WORKS_CORNERS = WORKS_CORNERS;
 
-  const { countertops, setCountertops } = useCountertopContext();
+  const { countertops, updateCornersCtx } = useCountertopContext();
 
   const [_buttomSquareWorks, setButtomSquareWorks] =
     useState(BUTTON_SQUARE_WORKS);
@@ -36,6 +37,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
       return item;
     });
     itemArray[index].selected = true;
+
     return itemArray;
   };
 
@@ -59,9 +61,19 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
       let tempWorksCorners = [...prev];
       return SetSelectedItems(tempWorksCorners, index);
     });
-  };
 
-  // useEffect(() => {}, [sidebarRightOpened]);
+    const _indexPiece = countertops?.selectedPiece?.value - 1 || 0;
+    const _piece = countertops?.partsData[_indexPiece];
+    const t = setWorksOnSelectRightBar(
+      item,
+      countertops?.selectedPiece,
+      _piece
+    );
+    console.log("🚀 ~ handleWorkCornerClick ~ t:", t);
+
+    updateCornersCtx(t.corners, _indexPiece, "SINGLE");
+    updateCornersCtx(t.cornersProduction, _indexPiece, "PROD");
+  };
 
   return (
     <>
@@ -195,28 +207,16 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
             </div>
           )}
 
-          {/* <div style={{ marginBottom: "16px" }}>
-            <dir style={{ marginBottom: "10px" }}>Habilitar Esquinas</dir>
-            <Checkbox.Group
-              style={{ width: "100%" }}
-              onChange={onChangeCheckbox}
-            >
-              <Row>
-                <Col span={12}>
-                  <Checkbox value="0">Fondo IZQ</Checkbox>
-                </Col>
-                <Col span={12}>
-                  <Checkbox value="0">Fondo DER</Checkbox>
-                </Col>
-                <Col span={12}>
-                  <Checkbox value="0">Frente IZQ</Checkbox>
-                </Col>
-                <Col span={12}>
-                  <Checkbox value="0">Frente DER</Checkbox>
-                </Col>
-              </Row>
-            </Checkbox.Group>
-          </div> */}
+          {_worksCorners.length > 0 && (
+            <div style={{ marginBottom: "16px" }}>
+              <dir style={{ marginBottom: "10px" }}>4. Guardar trabajo</dir>
+              <Flex gap="middle" align="start" vertical>
+                <Flex justify={"flex-end"} align={"center"}>
+                  <Button type="primary">Guardar</Button>
+                </Flex>
+              </Flex>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -29,7 +29,6 @@ export default function LineTemplateVertical(props) {
   // const textY = yRefBase + lengthBase / 2 - 10;
 
   useEffect(() => {
-    console.log("🚀 ~ LineTemplateVertical ~ props111:", props)
     setRotation(props?.itemData?.rotation || 0);
     setLengthBase(props?.itemData?.length || 0);
     setTextBase(props?.itemData?.text || "");
@@ -40,7 +39,6 @@ export default function LineTemplateVertical(props) {
     setTextX(props?.itemData?.level == 1 ? xRefBase + 36 : xRefBase + 76);
     setTextY(yRefBase + lengthBase / 2 - 10);
   }, [props]);
-  
 
   return (
     <Layer x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>

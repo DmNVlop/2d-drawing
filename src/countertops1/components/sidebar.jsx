@@ -1,7 +1,7 @@
 import "./sidebar.css";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   useCountertopContext,
   useElementRefContext,
@@ -15,34 +15,33 @@ import {
   Row,
   Typography,
   Space,
-  Flex,
   Button,
   Empty,
+  Card,
 } from "antd";
-import { INPUT_DISABLED_LOGIC } from "../mocks/SHAPE_TYPES";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
 import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA";
 import DimensionsInput from "./Sidebar-Components/dimensions-input";
 import { DIRECTION_TYPES } from "../mocks/LINES_CONST";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {
-  const location = useNavigate();
-
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
-  // const _ASSEMBLY_DATA = ASSEMBLY_DATA;
 
   // Context
   const sidenavElementRef = useRef(null);
   const { setElementRef } = useElementRefContext();
-  const { countertops, setCountertops } = useCountertopContext();
+  const { countertops, setCountertops, updateCornersCtx } =
+    useCountertopContext();
 
   // Length and Width State
   const [inputValueLargo, setInputValueLargo] = useState(null);
   const [inputValueAncho, setInputValueAncho] = useState(null);
 
   // Corners State
-  const [cornersState, setCornersState] = useState([]);
+  const [cornersState, setCornersState] = useState([0, 0, 0, 0]);
+  // const [cornersRealState, setCornersRealState] = useState([0, 0, 0, 0]);
   const [cornersDisabled, setCornersDisabled] = useState([1, 1, 1, 1]);
 
   // ASSEMBLY DATA State
@@ -53,6 +52,12 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
   const onSelectPiezaParent = (piezaSelected) => {
     setPiezaSelectedParent(piezaSelected);
+
+    setCountertops((prev) => {
+      let tempPrev = { ...prev };
+      tempPrev.selectedPiece = piezaSelected;
+      return tempPrev;
+    });
   };
 
   const handleClickAddWork = (event) => {
@@ -74,20 +79,34 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   };
 
   const onChangeCorners = (newValue, position) => {
+    const _indexPiece = countertops.selectedPiece.value - 1;
+
     setCornersState((prev) => {
       const tempArray = [...prev];
       tempArray[position] = newValue;
 
-      setCountertops((prev) => {
-        const t = { ...prev };
-        t.partsData[0].cornerRadius = tempArray;
-        return {
-          ...prev,
-          ...t,
-        };
-      });
+      updateCornersCtx(tempArray, _indexPiece, "SINGLE");
+      updateCornersCtx(tempArray, _indexPiece, "PROD");
+
+      // setCountertops((prev) => {
+      //   const t = { ...prev };
+      //   t.partsData[0].cornerRadius = tempArray;
+      //   return t;
+      // });
 
       return tempArray;
+    });
+  };
+
+  const onChangeAllCorners = (newValue) => {
+    setCornersState((prev) => {
+      // setCountertops((prev) => {
+      //   const t = { ...prev };
+      //   t.partsData[0].cornerRadius = tempArray;
+      //   return t;
+      // });
+
+      return [...newValue];
     });
   };
 
@@ -123,6 +142,26 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
         linesData: tempDataLines,
       });
     }
+  };
+
+  const handleClickEditWork = (event) => {
+    event.preventDefault();
+    console.log("🚀 ~ handleClickEditWork ~ event:", event);
+  };
+
+  const handleClickDeleteWork = (event) => {
+    event.preventDefault();
+    console.log("🚀 ~ handleClickDeleteWork ~ event:", event);
+  };
+
+  const inputCornerTLRef = useRef(null);
+  const inputCornerTRRef = useRef(null);
+  const inputCornerBLRef = useRef(null);
+  const inputCornerBRRef = useRef(null);
+
+  const onClickHandle = (event, inputRef) => {
+    // inputRef.current.focus();
+    inputRef.current.select();
   };
 
   useMemo(() => {
@@ -185,6 +224,17 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     if (sidenavElementRef) setElementRef(tempSizes);
   }, [sidenavElementRef]);
 
+  useEffect(() => {
+    const _tempCorners =
+      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+        ?.cornerRadiusProduction;
+    if (_tempCorners) {
+      onChangeAllCorners(_tempCorners);
+    }
+  }, [
+    countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.cornerRadius,
+  ]);
+
   return (
     <>
       <div id="ct-side-nav" ref={sidenavElementRef}>
@@ -244,6 +294,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
             setInputValueAncho={setInputValueAncho}
             setInputValueLargo={setInputValueLargo}
             onSelectPiezaParent={onSelectPiezaParent}
+            countertops={countertops}
           />
 
           {/*  CORNERS CONTROLS */}
@@ -258,9 +309,11 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                   <InputNumber
                     min={0}
                     max={1800}
+                    ref={inputCornerTLRef}
                     addonBefore={<img src="/images/drawings/corner-TL.png" />}
                     disabled={!piezaSelectedParent || cornersDisabled[0]}
                     onChange={(event) => onChangeCorners(event, 0)}
+                    onClick={(e) => onClickHandle(e, inputCornerTLRef)}
                     value={
                       Array.isArray(cornersState) &&
                       cornersState.length > 0 &&
@@ -275,9 +328,11 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                   <InputNumber
                     min={0}
                     max={1800}
+                    ref={inputCornerTRRef}
                     addonAfter={<img src="/images/drawings/corner-TR.png" />}
                     disabled={!piezaSelectedParent || cornersDisabled[1]}
                     onChange={(event) => onChangeCorners(event, 1)}
+                    onClick={(e) => onClickHandle(e, inputCornerTRRef)}
                     value={
                       Array.isArray(cornersState) &&
                       cornersState.length > 0 &&
@@ -295,9 +350,11 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                   <InputNumber
                     min={0}
                     max={1800}
+                    ref={inputCornerBLRef}
                     addonBefore={<img src="/images/drawings/corner-BL.png" />}
                     disabled={!piezaSelectedParent || cornersDisabled[3]}
                     onChange={(event) => onChangeCorners(event, 3)}
+                    onClick={(e) => onClickHandle(e, inputCornerBLRef)}
                     value={
                       Array.isArray(cornersState) &&
                       cornersState.length > 0 &&
@@ -312,9 +369,11 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                   <InputNumber
                     min={0}
                     max={1800}
+                    ref={inputCornerBRRef}
                     addonAfter={<img src="/images/drawings/corner-BR.png" />}
                     disabled={!piezaSelectedParent || cornersDisabled[2]}
                     onChange={(event) => onChangeCorners(event, 2)}
+                    onClick={(e) => onClickHandle(e, inputCornerBRRef)}
                     value={
                       Array.isArray(cornersState) &&
                       cornersState.length > 0 &&
@@ -335,17 +394,59 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               Tipos de Trabajo
             </Typography.Title>
 
-            <Flex gap="small" style={{ marginBottom: 10 }} wrap>
+            <Space direction="vertical" size={8} style={{ width: "100%" }}>
+              {/* <Flex gap="small" wrap> */}
               <Button
                 type="primary"
+                style={{ marginBottom: "8px" }}
                 onClick={(event) => handleClickAddWork(event)}
                 disabled={!piezaSelectedParent}
               >
                 Agregar Trabajos
               </Button>
-            </Flex>
+              {/* </Flex> */}
 
-            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              <Card
+                size="small"
+                type="inner"
+                title="Redondo 4 lados (CCREDIN4)"
+                extra={
+                  <Space direction="horizontal" size={8}>
+                    <EditOutlined
+                      onClick={(e) => handleClickEditWork(e)}
+                      className="icon-card-actions"
+                    />
+                    <DeleteOutlined
+                      onClick={(e) => handleClickDeleteWork(e)}
+                      className="icon-card-actions"
+                    />
+                  </Space>
+                }
+              >
+                <p>120 x 120 x 120 x 120 (mm)</p>
+              </Card>
+
+              <Card
+                size="small"
+                type="inner"
+                title="Redondo 2 lados IZQ (CCREDIN2I)"
+                extra={
+                  <Space direction="horizontal" size={8}>
+                    <EditOutlined
+                      onClick={(e) => handleClickEditWork(e)}
+                      className="icon-card-actions"
+                    />
+                    <DeleteOutlined
+                      onClick={(e) => handleClickDeleteWork(e)}
+                      className="icon-card-actions"
+                    />
+                  </Space>
+                }
+              >
+                <p>120 x 0 x 0 x 120 (mm)</p>
+              </Card>
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+            </Space>
           </section>
 
           {/*  ASSEMBLY CONTROLS */}

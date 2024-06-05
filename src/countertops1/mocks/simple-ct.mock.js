@@ -23,6 +23,7 @@ export const SIMPLE_CT_M = {
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [0, 0, 0, 0],
       works: [
         {

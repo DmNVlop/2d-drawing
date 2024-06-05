@@ -3,7 +3,6 @@ import { useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES";
-import { useCountertopContext } from "../../context/ct-context";
 import { NO_PIEZAS } from "../../mocks/NO_PARTS.data";
 
 function DimensionsInput({
@@ -12,13 +11,12 @@ function DimensionsInput({
   setInputValueAncho,
   setInputValueLargo,
   onSelectPiezaParent,
+  countertops,
 }) {
   const _NO_PIEZAS = NO_PIEZAS;
 
   const inputSizeWidthRef = useRef(null);
   const inputSizeHeightRef = useRef(null);
-
-  const { countertops } = useCountertopContext();
 
   const [numeroPiezas, setNumeroPiezas] = useState([]);
   const [piezaSelected, setPiezaSelected] = useState(null);
@@ -53,6 +51,7 @@ function DimensionsInput({
 
   const onClearPieza = () => {
     setPiezaSelected(null);
+
     setInputValueLargo(null);
     setInputValueAncho(null);
     onSelectPiezaParent(null);
@@ -164,4 +163,5 @@ DimensionsInput.propTypes = {
   setInputValueAncho: PropTypes.func,
   setInputValueLargo: PropTypes.func,
   onSelectPiezaParent: PropTypes.func,
+  countertops: PropTypes.object,
 };
