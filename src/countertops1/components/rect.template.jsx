@@ -136,21 +136,19 @@ export default function RectTemplate(props) {
   // }, [props?.itemData?.height]);
 
   return (
-    <Layer x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
-      <Rect
-        ref={rect_REF}
-        x={props?.itemData?.x}
-        y={props?.itemData?.y}
-        width={dimensions?.width || 10}
-        height={dimensions?.height || 10}
-        fill={props?.itemData?.fill}
-        fillPriority={imageData.fillPriority}
-        fillPatternImage={imageData.img}
-        fillPatternRepeat={props?.itemData?.fillPatternRepeat}
-        cornerRadius={cornerRadiusState}
-        onClick={handleClickRect}
-      />
-    </Layer>
+    <Rect
+      ref={rect_REF}
+      x={props?.itemData?.x}
+      y={props?.itemData?.y}
+      width={dimensions?.width || 10}
+      height={dimensions?.height || 10}
+      fill={props?.itemData?.fill}
+      fillPriority={imageData.fillPriority}
+      fillPatternImage={imageData.img}
+      fillPatternRepeat={props?.itemData?.fillPatternRepeat}
+      cornerRadius={cornerRadiusState}
+      onClick={handleClickRect}
+    />
   );
 }
 

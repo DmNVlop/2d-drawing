@@ -41,7 +41,7 @@ export default function LineTemplateVertical(props) {
   }, [props]);
 
   return (
-    <Layer x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
+    <>
       <Line
         points={[
           xRefBase + levelAdjust,
@@ -82,7 +82,7 @@ export default function LineTemplateVertical(props) {
         rotation={rotation}
         fontSize={16}
       />
-    </Layer>
+    </>
   );
 }
 

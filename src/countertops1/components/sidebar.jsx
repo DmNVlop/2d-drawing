@@ -31,13 +31,26 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
   // Context
   const sidenavElementRef = useRef(null);
+
+  const inputCornerTLRef = useRef(null);
+  const inputCornerTRRef = useRef(null);
+  const inputCornerBLRef = useRef(null);
+  const inputCornerBRRef = useRef(null);
+
   const { setElementRef } = useElementRefContext();
-  const { countertops, setCountertops, updateCornersCtx } =
-    useCountertopContext();
+  const {
+    countertops,
+    setCountertops,
+    updateCornersCtx,
+    deleteWorkInPieceCtx,
+  } = useCountertopContext();
 
   // Length and Width State
   const [inputValueLargo, setInputValueLargo] = useState(null);
   const [inputValueAncho, setInputValueAncho] = useState(null);
+
+  // Trabajos de una pieza
+  const [worksFromAPiece, setWorksFromAPiece] = useState([]);
 
   // Corners State
   const [cornersState, setCornersState] = useState([0, 0, 0, 0]);
@@ -146,18 +159,12 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
   const handleClickEditWork = (event) => {
     event.preventDefault();
-    console.log("🚀 ~ handleClickEditWork ~ event:", event);
   };
 
-  const handleClickDeleteWork = (event) => {
+  const handleClickDeleteWork = (event, indexWork, indexPart) => {
     event.preventDefault();
-    console.log("🚀 ~ handleClickDeleteWork ~ event:", event);
+    deleteWorkInPieceCtx(indexWork, indexPart.value - 1);
   };
-
-  const inputCornerTLRef = useRef(null);
-  const inputCornerTRRef = useRef(null);
-  const inputCornerBLRef = useRef(null);
-  const inputCornerBRRef = useRef(null);
 
   const onClickHandle = (event, inputRef) => {
     // inputRef.current.focus();
@@ -234,6 +241,16 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   }, [
     countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.cornerRadius,
   ]);
+
+  useEffect(() => {
+    const tempW =
+      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.works ||
+      worksFromAPiece;
+
+    if (Array.isArray(tempW) && tempW.length > 0) {
+      setWorksFromAPiece(tempW);
+    }
+  }, [countertops]);
 
   return (
     <>
@@ -406,55 +423,54 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               </Button>
               {/* </Flex> */}
 
-              <Card
-                size="small"
-                type="inner"
-                title="Redondo 4 lados (CCREDIN4)"
-                extra={
-                  <Space direction="horizontal" size={8}>
-                    <EditOutlined
-                      onClick={(e) => handleClickEditWork(e)}
-                      className="icon-card-actions"
-                    />
-                    <DeleteOutlined
-                      onClick={(e) => handleClickDeleteWork(e)}
-                      className="icon-card-actions"
-                    />
-                  </Space>
-                }
-              >
-                <p>120 x 120 x 120 x 120 (mm)</p>
-              </Card>
+              {piezaSelectedParent &&
+                worksFromAPiece.length > 0 &&
+                worksFromAPiece.map((item, index) => {
+                  return (
+                    <Card
+                      size="small"
+                      key={index}
+                      type="inner"
+                      title={item.type}
+                      extra={
+                        <Space direction="horizontal" size={8}>
+                          <EditOutlined
+                            onClick={(e) => handleClickEditWork(e)}
+                            className="icon-card-actions"
+                          />
+                          <DeleteOutlined
+                            onClick={(e) =>
+                              handleClickDeleteWork(
+                                e,
+                                index,
+                                piezaSelectedParent
+                              )
+                            }
+                            className="icon-card-actions"
+                          />
+                        </Space>
+                      }
+                    >
+                      <p>
+                        {item.width} x {item.height} (mm)
+                      </p>
+                    </Card>
+                  );
+                })}
 
-              <Card
-                size="small"
-                type="inner"
-                title="Redondo 2 lados IZQ (CCREDIN2I)"
-                extra={
-                  <Space direction="horizontal" size={8}>
-                    <EditOutlined
-                      onClick={(e) => handleClickEditWork(e)}
-                      className="icon-card-actions"
-                    />
-                    <DeleteOutlined
-                      onClick={(e) => handleClickDeleteWork(e)}
-                      className="icon-card-actions"
-                    />
-                  </Space>
-                }
-              >
-                <p>120 x 0 x 0 x 120 (mm)</p>
-              </Card>
-              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              {piezaSelectedParent && worksFromAPiece.length == 0 && (
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              )}
             </Space>
           </section>
 
           {/*  ASSEMBLY CONTROLS */}
-          <section className="ct-assembly-controls">
-            <Typography.Title level={4} style={{ marginBottom: 10 }}>
-              Tipo de Ensamble
-            </Typography.Title>
-            {/* 
+          {piezaSelectedParent && (
+            <section className="ct-assembly-controls">
+              <Typography.Title level={4} style={{ marginBottom: 10 }}>
+                Tipo de Ensamble
+              </Typography.Title>
+              {/* 
             <Modal
               title="Ensamblaje Simple!"
               open={isModalOpen}
@@ -465,24 +481,27 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               <p>Some Footer...</p>
             </Modal> */}
 
-            <Row gutter={[16, 16]}>
-              {_assemblyData.map((item, index) => {
-                return (
-                  <Col span={8} key={index}>
-                    <Link
-                      to={(e) => {
-                        e.preventDefault();
-                      }}
-                      onClick={() => handleAssemblyClick(item, index)}
-                      className={item.selected ? "assembly active" : "assembly"}
-                    >
-                      <img src={item.src} alt={item.alt} title={item.title} />
-                    </Link>
-                  </Col>
-                );
-              })}
-            </Row>
-          </section>
+              <Row gutter={[16, 16]}>
+                {_assemblyData.map((item, index) => {
+                  return (
+                    <Col span={8} key={index}>
+                      <Link
+                        to={(e) => {
+                          e.preventDefault();
+                        }}
+                        onClick={() => handleAssemblyClick(item, index)}
+                        className={
+                          item.selected ? "assembly active" : "assembly"
+                        }
+                      >
+                        <img src={item.src} alt={item.alt} title={item.title} />
+                      </Link>
+                    </Col>
+                  );
+                })}
+              </Row>
+            </section>
+          )}
         </section>
       </div>
     </>

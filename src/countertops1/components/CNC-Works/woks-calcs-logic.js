@@ -1,21 +1,17 @@
-export const setWorksOnSelectRightBar = (
-  selectedWork,
-  pieceSelected,
-  itemPieceData
-) => {
+export const setCcredinSizes = (selectedWork, pieceSelected, itemPieceData) => {
   const code = selectedWork?.code || {};
 
-  // CCREDIN de 2 LADOS
+  let dataCorners = {
+    corners: itemPieceData.cornerRadiusProduction,
+    cornersProduction: itemPieceData.cornerRadiusProduction,
+  };
+
+  // CCREDIN de 2 y 4 LADOS
   if (
     code == "ccred2lados-IZQ" ||
     code == "ccred2lados-DER" ||
     code == "ccred4lados"
   ) {
-    let dataCorners = {
-      corners: itemPieceData.cornerRadiusProduction,
-      cornersProduction: itemPieceData.cornerRadiusProduction,
-    };
-
     const realHeight = itemPieceData?.realHeight;
     const height = itemPieceData?.height;
 

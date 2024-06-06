@@ -7,13 +7,17 @@ export default function CountetopContextProvider({ children }) {
   const [countertops, setCountertops] = useState(null);
   const [elementRef, setElementRef] = useState(null);
 
+  const getIdCtx = () => {
+    return Math.round(Math.random() * 10000);
+  };
+
   /**
    * @description Function to update the corners, true sizes and production sizes
    *
    * @param {'[0,0,0,0]'} corners Array of numbers, ex: [0,0,0,0]
    * @param {number} indexPart Number entire, ex: 1
    * @param {[SINGLE | PROD]} typeOfUpdate An specific value, ex: [SINGLE | PROD]
-   * 
+   *
    * @author Damian Vidal
    */
   const updateCornersCtx = (corners, indexPart, typeOfUpdate) => {
@@ -32,9 +36,44 @@ export default function CountetopContextProvider({ children }) {
     });
   };
 
+  const updateWorkInPieceCtx = (work, indexPart) => {
+    // Validate if the object is right
+    if (!work?.id) {
+      console.log("⚠️ Atributo ID es requerido");
+    }
+
+    setCountertops((prev) => {
+      const tempCountertops = { ...prev };
+      prev.partsData[indexPart].works.push(work);
+      return tempCountertops;
+    });
+
+    setTimeout(() => {
+      console.log(
+        "🚀 ~ setTimeout ~ countertops.partsData[indexPart].works:",
+        countertops.partsData[indexPart].works
+      );
+    }, 1);
+  };
+
+  const deleteWorkInPieceCtx = (indexWork, indexPart) => {
+    setCountertops((prev) => {
+      const tempCountertops = { ...prev };
+      prev.partsData[indexPart].works.splice(indexWork, 1);
+      return tempCountertops;
+    });
+  };
+
   return (
     <CountertopContext.Provider
-      value={{ countertops, setCountertops, updateCornersCtx }}
+      value={{
+        countertops,
+        setCountertops,
+        updateCornersCtx,
+        updateWorkInPieceCtx,
+        deleteWorkInPieceCtx,
+        getIdCtx,
+      }}
     >
       <ElementRefContext.Provider value={{ elementRef, setElementRef }}>
         {children}

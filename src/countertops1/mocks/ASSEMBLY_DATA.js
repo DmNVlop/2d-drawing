@@ -3,17 +3,17 @@ import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES";
 export const ASSEMBLY_DATA = [
   {
     type: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
-    selected: false,
+    selected: true,
     src: "/images/assembly/assembly-simple.png",
     alt: "Ensamblaje simple",
     title: "Ensamblaje simple",
   },
   {
     type: ASSEMBLY_TYPES.NOVENTA_MECANIZADO,
-    selected: true,
+    selected: false,
     src: "/images/assembly/assembly-noventa-grados.png",
-    alt: "Ensamblaje ángulos de 90 grados",
-    title: "Ensamblaje ángulos de 90 grados",
+    alt: "Ensamblaje ángulo de 90 grados",
+    title: "Ensamblaje ángulo de 90 grados",
   },
   {
     type: ASSEMBLY_TYPES.VARIABLE_MECANIZADO,

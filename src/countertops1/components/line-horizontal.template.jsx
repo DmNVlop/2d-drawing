@@ -10,11 +10,11 @@ export default function LineTemplateHorizontal(props) {
   const yRefBase = props?.itemData?.yRef || 0;
   const levelAdjust = props?.itemData?.level == 1 ? 20 : 60;
 
-  const textX = xRefBase + lengthBase / 2 - 10;  // 
+  const textX = xRefBase + lengthBase / 2 - 10; //
   const textY = props?.itemData?.level == 1 ? yRefBase - 36 : yRefBase - 76;
 
   return (
-    <Layer x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
+    <>
       <Line
         points={[
           xRefBase,
@@ -55,7 +55,7 @@ export default function LineTemplateHorizontal(props) {
         rotation={rotation}
         fontSize={16}
       />
-    </Layer>
+    </>
   );
 }
 

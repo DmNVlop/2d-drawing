@@ -9,11 +9,9 @@
   border: 2px solid lightgrey;
   border-left: none;
   margin-top: 0;
-  /* border-top-right-radius: 8px; */
-  /* border-bottom-right-radius: 8px; */
   width: 340px;
   height: 100vh;
-  overflow: auto;
+  overflow-y: scroll;
 }
 
 #ct-side-nav h3 {

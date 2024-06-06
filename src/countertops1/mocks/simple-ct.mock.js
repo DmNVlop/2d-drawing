@@ -5,7 +5,7 @@ import { WORKS_TYPES } from "./WORKS.types";
 
 export const SIMPLE_CT_M = {
   shapeType: SHAPE_TYPES.SIMPLE,
-  assemblyType: { type: ASSEMBLY_TYPES.SIMPLE, selected: true },
+  assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   partsData: [
     {
       id: 1,
@@ -26,31 +26,31 @@ export const SIMPLE_CT_M = {
       cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [0, 0, 0, 0],
       works: [
-        {
-          id: 1,
-          width: 20,
-          height: 20,
-          type: WORKS_TYPES.CCCHAFLAN,
-          // top-left, top-right, bottom-right, bottom-left
-          cornerPosition: [1, 0, 0, 0],
-          selected: false,
-        },
-        {
-          id: 2,
-          width: 20,
-          height: 20,
-          type: WORKS_TYPES.CCFALESC,
-          cornerPosition: [0, 1, 0, 0],
-          selected: false,
-        },
-        {
-          id: 3,
-          width: 20,
-          height: 20,
-          type: WORKS_TYPES.CCRECIN,
-          cornerPosition: [0, 0, 0, 1],
-          selected: false,
-        },
+        // {
+        //   id: 1,
+        //   width: 150,
+        //   height: 150,
+        //   type: WORKS_TYPES.CCCHAFLAN,
+        //   // top-left, top-right, bottom-right, bottom-left
+        //   cornerPosition: [1, 0, 0, 0],
+        //   selected: false,
+        // },
+        // {
+        //   id: 2,
+        //   width: 20,
+        //   height: 20,
+        //   type: WORKS_TYPES.CCFALESC,
+        //   cornerPosition: [0, 1, 0, 0],
+        //   selected: false,
+        // },
+        // {
+        //   id: 3,
+        //   width: 20,
+        //   height: 20,
+        //   type: WORKS_TYPES.CCRECIN,
+        //   cornerPosition: [0, 0, 0, 1],
+        //   selected: false,
+        // },
       ],
     },
   ],
@@ -116,7 +116,7 @@ export const SIMPLE_LINE_CT_M = {
     //   level: 2,
     //   // widthOnLevel: 50,
     //   rotation: 0,
-    //   text: "",	
+    //   text: "",
     //   direction: DIRECTION_TYPES.HORIZONTAL,
     // },
   ],

@@ -93,15 +93,15 @@ function DimensionsInput({
           {piezaSelected && <i> ({piezaSelected?.label})</i>}
         </Typography.Title>
 
-        <Space direction="vertical">
+        <Space direction="vertical" style={{ width: "100%" }}>
           <Row justify="space-between" align="middle">
             <Col span={8}>
               <span>No. Pieza</span>
             </Col>
 
-            <Col span={14}>
+            <Col span={12}>
               <Select
-                style={{ width: 120 }}
+                style={{ width: "100%" }}
                 allowClear
                 options={numeroPiezas}
                 value={piezaSelected}
@@ -110,10 +110,21 @@ function DimensionsInput({
                 disabled={!countertops?.partsData?.length}
               />
             </Col>
+            <Col span={4}>
+              {!piezaSelected && (
+                <img
+                  className="img-select-hand"
+                  src="/images/hand.gif"
+                  alt="Empiece por aquí"
+                  width="32"
+                  height="32"
+                />
+              )}
+            </Col>
           </Row>
 
           <Row justify="space-between" align="middle">
-            <Col span={8}>
+            <Col span={6}>
               <span>Largo</span>
             </Col>
             <Col span={16}>
@@ -122,7 +133,7 @@ function DimensionsInput({
                 min={100}
                 max={3600}
                 disabled={!piezaSelected}
-                style={{ margin: "0 16px" }}
+                style={{ width: "100%" }}
                 onChange={onChangeLargo}
                 value={inputValueLargo}
                 onKeyUp={(e) => onKeyUpHandle(e, inputSizeHeightRef)}
@@ -142,7 +153,7 @@ function DimensionsInput({
                 min={100}
                 max={2800}
                 disabled={!piezaSelected}
-                style={{ margin: "0 16px" }}
+                style={{ width: "100%" }}
                 onChange={onChangeAncho}
                 value={inputValueAncho}
                 onKeyUp={(e) => onKeyUpHandle(e, inputSizeWidthRef)}

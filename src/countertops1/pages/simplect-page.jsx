@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { Stage } from "react-konva";
+import { Layer, Stage } from "react-konva";
 
 import { useCountertopContext } from "../context/ct-context";
 import { useWindowsSizes } from "../helpers/widowsSizes.hook";
@@ -15,6 +15,7 @@ import { CIRCLE_CT_M, CIRCLE_LINE_CT_M } from "../mocks/circle-ct.mock";
 import { useLocation } from "react-router-dom";
 import { DIRECTION_TYPES } from "../mocks/LINES_CONST";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
+import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 
 export default function SimpleCTPage(props) {
   const { countertops, setCountertops } = useCountertopContext();
@@ -104,25 +105,47 @@ export default function SimpleCTPage(props) {
       <Stage width={stageWidth} height={stageHeight} draggable>
         {partsData.map((item, index) => {
           return (
-            <RectTemplate
-              itemData={item}
+            <Layer
               key={index}
-              id={index}
-              setRealSizes={setRealSizes}
-            />
+              x={GLOBAL_CT_M.xGlobalLayer}
+              y={GLOBAL_CT_M.yGlobalLayer}
+            >
+              <RectTemplate
+                itemData={item}
+                key={index}
+                id={index}
+                setRealSizes={setRealSizes}
+              />
+            </Layer>
           );
         })}
 
         {linesData.map((item, index) => {
           if (item.direction === DIRECTION_TYPES.HORIZONTAL) {
             return (
-              <LineTemplateHorizontal itemData={item} key={index} id={index} />
+              <Layer
+                key={index}
+                x={GLOBAL_CT_M.xGlobalLayer}
+                y={GLOBAL_CT_M.yGlobalLayer}
+              >
+                <LineTemplateHorizontal
+                  itemData={item}
+                  key={index}
+                  id={index}
+                />
+              </Layer>
             );
           }
 
           if (item.direction === DIRECTION_TYPES.VERTICAL) {
             return (
-              <LineTemplateVertical itemData={item} key={index} id={index} />
+              <Layer
+                key={index}
+                x={GLOBAL_CT_M.xGlobalLayer}
+                y={GLOBAL_CT_M.yGlobalLayer}
+              >
+                <LineTemplateVertical itemData={item} key={index} id={index} />
+              </Layer>
             );
           }
         })}
@@ -130,7 +153,14 @@ export default function SimpleCTPage(props) {
         {partsData.map((item) => {
           if (Array.isArray(item?.works) && item?.works?.length > 0) {
             return item?.works.map((work, idx) => (
-              <WorksSelectorCNCWorks workData={work} key={idx} id={idx} />
+              <Layer key={idx}>
+                <WorksSelectorCNCWorks
+                  workData={work}
+                  key={idx}
+                  id={idx}
+                  pieceSelected={item}
+                />
+              </Layer>
             ));
           }
         })}
