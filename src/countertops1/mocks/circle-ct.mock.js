@@ -17,6 +17,7 @@ export const CIRCLE_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [250, 250, 250, 250],
+      cornerRadiusProduction: [250, 250, 250, 250],
       cornerRadiusDisabled: [false, false, true, false],
     },
   ],

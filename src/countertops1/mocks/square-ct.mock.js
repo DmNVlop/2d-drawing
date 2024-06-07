@@ -18,6 +18,7 @@ export const SQUARE_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [false, false, false, false],
     },
   ],
@@ -36,7 +37,7 @@ export const SQUARE_LINE_CT_M = {
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
-      direction: DIRECTION_TYPES.VERTIICAL,
+      direction: DIRECTION_TYPES.VERTICAL,
     },
     {
       id: 2,

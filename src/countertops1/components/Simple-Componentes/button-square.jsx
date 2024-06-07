@@ -7,7 +7,10 @@ import PropTypes from "prop-types";
 function ButtonSquare(props) {
   return (
     <>
-      <Link to={props?.inputData?.url} className="button-square">
+      <Link
+        to={props?.inputData?.url}
+        className={"button-square " + props?.inputData?.className}
+      >
         <img
           src={props?.inputData?.img}
           alt={props?.inputData?.alt}
@@ -24,6 +27,7 @@ ButtonSquare.propTypes = {
     img: PropTypes.string,
     alt: PropTypes.string,
     title: PropTypes.string,
+    className: PropTypes.string,
   }),
 };
 

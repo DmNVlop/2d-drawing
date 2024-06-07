@@ -16,6 +16,7 @@ export const L1_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [false, false, true, false],
     },
     {
@@ -33,6 +34,7 @@ export const L1_CT_M = {
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [false, false, true, false],
     },
   ],
@@ -92,6 +94,7 @@ export const L2_CT_M = {
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
+      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [false, false, true, false],
     },
     {

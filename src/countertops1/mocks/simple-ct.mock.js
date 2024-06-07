@@ -1,16 +1,20 @@
+import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES";
 import { DIRECTION_TYPES } from "./LINES_CONST";
 import { SHAPE_TYPES } from "./SHAPE_TYPES";
 import { WORKS_TYPES } from "./WORKS.types";
 
 export const SIMPLE_CT_M = {
   shapeType: SHAPE_TYPES.SIMPLE,
+  assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   partsData: [
     {
       id: 1,
       x: 0,
       y: 0,
-      width: 500,
-      height: 200,
+      width: 700,
+      realWidth: 700,
+      height: 400,
+      realHeight: 400,
       fill: "#c7aa89",
       stroke: "black",
       rotation: 0,
@@ -19,33 +23,34 @@ export const SIMPLE_CT_M = {
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
-      cornerRadiusDisabled: [false, false, false, false],
+      cornerRadiusProduction: [0, 0, 0, 0],
+      cornerRadiusDisabled: [0, 0, 0, 0],
       works: [
-        {
-          id: 1,
-          width: 20,
-          height: 20,
-          type: WORKS_TYPES.CCCHAFLAN,
-          // top-left, top-right, bottom-right, bottom-left
-          cornerPosition: [1, 0, 0, 0],
-          selected: true,
-        },
-        {
-          id: 2,
-          width: 20,
-          height: 20,
-          type: WORKS_TYPES.CCFALESC,
-          cornerPosition: [0, 1, 1, 0],
-          selected: false,
-        },
-        {
-          id: 3,
-          width: 20,
-          height: 20,
-          type: WORKS_TYPES.CCRECIN,
-          cornerPosition: [0, 0, 0, 1],
-          selected: false,
-        },
+        // {
+        //   id: 1,
+        //   width: 150,
+        //   height: 150,
+        //   type: WORKS_TYPES.CCCHAFLAN,
+        //   // top-left, top-right, bottom-right, bottom-left
+        //   cornerPosition: [1, 0, 0, 0],
+        //   selected: false,
+        // },
+        // {
+        //   id: 2,
+        //   width: 20,
+        //   height: 20,
+        //   type: WORKS_TYPES.CCFALESC,
+        //   cornerPosition: [0, 1, 0, 0],
+        //   selected: false,
+        // },
+        // {
+        //   id: 3,
+        //   width: 20,
+        //   height: 20,
+        //   type: WORKS_TYPES.CCRECIN,
+        //   cornerPosition: [0, 0, 0, 1],
+        //   selected: false,
+        // },
       ],
     },
   ],
@@ -56,24 +61,26 @@ export const SIMPLE_LINE_CT_M = {
   linesData: [
     {
       id: 1,
-      xRef: 500,
+      xRef: 700,
       yRef: 0,
       xInitRef: 0,
-      length: 200,
+      length: 400,
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
-      direction: DIRECTION_TYPES.VERTIICAL,
+      text: "",
+      direction: DIRECTION_TYPES.VERTICAL,
     },
     {
       id: 2,
       xRef: 0,
       yRef: 0,
       xInitRef: 0,
-      length: 500,
+      length: 700,
       level: 1,
       // widthOnLevel: 50,
       rotation: 0,
+      text: "",
       direction: DIRECTION_TYPES.HORIZONTAL,
     },
     // {
@@ -85,7 +92,8 @@ export const SIMPLE_LINE_CT_M = {
     //   level: 2,
     //   // widthOnLevel: 50,
     //   rotation: 90,
-    //   direction: DIRECTION_TYPES.VERTIICAL,
+    //   text: "",
+    //   direction: DIRECTION_TYPES.VERTICAL,
     // },
     // {
     //   id: 3,
@@ -96,7 +104,8 @@ export const SIMPLE_LINE_CT_M = {
     //   level: 2,
     //   // widthOnLevel: 50,
     //   rotation: 90,
-    //   direction: DIRECTION_TYPES.VERTIICAL,
+    //   text: "",
+    //   direction: DIRECTION_TYPES.VERTICAL,
     // },
     // {
     //   id: 5,
@@ -107,6 +116,7 @@ export const SIMPLE_LINE_CT_M = {
     //   level: 2,
     //   // widthOnLevel: 50,
     //   rotation: 0,
+    //   text: "",
     //   direction: DIRECTION_TYPES.HORIZONTAL,
     // },
   ],
