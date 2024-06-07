@@ -6,14 +6,10 @@ import { GLOBAL_CT_M } from "../../mocks/global-ct.mock";
 import { WORKS_TYPES } from "../../mocks/WORKS.types";
 
 function ChaflanCNCWork(props) {
-  // const tempWorkData = props.workData;
   const { workData, pieceSelected } = props;
 
-  const [realChaflanWidth, setRealChaflanWidth] = useState(0);
-  const [realChaflanHeight, setRealChaflanHeight] = useState(0);
-
-  const [chaflanWidth, setChaflanWidth] = useState(0);
-  const [chaflanHeight, setChaflanHeight] = useState(0);
+  const [realWidth, setRealWidth] = useState(0);
+  const [realHeight, setRealHeight] = useState(0);
 
   const [pieceWidth, setPieceWidth] = useState(0);
   const [pieceHeight, setPieceHeight] = useState(0);
@@ -21,15 +17,14 @@ function ChaflanCNCWork(props) {
   const [realPieceWidth, setRealPieceWidth] = useState(0);
   const [realPieceHeight, setRealPieceHeight] = useState(0);
 
-  console.log("🚀 ~ workData:", workData);
-  console.log("🚀 ~ ChaflanCNCWork ~ pieceSelected:", pieceSelected);
-
+  // Validate if the work is correct
   if (workData.type != WORKS_TYPES.CCCHAFLAN) {
     return;
   }
 
   const cornersArray = workData.cornerPosition;
 
+  // Validate if array is valid
   if (
     !cornersArray ||
     Array.isArray(cornersArray) === false ||
@@ -38,6 +33,7 @@ function ChaflanCNCWork(props) {
     return;
   }
 
+  // Handle what corner is showed
   const handleCornerShowed = (position) => {
     if (cornersArray[position]) {
       return true;
@@ -46,6 +42,7 @@ function ChaflanCNCWork(props) {
     return false;
   };
 
+  // Logic
   useEffect(() => {
     setRealPieceWidth(pieceSelected.realWidth);
     setRealPieceHeight(pieceSelected.realHeight);
@@ -53,11 +50,11 @@ function ChaflanCNCWork(props) {
     setPieceWidth(pieceSelected.width);
     setPieceHeight(pieceSelected.height);
 
-    setRealChaflanWidth(
+    setRealWidth(
       workData.width / (pieceSelected.width / pieceSelected.realWidth)
     );
 
-    setRealChaflanHeight(
+    setRealHeight(
       workData.height / (pieceSelected.height / pieceSelected.realHeight)
     );
   }, []);
@@ -67,7 +64,7 @@ function ChaflanCNCWork(props) {
       {handleCornerShowed(0) && (
         // <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
         <Line
-          points={[0, 0, realChaflanWidth, 0, 0, realChaflanHeight]}
+          points={[0, 0, realWidth, 0, 0, realHeight]}
           closed={true}
           fill="white"
         />
@@ -79,10 +76,10 @@ function ChaflanCNCWork(props) {
           points={[
             realPieceWidth + 1,
             0,
-            realPieceWidth + 1 - realChaflanWidth,
+            realPieceWidth + 1 - realWidth,
             0,
             realPieceWidth + 1,
-            realChaflanHeight,
+            realHeight,
           ]}
           closed={true}
           fill="white"
@@ -95,10 +92,10 @@ function ChaflanCNCWork(props) {
           points={[
             realPieceWidth + 1,
             realPieceHeight + 1,
-            realPieceWidth + 1 - realChaflanWidth,
+            realPieceWidth + 1 - realWidth,
             realPieceHeight + 1,
             realPieceWidth + 1,
-            realPieceHeight + 1 - realChaflanHeight,
+            realPieceHeight + 1 - realHeight,
           ]}
           closed={true}
           fill="white"
@@ -111,10 +108,10 @@ function ChaflanCNCWork(props) {
           points={[
             0,
             realPieceHeight + 1,
-            realChaflanWidth,
+            realWidth,
             realPieceHeight + 1,
             0,
-            realPieceHeight + 1 - realChaflanHeight,
+            realPieceHeight + 1 - realHeight,
           ]}
           closed={true}
           fill="white"

@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import CountetopContextProvider from "./countertops1/context/ct-context-provider";
+import CountertopHome from "./countertops1/pages/countertop-home";
 
 // const HomePage = lazy(() => import("./HomePage"));
 const NotFoundPage = lazy(() => import("./shared/not-found-page"));
@@ -64,6 +65,7 @@ const RoutersApp = () => {
               path="u-shaped"
               element={<UShapedPage shape={"U"} title="Encimera en U" />}
             />
+            <Route path="" element={<CountertopHome />} />
 
             <Route path="*" element={<Navigate to="/not-found" />} />
           </Route>

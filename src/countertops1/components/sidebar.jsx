@@ -259,23 +259,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
         {/* BUTTONS NAV MODELS */}
         <div id="nav-countertop">
-          <ul className="list-header">
-            <li>
-              <Link to="/">
-                <img
-                  src="/images/home.jpg"
-                  alt="Ir a Inicio"
-                  title="Ir a Inicio"
-                />
-              </Link>
-            </li>
-            <li>
-              <Link to="#">
-                <img src="/images/guardar.jpg" alt="Guardar" title="Guardar" />
-              </Link>
-            </li>
-          </ul>
-
           <div>Seleccione modelo</div>
 
           <div id="sidebar-right-features">
@@ -502,6 +485,26 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
               </Row>
             </section>
           )}
+        </section>
+
+        <section id="nav-countertop">
+          <div>Acciones</div>
+          <ul className="list-header">
+            <li>
+              <Link to="/">
+                <img
+                  src="/images/home.jpg"
+                  alt="Ir a Inicio"
+                  title="Ir a Inicio"
+                />
+              </Link>
+            </li>
+            <li>
+              <Link to="#">
+                <img src="/images/guardar.jpg" alt="Guardar" title="Guardar" />
+              </Link>
+            </li>
+          </ul>
         </section>
       </div>
     </>

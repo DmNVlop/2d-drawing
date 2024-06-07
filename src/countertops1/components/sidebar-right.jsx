@@ -117,6 +117,19 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
 
       updateWorkInPieceCtx(currentItem, _indexPiece);
     }
+
+    // CCRECIN
+    if (currentItem.type == WORKS_TYPES.CCRECIN) {
+      currentItem.id = getIdCtx();
+      currentItem.width = widthInput;
+      currentItem.height = heightInput;
+
+      if (!currentItem.width || !currentItem.height) {
+        return;
+      }
+
+      updateWorkInPieceCtx(currentItem, _indexPiece);
+    }
   };
 
   const showSizesInputValidate = (arrayItemsRole) => {

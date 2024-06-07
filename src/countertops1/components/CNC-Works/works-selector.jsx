@@ -3,7 +3,7 @@ import { WORKS_TYPES } from "../../mocks/WORKS.types";
 import ChaflanCNCWork from "./chaflan.template";
 import FalsaEscuadraCNCWork from "./falsa-escuadra.template";
 import RectoInteriorCNCWork from "./recto-interior.template";
-import { Group, Layer } from "react-konva";
+import { Group } from "react-konva";
 
 function WorksSelectorCNCWorks(props) {
   const { workData, pieceSelected } = props;
