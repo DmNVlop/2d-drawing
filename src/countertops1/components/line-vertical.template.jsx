@@ -1,9 +1,10 @@
-import { Layer, Line, Text } from "react-konva";
+import { Line, Text } from "react-konva";
 import PropTypes from "prop-types";
-import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useEffect, useState } from "react";
 
 export default function LineTemplateVertical(props) {
+  const { itemData } = props;
+
   const [rotation, setRotation] = useState(props?.itemData?.rotation || 0);
   const [lengthBase, setLengthBase] = useState(props?.itemData?.length || 0);
   const [textBase, setTextBase] = useState(props?.itemData?.text || "");
@@ -36,8 +37,8 @@ export default function LineTemplateVertical(props) {
     setYRefBase(props?.itemData?.yRef || 0);
     setLevelAdjust(props?.itemData?.level == 1 ? 20 : 60);
 
-    setTextX(props?.itemData?.level == 1 ? xRefBase + 36 : xRefBase + 76);
-    setTextY(yRefBase + lengthBase / 2 - 10);
+    setTextX(props?.itemData?.level == 1 ? props?.itemData?.xRef + 36 : props?.itemData?.xRef + 76);
+    setTextY(props?.itemData?.yRef + props?.itemData?.length / 2 - 10);
   }, [props]);
 
   return (

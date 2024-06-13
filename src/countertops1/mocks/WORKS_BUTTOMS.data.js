@@ -7,7 +7,7 @@ const BUTTON_SQUARE_WORKS = [
     alt: "Corte de Chaflan",
     title: "Corte de Chaflan",
     selected: false,
-    work: WORKS_TYPES.CCCHAFLAN,
+    type: WORKS_TYPES.CCCHAFLAN,
   },
   {
     url: "#",
@@ -15,7 +15,7 @@ const BUTTON_SQUARE_WORKS = [
     alt: "Corte de Falsa Escuadra",
     title: "Corte de Falsa Escuadra",
     selected: false,
-    work: WORKS_TYPES.CCFALESC,
+    type: WORKS_TYPES.CCFALESC,
   },
   {
     url: "#",
@@ -23,7 +23,7 @@ const BUTTON_SQUARE_WORKS = [
     alt: "Corte Recto Interior",
     title: "Corte Recto Interior",
     selected: false,
-    work: WORKS_TYPES.CCRECIN,
+    type: WORKS_TYPES.CCRECIN,
   },
   {
     url: "#",
@@ -31,16 +31,16 @@ const BUTTON_SQUARE_WORKS = [
     alt: "Corte Redondo de 2 Lados",
     title: "Corte Redondo de 2 Lados",
     selected: false,
-    work: WORKS_TYPES.CCRED2LADOS,
+    type: WORKS_TYPES.CCRED2LADOS,
   },
-  {
-    url: "#",
-    img: "/images/works/ccchaflanin-1.png",
-    alt: "Corte con Chaflan Interior",
-    title: "Corte con Chaflan Interior",
-    selected: false,
-    work: WORKS_TYPES.CCCHAFLANIN,
-  },
+  // {
+  //   url: "#",
+  //   img: "/images/works/ccchaflanin-1.png",
+  //   alt: "Corte con Chaflan Interior",
+  //   title: "Corte con Chaflan Interior",
+  //   selected: false,
+  //   type: WORKS_TYPES.CCCHAFLANIN,
+  // },
 ];
 
 export default BUTTON_SQUARE_WORKS;

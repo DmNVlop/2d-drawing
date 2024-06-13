@@ -23,8 +23,6 @@ export default function Uct() {
   const [rectDataContextU, setRectDataContextU] = useState(RECT_DATA_INIT_U_1);
   const [stateSetted, setStateSetted] = useState(1);
 
-  console.log("🚀 ~ Uct ~ rectDataContextU:", rectDataContextU);
-
   const handleSetWoody = async (params) => {
     try {
       const result = await setWoody(params);

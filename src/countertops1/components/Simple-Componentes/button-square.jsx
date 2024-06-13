@@ -23,7 +23,7 @@ function ButtonSquare(props) {
 
 ButtonSquare.propTypes = {
   inputData: PropTypes.shape({
-    url: PropTypes.string,
+    url: PropTypes.func || PropTypes.string,
     img: PropTypes.string,
     alt: PropTypes.string,
     title: PropTypes.string,

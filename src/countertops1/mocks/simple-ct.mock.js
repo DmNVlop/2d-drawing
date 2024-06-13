@@ -1,7 +1,6 @@
 import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES";
 import { DIRECTION_TYPES } from "./LINES_CONST";
 import { SHAPE_TYPES } from "./SHAPE_TYPES";
-import { WORKS_TYPES } from "./WORKS.types";
 
 export const SIMPLE_CT_M = {
   shapeType: SHAPE_TYPES.SIMPLE,
@@ -68,7 +67,7 @@ export const SIMPLE_LINE_CT_M = {
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
-      text: "",
+      text: "400",
       direction: DIRECTION_TYPES.VERTICAL,
     },
     {
@@ -80,7 +79,7 @@ export const SIMPLE_LINE_CT_M = {
       level: 1,
       // widthOnLevel: 50,
       rotation: 0,
-      text: "",
+      text: "700",
       direction: DIRECTION_TYPES.HORIZONTAL,
     },
     // {

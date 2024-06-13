@@ -17,15 +17,13 @@ import {
   U4_LINE_CT_M,
 } from "../mocks/u-ct.mock";
 
-const url = new URL(window.location.href);
-const params = new URLSearchParams(url.search);
-const ctType = params.get("t");
-console.log("🚀 ~ ctType:", ctType);
+// const url = new URL(window.location.href);
+// const params = new URLSearchParams(url.search);
+// const ctType = params.get("t");
 
 export default function UShapedPage(props) {
   const [pageTitle, setPageTitle] = useState(props?.title || "Encimeras U");
   const tParam = useLocationMod("t");
-  console.log("🚀 ~ UShapedPage ~ tParam:", tParam);
 
   const [partsData, setPartsData] = useState([]);
   const [linesData, setLinesData] = useState([]);

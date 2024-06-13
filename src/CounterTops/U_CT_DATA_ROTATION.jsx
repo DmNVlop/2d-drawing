@@ -6,8 +6,6 @@ export const UctDataRotation_L1 = (
   directionRotation,
   arrayPosition
 ) => {
-  console.log("🚀 ROTATION U ~ tempData:", tempData);
-
   const configData = {
     againstclockwise: () => {
       tempData[arrayPosition].textData[0].visible = true;
