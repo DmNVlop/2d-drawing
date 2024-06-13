@@ -44,22 +44,23 @@ export default function CountetopContextProvider({ children }) {
 
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
-      prev.partsData[indexPart].works.push(work);
+      tempCountertops.partsData[indexPart].works.push(work);
       return tempCountertops;
     });
-
-    setTimeout(() => {
-      console.log(
-        "🚀 ~ setTimeout ~ countertops.partsData[indexPart].works:",
-        countertops.partsData[indexPart].works
-      );
-    }, 1);
   };
 
   const deleteWorkInPieceCtx = (indexWork, indexPart) => {
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
-      prev.partsData[indexPart].works.splice(indexWork, 1);
+      tempCountertops.partsData[indexPart].works.splice(indexWork, 1);
+      return tempCountertops;
+    });
+  };
+
+  const deleteAllWorksInPieceCtx = (indexPart) => {
+    setCountertops((prev) => {
+      const tempCountertops = { ...prev };
+      tempCountertops.partsData[indexPart].works = [];
       return tempCountertops;
     });
   };
@@ -72,6 +73,7 @@ export default function CountetopContextProvider({ children }) {
         updateCornersCtx,
         updateWorkInPieceCtx,
         deleteWorkInPieceCtx,
+        deleteAllWorksInPieceCtx,
         getIdCtx,
       }}
     >

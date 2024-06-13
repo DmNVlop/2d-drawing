@@ -1,16 +1,19 @@
+import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES";
 import { DIRECTION_TYPES } from "./LINES_CONST";
 import { SHAPE_TYPES } from "./SHAPE_TYPES";
 
 export const SQUARE_CT_M = {
   shapeType: SHAPE_TYPES.SQUARE,
-  layerData: { xLayer: 0, yLayer: 0 },
+  assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   partsData: [
     {
       id: 1,
       x: 0,
       y: 0,
-      width: 500,
-      height: 500,
+      width: 700,
+      realWidth: 700,
+      height: 700,
+      realHeight: 700,
       fill: "#c7aa89",
       stroke: "black",
       rotation: 0,
@@ -19,7 +22,8 @@ export const SQUARE_CT_M = {
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [false, false, false, false],
+      cornerRadiusDisabled: [0, 0, 0, 0],
+      works: [],
     },
   ],
 };
@@ -30,13 +34,14 @@ export const SQUARE_LINE_CT_M = {
   linesData: [
     {
       id: 1,
-      xRef: 500,
+      xRef: 700,
       yRef: 0,
       xInitRef: 0,
-      length: 500,
+      length: 700,
       level: 1,
       // widthOnLevel: 50,
       rotation: 90,
+      text: "700",
       direction: DIRECTION_TYPES.VERTICAL,
     },
     {
@@ -44,10 +49,11 @@ export const SQUARE_LINE_CT_M = {
       xRef: 0,
       yRef: 0,
       xInitRef: 0,
-      length: 500,
+      length: 700,
       level: 1,
       // widthOnLevel: 50,
       rotation: 0,
+      text: "700",
       direction: DIRECTION_TYPES.HORIZONTAL,
     },
     // {

@@ -24,7 +24,16 @@ import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
 import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA";
 import DimensionsInput from "./Sidebar-Components/dimensions-input";
 import { DIRECTION_TYPES } from "../mocks/LINES_CONST";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  RadiusBottomleftOutlined,
+  RadiusBottomrightOutlined,
+  RadiusUpleftOutlined,
+  RadiusUprightOutlined,
+} from "@ant-design/icons";
+import { RectHelperCalcSizes } from "./Rect-Helpers/rect-helper";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
@@ -43,6 +52,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     setCountertops,
     updateCornersCtx,
     deleteWorkInPieceCtx,
+    deleteAllWorksInPieceCtx,
   } = useCountertopContext();
 
   // Length and Width State
@@ -79,6 +89,12 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     sidebarRightOpenedControl(true);
   };
 
+  const handleClickDeleteAllWork = (event) => {
+    event.preventDefault();
+
+    deleteAllWorksInPieceCtx(piezaSelectedParent?.value - 1 || 0);
+  };
+
   const handleAssemblyClick = (item, index) => {
     setAssemblyData((prev) => {
       let tempAssemblyClean = [...prev];
@@ -101,37 +117,26 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
       updateCornersCtx(tempArray, _indexPiece, "SINGLE");
       updateCornersCtx(tempArray, _indexPiece, "PROD");
 
-      // setCountertops((prev) => {
-      //   const t = { ...prev };
-      //   t.partsData[0].cornerRadius = tempArray;
-      //   return t;
-      // });
-
       return tempArray;
     });
   };
 
   const onChangeAllCorners = (newValue) => {
-    setCornersState((prev) => {
-      // setCountertops((prev) => {
-      //   const t = { ...prev };
-      //   t.partsData[0].cornerRadius = tempArray;
-      //   return t;
-      // });
-
-      return [...newValue];
-    });
+    setCornersState(newValue);
   };
 
   const uppdateSizesAndLines = () => {
     if (countertops && inputValueLargo && inputValueAncho) {
-      const tempData = [...(countertops?.partsData || [])];
-      let tempDataLines = [...(countertops?.linesData || [])];
+      let tempData = JSON.parse(JSON.stringify(countertops?.partsData)) || [];
+      let tempDataLines =
+        JSON.parse(JSON.stringify(countertops?.linesData)) || [];
 
       tempData[piezaSelectedParent?.value - 1 || 0].width = inputValueLargo;
       tempData[piezaSelectedParent?.value - 1 || 0].height = inputValueAncho;
 
+      tempData = countertops?.partsData || [];
       const _piece = tempData[piezaSelectedParent?.value - 1 || 0];
+
       tempDataLines = tempDataLines.map((itemLine) => {
         if (itemLine.direction === DIRECTION_TYPES.HORIZONTAL) {
           itemLine.text = inputValueLargo;
@@ -147,12 +152,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
         return itemLine;
       });
 
-      // fnCalcLinesValues(width, height, realWidth, realHeight, direction, level);
-
-      setCountertops({
-        ...countertops,
-        partsData: tempData,
-        linesData: tempDataLines,
+      setCountertops((prev) => {
+        return { ...prev, partsData: tempData, linesData: tempDataLines };
       });
     }
   };
@@ -167,11 +168,28 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   };
 
   const onClickHandle = (event, inputRef) => {
-    // inputRef.current.focus();
     inputRef.current.select();
   };
 
-  useMemo(() => {
+  const selectingCornersToShow = (item) => {
+    if (item.cornerPosition[0]) {
+      return <RadiusUpleftOutlined />;
+    }
+
+    if (item.cornerPosition[1]) {
+      return <RadiusUprightOutlined />;
+    }
+
+    if (item.cornerPosition[2]) {
+      return <RadiusBottomrightOutlined />;
+    }
+
+    if (item.cornerPosition[3]) {
+      return <RadiusBottomleftOutlined />;
+    }
+  };
+
+  useEffect(() => {
     if (
       countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.width &&
       countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.height
@@ -181,10 +199,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
       setInputValueLargo(tempFirstPartData.width);
       setInputValueAncho(tempFirstPartData.height);
-
-      setTimeout(() => {
-        uppdateSizesAndLines();
-      }, 1);
     }
 
     if (
@@ -206,8 +220,35 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.height,
   ]);
 
-  useMemo(() => {
-    uppdateSizesAndLines();
+  // Hanlde Dimensions
+  const maxWidth = 1120;
+  const maxHeight = 700;
+
+  useEffect(() => {
+    if (countertops) {
+      const aspectRadio = inputValueLargo / inputValueAncho;
+
+      const rectHelperCalcSizes = RectHelperCalcSizes(
+        inputValueLargo,
+        inputValueAncho,
+        maxWidth,
+        maxHeight,
+        aspectRadio
+      );
+
+      const tempPieceSelected = piezaSelectedParent?.value - 1 || 0;
+
+      setCountertops((prev) => {
+        const tempCT = { ...prev };
+        tempCT.partsData[tempPieceSelected].realWidth =
+          rectHelperCalcSizes.width;
+        tempCT.partsData[tempPieceSelected].realHeight =
+          rectHelperCalcSizes.height;
+        return tempCT;
+      });
+
+      uppdateSizesAndLines();
+    }
   }, [inputValueLargo, inputValueAncho]);
 
   useEffect(() => {
@@ -247,9 +288,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
       countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.works ||
       worksFromAPiece;
 
-    if (Array.isArray(tempW) && tempW.length > 0) {
-      setWorksFromAPiece(tempW);
-    }
+    setWorksFromAPiece(Array.isArray(tempW) && tempW.length > 0 ? tempW : []);
   }, [countertops]);
 
   return (
@@ -298,154 +337,178 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
           />
 
           {/*  CORNERS CONTROLS */}
-          <section className="ct-corners-controls">
-            <Typography.Title level={4} style={{ marginBottom: 10 }}>
-              Esquinas
-            </Typography.Title>
+          {piezaSelectedParent && (
+            <section className="ct-corners-controls">
+              <Typography.Title level={4} style={{ marginBottom: 10 }}>
+                Esquinas
+              </Typography.Title>
 
-            <Space direction="vertical">
-              <Row justify="space-between" align="middle">
-                <Col span={10}>
-                  <InputNumber
-                    min={0}
-                    max={1800}
-                    ref={inputCornerTLRef}
-                    addonBefore={<img src="/images/drawings/corner-TL.png" />}
-                    disabled={!piezaSelectedParent || cornersDisabled[0]}
-                    onChange={(event) => onChangeCorners(event, 0)}
-                    onClick={(e) => onClickHandle(e, inputCornerTLRef)}
-                    value={
-                      Array.isArray(cornersState) &&
-                      cornersState.length > 0 &&
-                      cornersState[0] >= 0 &&
-                      !cornersDisabled[0]
-                        ? cornersState[0]
-                        : 0
-                    }
-                  />
-                </Col>
-                <Col span={10}>
-                  <InputNumber
-                    min={0}
-                    max={1800}
-                    ref={inputCornerTRRef}
-                    addonAfter={<img src="/images/drawings/corner-TR.png" />}
-                    disabled={!piezaSelectedParent || cornersDisabled[1]}
-                    onChange={(event) => onChangeCorners(event, 1)}
-                    onClick={(e) => onClickHandle(e, inputCornerTRRef)}
-                    value={
-                      Array.isArray(cornersState) &&
-                      cornersState.length > 0 &&
-                      cornersState[1] >= 0 &&
-                      !cornersDisabled[1]
-                        ? cornersState[1]
-                        : 0
-                    }
-                  />
-                </Col>
-              </Row>
+              <Space direction="vertical">
+                <Row justify="space-between" align="middle">
+                  <Col span={10}>
+                    <InputNumber
+                      min={0}
+                      max={1800}
+                      ref={inputCornerTLRef}
+                      addonBefore={<img src="/images/drawings/corner-TL.png" />}
+                      disabled={!piezaSelectedParent || cornersDisabled[0]}
+                      onChange={(event) => onChangeCorners(event, 0)}
+                      onClick={(e) => onClickHandle(e, inputCornerTLRef)}
+                      value={
+                        Array.isArray(cornersState) &&
+                        cornersState.length > 0 &&
+                        cornersState[0] >= 0 &&
+                        !cornersDisabled[0]
+                          ? cornersState[0]
+                          : 0
+                      }
+                    />
+                  </Col>
+                  <Col span={10}>
+                    <InputNumber
+                      min={0}
+                      max={1800}
+                      ref={inputCornerTRRef}
+                      addonAfter={<img src="/images/drawings/corner-TR.png" />}
+                      disabled={!piezaSelectedParent || cornersDisabled[1]}
+                      onChange={(event) => onChangeCorners(event, 1)}
+                      onClick={(e) => onClickHandle(e, inputCornerTRRef)}
+                      value={
+                        Array.isArray(cornersState) &&
+                        cornersState.length > 0 &&
+                        cornersState[1] >= 0 &&
+                        !cornersDisabled[1]
+                          ? cornersState[1]
+                          : 0
+                      }
+                    />
+                  </Col>
+                </Row>
 
-              <Row justify="space-between" align="middle">
-                <Col span={10}>
-                  <InputNumber
-                    min={0}
-                    max={1800}
-                    ref={inputCornerBLRef}
-                    addonBefore={<img src="/images/drawings/corner-BL.png" />}
-                    disabled={!piezaSelectedParent || cornersDisabled[3]}
-                    onChange={(event) => onChangeCorners(event, 3)}
-                    onClick={(e) => onClickHandle(e, inputCornerBLRef)}
-                    value={
-                      Array.isArray(cornersState) &&
-                      cornersState.length > 0 &&
-                      cornersState[3] >= 0 &&
-                      !cornersDisabled[3]
-                        ? cornersState[3]
-                        : 0
-                    }
-                  />
-                </Col>
-                <Col span={10}>
-                  <InputNumber
-                    min={0}
-                    max={1800}
-                    ref={inputCornerBRRef}
-                    addonAfter={<img src="/images/drawings/corner-BR.png" />}
-                    disabled={!piezaSelectedParent || cornersDisabled[2]}
-                    onChange={(event) => onChangeCorners(event, 2)}
-                    onClick={(e) => onClickHandle(e, inputCornerBRRef)}
-                    value={
-                      Array.isArray(cornersState) &&
-                      cornersState.length > 0 &&
-                      cornersState[2] >= 0 &&
-                      !cornersDisabled[2]
-                        ? cornersState[2]
-                        : 0
-                    }
-                  />
-                </Col>
-              </Row>
-            </Space>
-          </section>
+                <Row justify="space-between" align="middle">
+                  <Col span={10}>
+                    <InputNumber
+                      min={0}
+                      max={1800}
+                      ref={inputCornerBLRef}
+                      addonBefore={<img src="/images/drawings/corner-BL.png" />}
+                      disabled={!piezaSelectedParent || cornersDisabled[3]}
+                      onChange={(event) => onChangeCorners(event, 3)}
+                      onClick={(e) => onClickHandle(e, inputCornerBLRef)}
+                      value={
+                        Array.isArray(cornersState) &&
+                        cornersState.length > 0 &&
+                        cornersState[3] >= 0 &&
+                        !cornersDisabled[3]
+                          ? cornersState[3]
+                          : 0
+                      }
+                    />
+                  </Col>
+                  <Col span={10}>
+                    <InputNumber
+                      min={0}
+                      max={1800}
+                      ref={inputCornerBRRef}
+                      addonAfter={<img src="/images/drawings/corner-BR.png" />}
+                      disabled={!piezaSelectedParent || cornersDisabled[2]}
+                      onChange={(event) => onChangeCorners(event, 2)}
+                      onClick={(e) => onClickHandle(e, inputCornerBRRef)}
+                      value={
+                        Array.isArray(cornersState) &&
+                        cornersState.length > 0 &&
+                        cornersState[2] >= 0 &&
+                        !cornersDisabled[2]
+                          ? cornersState[2]
+                          : 0
+                      }
+                    />
+                  </Col>
+                </Row>
+              </Space>
+            </section>
+          )}
 
           {/*  WORKS CONTROLS */}
-          <section className="ct-assembly-controls">
-            <Typography.Title level={4} style={{ marginBottom: 10 }}>
-              Tipos de Trabajo
-            </Typography.Title>
+          {piezaSelectedParent && (
+            <section className="ct-assembly-controls">
+              <Typography.Title level={4} style={{ marginBottom: 10 }}>
+                Tipos de Trabajo
+              </Typography.Title>
 
-            <Space direction="vertical" size={8} style={{ width: "100%" }}>
-              {/* <Flex gap="small" wrap> */}
-              <Button
-                type="primary"
-                style={{ marginBottom: "8px" }}
-                onClick={(event) => handleClickAddWork(event)}
-                disabled={!piezaSelectedParent}
-              >
-                Agregar Trabajos
-              </Button>
-              {/* </Flex> */}
-
-              {piezaSelectedParent &&
-                worksFromAPiece.length > 0 &&
-                worksFromAPiece.map((item, index) => {
-                  return (
-                    <Card
-                      size="small"
-                      key={index}
-                      type="inner"
-                      title={item.type}
-                      extra={
-                        <Space direction="horizontal" size={8}>
-                          <EditOutlined
-                            onClick={(e) => handleClickEditWork(e)}
-                            className="icon-card-actions"
-                          />
-                          <DeleteOutlined
-                            onClick={(e) =>
-                              handleClickDeleteWork(
-                                e,
-                                index,
-                                piezaSelectedParent
-                              )
-                            }
-                            className="icon-card-actions"
-                          />
-                        </Space>
-                      }
+              <Space direction="vertical" size={8} style={{ width: "100%" }}>
+                <Row justify="space-between">
+                  <Col span={12}>
+                    <Button
+                      type="primary"
+                      icon={<PlusOutlined />}
+                      style={{ marginBottom: "8px" }}
+                      onClick={(event) => handleClickAddWork(event)}
+                      disabled={!piezaSelectedParent}
+                      title="Agregar trabajos"
                     >
-                      <p>
-                        {item.width} x {item.height} (mm)
-                      </p>
-                    </Card>
-                  );
-                })}
+                      Agregar
+                    </Button>
+                  </Col>
+                  <Col span={12} align="right">
+                    <Button
+                      icon={<DeleteOutlined />}
+                      style={{ marginBottom: "8px" }}
+                      onClick={(event) => handleClickDeleteAllWork(event)}
+                      disabled={!piezaSelectedParent}
+                      title="Borrar todos los trabajos"
+                    ></Button>
+                  </Col>
+                </Row>
 
-              {piezaSelectedParent && worksFromAPiece.length == 0 && (
-                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-              )}
-            </Space>
-          </section>
+                {piezaSelectedParent &&
+                  worksFromAPiece.length > 0 &&
+                  worksFromAPiece.map((item, index) => {
+                    return (
+                      <Card
+                        size="small"
+                        key={item.id}
+                        type="inner"
+                        title={item.title}
+                        extra={
+                          <Space direction="horizontal" size={8}>
+                            <EditOutlined
+                              onClick={(e) => handleClickEditWork(e)}
+                              className="icon-card-actions"
+                            />
+                            <DeleteOutlined
+                              onClick={(e) =>
+                                handleClickDeleteWork(
+                                  e,
+                                  index,
+                                  piezaSelectedParent
+                                )
+                              }
+                              className="icon-card-actions"
+                            />
+                          </Space>
+                        }
+                      >
+                        <Row justify="space-between" align="middle">
+                          <Col span={10}>
+                            <p>
+                              {item.width} x {item.height} (mm)
+                            </p>
+                          </Col>
+                          <Col span={10} style={{ textAlign: "right" }}>
+                            {selectingCornersToShow(item)}
+                          </Col>
+                        </Row>
+                      </Card>
+                    );
+                  })}
+
+                {piezaSelectedParent && worksFromAPiece.length == 0 && (
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                )}
+              </Space>
+            </section>
+          )}
 
           {/*  ASSEMBLY CONTROLS */}
           {piezaSelectedParent && (
@@ -488,7 +551,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
         </section>
 
         <section id="nav-countertop">
-          <div>Acciones</div>
+          {/* <div>Acciones</div> */}
+          <Typography.Title level={4}>Acciones</Typography.Title>
           <ul className="list-header">
             <li>
               <Link to="/">

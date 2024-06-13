@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { Layer, Stage } from "react-konva";
+import { Group, Layer, Stage } from "react-konva";
 
 import { useCountertopContext } from "../context/ct-context";
 import { useWindowsSizes } from "../helpers/widowsSizes.hook";
@@ -28,36 +28,32 @@ export default function SimpleCTPage(props) {
   const location = useLocation();
 
   const selectingData = (shape) => {
+    console.log("🚀 ~ selectingData ~ shape:", shape);
+    console.log("🚀 ~ selectingData ~ countertops:", countertops?.partsData);
     let selectedPiece = countertops?.selectedPiece || null;
     const shapeType = {
       simple: () => {
-        setCountertops((prev) => {
-          let tempPrev = { ...prev };
-          tempPrev.shapeType = SIMPLE_CT_M.shapeType; // countertops?.shapeType ||
-          tempPrev.partsData = SIMPLE_CT_M.partsData; // countertops?.partsData ||
-          tempPrev.linesData = SIMPLE_LINE_CT_M.linesData; // countertops?.linesData ||
-          tempPrev.selectedPiece = selectedPiece;
-          return tempPrev;
+        setCountertops({
+          shapeType: SIMPLE_CT_M.shapeType, // countertops?.shapeType ||
+          partsData: SIMPLE_CT_M.partsData, // countertops?.partsData ||
+          linesData: SIMPLE_LINE_CT_M.linesData, // countertops?.linesData ||
+          selectedPiece: selectedPiece,
         });
       },
       square: () => {
-        setCountertops((prev) => {
-          let tempPrev = { ...prev };
-          tempPrev.shapeType = SQUARE_CT_M.shapeType;
-          tempPrev.partsData = SQUARE_CT_M.partsData;
-          tempPrev.linesData = SQUARE_LINE_CT_M.linesData;
-          tempPrev.selectedPiece = selectedPiece;
-          return tempPrev;
+        setCountertops({
+          shapeType: SQUARE_CT_M.shapeType,
+          partsData: SQUARE_CT_M.partsData,
+          linesData: SQUARE_LINE_CT_M.linesData,
+          selectedPiece: selectedPiece,
         });
       },
       circle: () => {
-        setCountertops((prev) => {
-          let tempPrev = { ...prev };
-          tempPrev.shapeType = CIRCLE_CT_M.shapeType;
-          tempPrev.partsData = CIRCLE_CT_M.partsData;
-          tempPrev.linesData = CIRCLE_LINE_CT_M.linesData;
-          tempPrev.selectedPiece = selectedPiece;
-          return tempPrev;
+        setCountertops({
+          shapeType: CIRCLE_CT_M.shapeType,
+          partsData: CIRCLE_CT_M.partsData,
+          linesData: CIRCLE_LINE_CT_M.linesData,
+          selectedPiece: selectedPiece,
         });
       },
     };
@@ -65,21 +61,31 @@ export default function SimpleCTPage(props) {
     shapeType[shape]();
   };
 
-  const setRealSizes = (realSizes, index) => {
-    setCountertops((prev) => {
-      const t = { ...prev };
-      t.partsData[index].realWidth = realSizes.width;
-      t.partsData[index].realHeight = realSizes.height;
-      return t;
-    });
-  };
-
-  useMemo(() => {
-    selectingData(props?.shape || "simple");
-  }, [location]);
+  useEffect(() => {
+    console.log(
+      "🚀 ~ SimpleCTPage ~ SIMPLE_CT_M.partsData:",
+      SIMPLE_CT_M.partsData
+    );
+    console.log(
+      "🚀 ~ SimpleCTPage ~ SQUARE_CT_M.partsData:",
+      SQUARE_CT_M.partsData
+    );
+    console.log(
+      "🚀 ~ SimpleCTPage ~ CIRCLE_CT_M.partsData:",
+      CIRCLE_CT_M.partsData
+    );
+  }, [SIMPLE_CT_M.partsData, SQUARE_CT_M.partsData, CIRCLE_CT_M.partsData]);
 
   useEffect(() => {
-    // console.log("🚀 ~ useEffect ~ countertops:", countertops?.partsData);
+    console.log("🚀 ~ SimpleCTPage ~ location.pathname:", location.pathname);
+    selectingData(props?.shape || "simple");
+  }, [location.pathname]);
+
+  // useEffect(() => {
+  //   // console.log("🚀 ~ SimpleCTPage ~ countertops:", countertops);
+  // }, [countertops]);
+
+  useEffect(() => {
     if (countertops) {
       setPartsData(countertops.partsData);
       setLinesData(countertops.linesData);
@@ -103,67 +109,73 @@ export default function SimpleCTPage(props) {
       <h2>{props.title}</h2>
 
       <Stage width={stageWidth} height={stageHeight} draggable>
-        {partsData.map((item, index) => {
-          return (
-            <Layer
-              key={index}
-              x={GLOBAL_CT_M.xGlobalLayer}
-              y={GLOBAL_CT_M.yGlobalLayer}
-            >
-              <RectTemplate
-                itemData={item}
-                key={index}
-                id={index}
-                setRealSizes={setRealSizes}
-              />
-            </Layer>
-          );
-        })}
-
-        {linesData.map((item, index) => {
-          if (item.direction === DIRECTION_TYPES.HORIZONTAL) {
+        <Layer>
+          {partsData.map((item, index) => {
             return (
-              <Layer
+              <Group
                 key={index}
                 x={GLOBAL_CT_M.xGlobalLayer}
                 y={GLOBAL_CT_M.yGlobalLayer}
               >
-                <LineTemplateHorizontal
+                <RectTemplate
                   itemData={item}
                   key={index}
                   id={index}
+                  // setRealSizes={setRealSizes}
                 />
-              </Layer>
+              </Group>
             );
-          }
+          })}
 
-          if (item.direction === DIRECTION_TYPES.VERTICAL) {
-            return (
-              <Layer
-                key={index}
-                x={GLOBAL_CT_M.xGlobalLayer}
-                y={GLOBAL_CT_M.yGlobalLayer}
-              >
-                <LineTemplateVertical itemData={item} key={index} id={index} />
-              </Layer>
-            );
-          }
-        })}
+          {linesData.map((item, index) => {
+            if (item.direction === DIRECTION_TYPES.HORIZONTAL) {
+              return (
+                <Group
+                  key={index}
+                  x={GLOBAL_CT_M.xGlobalLayer}
+                  y={GLOBAL_CT_M.yGlobalLayer}
+                >
+                  <LineTemplateHorizontal
+                    itemData={item}
+                    key={index}
+                    id={index}
+                  />
+                </Group>
+              );
+            }
 
-        {partsData.map((item) => {
-          if (Array.isArray(item?.works) && item?.works?.length > 0) {
-            return item?.works.map((work, idx) => (
-              <Layer key={idx}>
-                <WorksSelectorCNCWorks
-                  workData={work}
-                  key={idx}
-                  id={idx}
-                  pieceSelected={item}
-                />
-              </Layer>
-            ));
-          }
-        })}
+            if (item.direction === DIRECTION_TYPES.VERTICAL) {
+              return (
+                <Group
+                  key={index}
+                  x={GLOBAL_CT_M.xGlobalLayer}
+                  y={GLOBAL_CT_M.yGlobalLayer}
+                >
+                  <LineTemplateVertical
+                    itemData={item}
+                    key={index}
+                    id={index}
+                  />
+                </Group>
+              );
+            }
+          })}
+
+          {partsData.map((item) => {
+            if (Array.isArray(item?.works) && item?.works?.length > 0) {
+              return item?.works.map((work, idx) => (
+                <Group key={idx}>
+                  <WorksSelectorCNCWorks
+                    workData={work}
+                    key={idx}
+                    id={idx}
+                    pieceSelected={item}
+                  />
+                </Group>
+              ));
+            }
+          })}
+        </Layer>
       </Stage>
     </>
   );

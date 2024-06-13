@@ -14,7 +14,6 @@ import {
 } from "../Utils/INPUT_VALIDATIONS";
 
 const CounterTop = ({ rectDataIn, arrayPos, forReturnData }) => {
-  // console.log("🚀 ~ CounterTop ~ rectDataIn:", rectDataIn);
   const [image, setImage] = useState(null);
 
   let data = useMemo(() => {
@@ -48,7 +47,6 @@ const CounterTop = ({ rectDataIn, arrayPos, forReturnData }) => {
           newValue <= INPUTS_DIMENTIONS_W.max
         ) {
           data.width = parseInt(newValue);
-          // console.log("🚀 ~ onClickTextHandle ~ WIDTH:", data);
 
           forReturnData(data, arrayPos);
         } else {
@@ -63,7 +61,6 @@ const CounterTop = ({ rectDataIn, arrayPos, forReturnData }) => {
           newValue <= INPUTS_DIMENTIONS_H.max
         ) {
           data.height = parseInt(newValue);
-          // console.log("🚀 ~ onClickTextHandle ~ HEIGHT:", data);
 
           forReturnData(data, arrayPos);
         } else {
@@ -73,7 +70,6 @@ const CounterTop = ({ rectDataIn, arrayPos, forReturnData }) => {
         }
       },
     };
-    // console.log("🚀 ~ onClickTextHandle ~ data:", data);
 
     txtExec[side]();
   };

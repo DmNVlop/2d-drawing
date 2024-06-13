@@ -1,7 +1,6 @@
-import { Layer, Rect } from "react-konva";
+import { Rect } from "react-konva";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
-import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { RectHelperCalcSizes } from "./Rect-Helpers/rect-helper";
 
 export default function RectTemplate(props) {
@@ -45,95 +44,29 @@ export default function RectTemplate(props) {
   }, [props?.itemData?.cornerRadius]);
 
   // Hanlde Dimensions
-  const maxWidth = 1120;
-  const maxHeight = 700;
-  // const aspectRadio = props?.itemData?.width / props?.itemData?.height;
+  // const maxWidth = 1120;
+  // const maxHeight = 700;
 
-  // INIT Dimensions
-  // useEffect(() => {
-  //   setDimensions(() => {
-  //     return {
-  //       width: props?.itemData?.realWidth,
-  //       height: props?.itemData?.realHeight,
-  //     };
-  //   });
-  // }, []);
-
-  // MOD Width
   useEffect(() => {
-    if (props?.itemData?.width && props?.itemData?.height) {
-      const aspectRadio = props?.itemData?.width / props?.itemData?.height;
+    //   if (props?.itemData?.width && props?.itemData?.height) {
+    //     const aspectRadio = props?.itemData?.width / props?.itemData?.height;
 
-      const rectHelperCalcSizes = RectHelperCalcSizes(
-        props?.itemData?.width,
-        props?.itemData?.height,
-        maxWidth,
-        maxHeight,
-        aspectRadio
-      );
+    //     const rectHelperCalcSizes = RectHelperCalcSizes(
+    //       props?.itemData?.width,
+    //       props?.itemData?.height,
+    //       maxWidth,
+    //       maxHeight,
+    //       aspectRadio
+    //     );
 
-      props.setRealSizes(rectHelperCalcSizes, props?.id);
+    //     props.setRealSizes(rectHelperCalcSizes, props?.id);
 
-      setDimensions(() => {
-        return rectHelperCalcSizes;
-      });
-    }
-  }, [props?.itemData?.width, props?.itemData?.height]);
-
-  // MOD Height
-  // useEffect(() => {
-  //   const aspectRadio = props?.itemData?.width / props?.itemData?.height;
-
-  //   setDimensions(() => {
-  //     if (
-  //       props?.itemData?.width <= maxWidth &&
-  //       props?.itemData?.height <= maxHeight
-  //     ) {
-  //       return {
-  //         width: props?.itemData?.width,
-  //         height: props?.itemData?.height,
-  //       };
-  //     }
-
-  //     if (
-  //       props?.itemData?.width > maxWidth &&
-  //       props?.itemData?.height <= maxHeight
-  //     ) {
-  //       return {
-  //         width: maxWidth,
-  //         height: maxWidth / aspectRadio,
-  //       };
-  //     }
-
-  //     if (
-  //       props?.itemData?.width <= maxWidth &&
-  //       props?.itemData?.height > maxHeight
-  //     ) {
-  //       return {
-  //         width: maxHeight * aspectRadio,
-  //         height: maxHeight,
-  //       };
-  //     }
-
-  //     if (
-  //       props?.itemData?.width > maxWidth &&
-  //       props?.itemData?.height > maxHeight
-  //     ) {
-  //       if (props?.itemData?.width > props?.itemData?.height) {
-  //         return {
-  //           width: maxWidth,
-  //           height: maxWidth / aspectRadio,
-  //         };
-  //       }
-  //       if (props?.itemData?.width < props?.itemData?.height) {
-  //         return {
-  //           width: maxHeight * aspectRadio,
-  //           height: maxHeight,
-  //         };
-  //       }
-  //     }
-  //   });
-  // }, [props?.itemData?.height]);
+    setDimensions({
+      width: props?.itemData?.realWidth,
+      height: props?.itemData?.realHeight,
+    });
+    //   }
+  }, [props?.itemData?.realWidth, props?.itemData?.realHeight]);
 
   return (
     <Rect
@@ -154,6 +87,6 @@ export default function RectTemplate(props) {
 
 RectTemplate.propTypes = {
   itemData: PropTypes.object,
-  setRealSizes: PropTypes.func,
+  // setRealSizes: PropTypes.func,
   id: PropTypes.number,
 };

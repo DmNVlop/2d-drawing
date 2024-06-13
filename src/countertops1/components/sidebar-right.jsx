@@ -2,14 +2,15 @@ import "./sidebar-right.css";
 
 import PropTypes from "prop-types";
 
-import { Button, Col, Flex, Input, Row } from "antd";
+import { Button, Col, Flex, Form, Input, Row, Typography } from "antd";
 import {
+  ArrowDownOutlined,
   CloseOutlined,
   ColumnHeightOutlined,
   ColumnWidthOutlined,
   RadiusSettingOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_WORKS from "../mocks/WORKS_BUTTOMS.data";
 import { WORKS_CORNERS } from "../mocks/WORKS_CORNERS.data";
@@ -18,7 +19,14 @@ import { setCcredinSizes } from "./CNC-Works/woks-calcs-logic";
 import { WORKS_TYPES } from "../mocks/WORKS.types";
 
 function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
+  const { Text } = Typography;
   const _WORKS_CORNERS = WORKS_CORNERS;
+
+  const [formSizesRightBar] = Form.useForm();
+
+  const inputRightBarWidthRef = useRef(null);
+  const inputRightBarHeightRef = useRef(null);
+  const inputRightBarRadiusRef = useRef(null);
 
   const { countertops, updateCornersCtx, updateWorkInPieceCtx, getIdCtx } =
     useCountertopContext();
@@ -36,7 +44,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
 
   const handleCloseSidebarRight = (event) => {
     event.preventDefault();
-    setSidebarRightOpened(false);
+    onCloseBtn(event);
+    // setSidebarRightOpened(false);
   };
 
   const SetSelectedItems = (itemArray, index) => {
@@ -50,7 +59,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     return itemArray;
   };
 
-  const handleWorkClick = (item, index) => {
+  const handleWorkClick = (event, item, index) => {
+    event.preventDefault();
     setButtomSquareWorks((prev) => {
       let tempWorksClean = [...prev];
       return SetSelectedItems(tempWorksClean, index);
@@ -59,23 +69,51 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     setWorksCorners(() => {
       const _work = _buttomSquareWorks.find(
         (item) => item.selected === true
-      ).work;
+      ).type;
 
       return _WORKS_CORNERS[_work].corners || [];
     });
   };
 
   const handleWorkCornerClick = (item, index = -1) => {
-    const currentItem = { ...item };
     if (index >= 0) {
       setWorksCorners((prev) => {
         let tempWorksCorners = [...prev];
         return SetSelectedItems(tempWorksCorners, index);
       });
     }
+  };
+
+  const showSizesInputValidate = (arrayItemsRole) => {
+    return true;
+  };
+
+  const onClickHandleSelectText = (event, inputRef) => {
+    inputRef.current.select();
+  };
+
+  const onCloseBtn = (e) => {
+    e.preventDefault();
+    setWidthInput(null);
+    setHeightInput(null);
+    setRadiusInput(null);
+    setWorksCorners([]);
+    setButtomSquareWorks((prev) => {
+      return prev.map((item) => {
+        item.selected = false;
+        return item;
+      });
+    });
+    formSizesRightBar.resetFields();
+    setSidebarRightOpened(false);
+  };
+
+  const handleSetWork = (e) => {
+    e.preventDefault();
 
     const _indexPiece = countertops?.selectedPiece?.value - 1 || 0;
     const _piece = countertops?.partsData[_indexPiece];
+    const currentItem = { ...workSelected };
 
     // CCREDIN
     if (
@@ -132,20 +170,6 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     }
   };
 
-  const showSizesInputValidate = (arrayItemsRole) => {
-    return true;
-  };
-
-  const onCloseBtn = (e) => {
-    e.preventDefault();
-    setSidebarRightOpened(false);
-  };
-
-  const handleSetWork = (e) => {
-    e.preventDefault();
-    handleWorkCornerClick(workSelected);
-  };
-
   const handleWidthInputChange = (e) => {
     e.preventDefault();
     setWidthInput(e.target.value);
@@ -159,6 +183,29 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const handleRadiusInputChange = (e) => {
     e.preventDefault();
     setRadiusInput(e.target.value);
+  };
+
+  const showRightBarWidthInput = (_workSelected) => {
+    const validOptions = {
+      [WORKS_TYPES.CCCHAFLAN]: true,
+      [WORKS_TYPES.CCFALESC]: true,
+      [WORKS_TYPES.CCRECIN]: true,
+    };
+
+    return validOptions[_workSelected.type] || false;
+  };
+
+  const showRightBarHeightInput = (_workSelected) => {
+    const validOptions = {
+      [WORKS_TYPES.CCCHAFLAN]: true,
+      [WORKS_TYPES.CCRECIN]: true,
+    };
+
+    return validOptions[_workSelected.type] || false;
+  };
+
+  const showRightBarRadiusInput = (_workSelected) => {
+    return false;
   };
 
   return (
@@ -205,15 +252,13 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
                   span={6}
                   justify="space-between"
                   key={index}
-                  onClick={() => {
-                    handleWorkClick(item, index);
+                  onClick={(event) => {
+                    handleWorkClick(event, item, index);
                   }}
                 >
                   <ButtonSquare
                     inputData={{
-                      url: (e) => {
-                        e.preventDefault();
-                      },
+                      url: (event) => event.preventDefault(),
                       img: item.img,
                       alt: item.alt,
                       title: item.title,
@@ -224,6 +269,80 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
             })}
           </Row>
 
+          {/* Seleccion de medidas */}
+          {_worksCorners.length > 0 && showSizesInputValidate([]) && (
+            <div style={{ marginBottom: "16px" }}>
+              <div style={{ marginBottom: "10px" }}>
+                2. Seleccione medidas...
+              </div>
+              <Form form={formSizesRightBar} name="control-hooks">
+                <Row gutter={[8, 8]}>
+                  {showRightBarWidthInput(workSelected) && (
+                    <Col span={12}>
+                      <Form.Item name={"Largo"} style={{ marginBottom: 0 }}>
+                        <Input
+                          ref={inputRightBarWidthRef}
+                          onClick={(e) =>
+                            onClickHandleSelectText(e, inputRightBarWidthRef)
+                          }
+                          placeholder="Largo"
+                          prefix={<ColumnWidthOutlined />}
+                          onChange={(e) => {
+                            handleWidthInputChange(e);
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  )}
+
+                  {showRightBarHeightInput(workSelected) && (
+                    <Col span={12}>
+                      <Form.Item name={"Fondo"} style={{ marginBottom: 0 }}>
+                        <Input
+                          ref={inputRightBarHeightRef}
+                          onClick={(e) =>
+                            onClickHandleSelectText(e, inputRightBarHeightRef)
+                          }
+                          placeholder="Fondo"
+                          prefix={<ColumnHeightOutlined />}
+                          onChange={(e) => {
+                            handleHeightInputChange(e);
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  )}
+
+                  {showRightBarRadiusInput(workSelected) && (
+                    <Col span={12}>
+                      <Form.Item name={"Radio"} style={{ marginBottom: 0 }}>
+                        <Input
+                          ref={inputRightBarRadiusRef}
+                          onClick={(e) =>
+                            onClickHandleSelectText(e, inputRightBarRadiusRef)
+                          }
+                          placeholder="Radio"
+                          prefix={<RadiusSettingOutlined />}
+                          onChange={(e) => {
+                            handleRadiusInputChange(e);
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  )}
+                </Row>
+              </Form>
+
+              {!showRightBarWidthInput(workSelected) &&
+                !showRightBarHeightInput(workSelected) &&
+                !showRightBarRadiusInput(workSelected) && (
+                  <Text code>
+                    Nada que mostrar. Continue <ArrowDownOutlined />
+                  </Text>
+                )}
+            </div>
+          )}
+
           {/* // Seleccionar esquinas o lados  */}
           {_worksCorners.length > 0 && (
             <div
@@ -231,14 +350,13 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
               id="work-corner-select-section"
             >
               <dir style={{ marginBottom: "10px" }}>
-                2. Seleccione esquina o lado...
+                3. Seleccione esquina o lado...
               </dir>
 
-              <Row gutter={[8, 8]}>
+              <Row gutter={[8, 8]} style={{ marginBottom: "16px" }}>
                 {_worksCorners.map((item, index) => {
                   return (
                     <Col
-                      span={12}
                       key={index}
                       className={
                         item.selected ? "gutter-row active" : "gutter-row"
@@ -249,9 +367,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
                     >
                       <ButtonSquare
                         inputData={{
-                          url: (e) => {
-                            e.preventDefault();
-                          },
+                          url: (event) => event.preventDefault(),
                           img: item.img,
                           alt: item.alt,
                           title: item.title,
@@ -262,57 +378,31 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
                   );
                 })}
               </Row>
-            </div>
-          )}
 
-          {/* Seleccion de medidas */}
-          {_worksCorners.length > 0 && showSizesInputValidate([]) && (
-            <div style={{ marginBottom: "16px" }}>
-              <dir style={{ marginBottom: "10px" }}>Seleccione medidas...</dir>
-              <Row gutter={[8, 8]}>
-                <Col span={12}>
-                  <Input
-                    placeholder="Largo"
-                    prefix={<ColumnWidthOutlined />}
-                    onChange={(e) => {
-                      handleWidthInputChange(e);
-                    }}
-                  />
-                </Col>
-                <Col span={12}>
-                  <Input
-                    placeholder="Fondo"
-                    prefix={<ColumnHeightOutlined />}
-                    onChange={(e) => {
-                      handleHeightInputChange(e);
-                    }}
-                  />
-                </Col>
-                <Col span={12}>
-                  <Input
-                    placeholder="Radio"
-                    prefix={<RadiusSettingOutlined />}
-                    onChange={(e) => {
-                      handleRadiusInputChange(e);
-                    }}
-                  />
-                </Col>
-                <Col span={12}>
-                  <Button onClick={(e) => handleSetWork(e)}>Establecer</Button>
-                </Col>
-              </Row>
+              <Flex vertical gap="small" style={{ width: "100%" }}>
+                <Button type="primary" onClick={(e) => handleSetWork(e)}>
+                  Establecer
+                </Button>
+              </Flex>
             </div>
           )}
 
           {_worksCorners.length > 0 && (
             <div style={{ marginBottom: "16px" }}>
+              <br />
+              <hr
+                style={{
+                  marginBottom: "16px",
+                  border: "none",
+                  borderTop: "2px solid #dddddd",
+                }}
+              />
               {/* <dir style={{ marginBottom: "10px" }}>
                 Guardar trabajo en la pieza
               </dir> */}
               <Flex gap="middle" align="start" vertical>
                 <Flex justify={"flex-end"} align={"center"}>
                   <Button
-                    type="primary"
                     onClick={(e) => {
                       const _indexPiece =
                         countertops?.selectedPiece?.value - 1 || 0;

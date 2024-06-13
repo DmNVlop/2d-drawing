@@ -17,8 +17,6 @@ const titlePage = "Encimera Simple";
 function SimpleCT() {
   const [rectDataContext, setRectDataContext] = useState(RECT_DATA_INIT);
 
-  console.log("🚀 ~ SimpleCT ~ rectDataContext:", rectDataContext);
-
   const handleSetWoody = async (params) => {
     try {
       const result = await setWoody(params);
@@ -83,7 +81,6 @@ function SimpleCT() {
     const pos = refCorner[event.target.name];
 
     const newArray = [...rectDataContext];
-    // console.log("🚀 ~ setRectDataContext ~ prev:", newArray);
     let newCorner = newArray[0].cornerRadius;
     newCorner[pos] = parseInt(event.target.value);
     newArray[0].cornerRadius = newCorner;
@@ -536,7 +533,6 @@ function SimpleCT() {
             />
             <Text x={580} y={290} text="400" rotation={90} fontSize={16} />
           </Layer>
-
         </Stage>
       </section>
     </>

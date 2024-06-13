@@ -12,13 +12,11 @@ import {
 import { LctDataRotation_L1, LctDataRotation_L2 } from "./L_CT_DATA_ROTATION";
 
 export default function Lct() {
-  console.log("Nuevo componente L");
 
   const titlePage = "Encimera en L";
   const [rectDataContextL, setRectDataContextL] = useState(RECT_DATA_INIT_L_1);
   const [stateSetted, setStateSetted] = useState(1);
 
-  console.log("🚀 ~ Lct ~ rectDataContextL:", rectDataContextL);
 
   const handleSetWoody = async (params) => {
     try {

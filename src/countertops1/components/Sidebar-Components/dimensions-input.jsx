@@ -1,15 +1,15 @@
-import { Col, InputNumber, Row, Select, Space, Typography } from "antd";
-import { useMemo, useRef, useState } from "react";
+import { Button, Col, InputNumber, Row, Select, Space, Typography } from "antd";
+import { useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES";
 import { NO_PIEZAS } from "../../mocks/NO_PARTS.data";
 
 function DimensionsInput({
-  inputValueAncho,
   inputValueLargo,
-  setInputValueAncho,
+  inputValueAncho,
   setInputValueLargo,
+  setInputValueAncho,
   onSelectPiezaParent,
   countertops,
 }) {
@@ -18,20 +18,29 @@ function DimensionsInput({
   const inputSizeWidthRef = useRef(null);
   const inputSizeHeightRef = useRef(null);
 
+  const [localWidth, setLocalWidth] = useState(inputValueLargo);
+  const [localHeight, setLocalHeight] = useState(inputValueAncho);
+
   const [numeroPiezas, setNumeroPiezas] = useState([]);
   const [piezaSelected, setPiezaSelected] = useState(null);
 
   const onChangeLargo = (newValue) => {
-    setInputValueLargo(newValue);
-    if (countertops?.shapeType == SHAPE_TYPES.SQUARE) {
-      setInputValueAncho(newValue);
+    setLocalWidth(newValue);
+    if (
+      countertops?.shapeType == SHAPE_TYPES.SQUARE ||
+      countertops?.shapeType == SHAPE_TYPES.CIRCLE
+    ) {
+      setLocalHeight(newValue);
     }
   };
 
   const onChangeAncho = (newValue) => {
-    setInputValueAncho(newValue);
-    if (countertops?.shapeType == SHAPE_TYPES.SQUARE) {
-      setInputValueLargo(newValue);
+    setLocalHeight(newValue);
+    if (
+      countertops?.shapeType == SHAPE_TYPES.SQUARE ||
+      countertops?.shapeType == SHAPE_TYPES.CIRCLE
+    ) {
+      setLocalWidth(newValue);
     }
   };
 
@@ -49,6 +58,15 @@ function DimensionsInput({
     onSelectPiezaParent(pS);
   };
 
+  const handleSetSizes = (event) => {
+    event.preventDefault();
+
+    if (localWidth && localHeight) {
+      setInputValueLargo(localWidth);
+      setInputValueAncho(localHeight);
+    }
+  };
+
   const onClearPieza = () => {
     setPiezaSelected(null);
 
@@ -57,15 +75,23 @@ function DimensionsInput({
     onSelectPiezaParent(null);
   };
 
-  const onKeyUpHandle = (event, inputRef) => {
-    if (event.key === "Enter") {
+  const onKeyUpHandle = (event, inputRef, sendData = false) => {
+    event.preventDefault();
+
+    if ((event.key === "Enter" || event.keyCode === 13) && !sendData) {
       inputRef.current.focus();
       inputRef.current.select();
+    }
+
+    if ((event.key === "Enter" || event.keyCode === 13) && sendData) {
+      handleSetSizes(event);
+      inputRef.current.focus();
+      inputRef.current.select();
+      inputSizeHeightRef.current.blur();
     }
   };
 
   const onClickHandle = (event, inputRef) => {
-    // inputRef.current.focus();
     inputRef.current.select();
   };
 
@@ -77,11 +103,12 @@ function DimensionsInput({
         });
       });
     }
-
-    // if (countertops?.shapeType) {
-    //   disabledSliderLogic(countertops.shapeType);
-    // }
   }, [location, countertops?.shapeType]);
+
+  useEffect(() => {
+    setLocalWidth(inputValueLargo);
+    setLocalHeight(inputValueAncho);
+  }, [inputValueLargo, inputValueAncho]);
 
   // *** Return VIEW ****
   return (
@@ -96,15 +123,17 @@ function DimensionsInput({
         <Space direction="vertical" style={{ width: "100%" }}>
           <Row justify="space-between" align="middle">
             <Col span={8}>
-              <span>No. Pieza</span>
+              <span title="Seleccionar pieza a trabajar">Seleccione...</span>
             </Col>
 
             <Col span={12}>
               <Select
                 style={{ width: "100%" }}
                 allowClear
+                placeholder="Piezas"
                 options={numeroPiezas}
                 value={piezaSelected}
+                title="Seleccionar pieza a trabajar"
                 onSelect={(value) => onSelectPieza(value)}
                 onClear={() => onClearPieza()}
                 disabled={!countertops?.partsData?.length}
@@ -113,6 +142,7 @@ function DimensionsInput({
             <Col span={4}>
               {!piezaSelected && (
                 <img
+                  title="Seleccionar pieza a trabajar"
                   className="img-select-hand"
                   src="/images/hand.gif"
                   alt="Empiece por aquí"
@@ -123,7 +153,7 @@ function DimensionsInput({
             </Col>
           </Row>
 
-          <Row justify="space-between" align="middle">
+          {/* <Row justify="space-between" align="middle">
             <Col span={6}>
               <span>Largo</span>
             </Col>
@@ -135,19 +165,33 @@ function DimensionsInput({
                 disabled={!piezaSelected}
                 style={{ width: "100%" }}
                 onChange={onChangeLargo}
-                value={inputValueLargo}
+                value={localWidth}
                 onKeyUp={(e) => onKeyUpHandle(e, inputSizeHeightRef)}
                 onClick={(e) => onClickHandle(e, inputSizeWidthRef)}
               />
             </Col>
-          </Row>
+          </Row> */}
 
-          <Row justify="space-between" align="middle">
-            <Col span={8}>
+          <Row gutter={[8, 8]} justify="space-between" align="middle">
+            {/* <Col span={8}>
               <span>Ancho</span>
+            </Col> */}
+
+            <Col className="gutter-row" span={8}>
+              <InputNumber
+                ref={inputSizeWidthRef}
+                min={100}
+                max={3600}
+                disabled={!piezaSelected}
+                style={{ width: "100%" }}
+                onChange={onChangeLargo}
+                value={localWidth}
+                onKeyUp={(e) => onKeyUpHandle(e, inputSizeHeightRef)}
+                onClick={(e) => onClickHandle(e, inputSizeWidthRef)}
+              />
             </Col>
 
-            <Col span={16}>
+            <Col className="gutter-row" span={8}>
               <InputNumber
                 ref={inputSizeHeightRef}
                 min={100}
@@ -155,12 +199,34 @@ function DimensionsInput({
                 disabled={!piezaSelected}
                 style={{ width: "100%" }}
                 onChange={onChangeAncho}
-                value={inputValueAncho}
-                onKeyUp={(e) => onKeyUpHandle(e, inputSizeWidthRef)}
+                value={localHeight}
+                onKeyUp={(e) => onKeyUpHandle(e, inputSizeWidthRef, true)}
                 onClick={(e) => onClickHandle(e, inputSizeHeightRef)}
               />
             </Col>
+
+            <Col className="gutter-row" span={8}>
+              <Button
+                style={{ width: "100%" }}
+                type="primary"
+                onClick={(event) => handleSetSizes(event)}
+              >
+                Establecer
+              </Button>
+            </Col>
           </Row>
+
+          {/* <Row justify="center" align="middle">
+            <Col span={16} offset={8}>
+              <Button
+                style={{ width: "100%" }}
+                type="primary"
+                onClick={(event) => handleSetSizes(event)}
+              >
+                Establecer
+              </Button>
+            </Col>
+          </Row> */}
         </Space>
       </section>
     </>
