@@ -492,7 +492,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                         <Row justify="space-between" align="middle">
                           <Col span={10}>
                             <p>
-                              {item.width} x {item.height} (mm)
+                              {item?.width}
+                              {item?.height && <span>x</span>}
+                              {item?.height} (mm)
                             </p>
                           </Col>
                           <Col span={10} style={{ textAlign: "right" }}>

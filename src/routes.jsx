@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import CountetopContextProvider from "./countertops1/context/ct-context-provider";
 import CountertopHome from "./countertops1/pages/countertop-home";
+import Loading from "./countertops1/components/Simple-Componentes/loading";
 
 // const HomePage = lazy(() => import("./HomePage"));
 const NotFoundPage = lazy(() => import("./shared/not-found-page"));
@@ -20,7 +21,7 @@ const UShapedPage = lazy(() => import("./countertops1/pages/U-shaped-page"));
 const RoutersApp = () => {
   return (
     <Router>
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Navigate to="/countertop" />} />
           <Route path="/" element={<Navigate to="/countertop" />} />

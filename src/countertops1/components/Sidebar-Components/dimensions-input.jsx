@@ -15,6 +15,7 @@ function DimensionsInput({
 }) {
   const _NO_PIEZAS = NO_PIEZAS;
 
+  const selectPieceRef = useRef(null);
   const inputSizeWidthRef = useRef(null);
   const inputSizeHeightRef = useRef(null);
 
@@ -45,6 +46,10 @@ function DimensionsInput({
   };
 
   const onSelectPieza = (value) => {
+    selectPieceRef.current.blur();
+    inputSizeWidthRef.current.focus();
+    inputSizeWidthRef.current.select();
+
     const pS = numeroPiezas.find((item) => {
       return item.value === value;
     });
@@ -130,6 +135,7 @@ function DimensionsInput({
               <Select
                 style={{ width: "100%" }}
                 allowClear
+                ref={selectPieceRef}
                 placeholder="Piezas"
                 options={numeroPiezas}
                 value={piezaSelected}
