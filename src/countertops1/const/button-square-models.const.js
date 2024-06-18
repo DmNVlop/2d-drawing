@@ -24,6 +24,12 @@ const BUTTON_SQUARE_MODELS = [
     title: "Encimera en L - 1",
   },
   {
+    url: "l-shaped?t=l2",
+    img: "/images/jobs/L-2.png",
+    alt: "Encimera en L - 2",
+    title: "Encimera en L - 2",
+  },
+  {
     url: "u-shaped?t=u1",
     img: "/images/jobs/U-1.png",
     alt: "Encimera en U - 1",

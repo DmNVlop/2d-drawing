@@ -1,6 +1,6 @@
 import "./sidebar.css";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useCountertopContext,
@@ -21,9 +21,9 @@ import {
 } from "antd";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
-import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA";
+import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA.const";
 import DimensionsInput from "./Sidebar-Components/dimensions-input";
-import { DIRECTION_TYPES } from "../mocks/LINES_CONST";
+import { DIRECTION } from "../mocks/LINES.const";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -138,12 +138,12 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
       const _piece = tempData[piezaSelectedParent?.value - 1 || 0];
 
       tempDataLines = tempDataLines.map((itemLine) => {
-        if (itemLine.direction === DIRECTION_TYPES.HORIZONTAL) {
+        if (itemLine.direction === DIRECTION.HORIZONTAL) {
           itemLine.text = inputValueLargo;
           itemLine.length = _piece.realWidth;
         }
 
-        if (itemLine.direction === DIRECTION_TYPES.VERTICAL) {
+        if (itemLine.direction === DIRECTION.VERTICAL) {
           itemLine.text = inputValueAncho;
           itemLine.length = _piece.realHeight;
           itemLine.xRef = _piece.realWidth;

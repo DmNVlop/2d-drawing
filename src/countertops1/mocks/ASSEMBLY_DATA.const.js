@@ -1,4 +1,4 @@
-import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES";
+import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES.const";
 
 export const ASSEMBLY_DATA = [
   {

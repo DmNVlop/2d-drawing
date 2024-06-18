@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Group, Layer, Stage } from "react-konva";
 
@@ -13,48 +13,74 @@ import { SIMPLE_CT_M, SIMPLE_LINE_CT_M } from "../mocks/simple-ct.mock";
 import { SQUARE_CT_M, SQUARE_LINE_CT_M } from "../mocks/square-ct.mock";
 import { CIRCLE_CT_M, CIRCLE_LINE_CT_M } from "../mocks/circle-ct.mock";
 import { useLocation } from "react-router-dom";
-import { DIRECTION_TYPES } from "../mocks/LINES_CONST";
+import { DIRECTION } from "../mocks/LINES.const";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
+import { useLocationMod } from "../helpers/location.hook";
 
 export default function SimpleCTPage(props) {
-  const { countertops, setCountertops } = useCountertopContext();
+  const { countertops, setCountertops, setParts, setLines } =
+    useCountertopContext();
 
   const [partsData, setPartsData] = useState([]);
   const [linesData, setLinesData] = useState([]);
 
-  // let selectedPiece = null;
-
   const location = useLocation();
+  const shapeNameUrl = location.pathname.substring(1); // Esto te dará 'simple', 'double' o 'triple'
+  const url_shape = shapeNameUrl.split("/").pop();
+  const tParamUrl = useLocationMod("t");
+  const ATTRIB_SETTED = tParamUrl ? url_shape + "_" + tParamUrl : url_shape;
 
   const selectingData = (shape) => {
-    console.log("🚀 ~ selectingData ~ shape:", shape);
-    console.log("🚀 ~ selectingData ~ countertops:", countertops?.partsData);
     let selectedPiece = countertops?.selectedPiece || null;
     const shapeType = {
       simple: () => {
-        setCountertops({
+        setCountertops((prevState) => ({
+          ...prevState,
           shapeType: SIMPLE_CT_M.shapeType, // countertops?.shapeType ||
           partsData: SIMPLE_CT_M.partsData, // countertops?.partsData ||
           linesData: SIMPLE_LINE_CT_M.linesData, // countertops?.linesData ||
           selectedPiece: selectedPiece,
-        });
+          [ATTRIB_SETTED]: {
+            ...prevState[ATTRIB_SETTED],
+            shapeType: SIMPLE_CT_M.shapeType, // countertops?.shapeType ||
+            partsData: SIMPLE_CT_M.partsData, // countertops?.partsData ||
+            linesData: SIMPLE_LINE_CT_M.linesData, // countertops?.linesData ||
+            selectedPiece: selectedPiece,
+          },
+        }));
       },
       square: () => {
-        setCountertops({
+        setCountertops((prevState) => ({
+          ...prevState,
           shapeType: SQUARE_CT_M.shapeType,
           partsData: SQUARE_CT_M.partsData,
           linesData: SQUARE_LINE_CT_M.linesData,
           selectedPiece: selectedPiece,
-        });
+          [ATTRIB_SETTED]: {
+            ...prevState[ATTRIB_SETTED],
+            shapeType: SQUARE_CT_M.shapeType, // countertops?.shapeType ||
+            partsData: SQUARE_CT_M.partsData, // countertops?.partsData ||
+            linesData: SQUARE_LINE_CT_M.linesData, // countertops?.linesData ||
+            selectedPiece: selectedPiece,
+          },
+        }));
       },
       circle: () => {
-        setCountertops({
+        setCountertops((prevState) => ({
+          ...prevState,
           shapeType: CIRCLE_CT_M.shapeType,
           partsData: CIRCLE_CT_M.partsData,
           linesData: CIRCLE_LINE_CT_M.linesData,
           selectedPiece: selectedPiece,
-        });
+          [ATTRIB_SETTED]: {
+            ...prevState[ATTRIB_SETTED],
+            shapeType: CIRCLE_CT_M.shapeType, // countertops?.shapeType ||
+            partsData: CIRCLE_CT_M.partsData, // countertops?.partsData ||
+            linesData: CIRCLE_LINE_CT_M.linesData, // countertops?.linesData ||
+            selectedPiece: selectedPiece,
+          },
+        }));
       },
     };
 
@@ -62,35 +88,15 @@ export default function SimpleCTPage(props) {
   };
 
   useEffect(() => {
-    console.log(
-      "🚀 ~ SimpleCTPage ~ SIMPLE_CT_M.partsData:",
-      SIMPLE_CT_M.partsData
-    );
-    console.log(
-      "🚀 ~ SimpleCTPage ~ SQUARE_CT_M.partsData:",
-      SQUARE_CT_M.partsData
-    );
-    console.log(
-      "🚀 ~ SimpleCTPage ~ CIRCLE_CT_M.partsData:",
-      CIRCLE_CT_M.partsData
-    );
-  }, [SIMPLE_CT_M.partsData, SQUARE_CT_M.partsData, CIRCLE_CT_M.partsData]);
-
-  useEffect(() => {
-    console.log("🚀 ~ SimpleCTPage ~ location.pathname:", location.pathname);
     selectingData(props?.shape || "simple");
   }, [location.pathname]);
-
-  // useEffect(() => {
-  //   // console.log("🚀 ~ SimpleCTPage ~ countertops:", countertops);
-  // }, [countertops]);
 
   useEffect(() => {
     if (countertops) {
       setPartsData(countertops.partsData);
       setLinesData(countertops.linesData);
     }
-  }, [countertops?.partsData, countertops?.linesData]);
+  }, [countertops]);
 
   // const elementRefWidth = elementRef?.elementRef?.width || 0;
   // const elementRefMarginTop = elementRef?.elementRef?.marginTop || 0;
@@ -128,7 +134,7 @@ export default function SimpleCTPage(props) {
           })}
 
           {linesData.map((item, index) => {
-            if (item.direction === DIRECTION_TYPES.HORIZONTAL) {
+            if (item.direction === DIRECTION.HORIZONTAL) {
               return (
                 <Group
                   key={index}
@@ -144,7 +150,7 @@ export default function SimpleCTPage(props) {
               );
             }
 
-            if (item.direction === DIRECTION_TYPES.VERTICAL) {
+            if (item.direction === DIRECTION.VERTICAL) {
               return (
                 <Group
                   key={index}
