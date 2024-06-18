@@ -2,8 +2,8 @@ import { Button, Col, InputNumber, Row, Select, Space, Typography } from "antd";
 import { useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES";
-import { NO_PIEZAS } from "../../mocks/NO_PARTS.data";
+import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
+import { NO_PIEZAS } from "../../mocks/NO_PARTS.const";
 
 function DimensionsInput({
   inputValueLargo,

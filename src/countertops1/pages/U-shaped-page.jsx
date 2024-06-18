@@ -1,8 +1,8 @@
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useLocationMod } from "../helpers/location.hook";
 import { useWindowsSizes } from "../helpers/widowsSizes.hook";
-import { Stage } from "react-konva";
+import { Layer, Stage } from "react-konva";
 
 import RectUTemplate from "../components/rect-u.template";
 import LineUTemplate from "../components/line-u.template";
@@ -16,61 +16,81 @@ import {
   U4_CT_M,
   U4_LINE_CT_M,
 } from "../mocks/u-ct.mock";
-
-// const url = new URL(window.location.href);
-// const params = new URLSearchParams(url.search);
-// const ctType = params.get("t");
+import { useLocation, useNavigate } from "react-router-dom";
+import { useCountertopContext } from "../context/ct-context";
+import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 
 export default function UShapedPage(props) {
-  const [pageTitle, setPageTitle] = useState(props?.title || "Encimeras U");
-  const tParam = useLocationMod("t");
+  const { title } = props;
+
+  const navigate = useNavigate();
+  const tParamUrl = useLocationMod("t");
+  if (!tParamUrl) {
+    navigate("/countertop/u-shaped?t=u1");
+  }
+
+  const { setParts, setLines } = useCountertopContext();
+
+  const [pageTitle, setPageTitle] = useState(title || "Encimeras U");
+
+  const location = useLocation();
+  const shapeNameUrl = location.pathname.substring(1); // Esto te dará 'simple', 'double' o 'triple'
+  const url_shape = shapeNameUrl.split("/").pop();
+  const ATTRIB_SETTED = tParamUrl ? url_shape + "_" + tParamUrl : url_shape;
 
   const [partsData, setPartsData] = useState([]);
   const [linesData, setLinesData] = useState([]);
 
   const titleSelect = {
-    u1: props.title + " - 1",
-    u2: props.title + " - 2",
-    u3: props.title + " - 3",
-    u4: props.title + " - 4",
+    u1: title + " - 1",
+    u2: title + " - 2",
+    u3: title + " - 3",
+    u4: title + " - 4",
   };
 
   const handleTitle = () => {
-    setPageTitle(titleSelect[tParam] ? titleSelect[tParam] : titleSelect["u1"]);
+    setPageTitle(
+      titleSelect[tParamUrl] ? titleSelect[tParamUrl] : titleSelect["u1"]
+    );
   };
 
-  const selectingData = (shape) => {
+  const selectingData = () => {
     const shapeType = {
-      u1: () => {
+      [SHAPE_TYPES.UShaped_u1]: () => {
         setPartsData(U1_CT_M.partsData);
         setLinesData(U1_LINE_CT_M.linesData);
+        setParts(U1_CT_M.partsData);
+        setLines(U1_LINE_CT_M.linesData);
       },
-      u2: () => {
+      [SHAPE_TYPES.UShaped_u2]: () => {
         setPartsData(U2_CT_M.partsData);
         setLinesData(U2_LINE_CT_M.linesData);
+        setParts(U2_CT_M.partsData);
+        setLines(U2_LINE_CT_M.linesData);
       },
-      u3: () => {
+      [SHAPE_TYPES.UShaped_u3]: () => {
         setPartsData(U3_CT_M.partsData);
         setLinesData(U3_LINE_CT_M.linesData);
+        setParts(U3_CT_M.partsData);
+        setLines(U3_LINE_CT_M.linesData);
       },
-      u4: () => {
+      [SHAPE_TYPES.UShaped_u4]: () => {
         setPartsData(U4_CT_M.partsData);
         setLinesData(U4_LINE_CT_M.linesData);
+        setParts(U4_CT_M.partsData);
+        setLines(U4_LINE_CT_M.linesData);
       },
     };
 
-    shapeType[shape]();
+    if (shapeType[ATTRIB_SETTED]) {
+      shapeType[ATTRIB_SETTED]();
+    }
   };
-
-  // useEffect(() => {
-  //   handleTitle();
-  // }, [tParam]);
 
   useEffect(() => {
     handleTitle();
-
-    selectingData(tParam);
-  }, [tParam]);
+    selectingData();
+  }, [tParamUrl]);
 
   const stageWidth = useWindowsSizes().stageWidth;
   const stageHeight = useWindowsSizes().stageHeight;
@@ -80,12 +100,14 @@ export default function UShapedPage(props) {
       <h2>{pageTitle}</h2>
 
       <Stage width={stageWidth} height={stageHeight} draggable>
-        {partsData.map((item) => (
-          <RectUTemplate itemData={item} key={item.id} />
-        ))}
-        {linesData.map((item) => (
-          <LineUTemplate itemData={item} key={item.id} />
-        ))}
+        <Layer>
+          {partsData.map((item) => (
+            <RectUTemplate itemData={item} key={item.id} />
+          ))}
+          {linesData.map((item) => (
+            <LineUTemplate itemData={item} key={item.id} />
+          ))}
+        </Layer>
       </Stage>
     </>
   );
@@ -93,5 +115,4 @@ export default function UShapedPage(props) {
 
 UShapedPage.propTypes = {
   title: PropTypes.node,
-  shape: PropTypes.node,
 };

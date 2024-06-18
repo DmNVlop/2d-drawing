@@ -1,8 +1,9 @@
-import { Layer, Rect } from "react-konva";
+import { Group, Layer, Rect } from "react-konva";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 export default function RectUTemplate(props) {
+  const { itemData } = props;
   const [imageData, setImageData] = useState("");
 
   const setFillPriority = (priority, imgPath) => {
@@ -16,29 +17,31 @@ export default function RectUTemplate(props) {
   };
 
   useEffect(() => {
-    if (props?.itemData?.fillPatternImage) {
-      setFillPriority("pattern", props?.itemData?.fillPatternImage);
+    if (itemData?.fillPatternImage) {
+      setFillPriority("pattern", itemData?.fillPatternImage);
     }
-  }, [props?.itemData?.fillPatternImage]);
+  }, [itemData?.fillPatternImage]);
 
   return (
-    <Layer>
+    <Group>
       <Rect
         // ref={rectNew}
-        x={props?.itemData?.x}
-        y={props?.itemData?.y}
-        width={props?.itemData?.width}
-        height={props?.itemData?.height}
-        fill={props?.itemData?.fill}
+        x={itemData?.x}
+        y={itemData?.y}
+        width={itemData?.width}
+        height={itemData?.height}
+        stroke={itemData?.stroke || ""}
+        strokeWidth={itemData?.strokeWidth || 0}
+        fill={itemData?.fill}
         fillPriority={imageData.fillPriority}
         fillPatternImage={imageData.img}
-        fillPatternRepeat={props?.itemData?.fillPatternRepeat}
-        cornerRadius={props?.itemData?.cornerRadius}
-        rotation={props?.itemData?.rotation}
-        offsetX={props?.itemData?.offsetX}
-        offsetY={props?.itemData?.offsetY}
+        fillPatternRepeat={itemData?.fillPatternRepeat}
+        cornerRadius={itemData?.cornerRadius}
+        rotation={itemData?.rotation}
+        offsetX={itemData?.offsetX}
+        offsetY={itemData?.offsetY}
       />
-    </Layer>
+    </Group>
   );
 }
 

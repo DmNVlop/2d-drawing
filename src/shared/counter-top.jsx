@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Group, Line, Rect, Text } from "react-konva";
+import { Group, Rect, Text } from "react-konva";
 import PropTypes from "prop-types";
 
 import {

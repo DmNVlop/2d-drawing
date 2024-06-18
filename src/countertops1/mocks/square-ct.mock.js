@@ -1,6 +1,6 @@
-import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES";
-import { DIRECTION_TYPES } from "./LINES_CONST";
-import { SHAPE_TYPES } from "./SHAPE_TYPES";
+import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES.const";
+import { DIRECTION } from "./LINES.const";
+import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 
 export const SQUARE_CT_M = {
   shapeType: SHAPE_TYPES.SQUARE,
@@ -42,7 +42,7 @@ export const SQUARE_LINE_CT_M = {
       // widthOnLevel: 50,
       rotation: 90,
       text: "700",
-      direction: DIRECTION_TYPES.VERTICAL,
+      direction: DIRECTION.VERTICAL,
     },
     {
       id: 2,
@@ -54,7 +54,7 @@ export const SQUARE_LINE_CT_M = {
       // widthOnLevel: 50,
       rotation: 0,
       text: "700",
-      direction: DIRECTION_TYPES.HORIZONTAL,
+      direction: DIRECTION.HORIZONTAL,
     },
     // {
     //   id: 3,

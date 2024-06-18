@@ -8,6 +8,7 @@ import {
 import CountetopContextProvider from "./countertops1/context/ct-context-provider";
 import CountertopHome from "./countertops1/pages/countertop-home";
 import Loading from "./countertops1/components/Simple-Componentes/loading";
+import RectLTemplateTest from "./countertops1/components/rect-l-test.template";
 
 // const HomePage = lazy(() => import("./HomePage"));
 const NotFoundPage = lazy(() => import("./shared/not-found-page"));
@@ -40,6 +41,8 @@ const RoutersApp = () => {
               </CountetopContextProvider>
             }
           >
+            <Route path="test" element={<RectLTemplateTest />} />
+
             <Route
               path="simple"
               element={
@@ -60,11 +63,11 @@ const RoutersApp = () => {
             />
             <Route
               path="l-shaped"
-              element={<LShapedPage shape={"L"} title="Encimera en L" />}
+              element={<LShapedPage title="Encimera en L" />}
             />
             <Route
               path="u-shaped"
-              element={<UShapedPage shape={"U"} title="Encimera en U" />}
+              element={<UShapedPage title="Encimera en U" />}
             />
             <Route path="" element={<CountertopHome />} />
 
