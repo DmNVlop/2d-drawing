@@ -1,3 +1,11 @@
 {
-  "routes": [{ "src": "/(.*)", "dest": "/" }]
+  "routes": [
+    { "src": "/", "dest": "/" },
+    { "src": "/countertop", "dest": "/countertop" },
+    { "src": "/countertop/simple", "dest": "/countertop/simple" },
+    { "src": "/countertop/square", "dest": "/countertop/square" },
+    { "src": "/countertop/circle", "dest": "/countertop/circle" },
+    { "src": "/countertop/l-shaped", "dest": "/countertop/l-shaped" },
+    { "src": "/countertop/u-shaped", "dest": "/countertop/u-shaped" }
+  ]
 }
