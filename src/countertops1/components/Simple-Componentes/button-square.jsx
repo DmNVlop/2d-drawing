@@ -5,17 +5,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function ButtonSquare(props) {
+  // const { inputData } = props;
+  const { url, img, alt, title, className } = props.inputData;
   return (
     <>
-      <Link
-        to={props?.inputData?.url}
-        className={"button-square " + props?.inputData?.className}
-      >
-        <img
-          src={props?.inputData?.img}
-          alt={props?.inputData?.alt}
-          title={props?.inputData?.title}
-        />
+      <Link to={url} className={"button-square " + className}>
+        <img src={img} alt={alt} title={title} />
       </Link>
     </>
   );

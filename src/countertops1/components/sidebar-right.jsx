@@ -10,7 +10,7 @@ import {
   ColumnWidthOutlined,
   RadiusSettingOutlined,
 } from "@ant-design/icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_WORKS from "../mocks/WORKS_BUTTOMS.data";
 import { WORKS_CORNERS } from "../mocks/WORKS_CORNERS.data";
@@ -28,8 +28,14 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const inputRightBarHeightRef = useRef(null);
   const inputRightBarRadiusRef = useRef(null);
 
-  const { countertops, updateCornersCtx, updateWorkInPieceCtx, getIdCtx } =
-    useCountertopContext();
+  const {
+    countertops,
+    getSelectedPieceCtx,
+    getSelectedPieceValueCtx,
+    updateCornersCtx,
+    updateWorkInPieceCtx,
+    getIdCtx,
+  } = useCountertopContext();
 
   const [_buttomSquareWorks, setButtomSquareWorks] =
     useState(BUTTON_SQUARE_WORKS);
@@ -111,8 +117,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const handleSetWork = (e) => {
     e.preventDefault();
 
-    const _indexPiece = countertops?.selectedPiece?.value - 1 || 0;
-    const _piece = countertops?.partsData[_indexPiece];
+    // const _indexPiece = countertops?.selectedPiece?.value - 1 || 0;
+    const _piece = countertops?.partsData[getSelectedPieceValueCtx()];
     const currentItem = { ...workSelected };
 
     // CCREDIN
@@ -120,14 +126,10 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
       currentItem.type == WORKS_TYPES.CCRED2LADOS ||
       currentItem.type == WORKS_TYPES.CCRED4LADOS
     ) {
-      const t = setCcredinSizes(
-        currentItem,
-        countertops?.selectedPiece,
-        _piece
-      );
+      const t = setCcredinSizes(currentItem, getSelectedPieceCtx(), _piece);
 
-      updateCornersCtx(t.corners, _indexPiece, "SINGLE");
-      updateCornersCtx(t.cornersProduction, _indexPiece, "PROD");
+      updateCornersCtx(t.corners, getSelectedPieceValueCtx(), "SINGLE");
+      updateCornersCtx(t.cornersProduction, getSelectedPieceValueCtx(), "PROD");
     }
 
     // CCCHAFLAN
@@ -140,7 +142,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
         return;
       }
 
-      updateWorkInPieceCtx(currentItem, _indexPiece);
+      updateWorkInPieceCtx(currentItem, getSelectedPieceValueCtx());
     }
 
     // CCFALESC
@@ -153,7 +155,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
         return;
       }
 
-      updateWorkInPieceCtx(currentItem, _indexPiece);
+      updateWorkInPieceCtx(currentItem, getSelectedPieceValueCtx());
     }
 
     // CCRECIN
@@ -166,7 +168,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
         return;
       }
 
-      updateWorkInPieceCtx(currentItem, _indexPiece);
+      updateWorkInPieceCtx(currentItem, getSelectedPieceValueCtx());
     }
   };
 
@@ -404,8 +406,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
                 <Flex justify={"flex-end"} align={"center"}>
                   <Button
                     onClick={(e) => {
-                      const _indexPiece =
-                        countertops?.selectedPiece?.value - 1 || 0;
+                      // const _indexPiece =
+                      //   countertops?.selectedPiece?.value - 1 || 0;
                       onCloseBtn(e);
                     }}
                   >

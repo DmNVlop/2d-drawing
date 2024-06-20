@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Layer, Stage } from "react-konva";
+import { Group, Layer, Stage } from "react-konva";
 
-import { useLocationMod } from "../helpers/location.hook";
+import { useCustomURLHandler, useLocationMod } from "../helpers/location.hook";
 import { useWindowsSizes } from "../helpers/widowsSizes.hook";
 import {
   L1_CT_M,
@@ -10,11 +10,13 @@ import {
   L2_CT_M,
   L2_LINE_CT_M,
 } from "../mocks/l-ct.mock";
-import RectLTemplate from "../components/rect-l.template";
 import LineLTemplate from "../components/line-l.template";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 import { useCountertopContext } from "../context/ct-context";
+import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
+import RectLTemplateL1 from "../components/rect-l1.template";
+import RectLTemplateL2 from "../components/rect-l2.template";
 
 export default function LShapedPage(props) {
   const navigate = useNavigate();
@@ -24,15 +26,19 @@ export default function LShapedPage(props) {
   }
 
   const { title } = props;
-  const { setParts, setLines } = useCountertopContext();
+  const {
+    countertops,
+    getPartsDataFromPieceCtx,
+    getLinesDataFromPieceCtx,
+    setPartsCtx,
+    setLinesCtx,
+    onSetSelectedPieceCtx,
+    onSetNumberOfPieceCtx,
+  } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras L");
 
-  const location = useLocation();
-  const shapeNameUrl = location.pathname.substring(1); // Esto te dará 'simple', 'double' o 'triple'
-  const url_shape = shapeNameUrl.split("/").pop();
-
-  const ATTRIB_SETTED = tParamUrl ? url_shape + "_" + tParamUrl : url_shape;
+  const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const [partsData, setPartsData] = useState([]);
   const [linesData, setLinesData] = useState([]);
@@ -48,30 +54,11 @@ export default function LShapedPage(props) {
     );
   };
 
-  const selectingData = () => {
-    const shapeType = {
-      [SHAPE_TYPES.LShaped_l1]: () => {
-        setPartsData(L1_CT_M.partsData);
-        setLinesData(L1_LINE_CT_M.linesData);
-        setParts(L1_CT_M.partsData);
-        setLines(L1_LINE_CT_M.linesData);
-      },
-      [SHAPE_TYPES.LShaped_l2]: () => {
-        setPartsData(L2_CT_M.partsData);
-        setLinesData(L2_LINE_CT_M.linesData);
-        setParts(L2_CT_M.partsData);
-        setLines(L2_LINE_CT_M.linesData);
-      },
-    };
-
-    if (shapeType[ATTRIB_SETTED]) {
-      shapeType[ATTRIB_SETTED]();
-    }
-  };
-
   useEffect(() => {
     handleTitle();
-    selectingData(tParamUrl);
+
+    onSetSelectedPieceCtx(null);
+    onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
   }, [tParamUrl]);
 
   const stageWidth = useWindowsSizes().stageWidth;
@@ -83,12 +70,46 @@ export default function LShapedPage(props) {
 
       <Stage width={stageWidth} height={stageHeight} draggable>
         <Layer>
-          {partsData.map((item) => (
-            <RectLTemplate itemData={item} key={item.id} />
-          ))}
-          {linesData.map((item) => (
-            <LineLTemplate itemData={item} key={item.id} />
-          ))}
+          {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+            return (
+              <Group
+                key={index}
+                x={GLOBAL_CT_M.xGlobalLayer}
+                y={GLOBAL_CT_M.yGlobalLayer}
+              >
+                {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l1 && (
+                  <RectLTemplateL1
+                    itemData={item}
+                    key={item.id}
+                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
+                      ATTRIB_SETTED
+                    )}
+                  />
+                )}
+
+                {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l2 && (
+                  <RectLTemplateL2
+                    itemData={item}
+                    key={item.id}
+                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
+                      ATTRIB_SETTED
+                    )}
+                  />
+                )}
+              </Group>
+            );
+          })}
+          {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+            return (
+              <Group
+                key={index}
+                x={GLOBAL_CT_M.xGlobalLayer}
+                y={GLOBAL_CT_M.yGlobalLayer}
+              >
+                <LineLTemplate itemData={item} key={item.id} />
+              </Group>
+            );
+          })}
         </Layer>
       </Stage>
     </>

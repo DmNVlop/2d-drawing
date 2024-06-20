@@ -12,7 +12,7 @@ export default function LineUTemplate(props) {
   const textY = yRefBase + lengthBase / 2 - 10;
 
   return (
-    <Group>
+    <>
       <Line
         points={[
           xRefBase + levelAdjust,
@@ -53,7 +53,7 @@ export default function LineUTemplate(props) {
         rotation={rotation}
         fontSize={16}
       />
-    </Group>
+    </>
   );
 }
 
