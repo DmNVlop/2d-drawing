@@ -22,22 +22,22 @@ export default function CountetopContextProvider({ children }) {
 
   const getSelectedPieceValueCtx = () => {
     return countertops?.selectedPiece?.value
-      ? countertops?.selectedPiece?.value - 1
+      ? countertops.selectedPiece.value - 1
       : null;
   };
 
   const getNumberOfPartsCtx = (pieceType) => {
-    return countertops[pieceType].partsData.length > 0
+    return countertops[pieceType]?.partsData?.length > 0
       ? countertops[pieceType].partsData.length
       : null;
   };
 
   const getPartsDataFromPieceCtx = (pieceType) => {
-    return countertops[pieceType].partsData;
+    return countertops[pieceType]?.partsData || [];
   };
 
   const getLinesDataFromPieceCtx = (pieceType) => {
-    return countertops[pieceType].linesData;
+    return countertops[pieceType]?.linesData || [];
   };
 
   // PIECES CONTROL
@@ -57,8 +57,6 @@ export default function CountetopContextProvider({ children }) {
 
   // Función para actualizar un objeto específico en partsData
   const onUpdatePartDataCtx = (index, newPartData) => {
-    console.log("🚀 ~ onUpdatePartDataCtx ~ index:", index);
-    console.log("🚀 ~ onUpdatePartDataCtx ~ newPartData:", newPartData);
     if (countertops[ATTRIB_SETTED]) {
       setCountertops((prevState) => {
         const updatedPartsData = [...prevState[ATTRIB_SETTED].partsData];
