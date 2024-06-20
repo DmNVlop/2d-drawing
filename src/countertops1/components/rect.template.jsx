@@ -9,10 +9,10 @@ export default function RectTemplate(props) {
   const [imageData, setImageData] = useState("");
   const [cornerRadiusState, setCornerRadiusState] = useState([0, 0, 0, 0]);
 
-  const [dimensions, setDimensions] = useState({
-    width: itemData.realWidth,
-    height: itemData.realHeight,
-  });
+  // const [dimensions, setDimensions] = useState({
+  //   width: itemData.realWidth,
+  //   height: itemData.realHeight,
+  // });
 
   const setFillPriority = (priority, imgPath) => {
     const img = new window.Image();
@@ -43,21 +43,21 @@ export default function RectTemplate(props) {
     }
   }, [itemData.cornerRadius]);
 
-  useEffect(() => {
-    setDimensions({
-      width: itemData.realWidth,
-      height: itemData.realHeight,
-    });
-    //   }
-  }, [itemData.realWidth, itemData.realHeight]);
+  // useEffect(() => {
+  //   setDimensions({
+  //     width: itemData.realWidth,
+  //     height: itemData.realHeight,
+  //   });
+  //   //   }
+  // }, [itemData.realWidth, itemData.realHeight]);
 
   return (
     <Rect
       ref={rect_REF}
       x={itemData.x}
       y={itemData.y}
-      width={dimensions?.width || 10}
-      height={dimensions?.height || 10}
+      width={itemData?.width || 100}
+      height={itemData?.height || 100}
       fill={itemData.fill}
       stroke={itemData?.stroke || ""}
       strokeWidth={itemData?.strokeWidth || 0}
