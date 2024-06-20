@@ -1,10 +1,6 @@
-export const RectHelperCalcSizes = (
-  width,
-  height,
-  maxWidth,
-  maxHeight,
-  aspectRadio
-) => {
+export const RectHelperCalcSizes = (width, height, maxWidth, maxHeight) => {
+  const aspectRadio = width / height;
+
   // WIDTH MENOR y HEIGHT MAYOR, que el máximo
   if (
     width <= maxWidth &&
@@ -12,8 +8,8 @@ export const RectHelperCalcSizes = (
     height > maxHeight
   ) {
     return {
-      width: maxHeight * aspectRadio,
-      height: maxHeight,
+      realWidth: maxHeight * aspectRadio,
+      realHeight: maxHeight,
     };
   }
   if (
@@ -22,8 +18,8 @@ export const RectHelperCalcSizes = (
     height > maxHeight
   ) {
     return {
-      width: maxWidth,
-      height: maxWidth / aspectRadio,
+      realWidth: maxWidth,
+      realHeight: maxWidth / aspectRadio,
     };
   }
 
@@ -34,8 +30,8 @@ export const RectHelperCalcSizes = (
     height <= maxHeight
   ) {
     return {
-      width: maxWidth,
-      height: maxWidth / aspectRadio,
+      realWidth: maxWidth,
+      realHeight: maxWidth / aspectRadio,
     };
   }
   if (
@@ -44,8 +40,8 @@ export const RectHelperCalcSizes = (
     height <= maxHeight
   ) {
     return {
-      width: maxHeight * aspectRadio,
-      height: maxHeight,
+      realWidth: maxHeight * aspectRadio,
+      realHeight: maxHeight,
     };
   }
 
@@ -57,8 +53,8 @@ export const RectHelperCalcSizes = (
     maxWidth / aspectRadio <= maxHeight
   ) {
     return {
-      width: maxWidth,
-      height: maxWidth / aspectRadio,
+      realWidth: maxWidth,
+      realHeight: maxWidth / aspectRadio,
     };
   }
   if (
@@ -68,28 +64,33 @@ export const RectHelperCalcSizes = (
     maxWidth / aspectRadio > maxHeight
   ) {
     return {
-      width: maxHeight * aspectRadio,
-      height: maxHeight,
+      realWidth: maxHeight * aspectRadio,
+      realHeight: maxHeight,
     };
   }
   if (width > maxWidth && height > maxHeight && width < height) {
     return {
-      width: maxHeight * aspectRadio,
-      height: maxHeight,
+      realWidth: maxHeight * aspectRadio,
+      realHeight: maxHeight,
     };
   }
   if (width > maxWidth && height > maxHeight && width == height) {
     return {
-      width: maxHeight * aspectRadio,
-      height: maxHeight,
+      realWidth: maxHeight * aspectRadio,
+      realHeight: maxHeight,
     };
   }
 
   // WIDTH MENOR y HEIGHT MENOR, que el máximo
   if (width <= maxWidth && height <= maxHeight) {
     return {
-      width: width,
-      height: height,
+      realWidth: width,
+      realHeight: height,
     };
   }
+
+  return {
+    realWidth: 0,
+    realHeight: 0,
+  };
 };

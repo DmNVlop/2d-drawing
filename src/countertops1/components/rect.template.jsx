@@ -1,17 +1,17 @@
 import { Rect } from "react-konva";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
-import { RectHelperCalcSizes } from "./Rect-Helpers/rect-helper";
 
 export default function RectTemplate(props) {
-  const rect_REF = useRef();
+  const { itemData } = props;
+  const rect_REF = useRef(null);
 
   const [imageData, setImageData] = useState("");
   const [cornerRadiusState, setCornerRadiusState] = useState([0, 0, 0, 0]);
 
   const [dimensions, setDimensions] = useState({
-    width: props?.itemData?.realWidth,
-    height: props?.itemData?.realHeight,
+    width: itemData.realWidth,
+    height: itemData.realHeight,
   });
 
   const setFillPriority = (priority, imgPath) => {
@@ -32,53 +32,38 @@ export default function RectTemplate(props) {
   };
 
   useEffect(() => {
-    if (props?.itemData?.fillPatternImage) {
-      setFillPriority("pattern", props?.itemData?.fillPatternImage);
+    if (itemData.fillPatternImage) {
+      setFillPriority("pattern", itemData.fillPatternImage);
     }
-  }, [props?.itemData?.fillPatternImage]);
+  }, [itemData.fillPatternImage]);
 
   useEffect(() => {
-    if (props?.itemData?.cornerRadius) {
-      setCornerRadiusState(props?.itemData?.cornerRadius);
+    if (itemData.cornerRadius) {
+      setCornerRadiusState(itemData.cornerRadius);
     }
-  }, [props?.itemData?.cornerRadius]);
-
-  // Hanlde Dimensions
-  // const maxWidth = 1120;
-  // const maxHeight = 700;
+  }, [itemData.cornerRadius]);
 
   useEffect(() => {
-    //   if (props?.itemData?.width && props?.itemData?.height) {
-    //     const aspectRadio = props?.itemData?.width / props?.itemData?.height;
-
-    //     const rectHelperCalcSizes = RectHelperCalcSizes(
-    //       props?.itemData?.width,
-    //       props?.itemData?.height,
-    //       maxWidth,
-    //       maxHeight,
-    //       aspectRadio
-    //     );
-
-    //     props.setRealSizes(rectHelperCalcSizes, props?.id);
-
     setDimensions({
-      width: props?.itemData?.realWidth,
-      height: props?.itemData?.realHeight,
+      width: itemData.realWidth,
+      height: itemData.realHeight,
     });
     //   }
-  }, [props?.itemData?.realWidth, props?.itemData?.realHeight]);
+  }, [itemData.realWidth, itemData.realHeight]);
 
   return (
     <Rect
       ref={rect_REF}
-      x={props?.itemData?.x}
-      y={props?.itemData?.y}
+      x={itemData.x}
+      y={itemData.y}
       width={dimensions?.width || 10}
       height={dimensions?.height || 10}
-      fill={props?.itemData?.fill}
+      fill={itemData.fill}
+      stroke={itemData?.stroke || ""}
+      strokeWidth={itemData?.strokeWidth || 0}
       fillPriority={imageData.fillPriority}
       fillPatternImage={imageData.img}
-      fillPatternRepeat={props?.itemData?.fillPatternRepeat}
+      fillPatternRepeat={itemData.fillPatternRepeat}
       cornerRadius={cornerRadiusState}
       onClick={handleClickRect}
     />
@@ -86,7 +71,6 @@ export default function RectTemplate(props) {
 }
 
 RectTemplate.propTypes = {
-  itemData: PropTypes.object,
-  // setRealSizes: PropTypes.func,
   id: PropTypes.number,
+  itemData: PropTypes.object,
 };

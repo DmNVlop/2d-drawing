@@ -1,45 +1,37 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useLocationMod } from "../helpers/location.hook";
+import { useCustomURLHandler } from "../helpers/location.hook";
 import { useWindowsSizes } from "../helpers/widowsSizes.hook";
-import { Layer, Stage } from "react-konva";
+import { Group, Layer, Stage } from "react-konva";
 
-import RectUTemplate from "../components/rect-u.template";
+import RectUTemplateU1 from "../components/rect-u1.template";
 import LineUTemplate from "../components/line-u.template";
-import {
-  U1_CT_M,
-  U1_LINE_CT_M,
-  U2_CT_M,
-  U2_LINE_CT_M,
-  U3_CT_M,
-  U3_LINE_CT_M,
-  U4_CT_M,
-  U4_LINE_CT_M,
-} from "../mocks/u-ct.mock";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCountertopContext } from "../context/ct-context";
+import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
+import RectUTemplateU2 from "../components/rect-u2.template";
+import RectUTemplateU3 from "../components/rect-u3.template";
+import RectUTemplateU4 from "../components/rect-u4.template";
 
 export default function UShapedPage(props) {
   const { title } = props;
 
   const navigate = useNavigate();
-  const tParamUrl = useLocationMod("t");
+  const { ATTRIB_SETTED, tParamUrl } = useCustomURLHandler();
   if (!tParamUrl) {
     navigate("/countertop/u-shaped?t=u1");
   }
 
-  const { setParts, setLines } = useCountertopContext();
+  const {
+    countertops,
+    getPartsDataFromPieceCtx,
+    getLinesDataFromPieceCtx,
+    onSetSelectedPieceCtx,
+    onSetNumberOfPieceCtx,
+  } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras U");
-
-  const location = useLocation();
-  const shapeNameUrl = location.pathname.substring(1); // Esto te dará 'simple', 'double' o 'triple'
-  const url_shape = shapeNameUrl.split("/").pop();
-  const ATTRIB_SETTED = tParamUrl ? url_shape + "_" + tParamUrl : url_shape;
-
-  const [partsData, setPartsData] = useState([]);
-  const [linesData, setLinesData] = useState([]);
 
   const titleSelect = {
     u1: title + " - 1",
@@ -54,42 +46,13 @@ export default function UShapedPage(props) {
     );
   };
 
-  const selectingData = () => {
-    const shapeType = {
-      [SHAPE_TYPES.UShaped_u1]: () => {
-        setPartsData(U1_CT_M.partsData);
-        setLinesData(U1_LINE_CT_M.linesData);
-        setParts(U1_CT_M.partsData);
-        setLines(U1_LINE_CT_M.linesData);
-      },
-      [SHAPE_TYPES.UShaped_u2]: () => {
-        setPartsData(U2_CT_M.partsData);
-        setLinesData(U2_LINE_CT_M.linesData);
-        setParts(U2_CT_M.partsData);
-        setLines(U2_LINE_CT_M.linesData);
-      },
-      [SHAPE_TYPES.UShaped_u3]: () => {
-        setPartsData(U3_CT_M.partsData);
-        setLinesData(U3_LINE_CT_M.linesData);
-        setParts(U3_CT_M.partsData);
-        setLines(U3_LINE_CT_M.linesData);
-      },
-      [SHAPE_TYPES.UShaped_u4]: () => {
-        setPartsData(U4_CT_M.partsData);
-        setLinesData(U4_LINE_CT_M.linesData);
-        setParts(U4_CT_M.partsData);
-        setLines(U4_LINE_CT_M.linesData);
-      },
-    };
-
-    if (shapeType[ATTRIB_SETTED]) {
-      shapeType[ATTRIB_SETTED]();
-    }
-  };
-
   useEffect(() => {
     handleTitle();
-    selectingData();
+
+    onSetSelectedPieceCtx(null);
+    onSetNumberOfPieceCtx(
+      countertops[ATTRIB_SETTED]?.partsData?.length || null
+    );
   }, [tParamUrl]);
 
   const stageWidth = useWindowsSizes().stageWidth;
@@ -101,12 +64,66 @@ export default function UShapedPage(props) {
 
       <Stage width={stageWidth} height={stageHeight} draggable>
         <Layer>
-          {partsData.map((item) => (
-            <RectUTemplate itemData={item} key={item.id} />
-          ))}
-          {linesData.map((item) => (
-            <LineUTemplate itemData={item} key={item.id} />
-          ))}
+          {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+            return (
+              <Group
+                key={index}
+                x={GLOBAL_CT_M.xGlobalLayer}
+                y={GLOBAL_CT_M.yGlobalLayer}
+              >
+                {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u1 && (
+                  <RectUTemplateU1
+                    itemData={item}
+                    key={item.id}
+                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
+                      ATTRIB_SETTED
+                    )}
+                  />
+                )}
+
+                {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u2 && (
+                  <RectUTemplateU2
+                    itemData={item}
+                    key={item.id}
+                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
+                      ATTRIB_SETTED
+                    )}
+                  />
+                )}
+
+                {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u3 && (
+                  <RectUTemplateU3
+                    itemData={item}
+                    key={item.id}
+                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
+                      ATTRIB_SETTED
+                    )}
+                  />
+                )}
+
+                {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u4 && (
+                  <RectUTemplateU4
+                    itemData={item}
+                    key={item.id}
+                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
+                      ATTRIB_SETTED
+                    )}
+                  />
+                )}
+              </Group>
+            );
+          })}
+          {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+            return (
+              <Group
+                key={index}
+                x={GLOBAL_CT_M.xGlobalLayer}
+                y={GLOBAL_CT_M.yGlobalLayer}
+              >
+                <LineUTemplate itemData={item} key={item.id} />
+              </Group>
+            );
+          })}
         </Layer>
       </Stage>
     </>

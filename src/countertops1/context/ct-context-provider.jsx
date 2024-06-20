@@ -2,41 +2,97 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 import { CountertopContext, ElementRefContext } from "./ct-context";
-import { useLocation } from "react-router-dom";
-import { useLocationMod } from "../helpers/location.hook";
-import { SIMPLE_CT_M, SIMPLE_LINE_CT_M } from "../mocks/simple-ct.mock";
-
-const temp_init_state = {
-  shapeType: null,
-  partsData: SIMPLE_CT_M.partsData,
-  linesData: SIMPLE_LINE_CT_M.linesData,
-  selectedPiece: null,
-  simple: {},
-  square: {},
-  circle: {},
-  "l-shaped_l1": {},
-  "l-shaped_l2": {},
-  "u-shaped_u1": {},
-  "u-shaped_u2": {},
-  "u-shaped_u3": {},
-  "u-shaped_u4": {},
-};
+import { useCustomURLHandler } from "../helpers/location.hook";
+import { temp_init_state } from "./ct-context-initial-state";
 
 export default function CountetopContextProvider({ children }) {
   const [countertops, setCountertops] = useState(temp_init_state);
   const [elementRef, setElementRef] = useState(null);
 
-  const location = useLocation();
-  const shapeNameUrl = location.pathname.substring(1); // Esto te dará 'simple', 'double' o 'triple'
-  const url_shape = shapeNameUrl.split("/").pop();
-  const tParamUrl = useLocationMod("t");
-  const ATTRIB_SETTED = tParamUrl ? url_shape + "_" + tParamUrl : url_shape;
+  const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const getIdCtx = () => {
     return Math.round(Math.random() * 10000);
   };
 
-  const setConfig = (newConfig = {}) => {
+  // GETTER
+  const getSelectedPieceCtx = () => {
+    return countertops?.selectedPiece || null;
+  };
+
+  const getSelectedPieceValueCtx = () => {
+    return countertops?.selectedPiece?.value
+      ? countertops?.selectedPiece?.value - 1
+      : null;
+  };
+
+  const getNumberOfPartsCtx = (pieceType) => {
+    return countertops[pieceType].partsData.length > 0
+      ? countertops[pieceType].partsData.length
+      : null;
+  };
+
+  const getPartsDataFromPieceCtx = (pieceType) => {
+    return countertops[pieceType].partsData;
+  };
+
+  const getLinesDataFromPieceCtx = (pieceType) => {
+    return countertops[pieceType].linesData;
+  };
+
+  // PIECES CONTROL
+  const onSetSelectedPieceCtx = (piece) => {
+    setCountertops((prevState) => ({
+      ...prevState,
+      selectedPiece: piece,
+    }));
+  };
+
+  const onSetNumberOfPieceCtx = (noPiece) => {
+    setCountertops((prevState) => ({
+      ...prevState,
+      numberOfPiece: noPiece,
+    }));
+  };
+
+  // Función para actualizar un objeto específico en partsData
+  const onUpdatePartDataCtx = (index, newPartData) => {
+    console.log("🚀 ~ onUpdatePartDataCtx ~ index:", index);
+    console.log("🚀 ~ onUpdatePartDataCtx ~ newPartData:", newPartData);
+    if (countertops[ATTRIB_SETTED]) {
+      setCountertops((prevState) => {
+        const updatedPartsData = [...prevState[ATTRIB_SETTED].partsData];
+        updatedPartsData[index] = newPartData;
+
+        return {
+          ...prevState,
+          [ATTRIB_SETTED]: {
+            ...prevState[ATTRIB_SETTED],
+            partsData: updatedPartsData,
+          },
+        };
+      });
+    }
+  };
+
+  // Función para actualizar un objeto específico en partsData
+  const onUpdateLineDataCtx = (index, newLineData) => {
+    setCountertops((prevState) => {
+      const updatedLinesData = [...prevState[ATTRIB_SETTED].linesData];
+      updatedLinesData[index] = newLineData;
+
+      return {
+        ...prevState,
+        [ATTRIB_SETTED]: {
+          ...prevState[ATTRIB_SETTED],
+          linesData: updatedLinesData,
+        },
+      };
+    });
+  };
+
+  // TO ALL STATE
+  const setConfigCtx = (newConfig = {}) => {
     setCountertops((prevState) => ({
       ...prevState,
       [ATTRIB_SETTED]: {
@@ -46,7 +102,7 @@ export default function CountetopContextProvider({ children }) {
     }));
   };
 
-  const setParts = (newParts = []) => {
+  const setPartsCtx = (newParts = []) => {
     setCountertops((prevState) => ({
       ...prevState,
       [ATTRIB_SETTED]: {
@@ -56,7 +112,7 @@ export default function CountetopContextProvider({ children }) {
     }));
   };
 
-  const setLines = (newLines = []) => {
+  const setLinesCtx = (newLines = []) => {
     setCountertops((prevState) => ({
       ...prevState,
       [ATTRIB_SETTED]: {
@@ -124,15 +180,24 @@ export default function CountetopContextProvider({ children }) {
     <CountertopContext.Provider
       value={{
         countertops,
+        getSelectedPieceValueCtx,
+        getSelectedPieceCtx,
+        getNumberOfPartsCtx,
+        getPartsDataFromPieceCtx,
+        getLinesDataFromPieceCtx,
         setCountertops,
         updateCornersCtx,
         updateWorkInPieceCtx,
         deleteWorkInPieceCtx,
         deleteAllWorksInPieceCtx,
         getIdCtx,
-        setConfig,
-        setParts,
-        setLines,
+        setConfigCtx,
+        setPartsCtx,
+        setLinesCtx,
+        onSetSelectedPieceCtx,
+        onSetNumberOfPieceCtx,
+        onUpdatePartDataCtx,
+        onUpdateLineDataCtx,
       }}
     >
       <ElementRefContext.Provider value={{ elementRef, setElementRef }}>

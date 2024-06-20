@@ -2,6 +2,78 @@ import { ASSEMBLY_TYPES } from "../mocks/ASSEMBLY_TYPES.const";
 import { DIRECTION } from "../mocks/LINES.const";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 import { PARTS_POSITION } from "../mocks/PARTS.const";
+import { SIMPLE_CT_M, SIMPLE_LINE_CT_M } from "../mocks/simple-ct.mock";
+import { SQUARE_CT_M, SQUARE_LINE_CT_M } from "../mocks/square-ct.mock";
+import { CIRCLE_CT_M, CIRCLE_LINE_CT_M } from "../mocks/circle-ct.mock";
+import {
+  L1_CT_M,
+  L1_LINE_CT_M,
+  L2_CT_M,
+  L2_LINE_CT_M,
+} from "../mocks/l-ct.mock";
+import {
+  U1_CT_M,
+  U1_LINE_CT_M,
+  U2_CT_M,
+  U2_LINE_CT_M,
+  U3_CT_M,
+  U3_LINE_CT_M,
+  U4_CT_M,
+  U4_LINE_CT_M,
+} from "../mocks/u-ct.mock";
+
+export const temp_init_state = {
+  selectedPiece: null,
+  numberOfPiece: null,
+  // shapeType: null,
+  // partsData: SIMPLE_CT_M.partsData,
+  // linesData: SIMPLE_LINE_CT_M.linesData,
+  simple: {
+    shapeType: SHAPE_TYPES.SIMPLE,
+    partsData: SIMPLE_CT_M.partsData,
+    linesData: SIMPLE_LINE_CT_M.linesData,
+  },
+  square: {
+    shapeType: SHAPE_TYPES.SQUARE,
+    partsData: SQUARE_CT_M.partsData,
+    linesData: SQUARE_LINE_CT_M.linesData,
+  },
+  circle: {
+    shapeType: SHAPE_TYPES.CIRCLE,
+    partsData: CIRCLE_CT_M.partsData,
+    linesData: CIRCLE_LINE_CT_M.linesData,
+  },
+  "l-shaped_l1": {
+    shapeType: SHAPE_TYPES.LShaped_l1,
+    partsData: L1_CT_M.partsData,
+    linesData: L1_LINE_CT_M.linesData,
+  },
+  "l-shaped_l2": {
+    shapeType: SHAPE_TYPES.LShaped_l2,
+    partsData: L2_CT_M.partsData,
+    linesData: L2_LINE_CT_M.linesData,
+  },
+  "u-shaped_u1": {
+    shapeType: SHAPE_TYPES.UShaped_u1,
+    partsData: U1_CT_M.partsData,
+    linesData: U1_LINE_CT_M.linesData,
+  },
+  "u-shaped_u2": {
+    shapeType: SHAPE_TYPES.UShaped_u1,
+    partsData: U2_CT_M.partsData,
+    linesData: U2_LINE_CT_M.linesData,
+  },
+  "u-shaped_u3": {
+    shapeType: SHAPE_TYPES.UShaped_u1,
+    partsData: U3_CT_M.partsData,
+    linesData: U3_LINE_CT_M.linesData,
+  },
+  "u-shaped_u4": {
+    shapeType: SHAPE_TYPES.UShaped_u1,
+    partsData: U4_CT_M.partsData,
+    linesData: U4_LINE_CT_M.linesData,
+  },
+};
 
 // NO FUNCIONA POR AHORA
 export const _INITIAL_STATE = {

@@ -1,4 +1,4 @@
-import { Group, Line, Text } from "react-konva";
+import { Line, Text } from "react-konva";
 import PropTypes from "prop-types";
 
 export default function LineLTemplate(props) {
@@ -13,7 +13,7 @@ export default function LineLTemplate(props) {
   const textY = yRefBase + lengthBase / 2 - 10;
 
   return (
-    <Group>
+    <>
       <Line
         points={[
           xRefBase + levelAdjust,
@@ -54,7 +54,7 @@ export default function LineLTemplate(props) {
         rotation={rotation}
         fontSize={16}
       />
-    </Group>
+    </>
   );
 }
 

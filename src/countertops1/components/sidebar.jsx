@@ -34,6 +34,7 @@ import {
   RadiusUprightOutlined,
 } from "@ant-design/icons";
 import { RectHelperCalcSizes } from "./Rect-Helpers/rect-helper";
+import { useCustomURLHandler } from "../helpers/location.hook";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
@@ -49,15 +50,41 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   const { setElementRef } = useElementRefContext();
   const {
     countertops,
-    setCountertops,
+    // setCountertops,
+    getSelectedPieceCtx,
+    getSelectedPieceValueCtx,
+    getNumberOfPartsCtx,
     updateCornersCtx,
     deleteWorkInPieceCtx,
     deleteAllWorksInPieceCtx,
+    onSetSelectedPieceCtx,
+    onSetNumberOfPieceCtx,
+    onUpdatePartDataCtx,
   } = useCountertopContext();
 
+  const { ATTRIB_SETTED } = useCustomURLHandler();
+
   // Length and Width State
-  const [inputValueLargo, setInputValueLargo] = useState(null);
-  const [inputValueAncho, setInputValueAncho] = useState(null);
+  const [inputValueLargo1, setInputValueLargo1] = useState(
+    countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+  );
+  const [inputValueAncho1, setInputValueAncho1] = useState(
+    countertops[ATTRIB_SETTED]?.partsData[0]?.height || null
+  );
+
+  const [inputValueLargo2, setInputValueLargo2] = useState(
+    countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+  );
+  const [inputValueAncho2, setInputValueAncho2] = useState(
+    countertops[ATTRIB_SETTED]?.partsData[1]?.height || null
+  );
+
+  const [inputValueLargo3, setInputValueLargo3] = useState(
+    countertops[ATTRIB_SETTED]?.partsData[2]?.width || null
+  );
+  const [inputValueAncho3, setInputValueAncho3] = useState(
+    countertops[ATTRIB_SETTED]?.partsData[2]?.height || null
+  );
 
   // Trabajos de una pieza
   const [worksFromAPiece, setWorksFromAPiece] = useState([]);
@@ -70,17 +97,12 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   // ASSEMBLY DATA State
   const [_assemblyData, setAssemblyData] = useState(ASSEMBLY_DATA);
 
-  // Pieza Selected
-  const [piezaSelectedParent, setPiezaSelectedParent] = useState(null);
-
   const onSelectPiezaParent = (piezaSelected) => {
-    setPiezaSelectedParent(piezaSelected);
-
-    setCountertops((prev) => {
-      let tempPrev = { ...prev };
-      tempPrev.selectedPiece = piezaSelected;
-      return tempPrev;
-    });
+    // setCountertops((prev) => {
+    //   let tempPrev = { ...prev };
+    //   tempPrev.selectedPiece = piezaSelected;
+    //   return tempPrev;
+    // });
   };
 
   const handleClickAddWork = (event) => {
@@ -92,7 +114,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   const handleClickDeleteAllWork = (event) => {
     event.preventDefault();
 
-    deleteAllWorksInPieceCtx(piezaSelectedParent?.value - 1 || 0);
+    deleteAllWorksInPieceCtx(getSelectedPieceValueCtx());
   };
 
   const handleAssemblyClick = (item, index) => {
@@ -125,38 +147,35 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     setCornersState(newValue);
   };
 
-  const uppdateSizesAndLines = () => {
-    if (countertops && inputValueLargo && inputValueAncho) {
-      let tempData = JSON.parse(JSON.stringify(countertops?.partsData)) || [];
-      let tempDataLines =
-        JSON.parse(JSON.stringify(countertops?.linesData)) || [];
+  // const uppdateSizesAndLines = () => {
+  //   if (countertops && inputValueLargo1 && inputValueAncho1) {
+  //     let tempData =
+  //       JSON.parse(JSON.stringify(countertops[ATTRIB_SETTED]?.partsData)) || [];
+  //     let tempDataLines =
+  //       JSON.parse(JSON.stringify(countertops[ATTRIB_SETTED]?.linesData)) || [];
 
-      tempData[piezaSelectedParent?.value - 1 || 0].width = inputValueLargo;
-      tempData[piezaSelectedParent?.value - 1 || 0].height = inputValueAncho;
+  //     tempData[getSelectedPieceValueCtx()].width = inputValueLargo1;
+  //     tempData[getSelectedPieceValueCtx()].height = inputValueAncho1;
 
-      tempData = countertops?.partsData || [];
-      const _piece = tempData[piezaSelectedParent?.value - 1 || 0];
+  //     tempData = countertops[ATTRIB_SETTED]?.partsData || [];
+  // const _piece = tempData[getSelectedPieceValueCtx()];
 
-      tempDataLines = tempDataLines.map((itemLine) => {
-        if (itemLine.direction === DIRECTION.HORIZONTAL) {
-          itemLine.text = inputValueLargo;
-          itemLine.length = _piece.realWidth;
-        }
+  // tempDataLines = tempDataLines.map((itemLine) => {
+  //   if (itemLine.direction === DIRECTION.HORIZONTAL) {
+  //     itemLine.text = inputValueLargo1;
+  //     itemLine.length = _piece.realWidth;
+  //   }
 
-        if (itemLine.direction === DIRECTION.VERTICAL) {
-          itemLine.text = inputValueAncho;
-          itemLine.length = _piece.realHeight;
-          itemLine.xRef = _piece.realWidth;
-        }
+  //   if (itemLine.direction === DIRECTION.VERTICAL) {
+  //     itemLine.text = inputValueAncho;
+  //     itemLine.length = _piece.realHeight;
+  //     itemLine.xRef = _piece.realWidth;
+  //   }
 
-        return itemLine;
-      });
-
-      setCountertops((prev) => {
-        return { ...prev, partsData: tempData, linesData: tempDataLines };
-      });
-    }
-  };
+  //   return itemLine;
+  // });
+  //   }
+  // };
 
   const handleClickEditWork = (event) => {
     event.preventDefault();
@@ -189,79 +208,101 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     }
   };
 
-  useEffect(() => {
-    if (
-      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.width &&
-      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.height
-    ) {
-      const tempFirstPartData =
-        countertops.partsData[piezaSelectedParent?.value - 1 || 0];
+  const setSizes = () => {
+    setInputValueLargo1(
+      countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+    );
+    setInputValueAncho1(
+      countertops[ATTRIB_SETTED]?.partsData[0]?.height || null
+    );
 
-      setInputValueLargo(tempFirstPartData.width);
-      setInputValueAncho(tempFirstPartData.height);
-    }
+    setInputValueLargo2(
+      countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+    );
+    setInputValueAncho2(
+      countertops[ATTRIB_SETTED]?.partsData[1]?.height || null
+    );
 
-    if (
-      Array.isArray(
-        countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
-          ?.cornerRadius
-      ) &&
-      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.cornerRadius
-        ?.length > 0
-    ) {
-      const tempArray =
-        countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
-          ?.cornerRadius;
+    setInputValueLargo3(
+      countertops[ATTRIB_SETTED]?.partsData[2]?.width || null
+    );
+    setInputValueAncho3(
+      countertops[ATTRIB_SETTED]?.partsData[2]?.height || null
+    );
+  };
+  // useEffect(() => {
+  //   if (
+  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+  //       ?.width &&
+  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.height
+  //   ) {
+  //     const tempFirstPartData =
+  //       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()];
 
-      setCornersState(tempArray);
-    }
-  }, [
-    countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.width,
-    countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.height,
-  ]);
+  //     setInputValueLargo1(tempFirstPartData.width);
+  //     setInputValueAncho1(tempFirstPartData.height);
+  //   }
+
+  //   if (
+  //     Array.isArray(
+  //       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+  //         ?.cornerRadius
+  //     ) &&
+  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+  //       ?.cornerRadius?.length > 0
+  //   ) {
+  //     const tempArray =
+  //       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+  //         ?.cornerRadius;
+
+  //     setCornersState(tempArray);
+  //   }
+  // }, [
+  //   countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.width,
+  //   countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.height,
+  // ]);
 
   // Hanlde Dimensions
   const maxWidth = 1120;
   const maxHeight = 700;
 
-  useEffect(() => {
-    if (countertops) {
-      const aspectRadio = inputValueLargo / inputValueAncho;
+  // useEffect(() => {
+  //   if (countertops) {
+  //     const rectHelperCalcSizes = RectHelperCalcSizes(
+  //       inputValueLargo1,
+  //       inputValueAncho1,
+  //       maxWidth,
+  //       maxHeight
+  //     );
 
-      const rectHelperCalcSizes = RectHelperCalcSizes(
-        inputValueLargo,
-        inputValueAncho,
-        maxWidth,
-        maxHeight,
-        aspectRadio
-      );
+  //     const tempPieceSelected = getSelectedPieceValueCtx();
+  //     let tempPiece = countertops[ATTRIB_SETTED]?.partsData[tempPieceSelected];
 
-      const tempPieceSelected = piezaSelectedParent?.value - 1 || 0;
+  //     tempPiece = {
+  //       ...tempPiece,
+  //       width: inputValueLargo1,
+  //       height: inputValueAncho1,
+  //       realWidth: rectHelperCalcSizes.realWidth,
+  //       realHeight: rectHelperCalcSizes.realHeight,
+  //     };
 
-      setCountertops((prev) => {
-        const tempCT = { ...prev };
-        tempCT.partsData[tempPieceSelected].realWidth =
-          rectHelperCalcSizes.width;
-        tempCT.partsData[tempPieceSelected].realHeight =
-          rectHelperCalcSizes.height;
-        return tempCT;
-      });
+  //     onUpdatePartDataCtx(tempPieceSelected, tempPiece);
 
-      uppdateSizesAndLines();
-    }
-  }, [inputValueLargo, inputValueAncho]);
+  //     uppdateSizesAndLines();
+  //   }
+  // }, [inputValueLargo1, inputValueAncho1]);
 
   useEffect(() => {
     if (
-      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
         ?.cornerRadiusDisabled
     ) {
       setCornersDisabled(
-        countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+        countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
           ?.cornerRadiusDisabled
       );
     }
-  }, [piezaSelectedParent]);
+  }, [countertops?.selectedPiece]);
 
   useEffect(() => {
     const tempSizes = {
@@ -274,22 +315,27 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
   useEffect(() => {
     const _tempCorners =
-      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
         ?.cornerRadiusProduction;
     if (_tempCorners) {
       onChangeAllCorners(_tempCorners);
     }
   }, [
-    countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.cornerRadius,
+    countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+      ?.cornerRadius,
   ]);
 
   useEffect(() => {
     const tempW =
-      countertops?.partsData[piezaSelectedParent?.value - 1 || 0]?.works ||
-      worksFromAPiece;
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+        ?.works || worksFromAPiece;
 
     setWorksFromAPiece(Array.isArray(tempW) && tempW.length > 0 ? tempW : []);
   }, [countertops]);
+
+  useEffect(() => {
+    setSizes();
+  }, [ATTRIB_SETTED, countertops[ATTRIB_SETTED]?.partsData]);
 
   return (
     <>
@@ -298,7 +344,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
         {/* BUTTONS NAV MODELS */}
         <div id="nav-countertop">
-          <div>Seleccione modelo</div>
+          <h5>Seleccione modelo</h5>
 
           <div id="sidebar-right-features">
             <Row gutter={[8, 8]}>
@@ -328,16 +374,30 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
         {/* CONTROLS */}
         <section id="ct-controls">
           <DimensionsInput
-            inputValueAncho={inputValueAncho}
-            inputValueLargo={inputValueLargo}
-            setInputValueAncho={setInputValueAncho}
-            setInputValueLargo={setInputValueLargo}
+            inputValueAncho1={inputValueAncho1}
+            inputValueLargo1={inputValueLargo1}
+            setInputValueAncho1={setInputValueAncho1}
+            setInputValueLargo1={setInputValueLargo1}
+            inputValueAncho2={inputValueAncho2}
+            inputValueLargo2={inputValueLargo2}
+            setInputValueAncho2={setInputValueAncho2}
+            setInputValueLargo2={setInputValueLargo2}
+            inputValueAncho3={inputValueAncho3}
+            inputValueLargo3={inputValueLargo3}
+            setInputValueAncho3={setInputValueAncho3}
+            setInputValueLargo3={setInputValueLargo3}
             onSelectPiezaParent={onSelectPiezaParent}
             countertops={countertops}
+            getSelectedPieceCtx={getSelectedPieceCtx}
+            getSelectedPieceValueCtx={getSelectedPieceValueCtx}
+            onSetSelectedPieceCtx={onSetSelectedPieceCtx}
+            onSetNumberOfPieceCtx={onSetNumberOfPieceCtx}
+            getNumberOfPartsCtx={getNumberOfPartsCtx}
+            onUpdatePartDataCtx={onUpdatePartDataCtx}
           />
 
           {/*  CORNERS CONTROLS */}
-          {piezaSelectedParent && (
+          {getSelectedPieceCtx()?.length < 1 && (
             <section className="ct-corners-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
                 Esquinas
@@ -351,7 +411,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       max={1800}
                       ref={inputCornerTLRef}
                       addonBefore={<img src="/images/drawings/corner-TL.png" />}
-                      disabled={!piezaSelectedParent || cornersDisabled[0]}
+                      disabled={
+                        !getSelectedPieceCtx()?.value || cornersDisabled[0]
+                      }
                       onChange={(event) => onChangeCorners(event, 0)}
                       onClick={(e) => onClickHandle(e, inputCornerTLRef)}
                       value={
@@ -370,7 +432,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       max={1800}
                       ref={inputCornerTRRef}
                       addonAfter={<img src="/images/drawings/corner-TR.png" />}
-                      disabled={!piezaSelectedParent || cornersDisabled[1]}
+                      disabled={
+                        !getSelectedPieceCtx()?.value || cornersDisabled[1]
+                      }
                       onChange={(event) => onChangeCorners(event, 1)}
                       onClick={(e) => onClickHandle(e, inputCornerTRRef)}
                       value={
@@ -392,7 +456,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       max={1800}
                       ref={inputCornerBLRef}
                       addonBefore={<img src="/images/drawings/corner-BL.png" />}
-                      disabled={!piezaSelectedParent || cornersDisabled[3]}
+                      disabled={
+                        !getSelectedPieceCtx()?.value || cornersDisabled[3]
+                      }
                       onChange={(event) => onChangeCorners(event, 3)}
                       onClick={(e) => onClickHandle(e, inputCornerBLRef)}
                       value={
@@ -411,7 +477,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       max={1800}
                       ref={inputCornerBRRef}
                       addonAfter={<img src="/images/drawings/corner-BR.png" />}
-                      disabled={!piezaSelectedParent || cornersDisabled[2]}
+                      disabled={
+                        !getSelectedPieceCtx()?.value || cornersDisabled[2]
+                      }
                       onChange={(event) => onChangeCorners(event, 2)}
                       onClick={(e) => onClickHandle(e, inputCornerBRRef)}
                       value={
@@ -430,7 +498,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
           )}
 
           {/*  WORKS CONTROLS */}
-          {piezaSelectedParent && (
+          {getSelectedPieceCtx()?.value && (
             <section className="ct-assembly-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
                 Tipos de Trabajo
@@ -444,7 +512,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       icon={<PlusOutlined />}
                       style={{ marginBottom: "8px" }}
                       onClick={(event) => handleClickAddWork(event)}
-                      disabled={!piezaSelectedParent}
+                      disabled={!getSelectedPieceCtx()?.value}
                       title="Agregar trabajos"
                     >
                       Agregar
@@ -455,13 +523,13 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       icon={<DeleteOutlined />}
                       style={{ marginBottom: "8px" }}
                       onClick={(event) => handleClickDeleteAllWork(event)}
-                      disabled={!piezaSelectedParent}
+                      disabled={!getSelectedPieceCtx()?.value}
                       title="Borrar todos los trabajos"
                     ></Button>
                   </Col>
                 </Row>
 
-                {piezaSelectedParent &&
+                {getSelectedPieceCtx()?.value &&
                   worksFromAPiece.length > 0 &&
                   worksFromAPiece.map((item, index) => {
                     return (
@@ -481,7 +549,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                                 handleClickDeleteWork(
                                   e,
                                   index,
-                                  piezaSelectedParent
+                                  getSelectedPieceCtx()?.value
                                 )
                               }
                               className="icon-card-actions"
@@ -505,15 +573,16 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                     );
                   })}
 
-                {piezaSelectedParent && worksFromAPiece.length == 0 && (
-                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                )}
+                {getSelectedPieceCtx()?.value &&
+                  worksFromAPiece.length == 0 && (
+                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                  )}
               </Space>
             </section>
           )}
 
           {/*  ASSEMBLY CONTROLS */}
-          {piezaSelectedParent && (
+          {getSelectedPieceCtx()?.value && (
             <section className="ct-assembly-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
                 Tipo de Ensamble
