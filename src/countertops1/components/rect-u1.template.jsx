@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 export default function RectUTemplateU1(props) {
   const { itemData, getPartsDataFromPieceCtx } = props;
-  console.log("🚀 ~ RectUTemplateU1 ~ itemData:", itemData);
   const [imageData, setImageData] = useState("");
 
   const setFillPriority = (priority, imgPath) => {

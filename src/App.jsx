@@ -33,36 +33,9 @@ function App() {
   // }, []);
 
   return (
-    <>
-      {/* <header id="header"> */}
-      {/* <h1>Home App</h1> */}
-
-      {/* <Link to="/drawer">To Drawer</Link>
-      <Link to="/drawer1">To Drawer 1</Link>
-      <br /> */}
-
-      {/* <div className="title-sec">Seleccione un modelo...</div>
-        <div className="data-sec">
-          <Link to="/simple">
-            <img
-              src="/images/S.png"
-              alt="Encimera Simple"
-              title="Encimera Simple"
-            />
-          </Link>
-          <Link to="/lct">
-            <img src="/images/L_0.png" alt="Encimera L" title="Encimera L" />
-          </Link>
-          <Link to="/uct">
-            <img src="/images/U_0.png" alt="Encimera U" title="Encimera U" />
-          </Link>
-        </div>*/}
-      {/* </header> */}
-
-      <div className="AppG">
-        <RoutersApp />
-      </div>
-    </>
+    <div className="AppG">
+      <RoutersApp />
+    </div>
   );
 }
 
