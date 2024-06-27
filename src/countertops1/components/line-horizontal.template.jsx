@@ -3,15 +3,18 @@ import PropTypes from "prop-types";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 
 export default function LineTemplateHorizontal(props) {
-  const rotation = props?.itemData?.rotation || 0;
-  const lengthBase = props?.itemData?.length || 0;
-  const textBase = props?.itemData?.text || "";
-  const xRefBase = props?.itemData?.xRef || 0;
-  const yRefBase = props?.itemData?.yRef || 0;
-  const levelAdjust = props?.itemData?.level == 1 ? 20 : 60;
+  const { itemData } = props;
 
+  const xRefBase = 0; // itemData.xRef || 0
+  const yRefBase = 0; // itemData.yRef || 0
+  const lengthBase = itemData.width || 0;
+  const levelAdjust = 20; // itemData.level == 1 ? 20 : 60;
+
+  const textBase = itemData.width || "";
   const textX = xRefBase + lengthBase / 2 - 10; //
-  const textY = props?.itemData?.level == 1 ? yRefBase - 36 : yRefBase - 76;
+  const textY = yRefBase - 34; // itemData.level == 1 ? yRefBase - 36 : yRefBase - 76;
+
+  const rotation = 0; // itemData.rotation || 0;
 
   return (
     <>
@@ -49,8 +52,8 @@ export default function LineTemplateHorizontal(props) {
         strokeWidth={1}
       />
       <Text
-        x={textX}
-        y={textY}
+        x={Number.isFinite(textX) ? textX : 0}
+        y={Number.isFinite(textY) ? textY : 0}
         text={textBase}
         rotation={rotation}
         fontSize={16}
@@ -61,5 +64,4 @@ export default function LineTemplateHorizontal(props) {
 
 LineTemplateHorizontal.propTypes = {
   itemData: PropTypes.object,
-  id: PropTypes.number,
 };

@@ -1,6 +1,6 @@
 import "./sidebar.css";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useCountertopContext,
@@ -91,7 +91,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
   // Corners State
   const [cornersState, setCornersState] = useState([0, 0, 0, 0]);
-  // const [cornersRealState, setCornersRealState] = useState([0, 0, 0, 0]);
   const [cornersDisabled, setCornersDisabled] = useState([1, 1, 1, 1]);
 
   // ASSEMBLY DATA State
@@ -130,17 +129,10 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   };
 
   const onChangeCorners = (newValue, position) => {
-    const _indexPiece = countertops.selectedPiece.value - 1;
+    const finalNewValue = [...cornersState];
+    finalNewValue[position] = newValue;
 
-    setCornersState((prev) => {
-      const tempArray = [...prev];
-      tempArray[position] = newValue;
-
-      updateCornersCtx(tempArray, _indexPiece, "SINGLE");
-      updateCornersCtx(tempArray, _indexPiece, "PROD");
-
-      return tempArray;
-    });
+    updateCornersCtx(finalNewValue, getSelectedPieceValueCtx());
   };
 
   const onChangeAllCorners = (newValue) => {
@@ -230,6 +222,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
       countertops[ATTRIB_SETTED]?.partsData[2]?.height || null
     );
   };
+
   // useEffect(() => {
   //   if (
   //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
@@ -292,6 +285,21 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   //   }
   // }, [inputValueLargo1, inputValueAncho1]);
 
+  useMemo(() => {
+    const tempCorners =
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+        ?.cornerRadius;
+    if (Array.isArray(tempCorners) && tempCorners.length > 0) {
+      setCornersState(
+        countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+          .cornerRadius
+      );
+    }
+  }, [
+    countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+      ?.cornerRadius,
+  ]);
+
   useEffect(() => {
     if (
       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
@@ -313,17 +321,17 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     if (sidenavElementRef) setElementRef(tempSizes);
   }, [sidenavElementRef]);
 
-  useEffect(() => {
-    const _tempCorners =
-      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-        ?.cornerRadiusProduction;
-    if (_tempCorners) {
-      onChangeAllCorners(_tempCorners);
-    }
-  }, [
-    countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-      ?.cornerRadius,
-  ]);
+  // useEffect(() => {
+  //   const _tempCorners =
+  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+  //       ?.cornerRadiusProduction;
+  //   if (_tempCorners) {
+  //     onChangeAllCorners(_tempCorners);
+  //   }
+  // }, [
+  //   countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+  //     ?.cornerRadius,
+  // ]);
 
   useEffect(() => {
     const tempW =
@@ -397,7 +405,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
           />
 
           {/*  CORNERS CONTROLS */}
-          {getSelectedPieceCtx()?.length < 1 && (
+          {getSelectedPieceCtx() && (
             <section className="ct-corners-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
                 Esquinas
@@ -412,15 +420,14 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       ref={inputCornerTLRef}
                       addonBefore={<img src="/images/drawings/corner-TL.png" />}
                       disabled={
-                        !getSelectedPieceCtx()?.value || cornersDisabled[0]
+                        !getSelectedPieceCtx().value || cornersDisabled[0]
                       }
                       onChange={(event) => onChangeCorners(event, 0)}
                       onClick={(e) => onClickHandle(e, inputCornerTLRef)}
                       value={
                         Array.isArray(cornersState) &&
                         cornersState.length > 0 &&
-                        cornersState[0] >= 0 &&
-                        !cornersDisabled[0]
+                        cornersState[0] >= 0
                           ? cornersState[0]
                           : 0
                       }
@@ -440,8 +447,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       value={
                         Array.isArray(cornersState) &&
                         cornersState.length > 0 &&
-                        cornersState[1] >= 0 &&
-                        !cornersDisabled[1]
+                        cornersState[1] >= 0
                           ? cornersState[1]
                           : 0
                       }
@@ -464,8 +470,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       value={
                         Array.isArray(cornersState) &&
                         cornersState.length > 0 &&
-                        cornersState[3] >= 0 &&
-                        !cornersDisabled[3]
+                        cornersState[3] >= 0
                           ? cornersState[3]
                           : 0
                       }
@@ -485,8 +490,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       value={
                         Array.isArray(cornersState) &&
                         cornersState.length > 0 &&
-                        cornersState[2] >= 0 &&
-                        !cornersDisabled[2]
+                        cornersState[2] >= 0
                           ? cornersState[2]
                           : 0
                       }
@@ -498,7 +502,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
           )}
 
           {/*  WORKS CONTROLS */}
-          {getSelectedPieceCtx()?.value && (
+          {getSelectedPieceCtx()?.value && false && (
             <section className="ct-assembly-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
                 Tipos de Trabajo

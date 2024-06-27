@@ -44,18 +44,34 @@ export default function SimpleCTPage(props) {
       <Stage width={stageWidth} height={stageHeight} draggable>
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+            const groupKey = `groupP-${item.id}-${index}`;
             return (
-              <Group
-                key={index}
-                x={GLOBAL_CT_M.xGlobalLayer}
-                y={GLOBAL_CT_M.yGlobalLayer}
-              >
-                <RectTemplate itemData={item} key={index} id={index} />
+              <Group key={groupKey}>
+                <Group
+                  x={GLOBAL_CT_M.xGlobalLayer}
+                  y={GLOBAL_CT_M.yGlobalLayer}
+                >
+                  <RectTemplate itemData={item} />
+                </Group>
+
+                <Group
+                  x={GLOBAL_CT_M.xGlobalLayer}
+                  y={GLOBAL_CT_M.yGlobalLayer}
+                >
+                  <LineTemplateHorizontal itemData={item} />
+                </Group>
+
+                <Group
+                  x={GLOBAL_CT_M.xGlobalLayer}
+                  y={GLOBAL_CT_M.yGlobalLayer}
+                >
+                  <LineTemplateVertical itemData={item} />
+                </Group>
               </Group>
             );
           })}
 
-          {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+          {/* {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
             if (item.direction === DIRECTION.HORIZONTAL) {
               return (
                 <Group
@@ -83,20 +99,21 @@ export default function SimpleCTPage(props) {
                 </Group>
               );
             }
-          })}
+          })} */}
 
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item) => {
             if (Array.isArray(item?.works) && item?.works?.length > 0) {
-              return item?.works.map((work, idx) => (
-                <Group key={idx}>
-                  <WorksSelectorCNCWorks
-                    workData={work}
-                    key={idx}
-                    id={idx}
-                    pieceSelected={item}
-                  />
-                </Group>
-              ));
+              return item?.works.map((work, idx) => {
+                const workKey = `groupP-${idx}`;
+                return (
+                  <Group key={workKey}>
+                    <WorksSelectorCNCWorks
+                      workData={work}
+                      pieceSelected={item}
+                    />
+                  </Group>
+                );
+              });
             }
           })}
         </Layer>
