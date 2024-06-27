@@ -71,16 +71,16 @@ export default function LShapedPage(props) {
       <Stage width={stageWidth} height={stageHeight} draggable>
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+            const groupDataKey = `groupP-${item.id}-${index}`;
             return (
               <Group
-                key={index}
+                key={groupDataKey}
                 x={GLOBAL_CT_M.xGlobalLayer}
                 y={GLOBAL_CT_M.yGlobalLayer}
               >
                 {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l1 && (
                   <RectLTemplateL1
                     itemData={item}
-                    key={item.id}
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
@@ -90,16 +90,29 @@ export default function LShapedPage(props) {
                 {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l2 && (
                   <RectLTemplateL2
                     itemData={item}
-                    key={item.id}
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
                   />
                 )}
+
+                <Group
+                  x={GLOBAL_CT_M.xGlobalLayer}
+                  y={GLOBAL_CT_M.yGlobalLayer}
+                >
+                  <LineLTemplate
+                    itemData={item}
+                    attrib={ATTRIB_SETTED}
+                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
+                      ATTRIB_SETTED
+                    )}
+                  />
+                </Group>
               </Group>
             );
           })}
-          {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+          {/* {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
+            const groupLineKey = `groupL-${item.id}-${index}`;
             return (
               <Group
                 key={index}
@@ -109,7 +122,7 @@ export default function LShapedPage(props) {
                 <LineLTemplate itemData={item} key={item.id} />
               </Group>
             );
-          })}
+          })} */}
         </Layer>
       </Stage>
     </>

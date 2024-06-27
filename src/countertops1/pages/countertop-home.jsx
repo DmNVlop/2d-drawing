@@ -13,7 +13,7 @@ export default function CountertopHome() {
         <figure className="ct-figure-bg">
           <img
             className="ct-img-bg"
-            src="/images/countertop-home-bg1.jpg"
+            src="/images/countertop-home-bg2.jpg"
             alt="Countertop Home"
             title="Countertop Home"
           />

@@ -159,7 +159,7 @@ export const U2_CT_M = {
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [1, 0, 1, 1],
+      cornerRadiusDisabled: [1, 1, 1, 1],
       works: [],
     },
     {
@@ -180,7 +180,7 @@ export const U2_CT_M = {
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [1, 0, 0, 1],
+      cornerRadiusDisabled: [0, 0, 0, 1],
       works: [],
     },
   ],
@@ -244,7 +244,7 @@ export const U3_CT_M = {
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [0, 0, 1, 0],
+      cornerRadiusDisabled: [0, 1, 1, 0],
       works: [],
     },
     {
@@ -265,7 +265,7 @@ export const U3_CT_M = {
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [1, 0, 1, 1],
+      cornerRadiusDisabled: [0, 1, 1, 1],
       works: [],
     },
     {
@@ -286,7 +286,7 @@ export const U3_CT_M = {
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [1, 0, 0, 1],
+      cornerRadiusDisabled: [0, 0, 0, 1],
       works: [],
     },
   ],
@@ -350,7 +350,7 @@ export const U4_CT_M = {
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [0, 0, 1, 0],
+      cornerRadiusDisabled: [0, 1, 1, 0],
       works: [],
     },
     {
@@ -371,7 +371,7 @@ export const U4_CT_M = {
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
-      cornerRadiusDisabled: [1, 0, 1, 1],
+      cornerRadiusDisabled: [0, 0, 1, 1],
       works: [],
     },
     {

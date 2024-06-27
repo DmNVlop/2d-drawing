@@ -129,20 +129,25 @@ export default function CountetopContextProvider({ children }) {
    *
    * @author Damian Vidal
    */
-  const updateCornersCtx = (corners, indexPart, typeOfUpdate) => {
-    setCountertops((prev) => {
-      const tempPrev = { ...prev };
+  const updateCornersCtx = (
+    corners = [0, 0, 0, 0],
+    indexPart = null,
+    typeOfUpdate = "SINGLE"
+  ) => {
+    if (countertops[ATTRIB_SETTED] && indexPart != null) {
+      setCountertops((prevState) => {
+        const updatedPartsData = [...prevState[ATTRIB_SETTED].partsData];
+        updatedPartsData[indexPart].cornerRadius = corners;
 
-      if (typeOfUpdate == "SINGLE") {
-        tempPrev.partsData[indexPart].cornerRadius = corners;
-      }
-
-      if (typeOfUpdate == "PROD") {
-        tempPrev.partsData[indexPart].cornerRadiusProduction = corners;
-      }
-
-      return tempPrev;
-    });
+        return {
+          ...prevState,
+          [ATTRIB_SETTED]: {
+            ...prevState[ATTRIB_SETTED],
+            partsData: updatedPartsData,
+          },
+        };
+      });
+    }
   };
 
   const updateWorkInPieceCtx = (work, indexPart) => {
