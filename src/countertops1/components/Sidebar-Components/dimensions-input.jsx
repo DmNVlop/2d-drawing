@@ -86,9 +86,6 @@ function DimensionsInput(props) {
   };
 
   const onSelectPieza = (value) => {
-    console.log("🚀 ~ onSelectPieza ~ value:", value);
-    console.log("piezaSelected piezaSelected: ", piezaSelected);
-
     // if (!value || value == 7) {
     //   onSetSelectedPieceCtx(null);
     //   return null;

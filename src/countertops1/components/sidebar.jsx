@@ -116,7 +116,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     deleteAllWorksInPieceCtx(getSelectedPieceValueCtx());
   };
 
-  const handleAssemblyClick = (item, index) => {
+  const handleAssemblyClick = (event, item, index) => {
+    event.preventDefault();
     setAssemblyData((prev) => {
       let tempAssemblyClean = [...prev];
       tempAssemblyClean = tempAssemblyClean.map((item) => {
@@ -510,7 +511,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                         to={(e) => {
                           e.preventDefault();
                         }}
-                        onClick={() => handleAssemblyClick(item, index)}
+                        onClick={(e) => handleAssemblyClick(e, item, index)}
                         className={
                           item.selected ? "assembly active" : "assembly"
                         }
