@@ -95,22 +95,17 @@ export default function LShapedPage(props) {
                     )}
                   />
                 )}
-
-                <Group
-                  x={GLOBAL_CT_M.xGlobalLayer}
-                  y={GLOBAL_CT_M.yGlobalLayer}
-                >
-                  <LineLTemplate
-                    itemData={item}
-                    attrib={ATTRIB_SETTED}
-                    getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
-                      ATTRIB_SETTED
-                    )}
-                  />
-                </Group>
               </Group>
             );
           })}
+
+          <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
+            <LineLTemplate
+              attrib={ATTRIB_SETTED}
+              getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(ATTRIB_SETTED)}
+            />
+          </Group>
+
           {/* {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
             const groupLineKey = `groupL-${item.id}-${index}`;
             return (

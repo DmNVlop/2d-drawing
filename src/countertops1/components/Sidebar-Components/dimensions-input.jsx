@@ -86,25 +86,23 @@ function DimensionsInput(props) {
   };
 
   const onSelectPieza = (value) => {
-    const pS = numeroPiezas.find((item) => {
-      return item.value === value;
-    });
+    console.log("🚀 ~ onSelectPieza ~ value:", value);
+    console.log("piezaSelected piezaSelected: ", piezaSelected);
 
-    // if (value > 0) {
-    //   setInputValueLargo(
-    //     countertops[ATTRIB_SETTED]?.partsData[value - 1].width
-    //   );
-    //   setInputValueAncho(
-    //     countertops[ATTRIB_SETTED]?.partsData[value - 1].height
-    //   );
+    // if (!value || value == 7) {
+    //   onSetSelectedPieceCtx(null);
+    //   return null;
     // }
 
-    onSetSelectedPieceCtx(pS);
+    if (value != piezaSelected?.value) {
+      const pS = numeroPiezas.find((item) => {
+        return item.value === value;
+      });
 
-    selectPieceRef.current.blur();
-    // setTimeout(() => {
-    //   input1SizeWidthRef.current.select();
-    // }, 100);
+      onSetSelectedPieceCtx(pS);
+
+      selectPieceRef.current.blur();
+    }
   };
 
   const handleSetSizesHelper = (index) => {
@@ -178,7 +176,11 @@ function DimensionsInput(props) {
     }
   };
 
-  const onClickHandle = (event, inputRef) => {
+  const onClickHandle = (event, inputRef, numberPieceToActive) => {
+    if (getSelectedPieceValueCtx() != numberPieceToActive - 1) {
+      onSelectPieza(numberPieceToActive);
+    }
+
     inputRef.current.select();
   };
 
@@ -302,30 +304,44 @@ function DimensionsInput(props) {
               <Col className="gutter-row" span={8}>
                 <InputNumber
                   ref={input1SizeWidthRef}
+                  id={"input1SizeWidthRef"}
                   min={100}
                   max={3600}
-                  disabled={!(getSelectedPieceValueCtx() === 0)}
+                  // disabled={!(getSelectedPieceValueCtx() === 0)}
+                  readOnly={!(getSelectedPieceValueCtx() === 0)}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeLargo(event, "P1")}
                   placeholder="Largo P1"
                   value={localWidth1}
                   onKeyUp={(e) => onKeyUpHandle(e, input1SizeHeightRef)}
-                  onClick={(e) => onClickHandle(e, input1SizeWidthRef)}
+                  onClick={(e) => onClickHandle(e, input1SizeWidthRef, 1)}
                 />
               </Col>
+
+              {/* {getSelectedPieceValueCtx() != 0 && (
+                <Col className="gutter-row" span={8}>
+                  <label
+                    htmlFor={"input1SizeWidthRef"}
+                    onClick={() => onSelectPieza(1)}
+                  >
+                    {localWidth1}
+                  </label>
+                </Col>
+              )} */}
 
               <Col className="gutter-row" span={8}>
                 <InputNumber
                   ref={input1SizeHeightRef}
                   min={100}
                   max={2800}
-                  disabled={!(getSelectedPieceValueCtx() === 0)}
+                  // disabled={!(getSelectedPieceValueCtx() === 0)}
+                  readOnly={!(getSelectedPieceValueCtx() === 0)}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeAncho(event, "P1")}
                   placeholder="Ancho P1"
                   value={localHeight1}
                   onKeyUp={(e) => onKeyUpHandle(e, input1SizeWidthRef, true)}
-                  onClick={(e) => onClickHandle(e, input1SizeHeightRef)}
+                  onClick={(e) => onClickHandle(e, input1SizeHeightRef, 1)}
                 />
               </Col>
 
@@ -355,28 +371,41 @@ function DimensionsInput(props) {
                   ref={input2SizeWidthRef}
                   min={100}
                   max={3600}
-                  disabled={getSelectedPieceValueCtx() != 1}
+                  // disabled={getSelectedPieceValueCtx() != 1}
+                  readOnly={getSelectedPieceValueCtx() != 1}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeLargo(event, "P2")}
                   placeholder="Largo P2"
                   value={localWidth2}
                   onKeyUp={(e) => onKeyUpHandle(e, input2SizeHeightRef)}
-                  onClick={(e) => onClickHandle(e, input2SizeWidthRef)}
+                  onClick={(e) => onClickHandle(e, input2SizeWidthRef, 2)}
                 />
               </Col>
+
+              {/* {getSelectedPieceValueCtx() != 1 && (
+                <Col className="gutter-row" span={8}>
+                  <label
+                    htmlFor={"input2SizeWidthRef"}
+                    onClick={() => onSelectPieza(2)}
+                  >
+                    {localWidth2}
+                  </label>
+                </Col>
+              )} */}
 
               <Col className="gutter-row" span={8}>
                 <InputNumber
                   ref={input2SizeHeightRef}
                   min={100}
                   max={2800}
-                  disabled={getSelectedPieceValueCtx() != 1}
+                  // disabled={getSelectedPieceValueCtx() != 1}
+                  readOnly={getSelectedPieceValueCtx() != 1}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeAncho(event, "P2")}
                   placeholder="Ancho P2"
                   value={localHeight2}
                   onKeyUp={(e) => onKeyUpHandle(e, input2SizeWidthRef, true)}
-                  onClick={(e) => onClickHandle(e, input2SizeHeightRef)}
+                  onClick={(e) => onClickHandle(e, input2SizeHeightRef, 2)}
                 />
               </Col>
 
@@ -406,28 +435,41 @@ function DimensionsInput(props) {
                   ref={input3SizeWidthRef}
                   min={100}
                   max={3600}
-                  disabled={getSelectedPieceValueCtx() != 2}
+                  // disabled={getSelectedPieceValueCtx() != 2}
+                  readOnly={getSelectedPieceValueCtx() != 2}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeLargo(event, "P3")}
                   placeholder="Largo P3"
                   value={localWidth3}
                   onKeyUp={(e) => onKeyUpHandle(e, input3SizeHeightRef)}
-                  onClick={(e) => onClickHandle(e, input3SizeWidthRef)}
+                  onClick={(e) => onClickHandle(e, input3SizeWidthRef, 3)}
                 />
               </Col>
+
+              {/* {getSelectedPieceValueCtx() != 2 && (
+                <Col className="gutter-row" span={8}>
+                  <label
+                    htmlFor={"input3SizeWidthRef"}
+                    onClick={() => onSelectPieza(3)}
+                  >
+                    {localWidth2}
+                  </label>
+                </Col>
+              )} */}
 
               <Col className="gutter-row" span={8}>
                 <InputNumber
                   ref={input3SizeHeightRef}
                   min={100}
                   max={2800}
-                  disabled={getSelectedPieceValueCtx() != 2}
+                  // disabled={getSelectedPieceValueCtx() != 2}
+                  readOnly={getSelectedPieceValueCtx() != 2}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeAncho(event, "P3")}
                   placeholder="Ancho P3"
                   value={localHeight3}
                   onKeyUp={(e) => onKeyUpHandle(e, input3SizeWidthRef, true)}
-                  onClick={(e) => onClickHandle(e, input3SizeHeightRef)}
+                  onClick={(e) => onClickHandle(e, input3SizeHeightRef, 3)}
                 />
               </Col>
 

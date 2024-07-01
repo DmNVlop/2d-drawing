@@ -24,57 +24,53 @@ export default function RectLTemplateL2(props) {
   }, [itemData?.fillPatternImage]);
 
   return (
-    <>
+    <Group>
       {itemData.id == 1 && (
-        <Group>
-          <Rect
-            // ref={rectNew}
-            x={itemData?.x}
-            y={itemData?.y}
-            width={itemData?.width}
-            height={itemData?.height}
-            stroke={itemData?.stroke || ""}
-            strokeWidth={itemData?.strokeWidth || 0}
-            fill={itemData?.fill}
-            fillPriority={imageData.fillPriority}
-            fillPatternImage={imageData.img}
-            fillPatternRepeat={itemData?.fillPatternRepeat}
-            cornerRadius={itemData?.cornerRadius}
-            rotation={itemData?.rotation}
-            offsetX={itemData?.width + getPartsDataFromPieceCtx[1].height}
-            offsetY={0}
-            opacity={itemData?.opacity || 1}
-            scaleX={itemData?.scaleX || 1}
-            scaleY={itemData?.scaleY || 1}
-          />
-        </Group>
+        <Rect
+          // ref={rectNew}
+          x={itemData?.x}
+          y={itemData?.y}
+          width={itemData?.width}
+          height={itemData?.height}
+          stroke={itemData?.stroke || ""}
+          strokeWidth={itemData?.strokeWidth || 0}
+          fill={itemData?.fill}
+          fillPriority={imageData.fillPriority}
+          fillPatternImage={imageData.img}
+          fillPatternRepeat={itemData?.fillPatternRepeat}
+          cornerRadius={itemData?.cornerRadius}
+          rotation={itemData?.rotation}
+          offsetX={itemData?.width + getPartsDataFromPieceCtx[1].height}
+          offsetY={0}
+          opacity={itemData?.opacity || 1}
+          scaleX={itemData?.scaleX || 1}
+          scaleY={itemData?.scaleY || 1}
+        />
       )}
 
       {itemData.id == 2 && (
-        <Group>
-          <Rect
-            // ref={rectNew}
-            x={itemData?.x}
-            y={itemData?.y}
-            width={itemData?.width}
-            height={itemData?.height}
-            stroke={itemData?.stroke || ""}
-            strokeWidth={itemData?.strokeWidth || 0}
-            fill={itemData?.fill}
-            fillPriority={imageData.fillPriority}
-            fillPatternImage={imageData.img}
-            fillPatternRepeat={itemData?.fillPatternRepeat}
-            cornerRadius={itemData?.cornerRadius}
-            rotation={itemData?.rotation}
-            offsetX={0}
-            offsetY={0}
-            opacity={itemData?.opacity || 1}
-            scaleX={itemData?.scaleX || 1}
-            scaleY={itemData?.scaleY || 1}
-          />
-        </Group>
+        <Rect
+          // ref={rectNew}
+          x={itemData?.x}
+          y={itemData?.y}
+          width={itemData?.width}
+          height={itemData?.height}
+          stroke={itemData?.stroke || ""}
+          strokeWidth={itemData?.strokeWidth || 0}
+          fill={itemData?.fill}
+          fillPriority={imageData.fillPriority}
+          fillPatternImage={imageData.img}
+          fillPatternRepeat={itemData?.fillPatternRepeat}
+          cornerRadius={itemData?.cornerRadius}
+          rotation={itemData?.rotation}
+          offsetX={0}
+          offsetY={0}
+          opacity={itemData?.opacity || 1}
+          scaleX={itemData?.scaleX || 1}
+          scaleY={itemData?.scaleY || 1}
+        />
       )}
-    </>
+    </Group>
   );
 }
 
