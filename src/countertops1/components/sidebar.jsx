@@ -54,6 +54,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     getSelectedPieceCtx,
     getSelectedPieceValueCtx,
     getNumberOfPartsCtx,
+    setOpacityOnPiecesCtx,
     updateCornersCtx,
     deleteWorkInPieceCtx,
     deleteAllWorksInPieceCtx,
@@ -116,7 +117,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     deleteAllWorksInPieceCtx(getSelectedPieceValueCtx());
   };
 
-  const handleAssemblyClick = (item, index) => {
+  const handleAssemblyClick = (event, item, index) => {
+    event.preventDefault();
     setAssemblyData((prev) => {
       let tempAssemblyClean = [...prev];
       tempAssemblyClean = tempAssemblyClean.map((item) => {
@@ -138,36 +140,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   const onChangeAllCorners = (newValue) => {
     setCornersState(newValue);
   };
-
-  // const uppdateSizesAndLines = () => {
-  //   if (countertops && inputValueLargo1 && inputValueAncho1) {
-  //     let tempData =
-  //       JSON.parse(JSON.stringify(countertops[ATTRIB_SETTED]?.partsData)) || [];
-  //     let tempDataLines =
-  //       JSON.parse(JSON.stringify(countertops[ATTRIB_SETTED]?.linesData)) || [];
-
-  //     tempData[getSelectedPieceValueCtx()].width = inputValueLargo1;
-  //     tempData[getSelectedPieceValueCtx()].height = inputValueAncho1;
-
-  //     tempData = countertops[ATTRIB_SETTED]?.partsData || [];
-  // const _piece = tempData[getSelectedPieceValueCtx()];
-
-  // tempDataLines = tempDataLines.map((itemLine) => {
-  //   if (itemLine.direction === DIRECTION.HORIZONTAL) {
-  //     itemLine.text = inputValueLargo1;
-  //     itemLine.length = _piece.realWidth;
-  //   }
-
-  //   if (itemLine.direction === DIRECTION.VERTICAL) {
-  //     itemLine.text = inputValueAncho;
-  //     itemLine.length = _piece.realHeight;
-  //     itemLine.xRef = _piece.realWidth;
-  //   }
-
-  //   return itemLine;
-  // });
-  //   }
-  // };
 
   const handleClickEditWork = (event) => {
     event.preventDefault();
@@ -223,67 +195,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     );
   };
 
-  // useEffect(() => {
-  //   if (
-  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-  //       ?.width &&
-  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.height
-  //   ) {
-  //     const tempFirstPartData =
-  //       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()];
-
-  //     setInputValueLargo1(tempFirstPartData.width);
-  //     setInputValueAncho1(tempFirstPartData.height);
-  //   }
-
-  //   if (
-  //     Array.isArray(
-  //       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-  //         ?.cornerRadius
-  //     ) &&
-  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-  //       ?.cornerRadius?.length > 0
-  //   ) {
-  //     const tempArray =
-  //       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-  //         ?.cornerRadius;
-
-  //     setCornersState(tempArray);
-  //   }
-  // }, [
-  //   countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.width,
-  //   countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.height,
-  // ]);
-
   // Hanlde Dimensions
   const maxWidth = 1120;
   const maxHeight = 700;
-
-  // useEffect(() => {
-  //   if (countertops) {
-  //     const rectHelperCalcSizes = RectHelperCalcSizes(
-  //       inputValueLargo1,
-  //       inputValueAncho1,
-  //       maxWidth,
-  //       maxHeight
-  //     );
-
-  //     const tempPieceSelected = getSelectedPieceValueCtx();
-  //     let tempPiece = countertops[ATTRIB_SETTED]?.partsData[tempPieceSelected];
-
-  //     tempPiece = {
-  //       ...tempPiece,
-  //       width: inputValueLargo1,
-  //       height: inputValueAncho1,
-  //       realWidth: rectHelperCalcSizes.realWidth,
-  //       realHeight: rectHelperCalcSizes.realHeight,
-  //     };
-
-  //     onUpdatePartDataCtx(tempPieceSelected, tempPiece);
-
-  //     uppdateSizesAndLines();
-  //   }
-  // }, [inputValueLargo1, inputValueAncho1]);
 
   useMemo(() => {
     const tempCorners =
@@ -310,6 +224,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
           ?.cornerRadiusDisabled
       );
     }
+
+    setOpacityOnPiecesCtx(getSelectedPieceValueCtx());
   }, [countertops?.selectedPiece]);
 
   useEffect(() => {
@@ -320,18 +236,6 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     };
     if (sidenavElementRef) setElementRef(tempSizes);
   }, [sidenavElementRef]);
-
-  // useEffect(() => {
-  //   const _tempCorners =
-  //     countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-  //       ?.cornerRadiusProduction;
-  //   if (_tempCorners) {
-  //     onChangeAllCorners(_tempCorners);
-  //   }
-  // }, [
-  //   countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-  //     ?.cornerRadius,
-  // ]);
 
   useEffect(() => {
     const tempW =
@@ -610,7 +514,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                         to={(e) => {
                           e.preventDefault();
                         }}
-                        onClick={() => handleAssemblyClick(item, index)}
+                        onClick={(e) => handleAssemblyClick(e, item, index)}
                         className={
                           item.selected ? "assembly active" : "assembly"
                         }

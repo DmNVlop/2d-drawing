@@ -34,6 +34,9 @@ export default function RectUTemplateU4(props) {
             height={itemData?.height}
             stroke={itemData?.stroke || ""}
             strokeWidth={itemData?.strokeWidth || 0}
+            scaleX={itemData?.scaleX || 1}
+            scaleY={itemData?.scaleY || 1}
+            opacity={itemData?.opacity || 0.8}
             fill={itemData?.fill}
             fillPriority={imageData.fillPriority}
             fillPatternImage={imageData.img}
@@ -56,6 +59,9 @@ export default function RectUTemplateU4(props) {
             height={itemData?.height}
             stroke={itemData?.stroke || ""}
             strokeWidth={itemData?.strokeWidth || 0}
+            scaleX={itemData?.scaleX || 1}
+            scaleY={itemData?.scaleY || 1}
+            opacity={itemData?.opacity || 0.8}
             fill={itemData?.fill}
             fillPriority={imageData.fillPriority}
             fillPatternImage={imageData.img}
@@ -78,6 +84,9 @@ export default function RectUTemplateU4(props) {
             height={itemData?.height}
             stroke={itemData?.stroke || ""}
             strokeWidth={itemData?.strokeWidth || 0}
+            scaleX={itemData?.scaleX || 1}
+            scaleY={itemData?.scaleY || 1}
+            opacity={itemData?.opacity || 0.8}
             fill={itemData?.fill}
             fillPriority={imageData.fillPriority}
             fillPatternImage={imageData.img}
