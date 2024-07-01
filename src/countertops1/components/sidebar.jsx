@@ -54,6 +54,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     getSelectedPieceCtx,
     getSelectedPieceValueCtx,
     getNumberOfPartsCtx,
+    setOpacityOnPiecesCtx,
     updateCornersCtx,
     deleteWorkInPieceCtx,
     deleteAllWorksInPieceCtx,
@@ -223,6 +224,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
           ?.cornerRadiusDisabled
       );
     }
+
+    setOpacityOnPiecesCtx(getSelectedPieceValueCtx());
   }, [countertops?.selectedPiece]);
 
   useEffect(() => {

@@ -61,6 +61,9 @@ export default function RectTemplate(props) {
       fill={itemData.fill}
       stroke={itemData?.stroke || ""}
       strokeWidth={itemData?.strokeWidth || 0}
+      scaleX={itemData?.scaleX || 1}
+      scaleY={itemData?.scaleY || 1}
+      opacity={itemData?.opacity || 0.8}
       fillPriority={imageData.fillPriority}
       fillPatternImage={imageData.img}
       fillPatternRepeat={itemData.fillPatternRepeat}

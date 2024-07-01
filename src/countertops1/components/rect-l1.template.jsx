@@ -34,6 +34,9 @@ export default function RectLTemplateL1(props) {
           height={itemData?.height}
           stroke={itemData?.stroke || ""}
           strokeWidth={itemData?.strokeWidth || 0}
+          scaleX={itemData?.scaleX || 1}
+          scaleY={itemData?.scaleY || 1}
+          opacity={itemData?.opacity || 0.8}
           fill={itemData?.fill}
           fillPriority={imageData.fillPriority}
           fillPatternImage={imageData.img}
@@ -42,9 +45,6 @@ export default function RectLTemplateL1(props) {
           rotation={itemData?.rotation}
           offsetX={itemData?.width}
           offsetY={0}
-          opacity={itemData?.opacity || 1}
-          scaleX={itemData?.scaleX || 1}
-          scaleY={itemData?.scaleY || 1}
         />
       )}
 
@@ -57,6 +57,9 @@ export default function RectLTemplateL1(props) {
           height={itemData?.height}
           stroke={itemData?.stroke || ""}
           strokeWidth={itemData?.strokeWidth || 0}
+          scaleX={itemData?.scaleX || 1}
+          scaleY={itemData?.scaleY || 1}
+          opacity={itemData?.opacity || 0.8}
           fill={itemData?.fill}
           fillPriority={imageData.fillPriority}
           fillPatternImage={imageData.img}
@@ -65,9 +68,6 @@ export default function RectLTemplateL1(props) {
           rotation={itemData?.rotation}
           offsetX={-getPartsDataFromPieceCtx[0].height}
           offsetY={0}
-          opacity={itemData?.opacity || 1}
-          scaleX={itemData?.scaleX || 1}
-          scaleY={itemData?.scaleY || 1}
         />
       )}
     </Group>

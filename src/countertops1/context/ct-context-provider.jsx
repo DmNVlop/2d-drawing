@@ -89,6 +89,43 @@ export default function CountetopContextProvider({ children }) {
     });
   };
 
+  //
+  const setOpacityOnPiecesCtx = (indexPart = null) => {
+    const opacitySelected = 1;
+    const opacityStd = 0.8;
+    const opacityLow = 0.4;
+
+    if (!countertops[ATTRIB_SETTED]) {
+      return;
+    }
+
+    setCountertops((prevState) => {
+      let newState = { ...prevState };
+      console.log("🚀 ~ setCountertops ~ newState:", newState);
+      console.log("🚀 ~ setOpacityOnPiecesCtx ~ indexPart:", indexPart);
+
+      if (indexPart == null) {
+        newState[ATTRIB_SETTED].partsData = newState[
+          ATTRIB_SETTED
+        ].partsData.map((part) => ({
+          ...part,
+          opacity: opacityStd,
+        }));
+      } else {
+        newState[ATTRIB_SETTED].partsData = newState[
+          ATTRIB_SETTED
+        ].partsData.map((part) => ({
+          ...part,
+          opacity: opacityLow,
+        }));
+
+        newState[ATTRIB_SETTED].partsData[indexPart].opacity = opacitySelected;
+      }
+
+      return newState;
+    });
+  };
+
   // TO ALL STATE
   const setConfigCtx = (newConfig = {}) => {
     setCountertops((prevState) => ({
@@ -197,6 +234,7 @@ export default function CountetopContextProvider({ children }) {
         setConfigCtx,
         setPartsCtx,
         setLinesCtx,
+        setOpacityOnPiecesCtx,
         onSetSelectedPieceCtx,
         onSetNumberOfPieceCtx,
         onUpdatePartDataCtx,

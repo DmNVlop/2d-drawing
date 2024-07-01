@@ -17,7 +17,7 @@ export const U1_CT_M = {
       rotation: -90,
       scaleX: 0.4,
       scaleY: 0.4,
-      opacity: 1,
+      opacity: 0.8,
       // offsetX: 500,
       // offsetY: 0,
       fillPatternImage: "",
@@ -41,7 +41,7 @@ export const U1_CT_M = {
       rotation: 0,
       scaleX: 0.4,
       scaleY: 0.4,
-      opacity: 0.4,
+      opacity: 0.8,
       // offsetX: -200, // (-)height P1
       // offsetY: 0,
       fillPatternImage: "",
@@ -65,7 +65,7 @@ export const U1_CT_M = {
       rotation: 90,
       scaleX: 0.4,
       scaleY: 0.4,
-      opacity: 0.4,
+      opacity: 0.8,
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // height P1 + width P2 + height P3
       fillPatternImage: "",
@@ -130,8 +130,11 @@ export const U2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
-      offsetX: 500,
-      offsetY: 0,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
+      // offsetX: 500,
+      // offsetY: 0,
       // fillPatternImage: "",
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
@@ -151,8 +154,11 @@ export const U2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      offsetX: -200, // (-)height P1
-      offsetY: 0,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
+      // offsetX: -200, // (-)height P1
+      // offsetY: 0,
       fillPatternImage: "",
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
@@ -172,8 +178,11 @@ export const U2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 90,
-      offsetX: 0, // (-)height P2
-      offsetY: 700, // height P1 + width P2 + height P3
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
+      // offsetX: 0, // (-)height P2
+      // offsetY: 700, // height P1 + width P2 + height P3
       // fillPatternImage: "",
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
@@ -236,6 +245,9 @@ export const U3_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
       // fillPatternImage: "",
@@ -257,8 +269,11 @@ export const U3_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      offsetX: 0, // (-)height P1
-      offsetY: 0,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
+      // offsetX: 0, // (-)height P1
+      // offsetY: 0,
       fillPatternImage: "",
       // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
@@ -278,8 +293,11 @@ export const U3_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 90,
-      offsetX: 0, // (-)height P2
-      offsetY: 700, // height P1 + width P2
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
+      // offsetX: 0, // (-)height P2
+      // offsetY: 700, // height P1 + width P2
       // fillPatternImage: "",
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",
       fillPatternRepeat: "repeat",
@@ -342,6 +360,9 @@ export const U4_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
       // fillPatternImage: "",
@@ -363,6 +384,9 @@ export const U4_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
       // offsetX: 0,
       // offsetY: 0,
       fillPatternImage: "",
@@ -384,6 +408,9 @@ export const U4_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 90,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 0.8,
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // width P2
       // fillPatternImage: "",
