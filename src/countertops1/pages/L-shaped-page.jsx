@@ -26,15 +26,7 @@ export default function LShapedPage(props) {
   }
 
   const { title } = props;
-  const {
-    countertops,
-    getPartsDataFromPieceCtx,
-    getLinesDataFromPieceCtx,
-    setPartsCtx,
-    setLinesCtx,
-    onSetSelectedPieceCtx,
-    onSetNumberOfPieceCtx,
-  } = useCountertopContext();
+  const { countertops, getPartsDataFromPieceCtx } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras L");
 
@@ -56,9 +48,6 @@ export default function LShapedPage(props) {
 
   useEffect(() => {
     handleTitle();
-
-    onSetSelectedPieceCtx(null);
-    onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
   }, [tParamUrl]);
 
   const stageWidth = useWindowsSizes().stageWidth;
@@ -68,7 +57,13 @@ export default function LShapedPage(props) {
     <>
       <h2>{pageTitle}</h2>
 
-      <Stage width={stageWidth} height={stageHeight} draggable>
+      <Stage
+        width={stageWidth}
+        height={stageHeight}
+        draggable
+        scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+        scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+      >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
             const groupDataKey = `groupP-${item.id}-${index}`;

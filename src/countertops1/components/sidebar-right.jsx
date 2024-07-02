@@ -129,7 +129,6 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
       const t = setCcredinSizes(currentItem, getSelectedPieceCtx(), _piece);
 
       updateCornersCtx(t.corners, getSelectedPieceValueCtx(), "SINGLE");
-      updateCornersCtx(t.cornersProduction, getSelectedPieceValueCtx(), "PROD");
     }
 
     // CCCHAFLAN

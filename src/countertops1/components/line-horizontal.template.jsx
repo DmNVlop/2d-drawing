@@ -1,9 +1,12 @@
-import { Layer, Line, Text } from "react-konva";
+import { Line, Text } from "react-konva";
 import PropTypes from "prop-types";
-import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
+import { useCustomURLHandler } from "../helpers/location.hook";
+import { useCountertopContext } from "../context/ct-context";
 
 export default function LineTemplateHorizontal(props) {
   const { itemData } = props;
+  const { countertops } = useCountertopContext();
+  const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const xRefBase = 0; // itemData.xRef || 0
   const yRefBase = 0; // itemData.yRef || 0
@@ -11,8 +14,15 @@ export default function LineTemplateHorizontal(props) {
   const levelAdjust = 20; // itemData.level == 1 ? 20 : 60;
 
   const textBase = itemData.width || "";
-  const textX = xRefBase + lengthBase / 2 - 10; //
-  const textY = yRefBase - 34; // itemData.level == 1 ? yRefBase - 36 : yRefBase - 76;
+  const xBase_multiplier =
+    countertops[ATTRIB_SETTED]?.rootConfig?.scaleX <= 0.5 ? 26 : 36;
+  const textX =
+    xRefBase +
+      lengthBase / 2 -
+      10 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1; //
+  const textY =
+    yRefBase -
+      xBase_multiplier / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1; // itemData.level == 1 ? yRefBase - 36 : yRefBase - 76;
 
   const rotation = 0; // itemData.rotation || 0;
 
@@ -27,7 +37,7 @@ export default function LineTemplateHorizontal(props) {
         ]}
         fill="black"
         stroke="black"
-        strokeWidth={1}
+        strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
       />
       <Line
         points={[
@@ -38,7 +48,7 @@ export default function LineTemplateHorizontal(props) {
         ]}
         fill="black"
         stroke="black"
-        strokeWidth={1}
+        strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
       />
       <Line
         points={[
@@ -49,7 +59,7 @@ export default function LineTemplateHorizontal(props) {
         ]}
         fill="black"
         stroke="black"
-        strokeWidth={1}
+        strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
       />
       <Text
         x={Number.isFinite(textX) ? textX : 0}
@@ -57,6 +67,8 @@ export default function LineTemplateHorizontal(props) {
         text={textBase}
         rotation={rotation}
         fontSize={16}
+        scaleX={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+        scaleY={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
       />
     </>
   );

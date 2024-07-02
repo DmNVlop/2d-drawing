@@ -27,6 +27,7 @@ function DimensionsInput(props) {
     getSelectedPieceValueCtx,
     getNumberOfPartsCtx,
     onUpdatePartDataCtx,
+    updateCornersCtx,
     // onSetNumberOfPieceCtx,
   } = props;
 
@@ -133,6 +134,13 @@ function DimensionsInput(props) {
       localWidth1 > 0 &&
       localHeight1 > 0
     ) {
+      if (countertops[ATTRIB_SETTED]?.shapeType == SHAPE_TYPES.CIRCLE) {
+        const cornerSize = localWidth1 / 2;
+        updateCornersCtx(
+          [cornerSize, cornerSize, cornerSize, cornerSize],
+          getSelectedPieceValueCtx()
+        );
+      }
       onUpdatePartDataCtx(0, handleSetSizesHelper(0));
     }
 

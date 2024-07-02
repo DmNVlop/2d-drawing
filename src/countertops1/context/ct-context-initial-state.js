@@ -32,46 +32,55 @@ export const temp_init_state = {
     shapeType: SHAPE_TYPES.SIMPLE,
     partsData: SIMPLE_CT_M.partsData,
     linesData: SIMPLE_LINE_CT_M.linesData,
+    rootConfig: SIMPLE_CT_M.rootConfig,
   },
   square: {
     shapeType: SHAPE_TYPES.SQUARE,
     partsData: SQUARE_CT_M.partsData,
     linesData: SQUARE_LINE_CT_M.linesData,
+    rootConfig: SQUARE_CT_M.rootConfig,
   },
   circle: {
     shapeType: SHAPE_TYPES.CIRCLE,
     partsData: CIRCLE_CT_M.partsData,
     linesData: CIRCLE_LINE_CT_M.linesData,
+    rootConfig: CIRCLE_CT_M.rootConfig,
   },
   "l-shaped_l1": {
     shapeType: SHAPE_TYPES.LShaped_l1,
     partsData: L1_CT_M.partsData,
     linesData: L1_LINE_CT_M.linesData,
+    rootConfig: L1_CT_M.rootConfig,
   },
   "l-shaped_l2": {
     shapeType: SHAPE_TYPES.LShaped_l2,
     partsData: L2_CT_M.partsData,
     linesData: L2_LINE_CT_M.linesData,
+    rootConfig: L2_CT_M.rootConfig,
   },
   "u-shaped_u1": {
     shapeType: SHAPE_TYPES.UShaped_u1,
     partsData: U1_CT_M.partsData,
     linesData: U1_LINE_CT_M.linesData,
+    rootConfig: U1_CT_M.rootConfig,
   },
   "u-shaped_u2": {
     shapeType: SHAPE_TYPES.UShaped_u1,
     partsData: U2_CT_M.partsData,
     linesData: U2_LINE_CT_M.linesData,
+    rootConfig: U2_CT_M.rootConfig,
   },
   "u-shaped_u3": {
     shapeType: SHAPE_TYPES.UShaped_u1,
     partsData: U3_CT_M.partsData,
     linesData: U3_LINE_CT_M.linesData,
+    rootConfig: U3_CT_M.rootConfig,
   },
   "u-shaped_u4": {
     shapeType: SHAPE_TYPES.UShaped_u1,
     partsData: U4_CT_M.partsData,
     linesData: U4_LINE_CT_M.linesData,
+    rootConfig: U4_CT_M.rootConfig,
   },
 };
 

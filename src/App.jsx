@@ -24,7 +24,7 @@ function App() {
 
   //     if (!woodyItem?.canva2d) return;
   //   } catch (error) {
-  //     console.log("🚀 ~ handleGetWoody ~ error:", error);
+  //      console.log("⚠️ Error canva2d:", error)
   //   }
   // };
 
