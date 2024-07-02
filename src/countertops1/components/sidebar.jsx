@@ -23,7 +23,6 @@ import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
 import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA.const";
 import DimensionsInput from "./Sidebar-Components/dimensions-input";
-import { DIRECTION } from "../mocks/LINES.const";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -33,7 +32,6 @@ import {
   RadiusUpleftOutlined,
   RadiusUprightOutlined,
 } from "@ant-design/icons";
-import { RectHelperCalcSizes } from "./Rect-Helpers/rect-helper";
 import { useCustomURLHandler } from "../helpers/location.hook";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {

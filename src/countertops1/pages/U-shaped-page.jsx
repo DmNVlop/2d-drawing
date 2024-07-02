@@ -27,8 +27,8 @@ export default function UShapedPage(props) {
     countertops,
     getPartsDataFromPieceCtx,
     getLinesDataFromPieceCtx,
-    onSetSelectedPieceCtx,
-    onSetNumberOfPieceCtx,
+    // onSetSelectedPieceCtx,
+    // onSetNumberOfPieceCtx,
   } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras U");
@@ -49,10 +49,10 @@ export default function UShapedPage(props) {
   useEffect(() => {
     handleTitle();
 
-    onSetSelectedPieceCtx(null);
-    onSetNumberOfPieceCtx(
-      countertops[ATTRIB_SETTED]?.partsData?.length || null
-    );
+    // onSetSelectedPieceCtx(null);
+    // onSetNumberOfPieceCtx(
+    //   countertops[ATTRIB_SETTED]?.partsData?.length || null
+    // );
   }, [tParamUrl]);
 
   const stageWidth = useWindowsSizes().stageWidth;

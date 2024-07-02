@@ -9,7 +9,6 @@ import RectTemplate from "../components/rect.template";
 import LineTemplateVertical from "../components/line-vertical.template";
 import LineTemplateHorizontal from "../components/line-horizontal.template";
 
-import { DIRECTION } from "../mocks/LINES.const";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useCustomURLHandler } from "../helpers/location.hook";
@@ -19,20 +18,17 @@ export default function SimpleCTPage(props) {
     countertops,
     // setCountertops,
     getPartsDataFromPieceCtx,
-    getLinesDataFromPieceCtx,
-    onSetSelectedPieceCtx,
-    onSetNumberOfPieceCtx,
-    setPartsCtx,
-    setLinesCtx,
+    // onSetSelectedPieceCtx,
+    // onSetNumberOfPieceCtx,
   } = useCountertopContext();
 
   const { location, ATTRIB_SETTED } = useCustomURLHandler();
 
-  useEffect(() => {
-    onSetSelectedPieceCtx(null);
+  // useEffect(() => {
+  //   onSetSelectedPieceCtx(null);
 
-    onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
-  }, [location.pathname]);
+  //   onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
+  // }, [location.pathname]);
 
   const stageWidth = useWindowsSizes().stageWidth;
   const stageHeight = useWindowsSizes().stageHeight;

@@ -27,13 +27,13 @@ export default function LShapedPage(props) {
 
   const { title } = props;
   const {
-    countertops,
+    // countertops,
     getPartsDataFromPieceCtx,
-    getLinesDataFromPieceCtx,
-    setPartsCtx,
-    setLinesCtx,
-    onSetSelectedPieceCtx,
-    onSetNumberOfPieceCtx,
+    // getLinesDataFromPieceCtx,
+    // setPartsCtx,
+    // setLinesCtx,
+    // onSetSelectedPieceCtx,
+    // onSetNumberOfPieceCtx,
   } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras L");
@@ -57,8 +57,8 @@ export default function LShapedPage(props) {
   useEffect(() => {
     handleTitle();
 
-    onSetSelectedPieceCtx(null);
-    onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
+    // onSetSelectedPieceCtx(null);
+    // onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
   }, [tParamUrl]);
 
   const stageWidth = useWindowsSizes().stageWidth;

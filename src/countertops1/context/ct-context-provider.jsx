@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import { CountertopContext, ElementRefContext } from "./ct-context";
@@ -105,12 +105,14 @@ export default function CountetopContextProvider({ children }) {
       console.log("🚀 ~ setOpacityOnPiecesCtx ~ indexPart:", indexPart);
 
       if (indexPart == null) {
+        console.log("🚀 ~ nullnullnull ~ indexPart:", indexPart);
         newState[ATTRIB_SETTED].partsData = newState[
           ATTRIB_SETTED
         ].partsData.map((part) => ({
           ...part,
           opacity: opacityStd,
         }));
+        console.log("🚀 ~ nullnullnull ~ newState:", newState);
       } else {
         newState[ATTRIB_SETTED].partsData = newState[
           ATTRIB_SETTED
