@@ -4,6 +4,10 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 export const L1_CT_M = {
   shapeType: SHAPE_TYPES.U1_SHAPED,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  rootConfig: {
+    scaleX: 0.6,
+    scaleY: 0.6,
+  },
   partsData: [
     {
       id: 1,
@@ -15,8 +19,8 @@ export const L1_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
-      scaleX: 0.5,
-      scaleY: 0.5,
+      // scaleX: 0.5,
+      // scaleY: 0.5,
       opacity: 0.8,
       // offsetX: 500,
       // offsetY: 0,
@@ -39,8 +43,8 @@ export const L1_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      scaleX: 0.5,
-      scaleY: 0.5,
+      // scaleX: 0.5,
+      // scaleY: 0.5,
       opacity: 0.8,
       // offsetX: -200,
       // offsetY: 0,
@@ -95,6 +99,10 @@ export const L1_LINE_CT_M = {
 export const L2_CT_M = {
   shapeType: SHAPE_TYPES.U1_SHAPED,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  rootConfig: {
+    scaleX: 1,
+    scaleY: 1,
+  },
   partsData: [
     {
       id: 1,
@@ -106,8 +114,8 @@ export const L2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 500,
       // offsetY: 0,
@@ -128,8 +136,8 @@ export const L2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 0,
       // offsetY: 0,

@@ -304,13 +304,14 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
             onSetNumberOfPieceCtx={onSetNumberOfPieceCtx}
             getNumberOfPartsCtx={getNumberOfPartsCtx}
             onUpdatePartDataCtx={onUpdatePartDataCtx}
+            updateCornersCtx={updateCornersCtx}
           />
 
           {/*  CORNERS CONTROLS */}
           {getSelectedPieceCtx() && (
             <section className="ct-corners-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
-                Esquinas
+                Esquinas Redondas
               </Typography.Title>
 
               <Space direction="vertical">

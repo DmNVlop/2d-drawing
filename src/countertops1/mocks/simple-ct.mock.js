@@ -5,6 +5,10 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 export const SIMPLE_CT_M = {
   shapeType: SHAPE_TYPES.SIMPLE,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  rootConfig: {
+    scaleX: 1,
+    scaleY: 1,
+  },
   partsData: [
     {
       id: 1,
@@ -18,8 +22,8 @@ export const SIMPLE_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // fillPatternImage: "",
       fillPatternImage: "/images/patron-de-tablero-de-madera.png",

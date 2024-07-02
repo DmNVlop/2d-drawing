@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Group, Layer, Stage } from "react-konva";
 
@@ -14,21 +13,9 @@ import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useCustomURLHandler } from "../helpers/location.hook";
 
 export default function SimpleCTPage(props) {
-  const {
-    countertops,
-    // setCountertops,
-    getPartsDataFromPieceCtx,
-    // onSetSelectedPieceCtx,
-    // onSetNumberOfPieceCtx,
-  } = useCountertopContext();
+  const { countertops, getPartsDataFromPieceCtx } = useCountertopContext();
 
-  const { location, ATTRIB_SETTED } = useCustomURLHandler();
-
-  // useEffect(() => {
-  //   onSetSelectedPieceCtx(null);
-
-  //   onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
-  // }, [location.pathname]);
+  const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const stageWidth = useWindowsSizes().stageWidth;
   const stageHeight = useWindowsSizes().stageHeight;
@@ -37,7 +24,13 @@ export default function SimpleCTPage(props) {
     <>
       <h2>{props.title}</h2>
 
-      <Stage width={stageWidth} height={stageHeight} draggable>
+      <Stage
+        width={stageWidth}
+        height={stageHeight}
+        draggable
+        scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+        scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+      >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
             const groupKey = `groupP-${item.id}-${index}`;

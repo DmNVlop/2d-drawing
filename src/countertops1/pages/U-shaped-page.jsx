@@ -23,13 +23,8 @@ export default function UShapedPage(props) {
     navigate("/countertop/u-shaped?t=u1");
   }
 
-  const {
-    countertops,
-    getPartsDataFromPieceCtx,
-    getLinesDataFromPieceCtx,
-    // onSetSelectedPieceCtx,
-    // onSetNumberOfPieceCtx,
-  } = useCountertopContext();
+  const { countertops, getPartsDataFromPieceCtx, getLinesDataFromPieceCtx } =
+    useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras U");
 
@@ -48,11 +43,6 @@ export default function UShapedPage(props) {
 
   useEffect(() => {
     handleTitle();
-
-    // onSetSelectedPieceCtx(null);
-    // onSetNumberOfPieceCtx(
-    //   countertops[ATTRIB_SETTED]?.partsData?.length || null
-    // );
   }, [tParamUrl]);
 
   const stageWidth = useWindowsSizes().stageWidth;
@@ -62,7 +52,13 @@ export default function UShapedPage(props) {
     <>
       <h2>{pageTitle}</h2>
 
-      <Stage width={stageWidth} height={stageHeight} draggable>
+      <Stage
+        width={stageWidth}
+        height={stageHeight}
+        draggable
+        scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+        scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+      >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
             return (

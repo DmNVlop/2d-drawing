@@ -4,6 +4,10 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 export const U1_CT_M = {
   shapeType: SHAPE_TYPES.U1_SHAPED,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  rootConfig: {
+    scaleX: 0.4,
+    scaleY: 0.4,
+  },
   partsData: [
     {
       id: 1,
@@ -15,8 +19,8 @@ export const U1_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
-      scaleX: 0.4,
-      scaleY: 0.4,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 500,
       // offsetY: 0,
@@ -39,8 +43,8 @@ export const U1_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      scaleX: 0.4,
-      scaleY: 0.4,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: -200, // (-)height P1
       // offsetY: 0,
@@ -63,8 +67,8 @@ export const U1_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 90,
-      scaleX: 0.4,
-      scaleY: 0.4,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // height P1 + width P2 + height P3
@@ -119,6 +123,10 @@ export const U1_LINE_CT_M = {
 export const U2_CT_M = {
   shapeType: SHAPE_TYPES.U2_CT_M,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  rootConfig: {
+    scaleX: 1,
+    scaleY: 1,
+  },
   partsData: [
     {
       id: 1,
@@ -130,8 +138,8 @@ export const U2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 500,
       // offsetY: 0,
@@ -154,8 +162,8 @@ export const U2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: -200, // (-)height P1
       // offsetY: 0,
@@ -178,8 +186,8 @@ export const U2_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 90,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 0, // (-)height P2
       // offsetY: 700, // height P1 + width P2 + height P3
@@ -234,6 +242,10 @@ export const U2_LINE_CT_M = {
 export const U3_CT_M = {
   shapeType: SHAPE_TYPES.U2_CT_M,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  rootConfig: {
+    scaleX: 1,
+    scaleY: 1,
+  },
   partsData: [
     {
       id: 1,
@@ -245,8 +257,8 @@ export const U3_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
@@ -269,8 +281,8 @@ export const U3_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 0, // (-)height P1
       // offsetY: 0,
@@ -293,8 +305,8 @@ export const U3_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 90,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 0, // (-)height P2
       // offsetY: 700, // height P1 + width P2
@@ -349,6 +361,10 @@ export const U3_LINE_CT_M = {
 export const U4_CT_M = {
   shapeType: SHAPE_TYPES.U2_CT_M,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  rootConfig: {
+    scaleX: 1,
+    scaleY: 1,
+  },
   partsData: [
     {
       id: 1,
@@ -360,8 +376,8 @@ export const U4_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: -90,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
@@ -384,8 +400,8 @@ export const U4_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 0,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: 0,
       // offsetY: 0,
@@ -408,8 +424,8 @@ export const U4_CT_M = {
       stroke: "black",
       strokeWidth: 1,
       rotation: 90,
-      scaleX: 1,
-      scaleY: 1,
+      // scaleX: 1,
+      // scaleY: 1,
       opacity: 0.8,
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // width P2
