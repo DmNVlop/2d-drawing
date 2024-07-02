@@ -27,10 +27,10 @@ export default function Uct() {
     try {
       const result = await setWoody(params);
       if (result) {
-        console.log("Se ha guardado correctamente", result);
+        console.log("👌 Se ha guardado correctamente", result);
       }
     } catch (error) {
-      console.log("Error conectando a Woody");
+      console.log("⚠️ Error conectando a Woody");
     }
   };
 

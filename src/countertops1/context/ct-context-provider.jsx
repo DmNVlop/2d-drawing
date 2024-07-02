@@ -101,18 +101,13 @@ export default function CountetopContextProvider({ children }) {
 
     setCountertops((prevState) => {
       let newState = { ...prevState };
-      console.log("🚀 ~ setCountertops ~ newState:", newState);
-      console.log("🚀 ~ setOpacityOnPiecesCtx ~ indexPart:", indexPart);
-
       if (indexPart == null) {
-        console.log("🚀 ~ nullnullnull ~ indexPart:", indexPart);
         newState[ATTRIB_SETTED].partsData = newState[
           ATTRIB_SETTED
         ].partsData.map((part) => ({
           ...part,
           opacity: opacityStd,
         }));
-        console.log("🚀 ~ nullnullnull ~ newState:", newState);
       } else {
         newState[ATTRIB_SETTED].partsData = newState[
           ATTRIB_SETTED

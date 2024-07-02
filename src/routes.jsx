@@ -8,7 +8,7 @@ import {
 import CountetopContextProvider from "./countertops1/context/ct-context-provider";
 import CountertopHome from "./countertops1/pages/countertop-home";
 import Loading from "./countertops1/components/Simple-Componentes/loading";
-import RectLTemplateTest from "./countertops1/components/rect-l-test.template";
+// import RectLTemplateTest from "./countertops1/components/rect-l-test.template";
 
 // const HomePage = lazy(() => import("./HomePage"));
 const NotFoundPage = lazy(() => import("./shared/not-found-page"));
@@ -18,6 +18,9 @@ const CountertopPage = lazy(() =>
 const SimpleCTPage = lazy(() => import("./countertops1/pages/simplect-page"));
 const LShapedPage = lazy(() => import("./countertops1/pages/L-shaped-page"));
 const UShapedPage = lazy(() => import("./countertops1/pages/U-shaped-page"));
+const AppFormTest = lazy(() =>
+  import("./countertops1/components/TEST/form-test")
+);
 
 const RoutersApp = () => {
   return (
@@ -42,6 +45,7 @@ const RoutersApp = () => {
             }
           >
             <Route path="test" element={<RectLTemplateTest />} />
+            <Route path="test-form" element={<AppFormTest />} />
 
             <Route
               path="simple"

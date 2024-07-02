@@ -23,10 +23,10 @@ export const getWoody = async () => {
       localStorage.setItem(localStorageName, JSON.stringify(response.data));
       return response.data;
     } else {
-      console.log("Error conectando a Woody");
+      console.log("⚠️ Error conectando a Woody");
     }
   } catch (error) {
-    console.log("Error conectando a Woody");
+    console.log("⚠️ Error conectando a Woody");
   }
 };
 
@@ -34,7 +34,7 @@ export const setWoody = async (params) => {
   try {
     const _id = JSON.parse(localStorage.getItem(localStorageName));
     if (!_id) {
-      console.log("No existe el ID de Woody en el LocalStorage");
+      console.log("⚠️ No existe el ID de Woody en el LocalStorage");
       return false;
     }
 
@@ -45,6 +45,6 @@ export const setWoody = async (params) => {
 
     return response.data;
   } catch (error) {
-    console.log("Error conectando a Woody");
+    console.log("⚠️ Error conectando a Woody");
   }
 };
