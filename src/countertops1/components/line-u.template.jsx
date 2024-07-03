@@ -5,7 +5,7 @@ import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 export default function LineUTemplate(props) {
   const { ATTRIB_SETTED, getPartsDataFromPieceCtx } = props;
 
-  // HORIZONTAL
+  // #region HORIZONTAL CODE
   const calculateLengthBaseHORZ = (ATTRIB_SETTED, partsData) => {
     const { UShaped_u1, UShaped_u2, UShaped_u3, UShaped_u4 } = SHAPE_TYPES;
     switch (ATTRIB_SETTED) {
@@ -33,8 +33,9 @@ export default function LineUTemplate(props) {
 
   const textXHORZ = xRefBaseHORZ + lengthBaseHORZ / 2 - 10; //props?.itemData?.level == 1 ? xRefBaseHORZ + 36 : xRefBaseHORZ + 76;
   const textYHORZ = yRefBaseHORZ - 34;
+  // #endregion
 
-  // VERTICAL RIGHT
+  // #region VERTICAL RIGHT CODE
   const calculateLengthBaseVERT = (ATTRIB_SETTED, partsData) => {
     const { UShaped_u1, UShaped_u2, UShaped_u3, UShaped_u4 } = SHAPE_TYPES;
     switch (ATTRIB_SETTED) {
@@ -62,25 +63,26 @@ export default function LineUTemplate(props) {
 
   const textXVERT = xRefBaseVERT + 34 + lengthBaseHORZ; // props?.itemData?.level == 1 ? xRefBaseVERT + 36 : xRefBaseVERT + 76;
   const textYVERT = yRefBaseVERT + lengthBaseVERT / 2 - 12;
+  // #endregion
 
-  // VERTICAL LEFT
+  // #region VERTICAL LEFT CODE
   const calculateLengthBaseVERT_L = (ATTRIB_SETTED, partsData) => {
     const { UShaped_u1, UShaped_u2, UShaped_u3, UShaped_u4 } = SHAPE_TYPES;
     switch (ATTRIB_SETTED) {
       case UShaped_u1:
-        return partsData[1].height + partsData[2].width;
+        return partsData[0].width;
       case UShaped_u2:
-        return partsData[2].width;
+        return partsData[0].width;
       case UShaped_u3:
-        return partsData[2].width;
+        return partsData[0].width + partsData[1].height;
       case UShaped_u4:
-        return partsData[1].height + partsData[2].width;
+        return partsData[0].width + partsData[1].height;
       default:
         return 0;
     }
   };
 
-  const rotationVERT_L = 90;
+  const rotationVERT_L = -90;
   const lengthBaseVERT_L = calculateLengthBaseVERT_L(
     ATTRIB_SETTED,
     getPartsDataFromPieceCtx
@@ -89,11 +91,13 @@ export default function LineUTemplate(props) {
   const yRefBaseVERT_L = 0;
   const levelAdjustVERT_L = 20; //props?.itemData?.level == 1 ? 20 : 60;
 
-  const textXVERT_L = xRefBaseVERT_L + 34 + lengthBaseHORZ; // props?.itemData?.level == 1 ? xRefBaseVERT_L + 36 : xRefBaseVERT_L + 76;
+  const textXVERT_L = xRefBaseVERT_L - 34; // props?.itemData?.level == 1 ? xRefBaseVERT_L + 36 : xRefBaseVERT_L + 76;
   const textYVERT_L = yRefBaseVERT_L + lengthBaseVERT_L / 2 - 12;
+  // #endregion
 
   return (
     <Group>
+      {/* // HORIZONTAL VIEW */}
       <Group>
         <Line
           points={[
@@ -137,6 +141,7 @@ export default function LineUTemplate(props) {
         />
       </Group>
 
+      {/* // VERTICAL RIGHT VIEW */}
       <Group>
         <Line
           points={[
@@ -176,6 +181,50 @@ export default function LineUTemplate(props) {
           y={textYVERT}
           text={lengthBaseVERT}
           rotation={rotationVERT}
+          fontSize={16}
+        />
+      </Group>
+
+      {/* // VERTICAL LEFT VIEW */}
+      <Group>
+        <Line
+          points={[
+            xRefBaseVERT_L - levelAdjustVERT_L,
+            yRefBaseVERT_L,
+            xRefBaseVERT_L - levelAdjustVERT_L,
+            yRefBaseVERT_L + lengthBaseVERT_L,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Line
+          points={[
+            xRefBaseVERT_L - levelAdjustVERT_L - 10,
+            yRefBaseVERT_L,
+            xRefBaseVERT_L - levelAdjustVERT_L + 10,
+            yRefBaseVERT_L,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Line
+          points={[
+            xRefBaseVERT_L - levelAdjustVERT_L - 10,
+            yRefBaseVERT_L + lengthBaseVERT_L,
+            xRefBaseVERT_L - levelAdjustVERT_L + 10,
+            yRefBaseVERT_L + lengthBaseVERT_L,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Text
+          x={textXVERT_L}
+          y={textYVERT_L}
+          text={lengthBaseVERT_L}
+          rotation={rotationVERT_L}
           fontSize={16}
         />
       </Group>
