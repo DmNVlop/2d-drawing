@@ -23,8 +23,12 @@ export default function UShapedPage(props) {
     navigate("/countertop/u-shaped?t=u1");
   }
 
-  const { countertops, getPartsDataFromPieceCtx, getLinesDataFromPieceCtx } =
-    useCountertopContext();
+  const {
+    countertops,
+    getPartsDataFromPieceCtx,
+    getLinesDataFromPieceCtx,
+    onSetSelectedPieceCtx,
+  } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras U");
 
@@ -74,6 +78,7 @@ export default function UShapedPage(props) {
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
+                    onSetSelectedPieceCtx={onSetSelectedPieceCtx}
                   />
                 )}
 
@@ -84,6 +89,7 @@ export default function UShapedPage(props) {
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
+                    onSetSelectedPieceCtx={onSetSelectedPieceCtx}
                   />
                 )}
 
@@ -94,6 +100,7 @@ export default function UShapedPage(props) {
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
+                    onSetSelectedPieceCtx={onSetSelectedPieceCtx}
                   />
                 )}
 
@@ -104,6 +111,7 @@ export default function UShapedPage(props) {
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
+                    onSetSelectedPieceCtx={onSetSelectedPieceCtx}
                   />
                 )}
               </Group>

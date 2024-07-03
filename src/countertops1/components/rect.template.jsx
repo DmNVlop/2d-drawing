@@ -1,9 +1,13 @@
 import { Rect } from "react-konva";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import { useCountertopContext } from "../context/ct-context";
+import { NO_PIEZAS } from "../mocks/NO_PARTS.const";
 
 export default function RectTemplate(props) {
   const { itemData } = props;
+  const { onSetSelectedPieceCtx } = useCountertopContext();
+
   const rect_REF = useRef(null);
 
   const [imageData, setImageData] = useState("");
@@ -24,11 +28,18 @@ export default function RectTemplate(props) {
     };
   };
 
+  const getPieceJSON = (numberOfPiece) => {
+    return NO_PIEZAS.find((item) => {
+      return item.value === numberOfPiece;
+    });
+  };
+
   const handleClickRect = () => {
-    setFillPriority(
-      "pattern",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5d7Y41hy4ntijBBsFIPYA7hcmojYFx7H3sVRZx_ffV6IElyPSW5vK1czr8A&s"
-    );
+    onSetSelectedPieceCtx(getPieceJSON(1));
+    // setFillPriority(
+    //   "pattern",
+    //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5d7Y41hy4ntijBBsFIPYA7hcmojYFx7H3sVRZx_ffV6IElyPSW5vK1czr8A&s"
+    // );
   };
 
   useEffect(() => {
