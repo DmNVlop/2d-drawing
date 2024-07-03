@@ -34,8 +34,9 @@ export default function RectTemplate(props) {
     });
   };
 
-  const handleClickRect = () => {
+  const handleClickRect = (e) => {
     onSetSelectedPieceCtx(getPieceJSON(1));
+    e.cancelBubble = true;
     // setFillPriority(
     //   "pattern",
     //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5d7Y41hy4ntijBBsFIPYA7hcmojYFx7H3sVRZx_ffV6IElyPSW5vK1czr8A&s"

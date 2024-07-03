@@ -47,6 +47,10 @@ export default function LShapedPage(props) {
     );
   };
 
+  const handleClickOnSelectPieceNull = () => {
+    onSetSelectedPieceCtx(null);
+  };
+
   useEffect(() => {
     handleTitle();
   }, [tParamUrl]);
@@ -64,6 +68,7 @@ export default function LShapedPage(props) {
         draggable
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        onClick={handleClickOnSelectPieceNull}
       >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {

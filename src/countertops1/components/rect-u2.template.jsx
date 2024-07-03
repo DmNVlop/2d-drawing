@@ -25,12 +25,15 @@ export default function RectUTemplateU2(props) {
 
   const handleClickOnSelectPiece1 = () => {
     onSetSelectedPieceCtx(getPieceJSON(1));
+    e.cancelBubble = true;
   };
   const handleClickOnSelectPiece2 = () => {
     onSetSelectedPieceCtx(getPieceJSON(2));
+    e.cancelBubble = true;
   };
-  const handleClickOnSelectPiece3 = () => {
+  const handleClickOnSelectPiece3 = (e) => {
     onSetSelectedPieceCtx(getPieceJSON(3));
+    e.cancelBubble = true;
   };
 
   useEffect(() => {

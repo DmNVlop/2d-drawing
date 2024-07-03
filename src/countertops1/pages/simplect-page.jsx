@@ -13,12 +13,17 @@ import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useCustomURLHandler } from "../helpers/location.hook";
 
 export default function SimpleCTPage(props) {
-  const { countertops, getPartsDataFromPieceCtx } = useCountertopContext();
+  const { countertops, getPartsDataFromPieceCtx, onSetSelectedPieceCtx } =
+    useCountertopContext();
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const stageWidth = useWindowsSizes().stageWidth;
   const stageHeight = useWindowsSizes().stageHeight;
+
+  const handleClickOnSelectPieceNull = () => {
+    onSetSelectedPieceCtx(null);
+  };
 
   return (
     <>
@@ -30,6 +35,7 @@ export default function SimpleCTPage(props) {
         draggable
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        onClick={handleClickOnSelectPieceNull}
       >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
