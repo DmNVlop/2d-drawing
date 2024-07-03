@@ -239,7 +239,7 @@ function DimensionsInput(props) {
   return (
     <>
       {/*  SIZES CONTROLS */}
-      <section className="ct-sizes-controls">
+      <section id="ct-sizes-input-component" className="ct-sizes-controls">
         <Typography.Title level={4} style={{ marginBottom: 10 }}>
           Dimensiones
           {piezaSelected && <i> ({piezaSelected?.label})</i>}
