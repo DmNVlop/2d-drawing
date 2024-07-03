@@ -1,62 +1,190 @@
 import { Group, Line, Text } from "react-konva";
 import PropTypes from "prop-types";
+import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 
 export default function LineUTemplate(props) {
-  const rotation = props?.itemData?.rotation || 0;
-  const lengthBase = props?.itemData?.length || 0;
-  const xRefBase = props?.itemData?.xRef || 0;
-  const yRefBase = props?.itemData?.yRef || 0;
-  const levelAdjust = props?.itemData?.level == 1 ? 20 : 60;
+  const { ATTRIB_SETTED, getPartsDataFromPieceCtx } = props;
 
-  const textX = props?.itemData?.level == 1 ? xRefBase + 36 : xRefBase + 76;
-  const textY = yRefBase + lengthBase / 2 - 10;
+  // HORIZONTAL
+  const calculateLengthBaseHORZ = (ATTRIB_SETTED, partsData) => {
+    const { UShaped_u1, UShaped_u2, UShaped_u3, UShaped_u4 } = SHAPE_TYPES;
+    switch (ATTRIB_SETTED) {
+      case UShaped_u1:
+        return partsData[0].height + partsData[1].width;
+      case UShaped_u2:
+        return partsData[0].height + partsData[1].width + partsData[2].height;
+      case UShaped_u3:
+        return partsData[1].width + partsData[2].height;
+      case UShaped_u4:
+        return partsData[1].width;
+      default:
+        return 0;
+    }
+  };
+
+  const rotationHORZ = 0;
+  const lengthBaseHORZ = calculateLengthBaseHORZ(
+    ATTRIB_SETTED,
+    getPartsDataFromPieceCtx
+  );
+  const xRefBaseHORZ = 0; //props?.itemData?.xRef || 0;
+  const yRefBaseHORZ = 0; //props?.itemData?.yRef || 0;
+  const levelAdjustHORZ = 20; //props?.itemData?.level == 1 ? 20 : 60;
+
+  const textXHORZ = xRefBaseHORZ + lengthBaseHORZ / 2 - 10; //props?.itemData?.level == 1 ? xRefBaseHORZ + 36 : xRefBaseHORZ + 76;
+  const textYHORZ = yRefBaseHORZ - 34;
+
+  // VERTICAL RIGHT
+  const calculateLengthBaseVERT = (ATTRIB_SETTED, partsData) => {
+    const { UShaped_u1, UShaped_u2, UShaped_u3, UShaped_u4 } = SHAPE_TYPES;
+    switch (ATTRIB_SETTED) {
+      case UShaped_u1:
+        return partsData[1].height + partsData[2].width;
+      case UShaped_u2:
+        return partsData[2].width;
+      case UShaped_u3:
+        return partsData[2].width;
+      case UShaped_u4:
+        return partsData[1].height + partsData[2].width;
+      default:
+        return 0;
+    }
+  };
+
+  const rotationVERT = 90;
+  const lengthBaseVERT = calculateLengthBaseVERT(
+    ATTRIB_SETTED,
+    getPartsDataFromPieceCtx
+  );
+  const xRefBaseVERT = 0;
+  const yRefBaseVERT = 0;
+  const levelAdjustVERT = 20; //props?.itemData?.level == 1 ? 20 : 60;
+
+  const textXVERT = xRefBaseVERT + 34 + lengthBaseHORZ; // props?.itemData?.level == 1 ? xRefBaseVERT + 36 : xRefBaseVERT + 76;
+  const textYVERT = yRefBaseVERT + lengthBaseVERT / 2 - 12;
+
+  // VERTICAL LEFT
+  const calculateLengthBaseVERT_L = (ATTRIB_SETTED, partsData) => {
+    const { UShaped_u1, UShaped_u2, UShaped_u3, UShaped_u4 } = SHAPE_TYPES;
+    switch (ATTRIB_SETTED) {
+      case UShaped_u1:
+        return partsData[1].height + partsData[2].width;
+      case UShaped_u2:
+        return partsData[2].width;
+      case UShaped_u3:
+        return partsData[2].width;
+      case UShaped_u4:
+        return partsData[1].height + partsData[2].width;
+      default:
+        return 0;
+    }
+  };
+
+  const rotationVERT_L = 90;
+  const lengthBaseVERT_L = calculateLengthBaseVERT_L(
+    ATTRIB_SETTED,
+    getPartsDataFromPieceCtx
+  );
+  const xRefBaseVERT_L = 0;
+  const yRefBaseVERT_L = 0;
+  const levelAdjustVERT_L = 20; //props?.itemData?.level == 1 ? 20 : 60;
+
+  const textXVERT_L = xRefBaseVERT_L + 34 + lengthBaseHORZ; // props?.itemData?.level == 1 ? xRefBaseVERT_L + 36 : xRefBaseVERT_L + 76;
+  const textYVERT_L = yRefBaseVERT_L + lengthBaseVERT_L / 2 - 12;
 
   return (
-    <>
-      <Line
-        points={[
-          xRefBase + levelAdjust,
-          yRefBase,
-          xRefBase + levelAdjust,
-          yRefBase + lengthBase,
-        ]}
-        fill="black"
-        stroke="black"
-        strokeWidth={1}
-      />
-      <Line
-        points={[
-          xRefBase + levelAdjust - 10,
-          yRefBase,
-          xRefBase + levelAdjust + 10,
-          yRefBase,
-        ]}
-        fill="black"
-        stroke="black"
-        strokeWidth={1}
-      />
-      <Line
-        points={[
-          xRefBase + levelAdjust - 10,
-          yRefBase + lengthBase,
-          xRefBase + levelAdjust + 10,
-          yRefBase + lengthBase,
-        ]}
-        fill="black"
-        stroke="black"
-        strokeWidth={1}
-      />
-      <Text
-        x={textX}
-        y={textY}
-        text={lengthBase}
-        rotation={rotation}
-        fontSize={16}
-      />
-    </>
+    <Group>
+      <Group>
+        <Line
+          points={[
+            xRefBaseHORZ,
+            yRefBaseHORZ - levelAdjustHORZ,
+            xRefBaseHORZ + lengthBaseHORZ,
+            yRefBaseHORZ - levelAdjustHORZ,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Line
+          points={[
+            xRefBaseHORZ,
+            yRefBaseHORZ - levelAdjustHORZ - 10,
+            xRefBaseHORZ,
+            yRefBaseHORZ - levelAdjustHORZ + 10,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Line
+          points={[
+            xRefBaseHORZ + lengthBaseHORZ,
+            yRefBaseHORZ - levelAdjustHORZ - 10,
+            xRefBaseHORZ + lengthBaseHORZ,
+            yRefBaseHORZ - levelAdjustHORZ + 10,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Text
+          x={textXHORZ}
+          y={textYHORZ}
+          text={lengthBaseHORZ}
+          rotation={rotationHORZ}
+          fontSize={16}
+        />
+      </Group>
+
+      <Group>
+        <Line
+          points={[
+            xRefBaseVERT + levelAdjustVERT + lengthBaseHORZ,
+            yRefBaseVERT,
+            xRefBaseVERT + levelAdjustVERT + lengthBaseHORZ,
+            yRefBaseVERT + lengthBaseVERT,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Line
+          points={[
+            xRefBaseVERT + levelAdjustVERT - 10 + lengthBaseHORZ,
+            yRefBaseVERT,
+            xRefBaseVERT + levelAdjustVERT + 10 + lengthBaseHORZ,
+            yRefBaseVERT,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Line
+          points={[
+            xRefBaseVERT + levelAdjustVERT - 10 + lengthBaseHORZ,
+            yRefBaseVERT + lengthBaseVERT,
+            xRefBaseVERT + levelAdjustVERT + 10 + lengthBaseHORZ,
+            yRefBaseVERT + lengthBaseVERT,
+          ]}
+          fill="black"
+          stroke="black"
+          strokeWidth={1}
+        />
+        <Text
+          x={textXVERT}
+          y={textYVERT}
+          text={lengthBaseVERT}
+          rotation={rotationVERT}
+          fontSize={16}
+        />
+      </Group>
+    </Group>
   );
 }
 
 LineUTemplate.propTypes = {
-  itemData: PropTypes.object,
+  // itemData: PropTypes.object,
+  ATTRIB_SETTED: PropTypes.string,
+  getPartsDataFromPieceCtx: PropTypes.array,
 };

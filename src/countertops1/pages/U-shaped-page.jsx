@@ -117,17 +117,13 @@ export default function UShapedPage(props) {
               </Group>
             );
           })}
-          {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
-            return (
-              <Group
-                key={index}
-                x={GLOBAL_CT_M.xGlobalLayer}
-                y={GLOBAL_CT_M.yGlobalLayer}
-              >
-                <LineUTemplate itemData={item} key={item.id} />
-              </Group>
-            );
-          })}
+
+          <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
+            <LineUTemplate
+              ATTRIB_SETTED={ATTRIB_SETTED}
+              getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(ATTRIB_SETTED)}
+            />
+          </Group>
         </Layer>
       </Stage>
     </>

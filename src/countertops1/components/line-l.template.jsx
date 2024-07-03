@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 
 export default function LineLTemplate(props) {
-  const { attrib, getPartsDataFromPieceCtx } = props;
+  const { ATTRIB_SETTED, getPartsDataFromPieceCtx } = props;
 
   // HORIZONTAL
   const xRefBaseHORZ = 0; // itemData?.xRef || 0;
   const yRefBaseHORZ = 0; // itemData?.yRef || 0;
 
-  const calculateLengthBaseHORZ = (attrib, partsData) => {
+  const calculateLengthBaseHORZ = (ATTRIB_SETTED, partsData) => {
     const { LShaped_l1, LShaped_l2 } = SHAPE_TYPES;
-    switch (attrib) {
+    switch (ATTRIB_SETTED) {
       case LShaped_l1:
         return partsData[0].height + partsData[1].width;
       case LShaped_l2:
@@ -21,7 +21,7 @@ export default function LineLTemplate(props) {
     }
   };
   const lengthBaseHORZ = calculateLengthBaseHORZ(
-    attrib,
+    ATTRIB_SETTED,
     getPartsDataFromPieceCtx
   );
 
@@ -35,9 +35,9 @@ export default function LineLTemplate(props) {
   // VERTICAL
   const xRefBaseVERT = 0; //itemData?.xRef || 0;
   const yRefBaseVERT = 0; // itemData?.yRef || 0;
-  const calculateLengthBaseVERT = (attrib, partsData) => {
+  const calculateLengthBaseVERT = (ATTRIB_SETTED, partsData) => {
     const { LShaped_l1, LShaped_l2 } = SHAPE_TYPES;
-    switch (attrib) {
+    switch (ATTRIB_SETTED) {
       case LShaped_l1:
         return partsData[0].width;
       case LShaped_l2:
@@ -47,7 +47,7 @@ export default function LineLTemplate(props) {
     }
   };
   const lengthBaseVERT = calculateLengthBaseVERT(
-    attrib,
+    ATTRIB_SETTED,
     getPartsDataFromPieceCtx
   ); // itemData?.length || 0;
 
@@ -151,6 +151,6 @@ export default function LineLTemplate(props) {
 
 LineLTemplate.propTypes = {
   // itemData: PropTypes.object,
-  attrib: PropTypes.string,
+  ATTRIB_SETTED: PropTypes.string,
   getPartsDataFromPieceCtx: PropTypes.array,
 };
