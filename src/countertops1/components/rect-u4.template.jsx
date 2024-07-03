@@ -1,9 +1,10 @@
 import { Group, Rect } from "react-konva";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { NO_PIEZAS } from "../mocks/NO_PARTS.const";
 
 export default function RectUTemplateU4(props) {
-  const { itemData, getPartsDataFromPieceCtx } = props;
+  const { itemData, getPartsDataFromPieceCtx, onSetSelectedPieceCtx } = props;
   const [imageData, setImageData] = useState("");
 
   const setFillPriority = (priority, imgPath) => {
@@ -14,6 +15,22 @@ export default function RectUTemplateU4(props) {
     img.onload = () => {
       setImageData({ fillPriority, img });
     };
+  };
+
+  const getPieceJSON = (numberOfPiece) => {
+    return NO_PIEZAS.find((item) => {
+      return item.value === numberOfPiece;
+    });
+  };
+
+  const handleClickOnSelectPiece1 = () => {
+    onSetSelectedPieceCtx(getPieceJSON(1));
+  };
+  const handleClickOnSelectPiece2 = () => {
+    onSetSelectedPieceCtx(getPieceJSON(2));
+  };
+  const handleClickOnSelectPiece3 = () => {
+    onSetSelectedPieceCtx(getPieceJSON(3));
   };
 
   useEffect(() => {
@@ -45,6 +62,7 @@ export default function RectUTemplateU4(props) {
             rotation={itemData?.rotation}
             offsetX={itemData?.width + getPartsDataFromPieceCtx[1].height}
             offsetY={0}
+            onClick={handleClickOnSelectPiece1}
           />
         </Group>
       )}
@@ -70,6 +88,7 @@ export default function RectUTemplateU4(props) {
             rotation={itemData?.rotation}
             offsetX={0}
             offsetY={0}
+            onClick={handleClickOnSelectPiece2}
           />
         </Group>
       )}
@@ -95,6 +114,7 @@ export default function RectUTemplateU4(props) {
             rotation={itemData?.rotation}
             offsetX={-getPartsDataFromPieceCtx[1].height}
             offsetY={getPartsDataFromPieceCtx[1].width}
+            onClick={handleClickOnSelectPiece3}
           />
         </Group>
       )}
