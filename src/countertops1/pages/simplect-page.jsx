@@ -13,12 +13,17 @@ import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useCustomURLHandler } from "../helpers/location.hook";
 
 export default function SimpleCTPage(props) {
-  const { countertops, getPartsDataFromPieceCtx } = useCountertopContext();
+  const { countertops, getPartsDataFromPieceCtx, onSetSelectedPieceCtx } =
+    useCountertopContext();
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const stageWidth = useWindowsSizes().stageWidth;
   const stageHeight = useWindowsSizes().stageHeight;
+
+  const handleClickOnSelectPieceNull = () => {
+    onSetSelectedPieceCtx(null);
+  };
 
   return (
     <>
@@ -30,6 +35,31 @@ export default function SimpleCTPage(props) {
         draggable
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        onClick={handleClickOnSelectPieceNull}
+        rotation={0}
+        // rotation={90}
+        // rotation={-90}
+        // rotation={180}
+        offsetX={0} // 0
+        offsetY={0} // 0
+
+        // offsetX={0} // 90
+        // offsetY={countertops[ATTRIB_SETTED]?.partsData[0]?.height + GLOBAL_CT_M.xGlobalLayer * 2} // 90
+
+        // offsetX={
+        //   countertops[ATTRIB_SETTED]?.partsData[0]?.width +
+        //   GLOBAL_CT_M.xGlobalLayer * 2
+        // } // -90
+        // offsetY={0} // -90
+
+        // offsetX={
+        //   countertops[ATTRIB_SETTED]?.partsData[0]?.width +
+        //   GLOBAL_CT_M.xGlobalLayer * 2
+        // } // -180
+        // offsetY={
+        //   countertops[ATTRIB_SETTED]?.partsData[0]?.height +
+        //   GLOBAL_CT_M.yGlobalLayer * 2
+        // } // -180
       >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {

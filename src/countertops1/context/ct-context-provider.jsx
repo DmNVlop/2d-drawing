@@ -192,7 +192,7 @@ export default function CountetopContextProvider({ children }) {
 
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
-      tempCountertops.partsData[indexPart].works.push(work);
+      tempCountertops[ATTRIB_SETTED].partsData[indexPart].works.push(work);
       return tempCountertops;
     });
   };
@@ -200,7 +200,10 @@ export default function CountetopContextProvider({ children }) {
   const deleteWorkInPieceCtx = (indexWork, indexPart) => {
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
-      tempCountertops.partsData[indexPart].works.splice(indexWork, 1);
+      tempCountertops[ATTRIB_SETTED].partsData[indexPart].works.splice(
+        indexWork,
+        1
+      );
       return tempCountertops;
     });
   };
@@ -208,7 +211,7 @@ export default function CountetopContextProvider({ children }) {
   const deleteAllWorksInPieceCtx = (indexPart) => {
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
-      tempCountertops.partsData[indexPart].works = [];
+      tempCountertops[ATTRIB_SETTED].partsData[indexPart].works = [];
       return tempCountertops;
     });
   };

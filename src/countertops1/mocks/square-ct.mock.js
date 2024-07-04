@@ -20,7 +20,7 @@ export const SQUARE_CT_M = {
       realHeight: 600,
       fill: "#c7aa89",
       stroke: "black",
-      strokeWidth: 1,
+      strokeWidth: 0,
       rotation: 0,
       // scaleX: 1,
       // scaleY: 1,

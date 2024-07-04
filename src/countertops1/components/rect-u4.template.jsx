@@ -23,14 +23,17 @@ export default function RectUTemplateU4(props) {
     });
   };
 
-  const handleClickOnSelectPiece1 = () => {
+  const handleClickOnSelectPiece1 = (e) => {
     onSetSelectedPieceCtx(getPieceJSON(1));
+    e.cancelBubble = true;
   };
-  const handleClickOnSelectPiece2 = () => {
+  const handleClickOnSelectPiece2 = (e) => {
     onSetSelectedPieceCtx(getPieceJSON(2));
+    e.cancelBubble = true;
   };
-  const handleClickOnSelectPiece3 = () => {
+  const handleClickOnSelectPiece3 = (e) => {
     onSetSelectedPieceCtx(getPieceJSON(3));
+    e.cancelBubble = true;
   };
 
   useEffect(() => {

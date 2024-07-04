@@ -8,6 +8,8 @@ import { WORKS_TYPES } from "../../mocks/WORKS.types";
 function RectoInteriorCNCWork(props) {
   const { workData, pieceSelected } = props;
 
+  const _strokeCorrection = 0;
+
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
 
@@ -63,7 +65,16 @@ function RectoInteriorCNCWork(props) {
     <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
       {handleCornerShowed(0) && (
         <Line
-          points={[0, 0, realWidth, 0, realWidth, realHeight, 0, realHeight]}
+          points={[
+            0 - _strokeCorrection,
+            0 - _strokeCorrection,
+            realWidth,
+            0 - _strokeCorrection,
+            realWidth,
+            realHeight,
+            0 - _strokeCorrection,
+            realHeight,
+          ]}
           closed={true}
           fill="white"
         />
@@ -72,13 +83,13 @@ function RectoInteriorCNCWork(props) {
       {handleCornerShowed(1) && (
         <Line
           points={[
-            realPieceWidth,
-            0,
+            realPieceWidth + _strokeCorrection,
+            0 - _strokeCorrection,
             realPieceWidth - realWidth,
-            0,
+            0 - _strokeCorrection,
             realPieceWidth - realWidth,
             realHeight,
-            realPieceWidth,
+            realPieceWidth + _strokeCorrection,
             realHeight,
           ]}
           closed={true}
@@ -89,13 +100,13 @@ function RectoInteriorCNCWork(props) {
       {handleCornerShowed(2) && (
         <Line
           points={[
-            realPieceWidth,
-            realPieceHeight,
+            realPieceWidth + _strokeCorrection,
+            realPieceHeight + _strokeCorrection,
             realPieceWidth - realWidth,
-            realPieceHeight,
+            realPieceHeight + _strokeCorrection,
             realPieceWidth - realWidth,
             realPieceHeight - realHeight,
-            realPieceWidth,
+            realPieceWidth + _strokeCorrection,
             realPieceHeight - realHeight,
           ]}
           closed={true}
@@ -106,13 +117,13 @@ function RectoInteriorCNCWork(props) {
       {handleCornerShowed(3) && (
         <Line
           points={[
-            0,
-            realPieceHeight,
+            0 - _strokeCorrection,
+            realPieceHeight + _strokeCorrection,
             realWidth,
-            realPieceHeight,
+            realPieceHeight + _strokeCorrection,
             realWidth,
             realPieceHeight - realHeight,
-            0,
+            0 - _strokeCorrection,
             realPieceHeight - realHeight,
           ]}
           closed={true}

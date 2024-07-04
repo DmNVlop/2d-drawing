@@ -41,6 +41,14 @@ const BUTTON_SQUARE_WORKS = [
   //   selected: false,
   //   type: WORKS_TYPES.CCCHAFLANIN,
   // },
+  {
+    url: "#",
+    img: "/images/works/encastres.png",
+    alt: "Encastre de fregadero",
+    title: "Encastre de fregadero",
+    selected: false,
+    type: WORKS_TYPES.CCRED2LADOS,
+  },
 ];
 
 export default BUTTON_SQUARE_WORKS;

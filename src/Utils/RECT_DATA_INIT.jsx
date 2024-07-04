@@ -15,7 +15,7 @@ export const RECT_DATA_INIT = [
     fill: null,
     // fill: "grey",
     stroke: "black",
-    strokeWidth: 1,
+    strokeWidth: 0,
     rotation: 0,
     cornerRadius: [0, 0, 0, 0],
     fillPatternImage: "/images/patron-de-tablero-de-madera.png",

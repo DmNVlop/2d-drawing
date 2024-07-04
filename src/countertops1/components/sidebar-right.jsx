@@ -11,12 +11,13 @@ import {
   RadiusSettingOutlined,
 } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
-import ButtonSquare from "./Simple-Componentes/button-square";
 import BUTTON_SQUARE_WORKS from "../mocks/WORKS_BUTTOMS.data";
 import { WORKS_CORNERS } from "../mocks/WORKS_CORNERS.data";
 import { useCountertopContext } from "../context/ct-context";
 import { setCcredinSizes } from "./CNC-Works/woks-calcs-logic";
 import { WORKS_TYPES } from "../mocks/WORKS.types";
+import ButtonSquareJobs from "./Simple-Componentes/buttom-square-jobs";
+import { useCustomURLHandler } from "../helpers/location.hook";
 
 function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const { Text } = Typography;
@@ -27,6 +28,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const inputRightBarWidthRef = useRef(null);
   const inputRightBarHeightRef = useRef(null);
   const inputRightBarRadiusRef = useRef(null);
+
+  const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const {
     countertops,
@@ -50,7 +53,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
 
   const handleCloseSidebarRight = (event) => {
     event.preventDefault();
-    onCloseBtn(event);
+    onCloseBtn();
     // setSidebarRightOpened(false);
   };
 
@@ -65,8 +68,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     return itemArray;
   };
 
-  const handleWorkClick = (event, item, index) => {
-    event.preventDefault();
+  const handleWorkClick = (e, item, index) => {
+    e.preventDefault();
     setButtomSquareWorks((prev) => {
       let tempWorksClean = [...prev];
       return SetSelectedItems(tempWorksClean, index);
@@ -77,11 +80,27 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
         (item) => item.selected === true
       ).type;
 
-      return _WORKS_CORNERS[_work].corners || [];
+      if (!_work) return [];
+      const cornersToReturn = _WORKS_CORNERS[_work].corners.map((item) => {
+        return { ...item, selected: false };
+      });
+
+      return cornersToReturn;
     });
   };
 
   const handleWorkCornerClick = (item, index = -1) => {
+    const cornerIndexReal = () => {
+      if (index == 2) return 3;
+      if (index == 3) return 2;
+      return index;
+    };
+    if (
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+        ?.cornerRadiusDisabled[cornerIndexReal()]
+    )
+      return;
+
     if (index >= 0) {
       setWorksCorners((prev) => {
         let tempWorksCorners = [...prev];
@@ -98,8 +117,12 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     inputRef.current.select();
   };
 
-  const onCloseBtn = (e) => {
-    e.preventDefault();
+  const onCloseBtn = (e = null) => {
+    e ? e.preventDefault() : null;
+    if (formSizesRightBar) {
+      formSizesRightBar.resetFields();
+    }
+
     setWidthInput(null);
     setHeightInput(null);
     setRadiusInput(null);
@@ -110,15 +133,14 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
         return item;
       });
     });
-    formSizesRightBar.resetFields();
     setSidebarRightOpened(false);
   };
 
   const handleSetWork = (e) => {
     e.preventDefault();
 
-    // const _indexPiece = countertops?.selectedPiece?.value - 1 || 0;
-    const _piece = countertops?.partsData[getSelectedPieceValueCtx()];
+    const _piece =
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()];
     const currentItem = { ...workSelected };
 
     // CCREDIN
@@ -128,7 +150,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     ) {
       const t = setCcredinSizes(currentItem, getSelectedPieceCtx(), _piece);
 
-      updateCornersCtx(t.corners, getSelectedPieceValueCtx(), "SINGLE");
+      updateCornersCtx(t.corners, getSelectedPieceValueCtx());
     }
 
     // CCCHAFLAN
@@ -209,6 +231,12 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     return false;
   };
 
+  useEffect(() => {
+    if (!countertops?.selectedPiece) {
+      onCloseBtn();
+    }
+  }, [countertops?.selectedPiece]);
+
   return (
     <>
       <div
@@ -257,9 +285,9 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
                     handleWorkClick(event, item, index);
                   }}
                 >
-                  <ButtonSquare
+                  <ButtonSquareJobs
                     inputData={{
-                      url: (event) => event.preventDefault(),
+                      item: item,
                       img: item.img,
                       alt: item.alt,
                       title: item.title,
@@ -366,9 +394,10 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
                         handleWorkCornerClick(item, index);
                       }}
                     >
-                      <ButtonSquare
+                      <ButtonSquareJobs
                         inputData={{
-                          url: (event) => event.preventDefault(),
+                          item: item,
+                          cornerIndex: index,
                           img: item.img,
                           alt: item.alt,
                           title: item.title,
@@ -381,7 +410,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
               </Row>
 
               <Flex vertical gap="small" style={{ width: "100%" }}>
-                <Button type="primary" onClick={(e) => handleSetWork(e)}>
+                <Button type="primary" onClick={handleSetWork}>
                   Establecer
                 </Button>
               </Flex>
@@ -403,15 +432,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
               </dir> */}
               <Flex gap="middle" align="start" vertical>
                 <Flex justify={"flex-end"} align={"center"}>
-                  <Button
-                    onClick={(e) => {
-                      // const _indexPiece =
-                      //   countertops?.selectedPiece?.value - 1 || 0;
-                      onCloseBtn(e);
-                    }}
-                  >
-                    Cerrar
-                  </Button>
+                  <Button onClick={onCloseBtn}>Cerrar</Button>
                 </Flex>
               </Flex>
             </div>

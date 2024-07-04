@@ -8,14 +8,16 @@ import { WORKS_TYPES } from "../../mocks/WORKS.types";
 function ChaflanCNCWork(props) {
   const { workData, pieceSelected } = props;
 
-  const [realWidth, setRealWidth] = useState(0);
-  const [realHeight, setRealHeight] = useState(0);
+  const _strokeCorrection = 0;
+
+  const [workWidth, setWorkWidth] = useState(0);
+  const [workHeight, setWorkHeight] = useState(0);
 
   const [pieceWidth, setPieceWidth] = useState(0);
   const [pieceHeight, setPieceHeight] = useState(0);
 
-  const [realPieceWidth, setRealPieceWidth] = useState(0);
-  const [realPieceHeight, setRealPieceHeight] = useState(0);
+  // const [realPieceWidth, setRealPieceWidth] = useState(0);
+  // const [realPieceHeight, setRealPieceHeight] = useState(0);
 
   // Validate if the work is correct
   if (workData.type != WORKS_TYPES.CCCHAFLAN) {
@@ -44,19 +46,16 @@ function ChaflanCNCWork(props) {
 
   // Logic
   useEffect(() => {
-    setRealPieceWidth(pieceSelected.realWidth);
-    setRealPieceHeight(pieceSelected.realHeight);
+    // setRealPieceWidth(pieceSelected.workWidth);
+    // setRealPieceHeight(pieceSelected.workHeight);
 
+    console.log("🚀 ~ useEffect ~ pieceSelected.width:", pieceSelected.width);
     setPieceWidth(pieceSelected.width);
     setPieceHeight(pieceSelected.height);
 
-    setRealWidth(
-      workData.width / (pieceSelected.width / pieceSelected.realWidth)
-    );
-
-    setRealHeight(
-      workData.height / (pieceSelected.height / pieceSelected.realHeight)
-    );
+    console.log("🚀 ~ useEffect ~ workData.width:", workData.width);
+    setWorkWidth(workData.width);
+    setWorkHeight(workData.height);
   }, []);
 
   return (
@@ -64,7 +63,14 @@ function ChaflanCNCWork(props) {
       {handleCornerShowed(0) && (
         // <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
         <Line
-          points={[0, 0, realWidth, 0, 0, realHeight]}
+          points={[
+            0 - _strokeCorrection,
+            0 - _strokeCorrection,
+            workWidth,
+            0 - _strokeCorrection,
+            0 - _strokeCorrection,
+            workHeight,
+          ]}
           closed={true}
           fill="white"
         />
@@ -74,12 +80,12 @@ function ChaflanCNCWork(props) {
         // <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
         <Line
           points={[
-            realPieceWidth + 1,
-            0,
-            realPieceWidth + 1 - realWidth,
-            0,
-            realPieceWidth + 1,
-            realHeight,
+            pieceWidth + _strokeCorrection,
+            0 - _strokeCorrection,
+            pieceWidth + _strokeCorrection - workWidth,
+            0 - _strokeCorrection,
+            pieceWidth + _strokeCorrection,
+            workHeight,
           ]}
           closed={true}
           fill="white"
@@ -90,12 +96,12 @@ function ChaflanCNCWork(props) {
         // <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
         <Line
           points={[
-            realPieceWidth + 1,
-            realPieceHeight + 1,
-            realPieceWidth + 1 - realWidth,
-            realPieceHeight + 1,
-            realPieceWidth + 1,
-            realPieceHeight + 1 - realHeight,
+            pieceWidth + _strokeCorrection,
+            workHeight + _strokeCorrection,
+            pieceWidth + _strokeCorrection - workWidth,
+            workHeight + _strokeCorrection,
+            pieceWidth + _strokeCorrection,
+            workHeight + _strokeCorrection - workHeight,
           ]}
           closed={true}
           fill="white"
@@ -106,12 +112,12 @@ function ChaflanCNCWork(props) {
         // <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
         <Line
           points={[
-            0,
-            realPieceHeight + 1,
-            realWidth,
-            realPieceHeight + 1,
-            0,
-            realPieceHeight + 1 - realHeight,
+            0 - _strokeCorrection,
+            workHeight + _strokeCorrection,
+            workWidth,
+            workHeight + _strokeCorrection,
+            0 - _strokeCorrection,
+            workHeight + _strokeCorrection - workHeight,
           ]}
           closed={true}
           fill="white"

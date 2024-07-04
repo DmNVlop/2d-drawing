@@ -2,10 +2,10 @@ import { Spin } from "antd";
 
 const loadingStyle = {
   position: "fixed",
-  width: "100vw",
-  height: "100vw",
   left: 0,
+  right: 0,
   top: 0,
+  bottom: 0,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
