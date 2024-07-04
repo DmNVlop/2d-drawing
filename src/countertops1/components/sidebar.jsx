@@ -33,6 +33,7 @@ import {
   RadiusUprightOutlined,
 } from "@ant-design/icons";
 import { useCustomURLHandler } from "../helpers/location.hook";
+import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 
 const Sidebar = ({ sidebarRightOpenedControl }) => {
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
@@ -86,7 +87,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   );
 
   // Trabajos de una pieza
-  const [worksFromAPiece, setWorksFromAPiece] = useState([]);
+  // const [worksFromAPiece, setWorksFromAPiece] = useState([]);
 
   // Corners State
   const [cornersState, setCornersState] = useState([0, 0, 0, 0]);
@@ -139,13 +140,13 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     setCornersState(newValue);
   };
 
-  const handleClickEditWork = (event) => {
-    event.preventDefault();
+  const handleClickEditWork = (e) => {
+    e.preventDefault();
   };
 
-  const handleClickDeleteWork = (event, indexWork, indexPart) => {
-    event.preventDefault();
-    deleteWorkInPieceCtx(indexWork, indexPart.value - 1);
+  const handleClickDeleteWork = (e, indexWork, indexPart) => {
+    e.preventDefault();
+    deleteWorkInPieceCtx(indexWork, indexPart);
   };
 
   const onClickHandle = (event, inputRef) => {
@@ -153,19 +154,28 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
   };
 
   const selectingCornersToShow = (item) => {
-    if (item.cornerPosition[0]) {
+    if (
+      !item ||
+      item == undefined ||
+      !item.cornerPosition ||
+      Array.isArray(item.cornerPosition) == false
+    ) {
+      console.log("⚠️ Faltó seleccion de esquina");
+      return;
+    }
+    if (item?.cornerPosition[0]) {
       return <RadiusUpleftOutlined />;
     }
 
-    if (item.cornerPosition[1]) {
+    if (item?.cornerPosition[1]) {
       return <RadiusUprightOutlined />;
     }
 
-    if (item.cornerPosition[2]) {
+    if (item?.cornerPosition[2]) {
       return <RadiusBottomrightOutlined />;
     }
 
-    if (item.cornerPosition[3]) {
+    if (item?.cornerPosition[3]) {
       return <RadiusBottomleftOutlined />;
     }
   };
@@ -191,6 +201,31 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     setInputValueAncho3(
       countertops[ATTRIB_SETTED]?.partsData[2]?.height || null
     );
+  };
+
+  const activateByWorkSelected = () => {
+    const {
+      SIMPLE,
+      SQUARE,
+      CIRCLE,
+      LShaped_l1,
+      LShaped_l2,
+      UShaped_u1,
+      UShaped_u2,
+      UShaped_u3,
+      UShaped_u4,
+    } = SHAPE_TYPES;
+    if (
+      ATTRIB_SETTED == LShaped_l1 ||
+      ATTRIB_SETTED == LShaped_l2 ||
+      ATTRIB_SETTED == UShaped_u1 ||
+      ATTRIB_SETTED == UShaped_u2 ||
+      ATTRIB_SETTED == UShaped_u3 ||
+      ATTRIB_SETTED == UShaped_u4
+    ) {
+      return true;
+    }
+    return false;
   };
 
   // Hanlde Dimensions
@@ -235,13 +270,12 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     if (sidenavElementRef) setElementRef(tempSizes);
   }, [sidenavElementRef]);
 
-  useEffect(() => {
-    const tempW =
-      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-        ?.works || worksFromAPiece;
-
-    setWorksFromAPiece(Array.isArray(tempW) && tempW.length > 0 ? tempW : []);
-  }, [countertops]);
+  // useEffect(() => {
+  //   console.log(
+  //     "🚀 ~ useEffect ~ countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.works:",
+  //     countertops[ATTRIB_SETTED]
+  //   );
+  // }, [countertops]);
 
   useEffect(() => {
     setSizes();
@@ -323,7 +357,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       ref={inputCornerTLRef}
                       addonBefore={<img src="/images/drawings/corner-TL.png" />}
                       disabled={
-                        !getSelectedPieceCtx().value || cornersDisabled[0]
+                        !getSelectedPieceCtx().value ||
+                        cornersDisabled[0] ||
+                        ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 0)}
                       onClick={(e) => onClickHandle(e, inputCornerTLRef)}
@@ -343,7 +379,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       ref={inputCornerTRRef}
                       addonAfter={<img src="/images/drawings/corner-TR.png" />}
                       disabled={
-                        !getSelectedPieceCtx()?.value || cornersDisabled[1]
+                        !getSelectedPieceCtx()?.value ||
+                        cornersDisabled[1] ||
+                        ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 1)}
                       onClick={(e) => onClickHandle(e, inputCornerTRRef)}
@@ -366,7 +404,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       ref={inputCornerBLRef}
                       addonBefore={<img src="/images/drawings/corner-BL.png" />}
                       disabled={
-                        !getSelectedPieceCtx()?.value || cornersDisabled[3]
+                        !getSelectedPieceCtx()?.value ||
+                        cornersDisabled[3] ||
+                        ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 3)}
                       onClick={(e) => onClickHandle(e, inputCornerBLRef)}
@@ -386,7 +426,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                       ref={inputCornerBRRef}
                       addonAfter={<img src="/images/drawings/corner-BR.png" />}
                       disabled={
-                        !getSelectedPieceCtx()?.value || cornersDisabled[2]
+                        !getSelectedPieceCtx()?.value ||
+                        cornersDisabled[2] ||
+                        ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 2)}
                       onClick={(e) => onClickHandle(e, inputCornerBRRef)}
@@ -404,8 +446,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
             </section>
           )}
 
-          {/*  WORKS CONTROLS */}
-          {getSelectedPieceCtx()?.value && false && (
+          {/* WORKS CONTROLS */}
+          {getSelectedPieceCtx()?.value && (
             <section className="ct-assembly-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
                 Tipos de Trabajo
@@ -437,8 +479,12 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                 </Row>
 
                 {getSelectedPieceCtx()?.value &&
-                  worksFromAPiece.length > 0 &&
-                  worksFromAPiece.map((item, index) => {
+                  countertops[ATTRIB_SETTED]?.partsData[
+                    getSelectedPieceValueCtx()
+                  ]?.works?.length > 0 &&
+                  countertops[ATTRIB_SETTED]?.partsData[
+                    getSelectedPieceValueCtx()
+                  ]?.works.map((item, index) => {
                     return (
                       <Card
                         size="small"
@@ -448,7 +494,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                         extra={
                           <Space direction="horizontal" size={8}>
                             <EditOutlined
-                              onClick={(e) => handleClickEditWork(e)}
+                              onClick={handleClickEditWork}
                               className="icon-card-actions"
                             />
                             <DeleteOutlined
@@ -456,7 +502,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                                 handleClickDeleteWork(
                                   e,
                                   index,
-                                  getSelectedPieceCtx()?.value
+                                  getSelectedPieceValueCtx()
                                 )
                               }
                               className="icon-card-actions"
@@ -481,15 +527,18 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                   })}
 
                 {getSelectedPieceCtx()?.value &&
-                  worksFromAPiece.length == 0 && (
+                  countertops[ATTRIB_SETTED]?.partsData[
+                    getSelectedPieceValueCtx()
+                  ]?.works?.length == 0 && (
                     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                   )}
               </Space>
             </section>
           )}
 
-          {/*  ASSEMBLY CONTROLS */}
-          {getSelectedPieceCtx()?.value && (
+          {/* ASSEMBLY CONTROLS */}
+          {/* {getSelectedPieceCtx()?.value && activateByWorkSelected() && ( */}
+          {activateByWorkSelected() && (
             <section className="ct-assembly-controls">
               <Typography.Title level={4} style={{ marginBottom: 10 }}>
                 Tipo de Ensamble
@@ -507,8 +556,9 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
 
               <Row gutter={[16, 16]}>
                 {_assemblyData.map((item, index) => {
+                  const assemblyIndex = `assembly-${index}`;
                   return (
-                    <Col span={8} key={index}>
+                    <Col span={8} key={assemblyIndex}>
                       <Link
                         to={(e) => {
                           e.preventDefault();
@@ -517,6 +567,7 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
                         className={
                           item.selected ? "assembly active" : "assembly"
                         }
+                        style={{ opacity: item.selected ? 1 : 0.5 }}
                       >
                         <img src={item.src} alt={item.alt} title={item.title} />
                       </Link>

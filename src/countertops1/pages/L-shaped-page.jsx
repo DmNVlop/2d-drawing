@@ -17,6 +17,7 @@ import { useCountertopContext } from "../context/ct-context";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import RectLTemplateL1 from "../components/rect-l1.template";
 import RectLTemplateL2 from "../components/rect-l2.template";
+import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 
 export default function LShapedPage(props) {
   const navigate = useNavigate();
@@ -109,18 +110,21 @@ export default function LShapedPage(props) {
             />
           </Group>
 
-          {/* {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
-            const groupLineKey = `groupL-${item.id}-${index}`;
-            return (
-              <Group
-                key={index}
-                x={GLOBAL_CT_M.xGlobalLayer}
-                y={GLOBAL_CT_M.yGlobalLayer}
-              >
-                <LineLTemplate itemData={item} key={item.id} />
-              </Group>
-            );
-          })} */}
+          {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item) => {
+            if (Array.isArray(item?.works) && item?.works?.length > 0) {
+              return item?.works.map((work, idx) => {
+                const workKey = `groupP-${idx}`;
+                return (
+                  <Group key={workKey}>
+                    <WorksSelectorCNCWorks
+                      workData={work}
+                      pieceSelected={item}
+                    />
+                  </Group>
+                );
+              });
+            }
+          })}
         </Layer>
       </Stage>
     </>

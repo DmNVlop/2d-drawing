@@ -25,6 +25,10 @@ export default function CountertopPage() {
     onSetNumberOfPieceCtx(countertops[ATTRIB_SETTED]?.partsData.length || null);
   }, [ATTRIB_SETTED]);
 
+  useEffect(() => {
+    if (countertops?.selectedPiece == null) setSidebarRightOpened(false);
+  }, [countertops?.selectedPiece]);
+
   return (
     <>
       <div id="countertor-global">

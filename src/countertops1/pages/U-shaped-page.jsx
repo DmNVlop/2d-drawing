@@ -19,6 +19,7 @@ export default function UShapedPage(props) {
 
   const navigate = useNavigate();
   const { ATTRIB_SETTED, tParamUrl } = useCustomURLHandler();
+
   if (!tParamUrl) {
     navigate("/countertop/u-shaped?t=u1");
   }
@@ -63,6 +64,7 @@ export default function UShapedPage(props) {
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
         onClick={handleClickOnSelectPieceNull}
+        rotation={0}
       >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {

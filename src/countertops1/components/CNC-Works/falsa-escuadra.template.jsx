@@ -7,6 +7,9 @@ import { WORKS_TYPES } from "../../mocks/WORKS.types";
 
 function FalsaEscuadraCNCWork(props) {
   const { workData, pieceSelected } = props;
+
+  const _strokeCorrection = 0;
+
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
 
@@ -62,7 +65,14 @@ function FalsaEscuadraCNCWork(props) {
     <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
       {handleCornerShowed(0) && (
         <Line
-          points={[0, 0, realWidth, 0, 0, realPieceHeight + 1]}
+          points={[
+            0 - _strokeCorrection,
+            0 - _strokeCorrection,
+            realWidth,
+            0 - _strokeCorrection,
+            0 - _strokeCorrection,
+            realPieceHeight,
+          ]}
           closed={true}
           fill="white"
         />
@@ -71,12 +81,12 @@ function FalsaEscuadraCNCWork(props) {
       {handleCornerShowed(1) && (
         <Line
           points={[
-            realPieceWidth + 1,
-            0,
-            realPieceWidth + 1 - realWidth,
-            0,
-            realPieceWidth + 1,
-            realPieceHeight + 1,
+            realPieceWidth + _strokeCorrection,
+            0 - _strokeCorrection,
+            realPieceWidth - realWidth,
+            0 - _strokeCorrection,
+            realPieceWidth + _strokeCorrection,
+            realPieceHeight,
           ]}
           closed={true}
           fill="white"
@@ -86,11 +96,11 @@ function FalsaEscuadraCNCWork(props) {
       {handleCornerShowed(2) && (
         <Line
           points={[
-            realPieceWidth + 1,
-            realPieceHeight + 1,
-            realPieceWidth + 1 - realWidth,
-            realPieceHeight + 1,
-            realPieceWidth + 1,
+            realPieceWidth + _strokeCorrection,
+            realPieceHeight + _strokeCorrection,
+            realPieceWidth - realWidth,
+            realPieceHeight + _strokeCorrection,
+            realPieceWidth + _strokeCorrection,
             0,
           ]}
           closed={true}
@@ -101,11 +111,11 @@ function FalsaEscuadraCNCWork(props) {
       {handleCornerShowed(3) && (
         <Line
           points={[
-            0,
-            realPieceHeight + 1,
+            0 - _strokeCorrection,
+            realPieceHeight + _strokeCorrection,
             realWidth,
-            realPieceHeight + 1,
-            0,
+            realPieceHeight + _strokeCorrection,
+            0 - _strokeCorrection,
             0,
           ]}
           closed={true}
