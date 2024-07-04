@@ -35,7 +35,8 @@ const RoutersApp = () => {
           <Route path="/not-found" element={<NotFoundPage />} />
 
           <Route path="*" element={<Navigate to="/not-found" />} />
-          {/* <Route path="*" element={<NotFoundPage />} /> */}
+
+          <Route path="/loading" element={<Loading />} />
 
           <Route
             path="/countertop"
