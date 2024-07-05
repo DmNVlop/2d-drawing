@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { Group, Layer, Line } from "react-konva";
+import { Group, Line } from "react-konva";
 import { GLOBAL_CT_M } from "../../mocks/global-ct.mock";
 import { WORKS_TYPES } from "../../mocks/WORKS.types";
 import { useCustomURLHandler } from "../../helpers/location.hook";
