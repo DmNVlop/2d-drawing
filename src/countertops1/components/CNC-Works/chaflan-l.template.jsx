@@ -534,7 +534,7 @@ function ChaflanCNCWorkL(props) {
 
     setWorkWidth(workData.width);
     setWorkHeight(workData.height);
-  }, [ATTRIB_SETTED]);
+  }, [ATTRIB_SETTED, pieceSelected.width, pieceSelected.height]);
 
   return (
     <Group>
