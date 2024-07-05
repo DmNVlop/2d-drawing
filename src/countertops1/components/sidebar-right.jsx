@@ -195,17 +195,17 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
 
   const handleWidthInputChange = (e) => {
     e.preventDefault();
-    setWidthInput(e.target.value);
+    setWidthInput(parseFloat(e.target.value));
   };
 
   const handleHeightInputChange = (e) => {
     e.preventDefault();
-    setHeightInput(e.target.value);
+    setHeightInput(parseFloat(e.target.value));
   };
 
   const handleRadiusInputChange = (e) => {
     e.preventDefault();
-    setRadiusInput(e.target.value);
+    setRadiusInput(parseFloat(e.target.value));
   };
 
   const showRightBarWidthInput = (_workSelected) => {
@@ -232,6 +232,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   };
 
   useEffect(() => {
+    setWorksCorners([]);
+
     if (!countertops?.selectedPiece) {
       onCloseBtn();
     }

@@ -110,15 +110,16 @@ export default function LShapedPage(props) {
             />
           </Group>
 
-          {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item) => {
+          {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, indexPiece) => {
             if (Array.isArray(item?.works) && item?.works?.length > 0) {
-              return item?.works.map((work, idx) => {
-                const workKey = `groupP-${idx}`;
+              return item?.works.map((work, indexWork) => {
+                const workKey = `groupP-${indexWork}`;
                 return (
                   <Group key={workKey}>
                     <WorksSelectorCNCWorks
                       workData={work}
                       pieceSelected={item}
+                      indexPiece={indexPiece}
                     />
                   </Group>
                 );

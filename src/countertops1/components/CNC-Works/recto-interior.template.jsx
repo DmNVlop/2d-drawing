@@ -4,9 +4,25 @@ import { Group, Line } from "react-konva";
 import { GLOBAL_CT_M } from "../../mocks/global-ct.mock";
 import { useEffect, useState } from "react";
 import { WORKS_TYPES } from "../../mocks/WORKS.types";
+import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
+import { useCustomURLHandler } from "../../helpers/location.hook";
 
 function RectoInteriorCNCWork(props) {
   const { workData, pieceSelected } = props;
+
+  const { ATTRIB_SETTED } = useCustomURLHandler();
+
+  const {
+    SIMPLE,
+    SQUARE,
+    CIRCLE,
+    LShaped_l1,
+    LShaped_l2,
+    UShaped_u1,
+    UShaped_u2,
+    UShaped_u3,
+    UShaped_u4,
+  } = SHAPE_TYPES;
 
   const _strokeCorrection = 0;
 
@@ -15,9 +31,6 @@ function RectoInteriorCNCWork(props) {
 
   const [pieceWidth, setPieceWidth] = useState(0);
   const [pieceHeight, setPieceHeight] = useState(0);
-
-  const [realPieceWidth, setRealPieceWidth] = useState(0);
-  const [realPieceHeight, setRealPieceHeight] = useState(0);
 
   // Validate if the work is correct
   if (workData.type != WORKS_TYPES.CCRECIN) {
@@ -46,20 +59,12 @@ function RectoInteriorCNCWork(props) {
 
   // Logic
   useEffect(() => {
-    setRealPieceWidth(pieceSelected.realWidth);
-    setRealPieceHeight(pieceSelected.realHeight);
-
     setPieceWidth(pieceSelected.width);
     setPieceHeight(pieceSelected.height);
 
-    setRealWidth(
-      workData.width / (pieceSelected.width / pieceSelected.realWidth)
-    );
-
-    setRealHeight(
-      workData.height / (pieceSelected.height / pieceSelected.realHeight)
-    );
-  }, []);
+    setRealWidth(workData.width);
+    setRealHeight(workData.height);
+  }, [ATTRIB_SETTED, pieceSelected.width, pieceSelected.height]);
 
   return (
     <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
@@ -83,13 +88,13 @@ function RectoInteriorCNCWork(props) {
       {handleCornerShowed(1) && (
         <Line
           points={[
-            realPieceWidth + _strokeCorrection,
+            pieceWidth + _strokeCorrection,
             0 - _strokeCorrection,
-            realPieceWidth - realWidth,
+            pieceWidth - realWidth,
             0 - _strokeCorrection,
-            realPieceWidth - realWidth,
+            pieceWidth - realWidth,
             realHeight,
-            realPieceWidth + _strokeCorrection,
+            pieceWidth + _strokeCorrection,
             realHeight,
           ]}
           closed={true}
@@ -100,14 +105,14 @@ function RectoInteriorCNCWork(props) {
       {handleCornerShowed(2) && (
         <Line
           points={[
-            realPieceWidth + _strokeCorrection,
-            realPieceHeight + _strokeCorrection,
-            realPieceWidth - realWidth,
-            realPieceHeight + _strokeCorrection,
-            realPieceWidth - realWidth,
-            realPieceHeight - realHeight,
-            realPieceWidth + _strokeCorrection,
-            realPieceHeight - realHeight,
+            pieceWidth + _strokeCorrection,
+            pieceHeight + _strokeCorrection,
+            pieceWidth - realWidth,
+            pieceHeight + _strokeCorrection,
+            pieceWidth - realWidth,
+            pieceHeight - realHeight,
+            pieceWidth + _strokeCorrection,
+            pieceHeight - realHeight,
           ]}
           closed={true}
           fill="white"
@@ -118,13 +123,13 @@ function RectoInteriorCNCWork(props) {
         <Line
           points={[
             0 - _strokeCorrection,
-            realPieceHeight + _strokeCorrection,
+            pieceHeight + _strokeCorrection,
             realWidth,
-            realPieceHeight + _strokeCorrection,
+            pieceHeight + _strokeCorrection,
             realWidth,
-            realPieceHeight - realHeight,
+            pieceHeight - realHeight,
             0 - _strokeCorrection,
-            realPieceHeight - realHeight,
+            pieceHeight - realHeight,
           ]}
           closed={true}
           fill="white"

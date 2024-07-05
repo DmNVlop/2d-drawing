@@ -9,7 +9,7 @@ import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
 import ChaflanCNCWorkL from "./chaflan-l.template";
 
 function WorksSelectorCNCWorks(props) {
-  const { workData, pieceSelected } = props;
+  const { workData, pieceSelected, indexPiece } = props;
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
   const {
@@ -34,10 +34,25 @@ function WorksSelectorCNCWorks(props) {
     return (
       <Group>
         {validateShapeSelectedToRender([SIMPLE, SQUARE, CIRCLE]) && (
-          <ChaflanCNCWork workData={workData} pieceSelected={pieceSelected} />
+          <ChaflanCNCWork
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
         )}
-        {validateShapeSelectedToRender([LShaped_l1, LShaped_l2]) && (
-          <ChaflanCNCWorkL workData={workData} pieceSelected={pieceSelected} />
+        {validateShapeSelectedToRender([
+          LShaped_l1,
+          LShaped_l2,
+          UShaped_u1,
+          UShaped_u2,
+          UShaped_u3,
+          UShaped_u4,
+        ]) && (
+          <ChaflanCNCWorkL
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
         )}
       </Group>
     );
