@@ -39,7 +39,7 @@ export const U1_CT_M = {
       y: 0,
       width: 1800,
       height: 600,
-      fill: "#937e65",
+      fill: "#a99884",
       stroke: "black",
       strokeWidth: 0,
       rotation: 0,

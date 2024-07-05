@@ -13,6 +13,7 @@ import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 import RectUTemplateU2 from "../components/rect-u2.template";
 import RectUTemplateU3 from "../components/rect-u3.template";
 import RectUTemplateU4 from "../components/rect-u4.template";
+import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 
 export default function UShapedPage(props) {
   const { title } = props;
@@ -127,6 +128,23 @@ export default function UShapedPage(props) {
               getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(ATTRIB_SETTED)}
             />
           </Group>
+
+          {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, indexPiece) => {
+            if (Array.isArray(item?.works) && item?.works?.length > 0) {
+              return item?.works.map((work, indexWork) => {
+                const workKey = `groupP-${indexWork}`;
+                return (
+                  <Group key={workKey}>
+                    <WorksSelectorCNCWorks
+                      workData={work}
+                      pieceSelected={item}
+                      indexPiece={indexPiece}
+                    />
+                  </Group>
+                );
+              });
+            }
+          })}
         </Layer>
       </Stage>
     </>

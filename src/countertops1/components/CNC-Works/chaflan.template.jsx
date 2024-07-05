@@ -4,9 +4,25 @@ import PropTypes from "prop-types";
 import { Group, Layer, Line } from "react-konva";
 import { GLOBAL_CT_M } from "../../mocks/global-ct.mock";
 import { WORKS_TYPES } from "../../mocks/WORKS.types";
+import { useCustomURLHandler } from "../../helpers/location.hook";
+import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
 
 function ChaflanCNCWork(props) {
   const { workData, pieceSelected } = props;
+
+  const { ATTRIB_SETTED } = useCustomURLHandler();
+
+  const {
+    SIMPLE,
+    SQUARE,
+    CIRCLE,
+    LShaped_l1,
+    LShaped_l2,
+    UShaped_u1,
+    UShaped_u2,
+    UShaped_u3,
+    UShaped_u4,
+  } = SHAPE_TYPES;
 
   const _strokeCorrection = 0;
 
@@ -15,9 +31,6 @@ function ChaflanCNCWork(props) {
 
   const [pieceWidth, setPieceWidth] = useState(0);
   const [pieceHeight, setPieceHeight] = useState(0);
-
-  // const [realPieceWidth, setRealPieceWidth] = useState(0);
-  // const [realPieceHeight, setRealPieceHeight] = useState(0);
 
   // Validate if the work is correct
   if (workData.type != WORKS_TYPES.CCCHAFLAN) {
@@ -44,19 +57,24 @@ function ChaflanCNCWork(props) {
     return false;
   };
 
-  // Logic
-  useEffect(() => {
-    // setRealPieceWidth(pieceSelected.workWidth);
-    // setRealPieceHeight(pieceSelected.workHeight);
-
-    console.log("🚀 ~ useEffect ~ pieceSelected.width:", pieceSelected.width);
+  const setInitState = () => {
     setPieceWidth(pieceSelected.width);
     setPieceHeight(pieceSelected.height);
 
-    console.log("🚀 ~ useEffect ~ workData.width:", workData.width);
     setWorkWidth(workData.width);
     setWorkHeight(workData.height);
-  }, []);
+  };
+
+  // Logic
+  useEffect(() => {
+    if (
+      ATTRIB_SETTED == SIMPLE ||
+      ATTRIB_SETTED == SQUARE ||
+      ATTRIB_SETTED == CIRCLE
+    ) {
+      setInitState();
+    }
+  }, [ATTRIB_SETTED, pieceSelected.width, pieceSelected.height]);
 
   return (
     <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
@@ -97,11 +115,11 @@ function ChaflanCNCWork(props) {
         <Line
           points={[
             pieceWidth + _strokeCorrection,
-            workHeight + _strokeCorrection,
+            pieceHeight + _strokeCorrection,
             pieceWidth + _strokeCorrection - workWidth,
-            workHeight + _strokeCorrection,
+            pieceHeight + _strokeCorrection,
             pieceWidth + _strokeCorrection,
-            workHeight + _strokeCorrection - workHeight,
+            pieceHeight + _strokeCorrection - workHeight,
           ]}
           closed={true}
           fill="white"
@@ -113,11 +131,11 @@ function ChaflanCNCWork(props) {
         <Line
           points={[
             0 - _strokeCorrection,
-            workHeight + _strokeCorrection,
+            pieceHeight + _strokeCorrection,
             workWidth,
-            workHeight + _strokeCorrection,
+            pieceHeight + _strokeCorrection,
             0 - _strokeCorrection,
-            workHeight + _strokeCorrection - workHeight,
+            pieceHeight + _strokeCorrection - workHeight,
           ]}
           closed={true}
           fill="white"
