@@ -7,6 +7,8 @@ import { Group } from "react-konva";
 import { useCustomURLHandler } from "../../helpers/location.hook";
 import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
 import ChaflanCNCWorkL from "./chaflan-l.template";
+import EncastreWork from "./encastre.template";
+import FalsaEscuadraCNCWorkL from "./falsa-escuadra-l.template";
 
 function WorksSelectorCNCWorks(props) {
   const { workData, pieceSelected, indexPiece } = props;
@@ -54,6 +56,12 @@ function WorksSelectorCNCWorks(props) {
             indexPiece={indexPiece}
           />
         )}
+
+        {/* <EncastreWork
+          workData={workData}
+          pieceSelected={pieceSelected}
+          indexPiece={indexPiece}
+        /> */}
       </Group>
     );
   }
@@ -64,10 +72,28 @@ function WorksSelectorCNCWorks(props) {
     // );
     return (
       <Group>
-        <FalsaEscuadraCNCWork
-          workData={workData}
-          pieceSelected={pieceSelected}
-        />
+        {validateShapeSelectedToRender([SIMPLE, SQUARE, CIRCLE]) && (
+          <FalsaEscuadraCNCWork
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
+        )}
+
+        {validateShapeSelectedToRender([
+          LShaped_l1,
+          LShaped_l2,
+          UShaped_u1,
+          UShaped_u2,
+          UShaped_u3,
+          UShaped_u4,
+        ]) && (
+          <FalsaEscuadraCNCWorkL
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
+        )}
       </Group>
     );
   }
