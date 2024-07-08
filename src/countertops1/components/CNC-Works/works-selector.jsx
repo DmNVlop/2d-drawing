@@ -9,6 +9,7 @@ import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
 import ChaflanCNCWorkL from "./chaflan-l.template";
 import EncastreWork from "./encastre.template";
 import FalsaEscuadraCNCWorkL from "./falsa-escuadra-l.template";
+import RectoInteriorCNCWorkL from "./recto-interior-l.template";
 
 function WorksSelectorCNCWorks(props) {
   const { workData, pieceSelected, indexPiece } = props;
@@ -104,10 +105,28 @@ function WorksSelectorCNCWorks(props) {
     // );
     return (
       <Group>
-        <RectoInteriorCNCWork
-          workData={workData}
-          pieceSelected={pieceSelected}
-        />
+        {validateShapeSelectedToRender([SIMPLE, SQUARE, CIRCLE]) && (
+          <RectoInteriorCNCWork
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
+        )}
+
+        {validateShapeSelectedToRender([
+          LShaped_l1,
+          LShaped_l2,
+          UShaped_u1,
+          UShaped_u2,
+          UShaped_u3,
+          UShaped_u4,
+        ]) && (
+          <RectoInteriorCNCWorkL
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
+        )}
       </Group>
     );
   }
