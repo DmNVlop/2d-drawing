@@ -29,7 +29,6 @@ export const L1_CT_M = {
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
-      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [0, 0, 1, 0],
       works: [],
     },
@@ -53,7 +52,6 @@ export const L1_CT_M = {
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
-      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [1, 0, 0, 1],
       works: [],
     },
@@ -123,7 +121,6 @@ export const L2_CT_M = {
       fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       cornerRadius: [0, 0, 0, 0],
-      cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [0, 1, 1, 0],
       works: [],
     },

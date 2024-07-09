@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useCustomURLHandler } from "../../helpers/location.hook";
 import { useCountertopContext } from "../../context/ct-context";
+import { WORKS_TYPES } from "../../mocks/WORKS.types";
 
 function ButtonSquareJobs(props) {
   // const { inputData } = props;
@@ -11,16 +12,63 @@ function ButtonSquareJobs(props) {
     title,
     className,
     cornerIndex,
+    worksCorners,
   } = props.inputData;
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
   const { countertops, getSelectedPieceValueCtx } = useCountertopContext();
 
-  const cornerIndexReal = () => {
-    if (cornerIndex == 2) return 3;
-    if (cornerIndex == 3) return 2;
-    return cornerIndex;
+  console.log("🚀 ~ cornerIndexReal ~ cornerIndex:", cornerIndex);
+  console.log("🚀 ~ ButtonSquareJobs ~ item:", item);
+
+  const cornerIndexReal = () =>
+    cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+
+  const handleStylesOnButtonsCorner = () => {
+    if (
+      !worksCorners ||
+      worksCorners <= 0 ||
+      item.code === "ccred4lados-clear"
+    ) {
+      return { style: {}, cursor: "pointer" };
+    }
+
+    const bloquedStyle = {
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: "0",
+      left: "0",
+      backgroundColor: "rgba(157, 142, 142, 0.5)",
+    };
+
+    const isCornerRadiusDisabled = (index) =>
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+        ?.cornerRadiusDisabled[index];
+
+    if (
+      item.type === WORKS_TYPES.CCRED4LADOS &&
+      [0, 1, 2, 3].some(isCornerRadiusDisabled)
+    ) {
+      return { style: bloquedStyle, cursor: "not-allowed" };
+    }
+
+    if (item.type === WORKS_TYPES.CCRED2LADOS) {
+      const cornerIndex = cornerIndexReal();
+      if (
+        ([0, 3].includes(cornerIndex) &&
+          (isCornerRadiusDisabled(0) || isCornerRadiusDisabled(3))) ||
+        ([1, 2].includes(cornerIndex) &&
+          (isCornerRadiusDisabled(1) || isCornerRadiusDisabled(2)))
+      ) {
+        return { style: bloquedStyle, cursor: "not-allowed" };
+      }
+    }
+
+    return isCornerRadiusDisabled(cornerIndexReal())
+      ? { style: bloquedStyle, cursor: "not-allowed" }
+      : { style: {}, cursor: "pointer" };
   };
 
   return (
@@ -29,29 +77,14 @@ function ButtonSquareJobs(props) {
         className={"button-square " + className}
         style={{
           opacity: item.selected ? 1 : 0.5,
-          cursor: countertops[ATTRIB_SETTED]?.partsData[
-            getSelectedPieceValueCtx()
-          ]?.cornerRadiusDisabled[cornerIndexReal()]
-            ? "not-allowed"
-            : "pointer",
+          cursor: handleStylesOnButtonsCorner().cursor,
         }}
       >
         <img src={img} alt={alt} title={title} />
+
         <div
           className="on-disable"
-          style={
-            countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-              ?.cornerRadiusDisabled[cornerIndexReal()]
-              ? {
-                  width: "92%",
-                  height: "99%",
-                  position: "absolute",
-                  top: "2px",
-                  left: "4px",
-                  backgroundColor: "rgba(157, 142, 142, 0.5)",
-                }
-              : {}
-          }
+          style={handleStylesOnButtonsCorner().style}
         ></div>
       </figure>
     )
@@ -68,6 +101,7 @@ ButtonSquareJobs.propTypes = {
     alt: PropTypes.string,
     title: PropTypes.string,
     className: PropTypes.string,
+    worksCorners: PropTypes.array,
   }),
 };
 

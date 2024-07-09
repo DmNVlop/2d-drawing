@@ -92,20 +92,17 @@ function SidebarRight() {
   };
 
   const handleWorkCornerClick = (item, index = -1) => {
-    const cornerIndexReal = () => {
-      if (index == 2) return 3;
-      if (index == 3) return 2;
-      return index;
-    };
-    if (
+    const cornerIndexReal = index === 2 ? 3 : index === 3 ? 2 : index;
+
+    const isCornerRadiusDisabled =
       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-        ?.cornerRadiusDisabled[cornerIndexReal()]
-    )
-      return;
+        ?.cornerRadiusDisabled[cornerIndexReal];
+
+    if (isCornerRadiusDisabled && item.code !== "ccred4lados-clear") return;
 
     if (index >= 0) {
       setWorksCorners((prev) => {
-        let tempWorksCorners = [...prev];
+        const tempWorksCorners = [...prev];
         return SetSelectedItems(tempWorksCorners, index);
       });
     }
@@ -146,9 +143,19 @@ function SidebarRight() {
     const currentItem = { ...workSelected };
 
     // CCREDIN
+    // limpiar esquinas
     if (
-      currentItem.type == WORKS_TYPES.CCRED2LADOS ||
-      currentItem.type == WORKS_TYPES.CCRED4LADOS
+      currentItem.type == WORKS_TYPES.CCRED4LADOS &&
+      currentItem.code == "ccred4lados-clear"
+    ) {
+      updateCornersCtx([0, 0, 0, 0], getSelectedPieceValueCtx());
+    }
+
+    // settear esquinas
+    if (
+      (currentItem.type == WORKS_TYPES.CCRED2LADOS ||
+        currentItem.type == WORKS_TYPES.CCRED4LADOS) &&
+      currentItem.code != "ccred4lados-clear"
     ) {
       const t = setCcredinSizes(currentItem, getSelectedPieceCtx(), _piece);
 
@@ -295,6 +302,7 @@ function SidebarRight() {
                       img: item.img,
                       alt: item.alt,
                       title: item.title,
+                      worksCorners: _worksCorners,
                     }}
                   />
                 </Col>
@@ -386,11 +394,17 @@ function SidebarRight() {
                 3. Seleccione esquina o lado...
               </dir>
 
-              <Row gutter={[8, 8]} style={{ marginBottom: "16px" }}>
+              <Row
+                gutter={[12, 8]}
+                justify="space-evenly"
+                style={{ marginBottom: "16px", textAlign: "center !important" }}
+              >
                 {_worksCorners.map((item, index) => {
                   return (
                     <Col
                       key={index}
+                      span={10}
+                      offset={2}
                       className={
                         item.selected ? "gutter-row active" : "gutter-row"
                       }
@@ -406,6 +420,7 @@ function SidebarRight() {
                           alt: item.alt,
                           title: item.title,
                           className: item.selected ? "active" : "",
+                          worksCorners: _worksCorners,
                         }}
                       />
                     </Col>
