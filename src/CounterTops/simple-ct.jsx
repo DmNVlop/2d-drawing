@@ -153,7 +153,7 @@ function SimpleCT() {
   //       image.onload = () => {
   //         imageUsed = image;
   //       };
-  //       image.src = "/images/patron-de-tablero-de-madera.png";
+  //       image.src = "/images/patron-marmol_hades_finsa.jpg";
   //     };
   //   }
   // }, []);

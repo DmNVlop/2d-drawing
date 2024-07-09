@@ -19,7 +19,7 @@ import { WORKS_TYPES } from "../mocks/WORKS.types";
 import ButtonSquareJobs from "./Simple-Componentes/buttom-square-jobs";
 import { useCustomURLHandler } from "../helpers/location.hook";
 
-function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
+function SidebarRight() {
   const { Text } = Typography;
   const _WORKS_CORNERS = WORKS_CORNERS;
 
@@ -38,6 +38,8 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     updateCornersCtx,
     updateWorkInPieceCtx,
     getIdCtx,
+    sidebarRightOpenedCtx,
+    setSidebarRightOpenedCtx,
   } = useCountertopContext();
 
   const [_buttomSquareWorks, setButtomSquareWorks] =
@@ -54,7 +56,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
   const handleCloseSidebarRight = (event) => {
     event.preventDefault();
     onCloseBtn();
-    // setSidebarRightOpened(false);
+    // setSidebarRightOpenedCtx(false);
   };
 
   const SetSelectedItems = (itemArray, index) => {
@@ -133,7 +135,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
         return item;
       });
     });
-    setSidebarRightOpened(false);
+    setSidebarRightOpenedCtx(false);
   };
 
   const handleSetWork = (e) => {
@@ -243,7 +245,7 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
     <>
       <div
         id="sidebar-right"
-        className={sidebarRightOpened ? "" : "close-sidebar-right"}
+        className={sidebarRightOpenedCtx ? "" : "close-sidebar-right"}
       >
         {/* TITLE */}
         <div className="title-specifications" style={{ marginBottom: "16px" }}>
@@ -448,6 +450,6 @@ function SidebarRight({ sidebarRightOpened, setSidebarRightOpened }) {
 export default SidebarRight;
 
 SidebarRight.propTypes = {
-  sidebarRightOpened: PropTypes.bool,
-  setSidebarRightOpened: PropTypes.func,
+  // sidebarRightOpened: PropTypes.bool,
+  // setSidebarRightOpened: PropTypes.func,
 };

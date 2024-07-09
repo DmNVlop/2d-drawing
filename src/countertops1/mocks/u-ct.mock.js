@@ -21,11 +21,11 @@ export const U1_CT_M = {
       rotation: -90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 500,
       // offsetY: 0,
-      fillPatternImage: "",
-      // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      // fillPatternImage: "",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -45,11 +45,11 @@ export const U1_CT_M = {
       rotation: 0,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: -200, // (-)height P1
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -69,11 +69,11 @@ export const U1_CT_M = {
       rotation: 90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // height P1 + width P2 + height P3
-      fillPatternImage: "",
-      // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      // fillPatternImage: "",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -140,11 +140,11 @@ export const U2_CT_M = {
       rotation: -90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 500,
       // offsetY: 0,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -164,11 +164,11 @@ export const U2_CT_M = {
       rotation: 0,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: -200, // (-)height P1
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -188,11 +188,11 @@ export const U2_CT_M = {
       rotation: 90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 0, // (-)height P2
       // offsetY: 700, // height P1 + width P2 + height P3
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -259,11 +259,11 @@ export const U3_CT_M = {
       rotation: -90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -283,11 +283,11 @@ export const U3_CT_M = {
       rotation: 0,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 0, // (-)height P1
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -307,11 +307,11 @@ export const U3_CT_M = {
       rotation: 90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 0, // (-)height P2
       // offsetY: 700, // height P1 + width P2
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -378,11 +378,11 @@ export const U4_CT_M = {
       rotation: -90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -402,11 +402,11 @@ export const U4_CT_M = {
       rotation: 0,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: 0,
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -426,11 +426,11 @@ export const U4_CT_M = {
       rotation: 90,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // width P2
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],

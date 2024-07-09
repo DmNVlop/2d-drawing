@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 import { NO_PIEZAS } from "../mocks/NO_PARTS.const";
 
 export default function RectUTemplateU1(props) {
-  const { itemData, getPartsDataFromPieceCtx, onSetSelectedPieceCtx } = props;
+  const {
+    itemData,
+    getPartsDataFromPieceCtx,
+    onSetSelectedPieceCtx,
+    setSidebarRightOpenedCtx,
+  } = props;
   const [imageData, setImageData] = useState("");
 
   const setFillPriority = (priority, imgPath) => {
@@ -33,6 +38,11 @@ export default function RectUTemplateU1(props) {
   };
   const handleClickOnSelectPiece3 = (e) => {
     onSetSelectedPieceCtx(getPieceJSON(3));
+    e.cancelBubble = true;
+  };
+
+  const handleDblClickOnSelectPiece = (e) => {
+    setSidebarRightOpenedCtx(true);
     e.cancelBubble = true;
   };
 
@@ -66,6 +76,7 @@ export default function RectUTemplateU1(props) {
             offsetX={itemData?.width}
             offsetY={0}
             onClick={handleClickOnSelectPiece1}
+            onDblClick={handleDblClickOnSelectPiece}
           />
         </Group>
       )}
@@ -92,6 +103,7 @@ export default function RectUTemplateU1(props) {
             offsetX={-getPartsDataFromPieceCtx[0].height}
             offsetY={0}
             onClick={handleClickOnSelectPiece2}
+            onDblClick={handleDblClickOnSelectPiece}
           />
         </Group>
       )}
@@ -121,6 +133,7 @@ export default function RectUTemplateU1(props) {
               getPartsDataFromPieceCtx[1].width
             }
             onClick={handleClickOnSelectPiece3}
+            onDblClick={handleDblClickOnSelectPiece}
           />
         </Group>
       )}
@@ -131,4 +144,5 @@ export default function RectUTemplateU1(props) {
 RectUTemplateU1.propTypes = {
   itemData: PropTypes.object,
   getPartsDataFromPieceCtx: PropTypes.array,
+  setSidebarRightOpenedCtx: PropTypes.func,
 };

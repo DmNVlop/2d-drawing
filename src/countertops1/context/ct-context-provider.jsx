@@ -7,6 +7,7 @@ import { temp_init_state } from "./ct-context-initial-state";
 
 export default function CountetopContextProvider({ children }) {
   const [countertops, setCountertops] = useState(temp_init_state);
+  const [sidebarRightOpenedCtx, setSidebarRightOpenedCtx] = useState(false);
   const [elementRef, setElementRef] = useState(null);
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
@@ -239,6 +240,8 @@ export default function CountetopContextProvider({ children }) {
         onSetNumberOfPieceCtx,
         onUpdatePartDataCtx,
         onUpdateLineDataCtx,
+        sidebarRightOpenedCtx,
+        setSidebarRightOpenedCtx,
       }}
     >
       <ElementRefContext.Provider value={{ elementRef, setElementRef }}>

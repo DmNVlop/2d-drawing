@@ -27,8 +27,12 @@ export default function LShapedPage(props) {
   }
 
   const { title } = props;
-  const { countertops, getPartsDataFromPieceCtx, onSetSelectedPieceCtx } =
-    useCountertopContext();
+  const {
+    countertops,
+    getPartsDataFromPieceCtx,
+    onSetSelectedPieceCtx,
+    setSidebarRightOpenedCtx,
+  } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras L");
 
@@ -87,6 +91,7 @@ export default function LShapedPage(props) {
                       ATTRIB_SETTED
                     )}
                     onSetSelectedPieceCtx={onSetSelectedPieceCtx}
+                    setSidebarRightOpenedCtx={setSidebarRightOpenedCtx}
                   />
                 )}
 
@@ -97,6 +102,7 @@ export default function LShapedPage(props) {
                       ATTRIB_SETTED
                     )}
                     onSetSelectedPieceCtx={onSetSelectedPieceCtx}
+                    setSidebarRightOpenedCtx={setSidebarRightOpenedCtx}
                   />
                 )}
               </Group>

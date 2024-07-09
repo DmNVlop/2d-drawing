@@ -24,6 +24,7 @@ import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
 import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA.const";
 import DimensionsInput from "./Sidebar-Components/dimensions-input";
 import {
+  ClearOutlined,
   DeleteOutlined,
   EditOutlined,
   PlusOutlined,
@@ -35,7 +36,7 @@ import {
 import { useCustomURLHandler } from "../helpers/location.hook";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 
-const Sidebar = ({ sidebarRightOpenedControl }) => {
+const Sidebar = () => {
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
 
   // Context
@@ -60,6 +61,8 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     onSetSelectedPieceCtx,
     onSetNumberOfPieceCtx,
     onUpdatePartDataCtx,
+    sidebarRightOpenedCtx,
+    setSidebarRightOpenedCtx,
   } = useCountertopContext();
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
@@ -104,10 +107,10 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     // });
   };
 
-  const handleClickAddWork = (event) => {
-    event.preventDefault();
+  const handleClickAddWork = (e) => {
+    e.preventDefault();
 
-    sidebarRightOpenedControl(true);
+    setSidebarRightOpenedCtx(true);
   };
 
   const handleClickDeleteAllWork = (event) => {
@@ -129,11 +132,15 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
     });
   };
 
-  const onChangeCorners = (newValue, position) => {
+  const onChangeCorners = (newValue = 0, position = null) => {
     const finalNewValue = [...cornersState];
-    finalNewValue[position] = newValue;
+    finalNewValue[position] = newValue ? newValue : 0;
 
     updateCornersCtx(finalNewValue, getSelectedPieceValueCtx());
+  };
+
+  const handleClickResetAllCorners = () => {
+    updateCornersCtx([0, 0, 0, 0], getSelectedPieceValueCtx());
   };
 
   const onChangeAllCorners = (newValue) => {
@@ -344,9 +351,22 @@ const Sidebar = ({ sidebarRightOpenedControl }) => {
           {/*  CORNERS CONTROLS */}
           {getSelectedPieceCtx() && (
             <section className="ct-corners-controls">
-              <Typography.Title level={4} style={{ marginBottom: 10 }}>
-                Esquinas Redondas
-              </Typography.Title>
+              <Row justify="space-between">
+                <Col span={18}>
+                  <Typography.Title level={4} style={{ marginBottom: 10 }}>
+                    Esquinas Redondas
+                  </Typography.Title>
+                </Col>
+                <Col span={6} align="right">
+                  <Button
+                    icon={<ClearOutlined />}
+                    style={{ marginBottom: "8px" }}
+                    onClick={handleClickResetAllCorners}
+                    disabled={!getSelectedPieceCtx()?.value}
+                    title="Borrar todas las esquinas"
+                  ></Button>
+                </Col>
+              </Row>
 
               <Space direction="vertical">
                 <Row justify="space-between" align="middle">
@@ -608,5 +628,5 @@ Sidebar.displayName = "Sidebar";
 export default Sidebar;
 
 Sidebar.propTypes = {
-  sidebarRightOpenedControl: PropTypes.func,
+  // sidebarRightOpenedControl: PropTypes.func,
 };
