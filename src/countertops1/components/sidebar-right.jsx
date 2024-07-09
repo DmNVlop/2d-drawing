@@ -59,7 +59,7 @@ function SidebarRight() {
     // setSidebarRightOpenedCtx(false);
   };
 
-  const SetSelectedItems = (itemArray, index) => {
+  const SetSelectedItems = (itemArray, index, cornerIndexReal) => {
     itemArray = itemArray.map((item) => {
       item.selected = false;
       return item;
@@ -91,8 +91,39 @@ function SidebarRight() {
     });
   };
 
-  const handleWorkCornerClick = (item, index = -1) => {
-    const cornerIndexReal = index === 2 ? 3 : index === 3 ? 2 : index;
+  const handleWorkCornerClick = (item, cornerIndex = -1) => {
+    // const cornerIndexReal = index === 2 ? 3 : index === 3 ? 2 : index;
+    const cornerIndexReal = () => {
+      // if (!pieceSelected) return;
+
+      // if (pieceSelected.rotation == 0) {
+      //   return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+      // }
+      // if (pieceSelected.rotation == 90) {
+      //   return cornerIndex === 1
+      //     ? 4
+      //     : cornerIndex === 2
+      //     ? 1
+      //     : cornerIndex === 3
+      //     ? 2
+      //     : cornerIndex === 4
+      //     ? 3
+      //     : cornerIndex;
+      // }
+      // if (pieceSelected.rotation == -90) {
+      //   return cornerIndex === 1
+      //     ? 2
+      //     : cornerIndex === 2
+      //     ? 3
+      //     : cornerIndex === 3
+      //     ? 4
+      //     : cornerIndex === 4
+      //     ? 1
+      //     : cornerIndex;
+      // }
+
+      return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+    };
 
     const isCornerRadiusDisabled =
       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
@@ -100,10 +131,11 @@ function SidebarRight() {
 
     if (isCornerRadiusDisabled && item.code !== "ccred4lados-clear") return;
 
-    if (index >= 0) {
+    if (cornerIndex >= 0) {
       setWorksCorners((prev) => {
+        console.log("🚀 ~ setWorksCorners ~ prev:", prev);
         const tempWorksCorners = [...prev];
-        return SetSelectedItems(tempWorksCorners, index);
+        return SetSelectedItems(tempWorksCorners, cornerIndex, cornerIndexReal);
       });
     }
   };

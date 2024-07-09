@@ -64,7 +64,7 @@ export default function LShapedPage(props) {
   const stageHeight = useWindowsSizes().stageHeight;
 
   return (
-    <>
+    <section id="l-shaped-page">
       <h2>{pageTitle}</h2>
 
       <Stage
@@ -134,7 +134,7 @@ export default function LShapedPage(props) {
           })}
         </Layer>
       </Stage>
-    </>
+    </section>
   );
 }
 

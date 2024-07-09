@@ -19,11 +19,40 @@ function ButtonSquareJobs(props) {
 
   const { countertops, getSelectedPieceValueCtx } = useCountertopContext();
 
-  console.log("🚀 ~ cornerIndexReal ~ cornerIndex:", cornerIndex);
-  console.log("🚀 ~ ButtonSquareJobs ~ item:", item);
+  const pieceSelected =
+    countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()];
 
-  const cornerIndexReal = () =>
-    cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+  const cornerIndexReal = () => {
+    if (!pieceSelected) return;
+
+    // if (pieceSelected.rotation == 0) {
+    //   return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+    // }
+    // if (pieceSelected.rotation == 90) {
+    //   return cornerIndex === 1
+    //     ? 4
+    //     : cornerIndex === 2
+    //     ? 1
+    //     : cornerIndex === 3
+    //     ? 2
+    //     : cornerIndex === 4
+    //     ? 3
+    //     : cornerIndex;
+    // }
+    // if (pieceSelected.rotation == -90) {
+    //   return cornerIndex === 1
+    //     ? 2
+    //     : cornerIndex === 2
+    //     ? 3
+    //     : cornerIndex === 3
+    //     ? 4
+    //     : cornerIndex === 4
+    //     ? 1
+    //     : cornerIndex;
+    // }
+
+    return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+  };
 
   const handleStylesOnButtonsCorner = () => {
     if (
@@ -44,8 +73,7 @@ function ButtonSquareJobs(props) {
     };
 
     const isCornerRadiusDisabled = (index) =>
-      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-        ?.cornerRadiusDisabled[index];
+      pieceSelected?.cornerRadiusDisabled[index];
 
     if (
       item.type === WORKS_TYPES.CCRED4LADOS &&

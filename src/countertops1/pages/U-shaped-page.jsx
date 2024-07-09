@@ -59,7 +59,7 @@ export default function UShapedPage(props) {
   const stageHeight = useWindowsSizes().stageHeight;
 
   return (
-    <>
+    <section id="u-shaped-page">
       <h2>{pageTitle}</h2>
 
       <Stage
@@ -155,7 +155,7 @@ export default function UShapedPage(props) {
           })}
         </Layer>
       </Stage>
-    </>
+    </section>
   );
 }
 
