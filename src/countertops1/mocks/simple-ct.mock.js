@@ -24,9 +24,9 @@ export const SIMPLE_CT_M = {
       rotation: 0,
       // scaleX: 1,
       // scaleY: 1,
-      opacity: 0.8,
+      opacity: 0.9,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],

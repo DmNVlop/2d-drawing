@@ -1,7 +1,4 @@
 export const setCcredinSizes = (selectedWork, pieceSelected, itemPieceData) => {
-  console.log("🚀 ~ setCcredinSizes ~ itemPieceData:", itemPieceData);
-  console.log("🚀 ~ setCcredinSizes ~ pieceSelected:", pieceSelected);
-  console.log("🚀 ~ setCcredinSizes ~ selectedWork:", selectedWork);
   const code = selectedWork?.code || {};
 
   let dataCorners = {

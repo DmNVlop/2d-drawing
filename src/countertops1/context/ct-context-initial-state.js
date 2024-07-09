@@ -106,7 +106,7 @@ export const _INITIAL_STATE = {
         direction: DIRECTION.HORIZONTAL,
         positionAfter: PARTS_POSITION.FIRST,
         // fillPatternImage: "",
-        fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+        fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
         fillPatternRepeat: "repeat",
         // top-left, top-right, bottom-right, bottom-left
         cornerRadius: [0, 0, 0, 0],
@@ -224,7 +224,7 @@ export const _INITIAL_STATE = {
         direction: DIRECTION.HORIZONTAL,
         positionAfter: PARTS_POSITION.FIRST,
         // fillPatternImage: "",
-        fillPatternImage: "/images/patron-de-tablero-de-madera.png",
+        fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
         fillPatternRepeat: "repeat",
         // top-left, top-right, bottom-right, bottom-left
         cornerRadius: [0, 0, 0, 0],

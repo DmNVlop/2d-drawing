@@ -63,6 +63,15 @@ export const WORKS_CORNERS = {
         cornerPosition: [1, 1, 1, 1],
         type: WORKS_TYPES.CCRED4LADOS,
       },
+      {
+        url: "#",
+        img: "/images/works/ccred4lados.png",
+        alt: "Limpiar Corte Redondo de los 4 Lados",
+        title: "Limpiar Corte Redondo de los 4 Lados",
+        code: "clear-ccred4lados",
+        cornerPosition: [1, 1, 1, 1],
+        type: WORKS_TYPES.CCRED4LADOS,
+      },
     ],
   },
   [WORKS_TYPES.CCRED4LADOS]: {

@@ -8,13 +8,15 @@ import { useCountertopContext } from "../context/ct-context";
 import { useCustomURLHandler } from "../helpers/location.hook";
 
 export default function CountertopPage() {
-  const [sidebarRightOpened, setSidebarRightOpened] = useState(false);
+  // const [sidebarRightOpened, setSidebarRightOpenedCtx] = useState(false);
 
   const {
     countertops,
     onSetSelectedPieceCtx,
     onSetNumberOfPieceCtx,
     setOpacityOnPiecesCtx,
+    sidebarRightOpenedCtx,
+    setSidebarRightOpenedCtx,
   } = useCountertopContext();
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
@@ -26,22 +28,19 @@ export default function CountertopPage() {
   }, [ATTRIB_SETTED]);
 
   useEffect(() => {
-    if (countertops?.selectedPiece == null) setSidebarRightOpened(false);
+    if (countertops?.selectedPiece == null) setSidebarRightOpenedCtx(false);
   }, [countertops?.selectedPiece]);
 
   return (
     <>
       <div id="countertor-global">
-        <Sidebar sidebarRightOpenedControl={setSidebarRightOpened} />
+        <Sidebar />
 
         <div id="countertop-viewer">
           <Outlet />
         </div>
 
-        <SidebarRight
-          sidebarRightOpened={sidebarRightOpened}
-          setSidebarRightOpened={setSidebarRightOpened}
-        />
+        <SidebarRight />
       </div>
     </>
   );
