@@ -1,0 +1,35 @@
+#zoom-stage {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 9999;
+
+  .zoom-btn-left,
+  .zoom-btn-right {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    border: 1px solid lightgrey;
+  }
+
+  .zoom-btn-left {
+    padding-left: 14px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+  }
+
+  .zoom-btn-right {
+    padding-left: 22px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .zoom-btn-left-icon,
+  .zoom-btn-right-icon {
+    font-size: 18px;
+    width: 60px;
+    height: 30px;
+  }
+}

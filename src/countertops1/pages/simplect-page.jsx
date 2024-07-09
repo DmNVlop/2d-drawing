@@ -26,7 +26,7 @@ export default function SimpleCTPage(props) {
   };
 
   return (
-    <>
+    <section id="simple-ct-page">
       <h2>{props.title}</h2>
 
       <Stage
@@ -137,7 +137,7 @@ export default function SimpleCTPage(props) {
           })}
         </Layer>
       </Stage>
-    </>
+    </section>
   );
 }
 

@@ -37,3 +37,8 @@
   background-color: #edf3f9;
   border: 4px solid #7eb8db;
 }
+
+#work-corner-select-section .ant-col figure.button-square {
+  max-width: 64px;
+  position: relative;
+}

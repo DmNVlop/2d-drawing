@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { useCountertopContext } from "../context/ct-context";
 import { useCustomURLHandler } from "../helpers/location.hook";
+import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 
 export default function CountertopPage() {
   // const [sidebarRightOpened, setSidebarRightOpenedCtx] = useState(false);
@@ -38,6 +39,8 @@ export default function CountertopPage() {
 
         <div id="countertop-viewer">
           <Outlet />
+
+          <ZoomStageComponent />
         </div>
 
         <SidebarRight />

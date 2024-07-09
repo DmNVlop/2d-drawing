@@ -59,7 +59,7 @@ function SidebarRight() {
     // setSidebarRightOpenedCtx(false);
   };
 
-  const SetSelectedItems = (itemArray, index) => {
+  const SetSelectedItems = (itemArray, index, cornerIndexReal) => {
     itemArray = itemArray.map((item) => {
       item.selected = false;
       return item;
@@ -91,22 +91,51 @@ function SidebarRight() {
     });
   };
 
-  const handleWorkCornerClick = (item, index = -1) => {
+  const handleWorkCornerClick = (item, cornerIndex = -1) => {
+    // const cornerIndexReal = index === 2 ? 3 : index === 3 ? 2 : index;
     const cornerIndexReal = () => {
-      if (index == 2) return 3;
-      if (index == 3) return 2;
-      return index;
-    };
-    if (
-      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-        ?.cornerRadiusDisabled[cornerIndexReal()]
-    )
-      return;
+      // if (!pieceSelected) return;
 
-    if (index >= 0) {
+      // if (pieceSelected.rotation == 0) {
+      //   return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+      // }
+      // if (pieceSelected.rotation == 90) {
+      //   return cornerIndex === 1
+      //     ? 4
+      //     : cornerIndex === 2
+      //     ? 1
+      //     : cornerIndex === 3
+      //     ? 2
+      //     : cornerIndex === 4
+      //     ? 3
+      //     : cornerIndex;
+      // }
+      // if (pieceSelected.rotation == -90) {
+      //   return cornerIndex === 1
+      //     ? 2
+      //     : cornerIndex === 2
+      //     ? 3
+      //     : cornerIndex === 3
+      //     ? 4
+      //     : cornerIndex === 4
+      //     ? 1
+      //     : cornerIndex;
+      // }
+
+      return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
+    };
+
+    const isCornerRadiusDisabled =
+      countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
+        ?.cornerRadiusDisabled[cornerIndexReal];
+
+    if (isCornerRadiusDisabled && item.code !== "ccred4lados-clear") return;
+
+    if (cornerIndex >= 0) {
       setWorksCorners((prev) => {
-        let tempWorksCorners = [...prev];
-        return SetSelectedItems(tempWorksCorners, index);
+        console.log("🚀 ~ setWorksCorners ~ prev:", prev);
+        const tempWorksCorners = [...prev];
+        return SetSelectedItems(tempWorksCorners, cornerIndex, cornerIndexReal);
       });
     }
   };
@@ -146,9 +175,19 @@ function SidebarRight() {
     const currentItem = { ...workSelected };
 
     // CCREDIN
+    // limpiar esquinas
     if (
-      currentItem.type == WORKS_TYPES.CCRED2LADOS ||
-      currentItem.type == WORKS_TYPES.CCRED4LADOS
+      currentItem.type == WORKS_TYPES.CCRED4LADOS &&
+      currentItem.code == "ccred4lados-clear"
+    ) {
+      updateCornersCtx([0, 0, 0, 0], getSelectedPieceValueCtx());
+    }
+
+    // settear esquinas
+    if (
+      (currentItem.type == WORKS_TYPES.CCRED2LADOS ||
+        currentItem.type == WORKS_TYPES.CCRED4LADOS) &&
+      currentItem.code != "ccred4lados-clear"
     ) {
       const t = setCcredinSizes(currentItem, getSelectedPieceCtx(), _piece);
 
@@ -295,6 +334,7 @@ function SidebarRight() {
                       img: item.img,
                       alt: item.alt,
                       title: item.title,
+                      worksCorners: _worksCorners,
                     }}
                   />
                 </Col>
@@ -386,11 +426,17 @@ function SidebarRight() {
                 3. Seleccione esquina o lado...
               </dir>
 
-              <Row gutter={[8, 8]} style={{ marginBottom: "16px" }}>
+              <Row
+                gutter={[12, 8]}
+                justify="space-evenly"
+                style={{ marginBottom: "16px", textAlign: "center !important" }}
+              >
                 {_worksCorners.map((item, index) => {
                   return (
                     <Col
                       key={index}
+                      span={10}
+                      offset={2}
                       className={
                         item.selected ? "gutter-row active" : "gutter-row"
                       }
@@ -406,6 +452,7 @@ function SidebarRight() {
                           alt: item.alt,
                           title: item.title,
                           className: item.selected ? "active" : "",
+                          worksCorners: _worksCorners,
                         }}
                       />
                     </Col>
