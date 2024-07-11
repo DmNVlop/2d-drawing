@@ -294,7 +294,22 @@ const Sidebar = () => {
   return (
     <>
       <div id="ct-side-nav" ref={sidenavElementRef}>
-        <h3>Encimeras</h3>
+        <Row gutter={[16]}>
+          <Col span={18} className="guttter-row">
+            <h3>Encimeras</h3>
+          </Col>
+          <Col span={6} className="guttter-row" style={{ textAlign: "right" }}>
+            <figure>
+              <img
+                src="/images/logos/oakleaf_200x200.png"
+                alt="Logo Encimeras => OakleaF"
+                title="Logo Encimeras => OakleaF"
+                width={"48px"}
+                height={"48px"}
+              />
+            </figure>
+          </Col>
+        </Row>
 
         {/* BUTTONS NAV MODELS */}
         <div id="nav-countertop">
