@@ -11,17 +11,25 @@
     display: inline-block;
     width: 60px;
     height: 30px;
+    background-color: aliceblue;
     border: 1px solid lightgrey;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .zoom-btn-left:hover,
+  .zoom-btn-right:hover {
+    background-color: darkkhaki;
+    border: 1px solid darkkhaki;
   }
 
   .zoom-btn-left {
-    padding-left: 14px;
+    padding-left: 22px;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
   }
 
   .zoom-btn-right {
-    padding-left: 22px;
+    padding-left: 18px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
   }

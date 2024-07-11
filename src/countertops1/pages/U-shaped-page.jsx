@@ -14,6 +14,8 @@ import RectUTemplateU2 from "../components/rect-u2.template";
 import RectUTemplateU3 from "../components/rect-u3.template";
 import RectUTemplateU4 from "../components/rect-u4.template";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
+import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
+import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
 
 export default function UShapedPage(props) {
   const { title } = props;
@@ -29,6 +31,7 @@ export default function UShapedPage(props) {
     countertops,
     getPartsDataFromPieceCtx,
     onSetSelectedPieceCtx,
+    setScaleOnRootConfigCtx,
     setSidebarRightOpenedCtx,
   } = useCountertopContext();
 
@@ -68,6 +71,14 @@ export default function UShapedPage(props) {
         draggable
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        onWheel={(e) =>
+          useHandleZoomWheel(
+            e,
+            countertops,
+            ATTRIB_SETTED,
+            setScaleOnRootConfigCtx
+          )
+        }
         onClick={handleClickOnSelectPieceNull}
         rotation={0}
       >
@@ -155,6 +166,8 @@ export default function UShapedPage(props) {
           })}
         </Layer>
       </Stage>
+
+      <ZoomStageComponent />
     </section>
   );
 }

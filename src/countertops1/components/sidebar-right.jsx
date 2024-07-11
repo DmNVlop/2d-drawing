@@ -133,7 +133,6 @@ function SidebarRight() {
 
     if (cornerIndex >= 0) {
       setWorksCorners((prev) => {
-        console.log("🚀 ~ setWorksCorners ~ prev:", prev);
         const tempWorksCorners = [...prev];
         return SetSelectedItems(tempWorksCorners, cornerIndex, cornerIndexReal);
       });

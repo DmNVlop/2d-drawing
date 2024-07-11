@@ -140,6 +140,7 @@ const Sidebar = () => {
   };
 
   const handleClickResetAllCorners = () => {
+    if (ATTRIB_SETTED == "circle") return;
     updateCornersCtx([0, 0, 0, 0], getSelectedPieceValueCtx());
   };
 
@@ -269,20 +270,22 @@ const Sidebar = () => {
   }, [countertops?.selectedPiece]);
 
   useEffect(() => {
-    const tempSizes = {
-      width: sidenavElementRef.current.offsetWidth,
-      height: sidenavElementRef.current.offsetHeight,
-      marginTop: sidenavElementRef.current.offsetTop,
+    const handleResize = () => {
+      if (sidenavElementRef) {
+        setElementRef({
+          width: sidenavElementRef.current.offsetWidth,
+          height: sidenavElementRef.current.offsetHeight,
+          marginTop: sidenavElementRef.current.offsetTop,
+        });
+      }
     };
-    if (sidenavElementRef) setElementRef(tempSizes);
-  }, [sidenavElementRef]);
 
-  // useEffect(() => {
-  //   console.log(
-  //     "🚀 ~ useEffect ~ countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]?.works:",
-  //     countertops[ATTRIB_SETTED]
-  //   );
-  // }, [countertops]);
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     setSizes();
@@ -362,7 +365,9 @@ const Sidebar = () => {
                     icon={<ClearOutlined />}
                     style={{ marginBottom: "8px" }}
                     onClick={handleClickResetAllCorners}
-                    disabled={!getSelectedPieceCtx()?.value}
+                    disabled={
+                      !getSelectedPieceCtx()?.value || ATTRIB_SETTED == "circle"
+                    }
                     title="Borrar todas las esquinas"
                   ></Button>
                 </Col>

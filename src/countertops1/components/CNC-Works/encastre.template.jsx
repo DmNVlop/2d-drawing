@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { Group, Layer, Line, Rect } from "react-konva";
+import { Circle, Group, Layer, Line, Rect } from "react-konva";
 import { GLOBAL_CT_M } from "../../mocks/global-ct.mock";
 import { WORKS_TYPES } from "../../mocks/WORKS.types";
 import { useCountertopContext } from "../../context/ct-context";
@@ -40,24 +40,25 @@ function EncastreWork(props) {
   const encastreData = {
     widthOut: 460,
     heightOut: 390,
-    radiusOut: 7.5,
+    radiusOut: 20,
   };
 
   const standardSeparationOfEncastreFromFront = 70;
+
+  const xInit =
+    pieceWidth / 2 - encastreData.widthOut / 2 + GLOBAL_CT_M.xGlobalLayer;
+  const yInit =
+    pieceHeight -
+    encastreData.heightOut -
+    standardSeparationOfEncastreFromFront +
+    GLOBAL_CT_M.yGlobalLayer;
 
   return (
     <Group>
       {/* Hueco exterior */}
       <Rect
-        x={
-          pieceWidth / 2 - encastreData.widthOut / 2 + GLOBAL_CT_M.xGlobalLayer
-        }
-        y={
-          pieceHeight -
-          encastreData.heightOut -
-          standardSeparationOfEncastreFromFront +
-          GLOBAL_CT_M.yGlobalLayer
-        }
+        x={xInit}
+        y={yInit}
         width={encastreData.widthOut}
         height={encastreData.heightOut}
         fill="white"
@@ -67,6 +68,25 @@ function EncastreWork(props) {
           encastreData.radiusOut,
           encastreData.radiusOut,
         ]}
+      />
+
+      {/*  // LEFT */}
+      <Circle x={xInit + 20} y={yInit - 40} radius={20} fill="white" />
+
+      {/*  // CENTRE */}
+      <Circle
+        x={xInit + encastreData.widthOut / 2}
+        y={yInit - 40}
+        radius={20}
+        fill="white"
+      />
+
+      {/*  // RIGHT */}
+      <Circle
+        x={xInit + encastreData.widthOut - 20}
+        y={yInit - 40}
+        radius={20}
+        fill="white"
       />
     </Group>
   );

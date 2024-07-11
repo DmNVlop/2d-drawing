@@ -77,6 +77,7 @@ export default function RectTemplate(props) {
       y={itemData.y}
       width={itemData?.width || 100}
       height={itemData?.height || 100}
+      rotation={itemData.rotation}
       fill={itemData.fill}
       stroke={itemData?.stroke || ""}
       strokeWidth={itemData?.strokeWidth || 0}
