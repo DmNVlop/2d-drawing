@@ -56,38 +56,16 @@ export default function CountetopContextProvider({ children }) {
     }));
   };
 
-  // Función para actualizar un objeto específico en partsData
-  const onUpdatePartDataCtx = (index, newPartData) => {
-    if (countertops[ATTRIB_SETTED]) {
-      setCountertops((prevState) => {
-        const updatedPartsData = [...prevState[ATTRIB_SETTED].partsData];
-        updatedPartsData[index] = newPartData;
+  const setScaleOnRootConfigCtx = (scaleX, scaleY) => {
+    if (scaleX < 0.1 || scaleY < 0.1) return;
 
-        return {
-          ...prevState,
-          [ATTRIB_SETTED]: {
-            ...prevState[ATTRIB_SETTED],
-            partsData: updatedPartsData,
-          },
-        };
-      });
-    }
-  };
-
-  // Función para actualizar un objeto específico en partsData
-  const onUpdateLineDataCtx = (index, newLineData) => {
-    setCountertops((prevState) => {
-      const updatedLinesData = [...prevState[ATTRIB_SETTED].linesData];
-      updatedLinesData[index] = newLineData;
-
-      return {
-        ...prevState,
-        [ATTRIB_SETTED]: {
-          ...prevState[ATTRIB_SETTED],
-          linesData: updatedLinesData,
-        },
-      };
-    });
+    setCountertops((prevState) => ({
+      ...prevState,
+      [ATTRIB_SETTED]: {
+        ...prevState[ATTRIB_SETTED],
+        rootConfig: { ...prevState[ATTRIB_SETTED].rootConfig, scaleX, scaleY },
+      },
+    }));
   };
 
   //
@@ -198,6 +176,40 @@ export default function CountetopContextProvider({ children }) {
     });
   };
 
+  // Función para actualizar un objeto específico en partsData
+  const onUpdatePartDataCtx = (index, newPartData) => {
+    if (countertops[ATTRIB_SETTED]) {
+      setCountertops((prevState) => {
+        const updatedPartsData = [...prevState[ATTRIB_SETTED].partsData];
+        updatedPartsData[index] = newPartData;
+
+        return {
+          ...prevState,
+          [ATTRIB_SETTED]: {
+            ...prevState[ATTRIB_SETTED],
+            partsData: updatedPartsData,
+          },
+        };
+      });
+    }
+  };
+
+  // Función para actualizar un objeto específico en partsData
+  const onUpdateLineDataCtx = (index, newLineData) => {
+    setCountertops((prevState) => {
+      const updatedLinesData = [...prevState[ATTRIB_SETTED].linesData];
+      updatedLinesData[index] = newLineData;
+
+      return {
+        ...prevState,
+        [ATTRIB_SETTED]: {
+          ...prevState[ATTRIB_SETTED],
+          linesData: updatedLinesData,
+        },
+      };
+    });
+  };
+
   const deleteWorkInPieceCtx = (indexWork, indexPart) => {
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
@@ -226,20 +238,21 @@ export default function CountetopContextProvider({ children }) {
         getNumberOfPartsCtx,
         getPartsDataFromPieceCtx,
         getLinesDataFromPieceCtx,
-        setCountertops,
-        updateCornersCtx,
-        updateWorkInPieceCtx,
-        deleteWorkInPieceCtx,
-        deleteAllWorksInPieceCtx,
         getIdCtx,
+        setCountertops,
+        setScaleOnRootConfigCtx,
         setConfigCtx,
         setPartsCtx,
         setLinesCtx,
         setOpacityOnPiecesCtx,
         onSetSelectedPieceCtx,
         onSetNumberOfPieceCtx,
+        updateCornersCtx,
+        updateWorkInPieceCtx,
         onUpdatePartDataCtx,
         onUpdateLineDataCtx,
+        deleteWorkInPieceCtx,
+        deleteAllWorksInPieceCtx,
         sidebarRightOpenedCtx,
         setSidebarRightOpenedCtx,
       }}

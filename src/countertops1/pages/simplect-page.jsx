@@ -11,10 +11,16 @@ import LineTemplateHorizontal from "../components/line-horizontal.template";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useCustomURLHandler } from "../helpers/location.hook";
+import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
+import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
 
 export default function SimpleCTPage(props) {
-  const { countertops, getPartsDataFromPieceCtx, onSetSelectedPieceCtx } =
-    useCountertopContext();
+  const {
+    countertops,
+    getPartsDataFromPieceCtx,
+    setScaleOnRootConfigCtx,
+    onSetSelectedPieceCtx,
+  } = useCountertopContext();
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
@@ -37,6 +43,14 @@ export default function SimpleCTPage(props) {
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
         onClick={handleClickOnSelectPieceNull}
         rotation={0}
+        onWheel={(e) =>
+          useHandleZoomWheel(
+            e,
+            countertops,
+            ATTRIB_SETTED,
+            setScaleOnRootConfigCtx
+          )
+        }
         // rotation={90}
         // rotation={-90}
         // rotation={180}
@@ -137,6 +151,8 @@ export default function SimpleCTPage(props) {
           })}
         </Layer>
       </Stage>
+
+      <ZoomStageComponent />
     </section>
   );
 }

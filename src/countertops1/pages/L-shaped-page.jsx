@@ -18,6 +18,8 @@ import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import RectLTemplateL1 from "../components/rect-l1.template";
 import RectLTemplateL2 from "../components/rect-l2.template";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
+import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
+import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
 
 export default function LShapedPage(props) {
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ export default function LShapedPage(props) {
     countertops,
     getPartsDataFromPieceCtx,
     onSetSelectedPieceCtx,
+    setScaleOnRootConfigCtx,
     setSidebarRightOpenedCtx,
   } = useCountertopContext();
 
@@ -73,6 +76,14 @@ export default function LShapedPage(props) {
         draggable
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        onWheel={(e) =>
+          useHandleZoomWheel(
+            e,
+            countertops,
+            ATTRIB_SETTED,
+            setScaleOnRootConfigCtx
+          )
+        }
         onClick={handleClickOnSelectPieceNull}
       >
         <Layer>
@@ -134,6 +145,8 @@ export default function LShapedPage(props) {
           })}
         </Layer>
       </Stage>
+
+      <ZoomStageComponent />
     </section>
   );
 }

@@ -39,8 +39,6 @@ export default function CountertopPage() {
 
         <div id="countertop-viewer">
           <Outlet />
-
-          <ZoomStageComponent />
         </div>
 
         <SidebarRight />

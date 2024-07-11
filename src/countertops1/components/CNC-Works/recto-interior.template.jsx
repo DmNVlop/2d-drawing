@@ -82,6 +82,7 @@ function RectoInteriorCNCWork(props) {
           ]}
           closed={true}
           fill="white"
+          rotation={-2.663}
         />
       )}
 

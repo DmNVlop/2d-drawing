@@ -58,11 +58,11 @@ function WorksSelectorCNCWorks(props) {
           />
         )}
 
-        {/* <EncastreWork
+        <EncastreWork
           workData={workData}
           pieceSelected={pieceSelected}
           indexPiece={indexPiece}
-        /> */}
+        />
       </Group>
     );
   }
