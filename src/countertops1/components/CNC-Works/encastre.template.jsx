@@ -62,7 +62,7 @@ function EncastreWork(props) {
         y={yInit}
         width={workData.width}
         height={workData.height}
-        fill="red"
+        fill="white"
         cornerRadius={[
           workData.radius,
           workData.radius,
@@ -77,7 +77,7 @@ function EncastreWork(props) {
           x={xInit + workData.tapDiameter}
           y={yInit - 60}
           radius={workData.tapDiameter}
-          fill="red"
+          fill="white"
         />
       )}
 
@@ -87,7 +87,7 @@ function EncastreWork(props) {
           x={xInit + workData.width / 2}
           y={yInit - 60}
           radius={workData.tapDiameter}
-          fill="red"
+          fill="white"
         />
       )}
 
@@ -97,7 +97,7 @@ function EncastreWork(props) {
           x={xInit + workData.width - workData.tapDiameter}
           y={yInit - 60}
           radius={workData.tapDiameter}
-          fill="red"
+          fill="white"
         />
       )}
     </Group>
