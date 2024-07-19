@@ -151,3 +151,17 @@
   height: 100%;
   object-fit: contain;
 }
+
+/* SIMPLE PAGE */
+#simple-ct-page {
+  .ct-figure-on-title {
+    position: relative;
+
+    img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border: 1px solid #d1d1d1;
+    }
+  }
+}

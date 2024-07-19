@@ -11,7 +11,7 @@ function ZoomStageComponent() {
 
   const scaleWidthX = countertops[ATTRIB_SETTED].rootConfig?.scaleX || 1;
   const scaleWidthY = countertops[ATTRIB_SETTED].rootConfig?.scaleY || 1;
-  const scaleSeek = 0.1;
+  const scaleSeek = 0.05;
 
   const handleLeftBtnScale = () => {
     setScaleOnRootConfigCtx(scaleWidthX - scaleSeek, scaleWidthY - scaleSeek);
@@ -28,6 +28,10 @@ function ZoomStageComponent() {
       </div>
       <div className="zoom-btn-right" onClick={handleRightBtnScale}>
         <ZoomInOutlined className="zoom-btn-right-icon" />
+      </div>
+
+      <div className="zoom-scale-info">
+        <span className="text">{scaleWidthX.toFixed(2)}</span>
       </div>
     </div>
   );

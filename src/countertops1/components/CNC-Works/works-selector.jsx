@@ -27,12 +27,15 @@ function WorksSelectorCNCWorks(props) {
     UShaped_u4,
   } = SHAPE_TYPES;
 
+  const { CCCHAFLAN, CCRECIN, CCFALESC, ENCASTRE } = WORKS_TYPES;
+
   const validateShapeSelectedToRender = (shapes) => {
     if (!shapes || Array.isArray(shapes) === false) return false;
     return shapes.includes(ATTRIB_SETTED);
   };
 
-  if (workData.type == WORKS_TYPES.CCCHAFLAN) {
+  // CHAFLAN
+  if (workData.type == CCCHAFLAN) {
     // return workData.selected && <ChaflanCNCWork workData={workData} key={1} />;
     return (
       <Group>
@@ -57,17 +60,12 @@ function WorksSelectorCNCWorks(props) {
             indexPiece={indexPiece}
           />
         )}
-
-        <EncastreWork
-          workData={workData}
-          pieceSelected={pieceSelected}
-          indexPiece={indexPiece}
-        />
       </Group>
     );
   }
 
-  if (workData.type == WORKS_TYPES.CCFALESC) {
+  // FALSA ESCUADRA
+  if (workData.type == CCFALESC) {
     // return (
     //   workData.selected && <FalsaEscuadraCNCWork workData={workData} key={1} />
     // );
@@ -99,7 +97,8 @@ function WorksSelectorCNCWorks(props) {
     );
   }
 
-  if (workData.type == WORKS_TYPES.CCRECIN) {
+  // RECTO INTERIOR, CAJEADOS
+  if (workData.type == CCRECIN) {
     // return (
     //   workData.selected && <RectoInteriorCNCWork workData={workData} key={1} />
     // );
@@ -127,6 +126,36 @@ function WorksSelectorCNCWorks(props) {
             indexPiece={indexPiece}
           />
         )}
+      </Group>
+    );
+  }
+
+  // ENCASTRES
+  if (workData.type == ENCASTRE) {
+    return (
+      <Group>
+        {validateShapeSelectedToRender([SIMPLE, SQUARE, CIRCLE]) && (
+          <EncastreWork
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
+        )}
+
+        {/* {validateShapeSelectedToRender([
+          LShaped_l1,
+          LShaped_l2,
+          UShaped_u1,
+          UShaped_u2,
+          UShaped_u3,
+          UShaped_u4,
+        ]) && (
+          <RectoInteriorCNCWorkL
+            workData={workData}
+            pieceSelected={pieceSelected}
+            indexPiece={indexPiece}
+          />
+        )} */}
       </Group>
     );
   }

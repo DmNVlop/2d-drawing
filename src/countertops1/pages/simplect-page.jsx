@@ -13,8 +13,12 @@ import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useCustomURLHandler } from "../helpers/location.hook";
 import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
+import { Col, Row } from "antd";
+import { SHAPE_TYPES } from "./../mocks/SHAPE_TYPES.const";
 
 export default function SimpleCTPage(props) {
+  const { title, shape } = props;
+
   const {
     countertops,
     getPartsDataFromPieceCtx,
@@ -33,7 +37,27 @@ export default function SimpleCTPage(props) {
 
   return (
     <section id="simple-ct-page">
-      <h2>{props.title}</h2>
+      <Row gutter={[8]} align="middle" justify="flex-start">
+        <Col className="guttter-row">
+          <h2>{title}</h2>
+        </Col>
+
+        <Col className="guttter-row" style={{ height: "40px" }}>
+          <figure className="ct-figure-on-title">
+            {shape == SHAPE_TYPES.SIMPLE && (
+              <img src="/images/jobs/simple.png" alt={title} />
+            )}
+
+            {shape == SHAPE_TYPES.SQUARE && (
+              <img src="/images/jobs/square.png" alt={title} />
+            )}
+
+            {shape == SHAPE_TYPES.CIRCLE && (
+              <img src="/images/jobs/circle.png" alt={title} />
+            )}
+          </figure>
+        </Col>
+      </Row>
 
       <Stage
         width={stageWidth}

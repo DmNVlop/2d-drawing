@@ -7,6 +7,7 @@ import { WORKS_TYPES } from "../../mocks/WORKS.types";
 import { useCountertopContext } from "../../context/ct-context";
 import { useCustomURLHandler } from "../../helpers/location.hook";
 import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
+
 function EncastreWork(props) {
   const { workData, pieceSelected, indexPiece } = props;
   const { ATTRIB_SETTED } = useCustomURLHandler();
