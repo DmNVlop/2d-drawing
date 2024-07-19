@@ -159,10 +159,10 @@ function EncastreWorkL(props) {
 
   const initialPositionX = workData.positionLength + GLOBAL_CT_M.xGlobalLayer;
   const xInit =
-    workData.positionFrom == 2
-      ? initialPositionX + pieceWidth - workData.positionLength
-      : workData.positionFrom == 1
+    workData.positionFrom == 1
       ? initialPositionX + workData.positionLength
+      : workData.positionFrom == 2
+      ? initialPositionX + pieceWidth - workData.positionLength
       : initialPositionX;
 
   const yInit =

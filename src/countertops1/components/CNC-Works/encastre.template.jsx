@@ -42,10 +42,10 @@ function EncastreWork(props) {
   // const xInit = positionLength + GLOBAL_CT_M.xGlobalLayer;
   const initialPositionX = GLOBAL_CT_M.xGlobalLayer - workData.width / 2;
   const xInit =
-    workData.positionFrom == 2
-      ? initialPositionX + pieceWidth - workData.positionLength
-      : workData.positionFrom == 1
+    workData.positionFrom == 1
       ? initialPositionX + workData.positionLength
+      : workData.positionFrom == 2
+      ? initialPositionX + pieceWidth - workData.positionLength
       : initialPositionX;
 
   const yInit =
