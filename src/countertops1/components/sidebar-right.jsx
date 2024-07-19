@@ -269,15 +269,13 @@ function SidebarRight() {
         radius: radiusInput, // number
         frontLength: frontLengthInput, // size
         positionLength: positionLengthInput, // size
-        positionFrom: positionFromInput, // "left" | "right"
+        positionFrom: positionFromInput, // "left 1" | "right 2"
         hasWaterTap: hasWaterTapInput, // boolean
         tapPosition: tapPositionInput, // "left" | "center" | "right"
         tapDiameter: tapDiameterInput, // number
       };
 
       const currentItem_encastre = { ...currentItem, ...encastreAddData };
-      console.log("🚀 ~ handleSetWork ~ currentItem_encastre:", currentItem_encastre)
-
       if (
         !currentItem_encastre.width ||
         !currentItem_encastre.height ||
@@ -295,8 +293,6 @@ function SidebarRight() {
       ) {
         return;
       }
-
-      console.log("🚀 ~ handleSetWork ~ currentItem:", currentItem_encastre);
 
       updateWorkInPieceCtx(currentItem_encastre, getSelectedPieceValueCtx());
     }
@@ -591,8 +587,8 @@ function SidebarRight() {
                       >
                         <Radio.Group onChange={handlePositionFromRadioChange}>
                           <Space direction="vertical">
-                            <Radio value={1}>D/Derecha</Radio>
-                            <Radio value={2}>D/Izquierda</Radio>
+                            <Radio value={1}>D/Izquierda</Radio>
+                            <Radio value={2}>D/Derecha</Radio>
                           </Space>
                         </Radio.Group>
                       </Form.Item>

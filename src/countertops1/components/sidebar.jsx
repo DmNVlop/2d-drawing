@@ -170,14 +170,14 @@ const Sidebar = () => {
   const selectingCornersToShow = (item) => {
     if (item?.type == WORKS_TYPES.ENCASTRE) {
       // D/DERECHA
-      if (item?.positionFrom == 1 && item?.hasWaterTap) {
+      if (item?.positionFrom == 2 && item?.hasWaterTap) {
         return (
           <>
             <BorderRightOutlined title="Posicion medida desde la derecha" />
             <AimOutlined style={{ marginLeft: "5px" }} title="Tiene Grifo" />
           </>
         );
-      } else if (item?.positionFrom == 1) {
+      } else if (item?.positionFrom == 2) {
         return (
           <>
             <BorderRightOutlined title="Posicion medida desde la derecha" />
@@ -186,14 +186,14 @@ const Sidebar = () => {
       }
 
       // D/IZQUIERDA
-      if (item?.positionFrom == 2 && item?.hasWaterTap) {
+      if (item?.positionFrom == 1 && item?.hasWaterTap) {
         return (
           <>
             <BorderLeftOutlined title="Posicion medida desde la izquierda" />
             <AimOutlined style={{ marginLeft: "5px" }} title="Tiene Grifo" />
           </>
         );
-      } else if (item?.positionFrom == 2) {
+      } else if (item?.positionFrom == 1) {
         return (
           <>
             <BorderLeftOutlined title="Posicion medida desde la izquierda" />

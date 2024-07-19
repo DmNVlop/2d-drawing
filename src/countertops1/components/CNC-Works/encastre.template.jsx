@@ -42,9 +42,9 @@ function EncastreWork(props) {
   // const xInit = positionLength + GLOBAL_CT_M.xGlobalLayer;
   const initialPositionX = GLOBAL_CT_M.xGlobalLayer - workData.width / 2;
   const xInit =
-    workData.positionFrom == 1
+    workData.positionFrom == 2
       ? initialPositionX + pieceWidth - workData.positionLength
-      : workData.positionFrom == 2
+      : workData.positionFrom == 1
       ? initialPositionX + workData.positionLength
       : initialPositionX;
 
@@ -62,7 +62,7 @@ function EncastreWork(props) {
         y={yInit}
         width={workData.width}
         height={workData.height}
-        fill="white"
+        fill="red"
         cornerRadius={[
           workData.radius,
           workData.radius,
@@ -77,7 +77,7 @@ function EncastreWork(props) {
           x={xInit + workData.tapDiameter}
           y={yInit - 60}
           radius={workData.tapDiameter}
-          fill="white"
+          fill="red"
         />
       )}
 
@@ -87,7 +87,7 @@ function EncastreWork(props) {
           x={xInit + workData.width / 2}
           y={yInit - 60}
           radius={workData.tapDiameter}
-          fill="white"
+          fill="red"
         />
       )}
 
@@ -97,7 +97,7 @@ function EncastreWork(props) {
           x={xInit + workData.width - workData.tapDiameter}
           y={yInit - 60}
           radius={workData.tapDiameter}
-          fill="white"
+          fill="red"
         />
       )}
     </Group>

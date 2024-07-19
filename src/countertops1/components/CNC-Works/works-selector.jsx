@@ -10,6 +10,7 @@ import ChaflanCNCWorkL from "./chaflan-l.template";
 import EncastreWork from "./encastre.template";
 import FalsaEscuadraCNCWorkL from "./falsa-escuadra-l.template";
 import RectoInteriorCNCWorkL from "./recto-interior-l.template";
+import EncastreWorkL from "./encastre-l.template";
 
 function WorksSelectorCNCWorks(props) {
   const { workData, pieceSelected, indexPiece } = props;
@@ -142,7 +143,7 @@ function WorksSelectorCNCWorks(props) {
           />
         )}
 
-        {/* {validateShapeSelectedToRender([
+        {validateShapeSelectedToRender([
           LShaped_l1,
           LShaped_l2,
           UShaped_u1,
@@ -150,12 +151,12 @@ function WorksSelectorCNCWorks(props) {
           UShaped_u3,
           UShaped_u4,
         ]) && (
-          <RectoInteriorCNCWorkL
+          <EncastreWorkL
             workData={workData}
             pieceSelected={pieceSelected}
             indexPiece={indexPiece}
           />
-        )} */}
+        )}
       </Group>
     );
   }

@@ -232,24 +232,28 @@ export default function RectLTemplateL1(props) {
             strokeWidth={1}
           />
 
-          {[1, 2, 3, 4].map((item) => (
-            <>
-              <Line
-                x={itemData?.x || 0}
-                y={itemData?.y || 0}
-                points={calcAssemblysHPL(item).line || 0}
-                stroke={"gray"}
-                strokeWidth={8}
-              />
+          {[1, 2, 3, 4].map((item, index) => {
+            const lineAssemblyKey = `LineAssembly-${item.id}-${index}`;
 
-              <Circle
-                x={calcAssemblysHPL(item)?.circleX || 0}
-                y={calcAssemblysHPL(item)?.circleY || 0}
-                radius={20}
-                fill="gray"
-              />
-            </>
-          ))}
+            return (
+              <Group key={lineAssemblyKey}>
+                <Line
+                  x={itemData?.x || 0}
+                  y={itemData?.y || 0}
+                  points={calcAssemblysHPL(item).line || 0}
+                  stroke={"gray"}
+                  strokeWidth={8}
+                />
+
+                <Circle
+                  x={calcAssemblysHPL(item)?.circleX || 0}
+                  y={calcAssemblysHPL(item)?.circleY || 0}
+                  radius={20}
+                  fill="gray"
+                />
+              </Group>
+            );
+          })}
         </>
       )}
     </Group>
@@ -259,5 +263,7 @@ export default function RectLTemplateL1(props) {
 RectLTemplateL1.propTypes = {
   itemData: PropTypes.object,
   getPartsDataFromPieceCtx: PropTypes.array,
+  getAssemblyTypeFromPiecesCtx: PropTypes.func,
+  onSetSelectedPieceCtx: PropTypes.func,
   setSidebarRightOpenedCtx: PropTypes.func,
 };
