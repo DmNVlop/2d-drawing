@@ -24,6 +24,9 @@ import BUTTON_SQUARE_MODELS from "../const/button-square-models.const";
 import { ASSEMBLY_DATA } from "../mocks/ASSEMBLY_DATA.const";
 import DimensionsInput from "./Sidebar-Components/dimensions-input";
 import {
+  AimOutlined,
+  BorderLeftOutlined,
+  BorderRightOutlined,
   ClearOutlined,
   DeleteOutlined,
   EditOutlined,
@@ -32,9 +35,12 @@ import {
   RadiusBottomrightOutlined,
   RadiusUpleftOutlined,
   RadiusUprightOutlined,
+  VerticalLeftOutlined,
+  VerticalRightOutlined,
 } from "@ant-design/icons";
 import { useCustomURLHandler } from "../helpers/location.hook";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
+import { WORKS_TYPES } from "../mocks/WORKS.types";
 
 const Sidebar = () => {
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
@@ -162,6 +168,40 @@ const Sidebar = () => {
   };
 
   const selectingCornersToShow = (item) => {
+    if (item?.type == WORKS_TYPES.ENCASTRE) {
+      // D/DERECHA
+      if (item?.positionFrom == 1 && item?.hasWaterTap) {
+        return (
+          <>
+            <BorderRightOutlined title="Posicion medida desde la derecha" />
+            <AimOutlined style={{ marginLeft: "5px" }} title="Tiene Grifo" />
+          </>
+        );
+      } else if (item?.positionFrom == 1) {
+        return (
+          <>
+            <BorderRightOutlined title="Posicion medida desde la derecha" />
+          </>
+        );
+      }
+
+      // D/IZQUIERDA
+      if (item?.positionFrom == 2 && item?.hasWaterTap) {
+        return (
+          <>
+            <BorderLeftOutlined title="Posicion medida desde la izquierda" />
+            <AimOutlined style={{ marginLeft: "5px" }} title="Tiene Grifo" />
+          </>
+        );
+      } else if (item?.positionFrom == 2) {
+        return (
+          <>
+            <BorderLeftOutlined title="Posicion medida desde la izquierda" />
+          </>
+        );
+      }
+    }
+
     if (
       !item ||
       item == undefined ||
