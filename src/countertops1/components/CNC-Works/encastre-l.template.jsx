@@ -3,15 +3,12 @@ import PropTypes from "prop-types";
 
 import { Circle, Group, Layer, Line, Rect } from "react-konva";
 import { GLOBAL_CT_M } from "../../mocks/global-ct.mock";
-import { WORKS_TYPES } from "../../mocks/WORKS.types";
 import { useCountertopContext } from "../../context/ct-context";
 import { useCustomURLHandler } from "../../helpers/location.hook";
 import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
 
 function EncastreWorkL(props) {
   const { workData, pieceSelected } = props;
-  console.log("🚀 ~ EncastreWorkL ~ workData:", workData);
-  console.log("🚀 ~ EncastreWorkL ~ pieceSelected:", pieceSelected);
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
   const {
@@ -243,7 +240,7 @@ function EncastreWorkL(props) {
         y={yInitFn()}
         width={workData.width}
         height={workData.height}
-        fill="red"
+        fill="white"
         cornerRadius={[
           workData.radius,
           workData.radius,
@@ -258,7 +255,7 @@ function EncastreWorkL(props) {
           x={xInitFn() + workData.tapDiameter}
           y={yInitFn() - 60}
           radius={workData.tapDiameter}
-          fill="red"
+          fill="white"
         />
       )}
 
@@ -268,7 +265,7 @@ function EncastreWorkL(props) {
           x={xInitFn() + workData.width / 2}
           y={yInitFn() - 60}
           radius={workData.tapDiameter}
-          fill="red"
+          fill="white"
         />
       )}
 
@@ -278,7 +275,7 @@ function EncastreWorkL(props) {
           x={xInitFn() + workData.width - workData.tapDiameter}
           y={yInitFn() - 60}
           radius={workData.tapDiameter}
-          fill="red"
+          fill="white"
         />
       )}
     </Group>
