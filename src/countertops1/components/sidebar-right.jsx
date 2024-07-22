@@ -73,7 +73,7 @@ function SidebarRight() {
   const [positionFromInput, setPositionFromInput] = useState(1); // "1: left" | "2: right"
   const [hasWaterTapInput, setHasWaterTapInput] = useState(false); // boolean
   const [tapPositionInput, setTapPositionInput] = useState(2); // "left" | "center" | "right"
-  const [tapDiameterInput, setTapDiameterInput] = useState(35);
+  const [tapDiameterInput, setTapDiameterInput] = useState(25);
 
   // const [enableGrifo, setEnableGrifo] = useState(false);
 
@@ -526,7 +526,7 @@ function SidebarRight() {
                   {showRightBarSeparacionInput(workSelected) && (
                     <Col span={12}>
                       <Form.Item
-                        name={"Separacion Frente"}
+                        name={"SeparacionFrente"}
                         initialValue={frontLengthInput}
                         style={{ marginBottom: 0 }}
                       >

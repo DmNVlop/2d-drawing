@@ -8,6 +8,9 @@ export const CIRCLE_CT_M = {
   rootConfig: {
     scaleX: 0.6,
     scaleY: 0.6,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {

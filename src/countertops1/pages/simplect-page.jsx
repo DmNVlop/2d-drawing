@@ -15,6 +15,7 @@ import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
 import { Col, Row } from "antd";
 import { SHAPE_TYPES } from "./../mocks/SHAPE_TYPES.const";
+import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
 
 export default function SimpleCTPage(props) {
   const { title, shape } = props;
@@ -44,15 +45,15 @@ export default function SimpleCTPage(props) {
 
         <Col className="guttter-row" style={{ height: "40px" }}>
           <figure className="ct-figure-on-title">
-            {shape == SHAPE_TYPES.SIMPLE && (
+            {ATTRIB_SETTED == SHAPE_TYPES.SIMPLE && (
               <img src="/images/jobs/simple.png" alt={title} />
             )}
 
-            {shape == SHAPE_TYPES.SQUARE && (
+            {ATTRIB_SETTED == SHAPE_TYPES.SQUARE && (
               <img src="/images/jobs/square.png" alt={title} />
             )}
 
-            {shape == SHAPE_TYPES.CIRCLE && (
+            {ATTRIB_SETTED == SHAPE_TYPES.CIRCLE && (
               <img src="/images/jobs/circle.png" alt={title} />
             )}
           </figure>
@@ -66,7 +67,6 @@ export default function SimpleCTPage(props) {
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
         onClick={handleClickOnSelectPieceNull}
-        rotation={0}
         onWheel={(e) =>
           useHandleZoomWheel(
             e,
@@ -75,29 +75,9 @@ export default function SimpleCTPage(props) {
             setScaleOnRootConfigCtx
           )
         }
-        // rotation={90}
-        // rotation={-90}
-        // rotation={180}
-        offsetX={0} // 0
-        offsetY={0} // 0
-
-        // offsetX={0} // 90
-        // offsetY={countertops[ATTRIB_SETTED]?.partsData[0]?.height + GLOBAL_CT_M.xGlobalLayer * 2} // 90
-
-        // offsetX={
-        //   countertops[ATTRIB_SETTED]?.partsData[0]?.width +
-        //   GLOBAL_CT_M.xGlobalLayer * 2
-        // } // -90
-        // offsetY={0} // -90
-
-        // offsetX={
-        //   countertops[ATTRIB_SETTED]?.partsData[0]?.width +
-        //   GLOBAL_CT_M.xGlobalLayer * 2
-        // } // -180
-        // offsetY={
-        //   countertops[ATTRIB_SETTED]?.partsData[0]?.height +
-        //   GLOBAL_CT_M.yGlobalLayer * 2
-        // } // -180
+        rotation={countertops[ATTRIB_SETTED]?.rootConfig?.rotationStage || 0}
+        offsetX={countertops[ATTRIB_SETTED]?.rootConfig?.offsetXStage || 0}
+        offsetY={countertops[ATTRIB_SETTED]?.rootConfig?.offsetYStage || 0}
       >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
@@ -128,36 +108,6 @@ export default function SimpleCTPage(props) {
             );
           })}
 
-          {/* {getLinesDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
-            if (item.direction === DIRECTION.HORIZONTAL) {
-              return (
-                <Group
-                  key={index}
-                  x={GLOBAL_CT_M.xGlobalLayer}
-                  y={GLOBAL_CT_M.yGlobalLayer}
-                >
-                  <LineTemplateHorizontal itemData={item} key={item.id} />
-                </Group>
-              );
-            }
-
-            if (item.direction === DIRECTION.VERTICAL) {
-              return (
-                <Group
-                  key={index}
-                  x={GLOBAL_CT_M.xGlobalLayer}
-                  y={GLOBAL_CT_M.yGlobalLayer}
-                >
-                  <LineTemplateVertical
-                    itemData={item}
-                    key={index}
-                    id={index}
-                  />
-                </Group>
-              );
-            }
-          })} */}
-
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item) => {
             if (Array.isArray(item?.works) && item?.works?.length > 0) {
               return item?.works.map((work, idx) => {
@@ -177,6 +127,8 @@ export default function SimpleCTPage(props) {
       </Stage>
 
       <ZoomStageComponent />
+
+      <RotationButtonsComponent />
     </section>
   );
 }
