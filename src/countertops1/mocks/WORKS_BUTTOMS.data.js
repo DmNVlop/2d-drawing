@@ -44,10 +44,10 @@ const BUTTON_SQUARE_WORKS = [
   {
     url: "#",
     img: "/images/works/encastres.png",
-    alt: "Encastre de fregadero",
-    title: "Encastre de fregadero",
+    alt: "Encastres",
+    title: "Encastres",
     selected: false,
-    type: WORKS_TYPES.CCRED2LADOS,
+    type: WORKS_TYPES.ENCASTRE,
   },
 ];
 

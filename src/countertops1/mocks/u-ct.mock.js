@@ -25,7 +25,7 @@ export const U1_CT_M = {
       // offsetX: 500,
       // offsetY: 0,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -49,12 +49,13 @@ export const U1_CT_M = {
       // offsetX: -200, // (-)height P1
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      // fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
       cornerRadiusProduction: [0, 0, 0, 0],
       cornerRadiusDisabled: [1, 0, 1, 1],
+      haveLines: [1, 0, 0, 0],
       works: [],
     },
     {
@@ -73,7 +74,7 @@ export const U1_CT_M = {
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // height P1 + width P2 + height P3
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -124,16 +125,16 @@ export const U2_CT_M = {
   shapeType: SHAPE_TYPES.U2_CT_M,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   rootConfig: {
-    scaleX: 1,
-    scaleY: 1,
+    scaleX: 0.4,
+    scaleY: 0.4,
   },
   partsData: [
     {
       id: 1,
       x: 0,
       y: 0,
-      width: 500,
-      height: 200,
+      width: 1800,
+      height: 645,
       fill: "#937e65",
       stroke: "black",
       strokeWidth: 0,
@@ -144,7 +145,7 @@ export const U2_CT_M = {
       // offsetX: 500,
       // offsetY: 0,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -156,8 +157,8 @@ export const U2_CT_M = {
       id: 2,
       x: 0,
       y: 0,
-      width: 300,
-      height: 200,
+      width: 1200,
+      height: 645,
       fill: "#937e65",
       stroke: "black",
       strokeWidth: 0,
@@ -168,7 +169,7 @@ export const U2_CT_M = {
       // offsetX: -200, // (-)height P1
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      // fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -180,8 +181,8 @@ export const U2_CT_M = {
       id: 3,
       x: 0,
       y: 0,
-      width: 500,
-      height: 200,
+      width: 1600,
+      height: 645,
       fill: "#937e65",
       stroke: "black",
       strokeWidth: 0,
@@ -192,7 +193,7 @@ export const U2_CT_M = {
       // offsetX: 0, // (-)height P2
       // offsetY: 700, // height P1 + width P2 + height P3
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -263,7 +264,7 @@ export const U3_CT_M = {
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -287,7 +288,7 @@ export const U3_CT_M = {
       // offsetX: 0, // (-)height P1
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      // fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -311,7 +312,7 @@ export const U3_CT_M = {
       // offsetX: 0, // (-)height P2
       // offsetY: 700, // height P1 + width P2
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -382,7 +383,7 @@ export const U4_CT_M = {
       // offsetX: 500, // width P1 + height P2
       // offsetY: 0,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -406,7 +407,7 @@ export const U4_CT_M = {
       // offsetX: 0,
       // offsetY: 0,
       fillPatternImage: "",
-      // fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      // fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
@@ -430,7 +431,7 @@ export const U4_CT_M = {
       // offsetX: -200, // (-)height P2
       // offsetY: 700, // width P2
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],

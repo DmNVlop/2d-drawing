@@ -18,7 +18,7 @@ export const RECT_DATA_INIT = [
     strokeWidth: 0,
     rotation: 0,
     cornerRadius: [0, 0, 0, 0],
-    fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+    fillPatternImage: "/images/patron-roble_hickory.jpg",
     fillPatternRepeat: "repeat",
     fillPatternScaleX: 0.6,
     fillPatternScaleY: 0.3,

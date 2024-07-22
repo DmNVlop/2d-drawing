@@ -32,6 +32,7 @@ export const WORKS_CORNERS = {
   },
   [WORKS_TYPES.CCCRED1LADO]: {
     work: WORKS_TYPES.CCCRED1LADO,
+    corners: [],
   },
   [WORKS_TYPES.CCRED2LADOS]: {
     work: WORKS_TYPES.CCRED2LADOS,
@@ -76,9 +77,11 @@ export const WORKS_CORNERS = {
   },
   [WORKS_TYPES.CCRED4LADOS]: {
     work: WORKS_TYPES.CCRED4LADOS,
+    corners: [],
   },
   [WORKS_TYPES.CCLARGO]: {
     work: WORKS_TYPES.CCLARGO,
+    corners: [],
   },
   [WORKS_TYPES.CCCHAFLAN]: {
     work: WORKS_TYPES.CCCHAFLAN,
@@ -229,6 +232,23 @@ export const WORKS_CORNERS = {
         img: "/images/works/ccchaflanin-3.png",
         alt: "Corte con Chaflan Interior, Frente Derecha",
         title: "Corte con Chaflan Interior, Frente Derecha",
+      },
+    ],
+  },
+  [WORKS_TYPES.ENCASTRE]: {
+    work: WORKS_TYPES.ENCASTRE,
+    corners: [
+      {
+        url: "#",
+        img: "/images/works/encastres.png",
+        alt: "Encastre sin grifo",
+        title: "Encastre sin grifo",
+      },
+      {
+        url: "#",
+        img: "/images/works/encastre-grifo.png",
+        alt: "Encastre con grifo",
+        title: "Encastre con grifo",
       },
     ],
   },

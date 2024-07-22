@@ -32,6 +32,7 @@ export default function LShapedPage(props) {
   const {
     countertops,
     getPartsDataFromPieceCtx,
+    getAssemblyTypeFromPiecesCtx,
     onSetSelectedPieceCtx,
     setScaleOnRootConfigCtx,
     setSidebarRightOpenedCtx,
@@ -86,9 +87,18 @@ export default function LShapedPage(props) {
         }
         onClick={handleClickOnSelectPieceNull}
       >
-        <Layer>
+        <Layer
+        // rotation={90}
+        // offsetX={0}
+        // offsetY={
+        //   getPartsDataFromPieceCtx(ATTRIB_SETTED)[0].width +
+        //   GLOBAL_CT_M.xGlobalLayer
+        // }
+        >
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
             const groupDataKey = `groupP-${item.id}-${index}`;
+            const rect1DataKey = `groupP-${item.id}-${index}-R1`;
+            const rect2DataKey = `groupP-${item.id}-${index}-R2`;
             return (
               <Group
                 key={groupDataKey}
@@ -97,10 +107,12 @@ export default function LShapedPage(props) {
               >
                 {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l1 && (
                   <RectLTemplateL1
+                    key={rect1DataKey}
                     itemData={item}
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
+                    getAssemblyTypeFromPiecesCtx={getAssemblyTypeFromPiecesCtx}
                     onSetSelectedPieceCtx={onSetSelectedPieceCtx}
                     setSidebarRightOpenedCtx={setSidebarRightOpenedCtx}
                   />
@@ -108,10 +120,12 @@ export default function LShapedPage(props) {
 
                 {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l2 && (
                   <RectLTemplateL2
+                    key={rect2DataKey}
                     itemData={item}
                     getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(
                       ATTRIB_SETTED
                     )}
+                    getAssemblyTypeFromPiecesCtx={getAssemblyTypeFromPiecesCtx}
                     onSetSelectedPieceCtx={onSetSelectedPieceCtx}
                     setSidebarRightOpenedCtx={setSidebarRightOpenedCtx}
                   />

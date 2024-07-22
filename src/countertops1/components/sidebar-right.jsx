@@ -2,13 +2,26 @@ import "./sidebar-right.css";
 
 import PropTypes from "prop-types";
 
-import { Button, Col, Flex, Form, Input, Row, Typography } from "antd";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Flex,
+  Form,
+  Input,
+  Radio,
+  Row,
+  Space,
+  Typography,
+} from "antd";
 import {
   ArrowDownOutlined,
+  ArrowsAltOutlined,
   CloseOutlined,
   ColumnHeightOutlined,
   ColumnWidthOutlined,
   RadiusSettingOutlined,
+  VerticalAlignBottomOutlined,
 } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import BUTTON_SQUARE_WORKS from "../mocks/WORKS_BUTTOMS.data";
@@ -28,6 +41,9 @@ function SidebarRight() {
   const inputRightBarWidthRef = useRef(null);
   const inputRightBarHeightRef = useRef(null);
   const inputRightBarRadiusRef = useRef(null);
+  const inputRightBarSeparacionRef = useRef(null);
+  const inputRightBarPosicionRef = useRef(null);
+  const inputRightBarGrifoDiametroRef = useRef(null);
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
@@ -52,6 +68,14 @@ function SidebarRight() {
   const [widthInput, setWidthInput] = useState(null);
   const [heightInput, setHeightInput] = useState(null);
   const [radiusInput, setRadiusInput] = useState(null);
+  const [frontLengthInput, setFrontLengthInput] = useState(70);
+  const [positionLengthInput, setPositionLengthInput] = useState(0);
+  const [positionFromInput, setPositionFromInput] = useState(1); // "1: left" | "2: right"
+  const [hasWaterTapInput, setHasWaterTapInput] = useState(false); // boolean
+  const [tapPositionInput, setTapPositionInput] = useState(2); // "left" | "center" | "right"
+  const [tapDiameterInput, setTapDiameterInput] = useState(35);
+
+  // const [enableGrifo, setEnableGrifo] = useState(false);
 
   const handleCloseSidebarRight = (event) => {
     event.preventDefault();
@@ -83,6 +107,7 @@ function SidebarRight() {
       ).type;
 
       if (!_work) return [];
+
       const cornersToReturn = _WORKS_CORNERS[_work].corners.map((item) => {
         return { ...item, selected: false };
       });
@@ -231,21 +256,86 @@ function SidebarRight() {
 
       updateWorkInPieceCtx(currentItem, getSelectedPieceValueCtx());
     }
+
+    // ENCASTRES
+    if (currentItem.type == WORKS_TYPES.ENCASTRE) {
+      currentItem.id = getIdCtx();
+      currentItem.width = widthInput;
+      currentItem.height = heightInput;
+
+      const encastreAddData = {
+        width: widthInput, // size
+        height: heightInput, // size
+        radius: radiusInput, // number
+        frontLength: frontLengthInput, // size
+        positionLength: positionLengthInput, // size
+        positionFrom: positionFromInput, // "left 1" | "right 2"
+        hasWaterTap: hasWaterTapInput, // boolean
+        tapPosition: tapPositionInput, // "left" | "center" | "right"
+        tapDiameter: tapDiameterInput, // number
+      };
+
+      const currentItem_encastre = { ...currentItem, ...encastreAddData };
+      if (
+        !currentItem_encastre.width ||
+        !currentItem_encastre.height ||
+        currentItem_encastre.radius === "" ||
+        currentItem_encastre.frontLength === "" ||
+        !currentItem_encastre.positionLength ||
+        !currentItem_encastre.positionFrom
+      ) {
+        return;
+      }
+
+      if (
+        currentItem_encastre.hasWaterTap &&
+        (!currentItem_encastre.tapPosition || !currentItem_encastre.tapDiameter)
+      ) {
+        return;
+      }
+
+      updateWorkInPieceCtx(currentItem_encastre, getSelectedPieceValueCtx());
+    }
   };
 
   const handleWidthInputChange = (e) => {
     e.preventDefault();
-    setWidthInput(parseFloat(e.target.value));
+    setWidthInput(Number(parseFloat(e.target.value)));
   };
 
   const handleHeightInputChange = (e) => {
     e.preventDefault();
-    setHeightInput(parseFloat(e.target.value));
+    setHeightInput(Number(parseFloat(e.target.value)));
   };
 
   const handleRadiusInputChange = (e) => {
     e.preventDefault();
-    setRadiusInput(parseFloat(e.target.value));
+    setRadiusInput(Number(parseFloat(e.target.value)));
+  };
+
+  const handleSeparacionChange = (e) => {
+    e.preventDefault();
+    setFrontLengthInput(Number(parseFloat(e.target.value)));
+  };
+
+  const handlePositionLengthChange = (e) => {
+    e.preventDefault();
+    setPositionLengthInput(Number(parseFloat(e.target.value)));
+  };
+
+  const handlePositionFromRadioChange = (e) => {
+    e.preventDefault();
+    setPositionFromInput(Number(parseFloat(e.target.value)));
+  };
+
+  const handleTapPositionChange = (e) => {
+    e.preventDefault();
+    setTapPositionInput(Number(parseFloat(e.target.value)));
+  };
+
+  const handleTapDiameterChange = (e) => {
+    e.preventDefault();
+    setTapDiameterInput(Number(parseFloat(e.target.value)));
   };
 
   const showRightBarWidthInput = (_workSelected) => {
@@ -253,6 +343,7 @@ function SidebarRight() {
       [WORKS_TYPES.CCCHAFLAN]: true,
       [WORKS_TYPES.CCFALESC]: true,
       [WORKS_TYPES.CCRECIN]: true,
+      [WORKS_TYPES.ENCASTRE]: true,
     };
 
     return validOptions[_workSelected.type] || false;
@@ -262,13 +353,30 @@ function SidebarRight() {
     const validOptions = {
       [WORKS_TYPES.CCCHAFLAN]: true,
       [WORKS_TYPES.CCRECIN]: true,
+      [WORKS_TYPES.ENCASTRE]: true,
     };
 
     return validOptions[_workSelected.type] || false;
   };
 
   const showRightBarRadiusInput = (_workSelected) => {
-    return false;
+    const validOptions = {
+      [WORKS_TYPES.ENCASTRE]: true,
+    };
+
+    return validOptions[_workSelected.type] || false;
+  };
+
+  const showRightBarSeparacionInput = (_workSelected) => {
+    const validOptions = {
+      [WORKS_TYPES.ENCASTRE]: true,
+    };
+
+    return validOptions[_workSelected.type] || false;
+  };
+
+  const handleEnableGrifo = (e) => {
+    setHasWaterTapInput(e.target.checked);
   };
 
   useEffect(() => {
@@ -351,13 +459,16 @@ function SidebarRight() {
                 <Row gutter={[8, 8]}>
                   {showRightBarWidthInput(workSelected) && (
                     <Col span={12}>
-                      <Form.Item name={"Largo"} style={{ marginBottom: 0 }}>
+                      <Form.Item name={"Width"} style={{ marginBottom: 0 }}>
                         <Input
                           ref={inputRightBarWidthRef}
                           onClick={(e) =>
                             onClickHandleSelectText(e, inputRightBarWidthRef)
                           }
                           placeholder="Largo"
+                          title="Largo"
+                          min={50}
+                          max={3600}
                           prefix={<ColumnWidthOutlined />}
                           onChange={(e) => {
                             handleWidthInputChange(e);
@@ -369,13 +480,16 @@ function SidebarRight() {
 
                   {showRightBarHeightInput(workSelected) && (
                     <Col span={12}>
-                      <Form.Item name={"Fondo"} style={{ marginBottom: 0 }}>
+                      <Form.Item name={"Height"} style={{ marginBottom: 0 }}>
                         <Input
                           ref={inputRightBarHeightRef}
                           onClick={(e) =>
                             onClickHandleSelectText(e, inputRightBarHeightRef)
                           }
                           placeholder="Fondo"
+                          title="Fondo"
+                          min={50}
+                          max={3600}
                           prefix={<ColumnHeightOutlined />}
                           onChange={(e) => {
                             handleHeightInputChange(e);
@@ -387,13 +501,19 @@ function SidebarRight() {
 
                   {showRightBarRadiusInput(workSelected) && (
                     <Col span={12}>
-                      <Form.Item name={"Radio"} style={{ marginBottom: 0 }}>
+                      <Form.Item
+                        name={"BorderRadio"}
+                        style={{ marginBottom: 0 }}
+                      >
                         <Input
                           ref={inputRightBarRadiusRef}
                           onClick={(e) =>
                             onClickHandleSelectText(e, inputRightBarRadiusRef)
                           }
-                          placeholder="Radio"
+                          placeholder="Radio del Borde"
+                          title="Radio del Borde"
+                          min={20}
+                          max={120}
                           prefix={<RadiusSettingOutlined />}
                           onChange={(e) => {
                             handleRadiusInputChange(e);
@@ -401,6 +521,139 @@ function SidebarRight() {
                         />
                       </Form.Item>
                     </Col>
+                  )}
+
+                  {showRightBarSeparacionInput(workSelected) && (
+                    <Col span={12}>
+                      <Form.Item
+                        name={"Separacion Frente"}
+                        initialValue={frontLengthInput}
+                        style={{ marginBottom: 0 }}
+                      >
+                        <Input
+                          ref={inputRightBarSeparacionRef}
+                          onClick={(e) =>
+                            onClickHandleSelectText(
+                              e,
+                              inputRightBarSeparacionRef
+                            )
+                          }
+                          placeholder="Separacion Frente"
+                          title="Separacion Frente"
+                          min={0}
+                          max={3600}
+                          prefix={<VerticalAlignBottomOutlined />}
+                          onChange={(e) => {
+                            handleSeparacionChange(e);
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  )}
+
+                  {showRightBarSeparacionInput(workSelected) && (
+                    <Col span={24}>
+                      <h5>Posicion</h5>
+                    </Col>
+                  )}
+
+                  {showRightBarSeparacionInput(workSelected) && (
+                    <Col span={12}>
+                      <Form.Item name={"Posicion"} style={{ marginBottom: 0 }}>
+                        <Input
+                          ref={inputRightBarPosicionRef}
+                          onClick={(e) =>
+                            onClickHandleSelectText(e, inputRightBarPosicionRef)
+                          }
+                          placeholder="Posicion"
+                          title="Posicion"
+                          min={50}
+                          max={3600}
+                          prefix={<ColumnWidthOutlined />}
+                          onChange={(e) => {
+                            handlePositionLengthChange(e);
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  )}
+
+                  {showRightBarSeparacionInput(workSelected) && (
+                    <Col span={12}>
+                      <Form.Item
+                        name={"PosicionRadio"}
+                        initialValue={positionFromInput}
+                        style={{ marginBottom: 0 }}
+                      >
+                        <Radio.Group onChange={handlePositionFromRadioChange}>
+                          <Space direction="vertical">
+                            <Radio value={1}>D/Izquierda</Radio>
+                            <Radio value={2}>D/Derecha</Radio>
+                          </Space>
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                  )}
+
+                  {showRightBarSeparacionInput(workSelected) && (
+                    <>
+                      <Col span={4}>
+                        <h5>Grifo</h5>
+                      </Col>
+
+                      <Col span={20}>
+                        <Checkbox
+                          checked={hasWaterTapInput}
+                          onChange={handleEnableGrifo}
+                        >
+                          Habilitar Grifo
+                        </Checkbox>
+                      </Col>
+                    </>
+                  )}
+
+                  {hasWaterTapInput && (
+                    <>
+                      <Col span={24}>
+                        <Form.Item
+                          name={"GrifoRadio"}
+                          initialValue={tapPositionInput}
+                          style={{ marginBottom: 0 }}
+                        >
+                          <Radio.Group onChange={handleTapPositionChange}>
+                            <Space direction="horizontal">
+                              <Radio value={1}>Izquierda</Radio>
+                              <Radio value={2}>Centro</Radio>
+                              <Radio value={3}>Derecha</Radio>
+                            </Space>
+                          </Radio.Group>
+                        </Form.Item>
+                      </Col>
+
+                      <Col span={12}>
+                        <Form.Item
+                          name={"GrifoDiametro"}
+                          initialValue={tapDiameterInput}
+                          style={{ marginBottom: 0 }}
+                        >
+                          <Input
+                            ref={inputRightBarGrifoDiametroRef}
+                            onClick={(e) =>
+                              onClickHandleSelectText(
+                                e,
+                                inputRightBarGrifoDiametroRef
+                              )
+                            }
+                            placeholder="Grifo Diametro"
+                            title="Grifo Diametro"
+                            min={10}
+                            max={120}
+                            prefix={<ArrowsAltOutlined />}
+                            onChange={handleTapDiameterChange}
+                          />
+                        </Form.Item>
+                      </Col>
+                    </>
                   )}
                 </Row>
               </Form>
@@ -416,60 +669,65 @@ function SidebarRight() {
           )}
 
           {/* // Seleccionar esquinas o lados  */}
-          {_worksCorners.length > 0 && (
-            <div
-              style={{ marginBottom: "16px" }}
-              id="work-corner-select-section"
-            >
-              <dir style={{ marginBottom: "10px" }}>
-                3. Seleccione esquina o lado...
-              </dir>
-
-              <Row
-                gutter={[12, 8]}
-                justify="space-evenly"
-                style={{ marginBottom: "16px", textAlign: "center !important" }}
+          {_worksCorners.length > 0 &&
+            workSelected.type != WORKS_TYPES.ENCASTRE && (
+              <div
+                style={{ marginBottom: "16px" }}
+                id="work-corner-select-section"
               >
-                {_worksCorners.map((item, index) => {
-                  return (
-                    <Col
-                      key={index}
-                      span={10}
-                      offset={2}
-                      className={
-                        item.selected ? "gutter-row active" : "gutter-row"
-                      }
-                      onClick={() => {
-                        handleWorkCornerClick(item, index);
-                      }}
-                    >
-                      <ButtonSquareJobs
-                        inputData={{
-                          item: item,
-                          cornerIndex: index,
-                          img: item.img,
-                          alt: item.alt,
-                          title: item.title,
-                          className: item.selected ? "active" : "",
-                          worksCorners: _worksCorners,
-                        }}
-                      />
-                    </Col>
-                  );
-                })}
-              </Row>
+                <dir style={{ marginBottom: "10px" }}>
+                  3. Seleccione esquina o lado...
+                </dir>
 
+                <Row
+                  gutter={[12, 8]}
+                  justify="space-evenly"
+                  style={{
+                    marginBottom: "16px",
+                    textAlign: "center !important",
+                  }}
+                >
+                  {_worksCorners.map((item, index) => {
+                    return (
+                      <Col
+                        key={index}
+                        span={10}
+                        offset={2}
+                        className={
+                          item.selected ? "gutter-row active" : "gutter-row"
+                        }
+                        onClick={() => {
+                          handleWorkCornerClick(item, index);
+                        }}
+                      >
+                        <ButtonSquareJobs
+                          inputData={{
+                            item: item,
+                            cornerIndex: index,
+                            img: item.img,
+                            alt: item.alt,
+                            title: item.title,
+                            className: item.selected ? "active" : "",
+                            worksCorners: _worksCorners,
+                          }}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </div>
+            )}
+
+          {_worksCorners.length > 0 && (
+            <div style={{ marginBottom: "16px" }}>
               <Flex vertical gap="small" style={{ width: "100%" }}>
                 <Button type="primary" onClick={handleSetWork}>
                   Establecer
                 </Button>
               </Flex>
-            </div>
-          )}
 
-          {_worksCorners.length > 0 && (
-            <div style={{ marginBottom: "16px" }}>
               <br />
+
               <hr
                 style={{
                   marginBottom: "16px",
@@ -477,6 +735,7 @@ function SidebarRight() {
                   borderTop: "2px solid #dddddd",
                 }}
               />
+
               {/* <dir style={{ marginBottom: "10px" }}>
                 Guardar trabajo en la pieza
               </dir> */}

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { CountertopContext, ElementRefContext } from "./ct-context";
 import { useCustomURLHandler } from "../helpers/location.hook";
 import { temp_init_state } from "./ct-context-initial-state";
+import { ASSEMBLY_TYPES } from "../mocks/ASSEMBLY_TYPES.const";
 
 export default function CountetopContextProvider({ children }) {
   const [countertops, setCountertops] = useState(temp_init_state);
@@ -35,6 +36,12 @@ export default function CountetopContextProvider({ children }) {
 
   const getPartsDataFromPieceCtx = (pieceType) => {
     return countertops[pieceType]?.partsData || [];
+  };
+
+  const getAssemblyTypeFromPiecesCtx = (pieceType) => {
+    return (
+      countertops[pieceType]?.assemblyType || ASSEMBLY_TYPES.NOVENTA_SIMPLE
+    );
   };
 
   const getLinesDataFromPieceCtx = (pieceType) => {
@@ -238,6 +245,7 @@ export default function CountetopContextProvider({ children }) {
         getNumberOfPartsCtx,
         getPartsDataFromPieceCtx,
         getLinesDataFromPieceCtx,
+        getAssemblyTypeFromPiecesCtx,
         getIdCtx,
         setCountertops,
         setScaleOnRootConfigCtx,

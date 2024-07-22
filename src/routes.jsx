@@ -19,6 +19,8 @@ const LShapedPage = lazy(() => import("./countertops1/pages/L-shaped-page"));
 const UShapedPage = lazy(() => import("./countertops1/pages/U-shaped-page"));
 
 import RectLTemplateTest from "./countertops1/components/TEST/rect-l-test.template";
+import { WORKS_TYPES } from "./countertops1/mocks/WORKS.types";
+import { SHAPE_TYPES } from "./countertops1/mocks/SHAPE_TYPES.const";
 const AppFormTest = lazy(() =>
   import("./countertops1/components/TEST/form-test")
 );
@@ -52,28 +54,47 @@ const RoutersApp = () => {
             <Route
               path="simple"
               element={
-                <SimpleCTPage shape={"simple"} title="Encimera Simple" />
+                <SimpleCTPage
+                  title="Encimera Simple"
+                  shape={SHAPE_TYPES.SIMPLE}
+                />
               }
             />
             <Route
               path="square"
               element={
-                <SimpleCTPage shape={"square"} title="Encimera Cuadrada" />
+                <SimpleCTPage
+                  title="Encimera Cuadrada"
+                  shape={SHAPE_TYPES.SQUARE}
+                />
               }
             />
             <Route
               path="circle"
               element={
-                <SimpleCTPage shape={"circle"} title="Encimera Circular" />
+                <SimpleCTPage
+                  title="Encimera Circular"
+                  shape={SHAPE_TYPES.CIRCLE}
+                />
               }
             />
             <Route
               path="l-shaped"
-              element={<LShapedPage title="Encimera en L" />}
+              element={
+                <LShapedPage
+                  title="Encimera en L"
+                  shape={SHAPE_TYPES.LShaped_l1}
+                />
+              }
             />
             <Route
               path="u-shaped"
-              element={<UShapedPage title="Encimera en U" />}
+              element={
+                <UShapedPage
+                  title="Encimera en U"
+                  shape={SHAPE_TYPES.UShaped_u1}
+                />
+              }
             />
             <Route path="" element={<CountertopHome />} />
 

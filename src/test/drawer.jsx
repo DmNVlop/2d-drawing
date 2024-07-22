@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const titlePage = "Drawer";
 
 const image = new Image();
-image.src ="/images/patron-marmol_hades_finsa.jpg";
+image.src ="/images/patron-roble_hickory.jpg";
 
 function Drawer() {
   return (

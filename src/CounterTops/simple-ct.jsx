@@ -153,7 +153,7 @@ function SimpleCT() {
   //       image.onload = () => {
   //         imageUsed = image;
   //       };
-  //       image.src = "/images/patron-marmol_hades_finsa.jpg";
+  //       image.src = "/images/patron-roble_hickory.jpg";
   //     };
   //   }
   // }, []);
@@ -344,7 +344,7 @@ function SimpleCT() {
               forReturnData={forReturnData}
             /> */}
 
-            {/* <Rect x={20} y={20} width={100} height={100} fill="red" />
+            {/* <Rect x={20} y={20} width={100} height={100} fill="white" />
             <Arc
               x={20} // La misma x que el Rect
               y={20} // La misma y que el Rect
@@ -355,7 +355,7 @@ function SimpleCT() {
               rotation={0} // Rotación del arco
             /> */}
 
-            {/* <Rect x={20} y={20} width={100} height={100} fill="red" />
+            {/* <Rect x={20} y={20} width={100} height={100} fill="white" />
             <Arc
               x={20} // La misma x que el Rect
               y={120} // y del Rect + altura del Rect

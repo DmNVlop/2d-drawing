@@ -7,8 +7,10 @@ import { WORKS_TYPES } from "../../mocks/WORKS.types";
 import { useCountertopContext } from "../../context/ct-context";
 import { useCustomURLHandler } from "../../helpers/location.hook";
 import { SHAPE_TYPES } from "../../mocks/SHAPE_TYPES.const";
+
 function EncastreWork(props) {
-  const { workData, pieceSelected, indexPiece } = props;
+  const { workData, pieceSelected } = props;
+
   const { ATTRIB_SETTED } = useCustomURLHandler();
   const {
     SIMPLE,
@@ -37,20 +39,19 @@ function EncastreWork(props) {
     setPieceHeight(pieceSelected.height);
   }, [ATTRIB_SETTED, pieceSelected.width, pieceSelected.height]);
 
-  const encastreData = {
-    widthOut: 460,
-    heightOut: 390,
-    radiusOut: 20,
-  };
-
-  const standardSeparationOfEncastreFromFront = 70;
-
+  // const xInit = positionLength + GLOBAL_CT_M.xGlobalLayer;
+  const initialPositionX = GLOBAL_CT_M.xGlobalLayer - workData.width / 2;
   const xInit =
-    pieceWidth / 2 - encastreData.widthOut / 2 + GLOBAL_CT_M.xGlobalLayer;
+    workData.positionFrom == 1
+      ? initialPositionX + workData.positionLength
+      : workData.positionFrom == 2
+      ? initialPositionX + pieceWidth - workData.positionLength
+      : initialPositionX;
+
   const yInit =
     pieceHeight -
-    encastreData.heightOut -
-    standardSeparationOfEncastreFromFront +
+    workData.height -
+    workData.frontLength +
     GLOBAL_CT_M.yGlobalLayer;
 
   return (
@@ -59,35 +60,46 @@ function EncastreWork(props) {
       <Rect
         x={xInit}
         y={yInit}
-        width={encastreData.widthOut}
-        height={encastreData.heightOut}
+        width={workData.width}
+        height={workData.height}
         fill="white"
         cornerRadius={[
-          encastreData.radiusOut,
-          encastreData.radiusOut,
-          encastreData.radiusOut,
-          encastreData.radiusOut,
+          workData.radius,
+          workData.radius,
+          workData.radius,
+          workData.radius,
         ]}
       />
 
       {/*  // LEFT */}
-      <Circle x={xInit + 20} y={yInit - 40} radius={20} fill="white" />
+      {workData.tapPosition == 1 && workData.hasWaterTap && (
+        <Circle
+          x={xInit + workData.tapDiameter}
+          y={yInit - 60}
+          radius={workData.tapDiameter}
+          fill="white"
+        />
+      )}
 
       {/*  // CENTRE */}
-      <Circle
-        x={xInit + encastreData.widthOut / 2}
-        y={yInit - 40}
-        radius={20}
-        fill="white"
-      />
+      {workData.tapPosition == 2 && workData.hasWaterTap && (
+        <Circle
+          x={xInit + workData.width / 2}
+          y={yInit - 60}
+          radius={workData.tapDiameter}
+          fill="white"
+        />
+      )}
 
       {/*  // RIGHT */}
-      <Circle
-        x={xInit + encastreData.widthOut - 20}
-        y={yInit - 40}
-        radius={20}
-        fill="white"
-      />
+      {workData.tapPosition == 3 && workData.hasWaterTap && (
+        <Circle
+          x={xInit + workData.width - workData.tapDiameter}
+          y={yInit - 60}
+          radius={workData.tapDiameter}
+          fill="white"
+        />
+      )}
     </Group>
   );
 }

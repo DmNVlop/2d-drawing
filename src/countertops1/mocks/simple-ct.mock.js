@@ -6,18 +6,18 @@ export const SIMPLE_CT_M = {
   shapeType: SHAPE_TYPES.SIMPLE,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   rootConfig: {
-    scaleX: 1,
-    scaleY: 1,
+    scaleX: 0.85,
+    scaleY: 0.85,
   },
   partsData: [
     {
       id: 1,
       x: 0,
       y: 0,
-      width: 800,
-      realWidth: 800,
-      height: 500,
-      realHeight: 500,
+      width: 1200,
+      realWidth: 1200,
+      height: 645,
+      realHeight: 645,
       fill: "#c7aa89",
       stroke: "black",
       strokeWidth: 0,
@@ -26,7 +26,7 @@ export const SIMPLE_CT_M = {
       // scaleY: 1,
       opacity: 0.9,
       // fillPatternImage: "",
-      fillPatternImage: "/images/patron-marmol_hades_finsa.jpg",
+      fillPatternImage: "/images/patron-roble_hickory.jpg",
       fillPatternRepeat: "repeat",
       // top-left, top-right, bottom-right, bottom-left
       cornerRadius: [0, 0, 0, 0],
