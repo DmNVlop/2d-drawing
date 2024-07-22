@@ -16,6 +16,8 @@ import RectUTemplateU4 from "../components/rect-u4.template";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
+import { Col, Row } from "antd";
+import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
 
 export default function UShapedPage(props) {
   const { title } = props;
@@ -63,7 +65,33 @@ export default function UShapedPage(props) {
 
   return (
     <section id="u-shaped-page">
-      <h2>{pageTitle}</h2>
+      {/* <h2>{pageTitle}</h2> */}
+
+      <Row gutter={[8]} align="middle" justify="flex-start">
+        <Col className="guttter-row">
+          <h2>{pageTitle}</h2>
+        </Col>
+
+        <Col className="guttter-row" style={{ height: "40px" }}>
+          <figure className="ct-figure-on-title">
+            {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u1 && (
+              <img src="/images/jobs/U-1.png" alt={pageTitle} />
+            )}
+
+            {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u2 && (
+              <img src="/images/jobs/U-2.png" alt={pageTitle} />
+            )}
+
+            {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u3 && (
+              <img src="/images/jobs/U-3.png" alt={pageTitle} />
+            )}
+
+            {ATTRIB_SETTED == SHAPE_TYPES.UShaped_u4 && (
+              <img src="/images/jobs/U-4.png" alt={pageTitle} />
+            )}
+          </figure>
+        </Col>
+      </Row>
 
       <Stage
         width={stageWidth}
@@ -71,6 +99,9 @@ export default function UShapedPage(props) {
         draggable
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        rotation={countertops[ATTRIB_SETTED]?.rootConfig?.rotationStage || 0}
+        offsetX={countertops[ATTRIB_SETTED]?.rootConfig?.offsetXStage || 0}
+        offsetY={countertops[ATTRIB_SETTED]?.rootConfig?.offsetYStage || 0}
         onWheel={(e) =>
           useHandleZoomWheel(
             e,
@@ -80,7 +111,6 @@ export default function UShapedPage(props) {
           )
         }
         onClick={handleClickOnSelectPieceNull}
-        rotation={0}
       >
         <Layer>
           {getPartsDataFromPieceCtx(ATTRIB_SETTED).map((item, index) => {
@@ -168,6 +198,8 @@ export default function UShapedPage(props) {
       </Stage>
 
       <ZoomStageComponent />
+
+      <RotationButtonsComponent />
     </section>
   );
 }

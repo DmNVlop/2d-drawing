@@ -3,6 +3,7 @@ import "./zoom-stage.style.css";
 import { useEffect, useState } from "react";
 import { useCountertopContext } from "../../context/ct-context";
 import { useCustomURLHandler } from "../../helpers/location.hook";
+import { Tooltip } from "antd";
 
 function ZoomStageComponent() {
   const { countertops, setScaleOnRootConfigCtx } = useCountertopContext();
@@ -23,16 +24,22 @@ function ZoomStageComponent() {
 
   return (
     <div id="zoom-stage">
-      <div className="zoom-btn-left" onClick={handleLeftBtnScale}>
-        <ZoomOutOutlined className="zoom-btn-left-icon" />
-      </div>
-      <div className="zoom-btn-right" onClick={handleRightBtnScale}>
-        <ZoomInOutlined className="zoom-btn-right-icon" />
-      </div>
+      <Tooltip title="Disminuir Escala">
+        <div className="zoom-btn-left" onClick={handleLeftBtnScale}>
+          <ZoomOutOutlined className="zoom-btn-left-icon" />
+        </div>
+      </Tooltip>
+      <Tooltip title="Aumentar Escala">
+        <div className="zoom-btn-right" onClick={handleRightBtnScale}>
+          <ZoomInOutlined className="zoom-btn-right-icon" />
+        </div>
+      </Tooltip>
 
-      <div className="zoom-scale-info">
-        <span className="text">{scaleWidthX.toFixed(2)}</span>
-      </div>
+      <Tooltip title="Valor de Escala">
+        <div className="zoom-scale-info">
+          <span className="text">{scaleWidthX.toFixed(2)}</span>
+        </div>
+      </Tooltip>
     </div>
   );
 }

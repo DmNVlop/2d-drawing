@@ -7,6 +7,9 @@ export const U1_CT_M = {
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {
@@ -127,6 +130,9 @@ export const U2_CT_M = {
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {
@@ -246,6 +252,9 @@ export const U3_CT_M = {
   rootConfig: {
     scaleX: 1,
     scaleY: 1,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {
@@ -365,6 +374,9 @@ export const U4_CT_M = {
   rootConfig: {
     scaleX: 1,
     scaleY: 1,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {

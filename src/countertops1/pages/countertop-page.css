@@ -153,7 +153,9 @@
 }
 
 /* SIMPLE PAGE */
-#simple-ct-page {
+#simple-ct-page,
+#l-shaped-page,
+#u-shaped-page {
   .ct-figure-on-title {
     position: relative;
 

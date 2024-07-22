@@ -8,6 +8,9 @@ export const SIMPLE_CT_M = {
   rootConfig: {
     scaleX: 0.85,
     scaleY: 0.85,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {

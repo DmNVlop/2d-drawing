@@ -20,6 +20,8 @@ import RectLTemplateL2 from "../components/rect-l2.template";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
+import { Col, Row } from "antd";
+import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
 
 export default function LShapedPage(props) {
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ export default function LShapedPage(props) {
     navigate("/countertop/l-shaped?t=l1");
   }
 
-  const { title } = props;
+  const { title, shape } = props;
   const {
     countertops,
     getPartsDataFromPieceCtx,
@@ -69,7 +71,25 @@ export default function LShapedPage(props) {
 
   return (
     <section id="l-shaped-page">
-      <h2>{pageTitle}</h2>
+      {/* <h2>{pageTitle}</h2> */}
+
+      <Row gutter={[8]} align="middle" justify="flex-start">
+        <Col className="guttter-row">
+          <h2>{pageTitle}</h2>
+        </Col>
+
+        <Col className="guttter-row" style={{ height: "40px" }}>
+          <figure className="ct-figure-on-title">
+            {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l1 && (
+              <img src="/images/jobs/L-1.png" alt={pageTitle} />
+            )}
+
+            {ATTRIB_SETTED == SHAPE_TYPES.LShaped_l2 && (
+              <img src="/images/jobs/L-2.png" alt={pageTitle} />
+            )}
+          </figure>
+        </Col>
+      </Row>
 
       <Stage
         width={stageWidth}
@@ -77,6 +97,9 @@ export default function LShapedPage(props) {
         draggable
         scaleX={countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         scaleY={countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        rotation={countertops[ATTRIB_SETTED]?.rootConfig?.rotationStage || 0}
+        offsetX={countertops[ATTRIB_SETTED]?.rootConfig?.offsetXStage || 0}
+        offsetY={countertops[ATTRIB_SETTED]?.rootConfig?.offsetYStage || 0}
         onWheel={(e) =>
           useHandleZoomWheel(
             e,
@@ -161,6 +184,8 @@ export default function LShapedPage(props) {
       </Stage>
 
       <ZoomStageComponent />
+
+      <RotationButtonsComponent />
     </section>
   );
 }

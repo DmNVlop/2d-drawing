@@ -7,6 +7,9 @@ export const L1_CT_M = {
   rootConfig: {
     scaleX: 0.6,
     scaleY: 0.6,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {
@@ -103,6 +106,9 @@ export const L2_CT_M = {
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,
+    rotationStage: 0,
+    offsetXStage: 0,
+    offsetYStage: 0,
   },
   partsData: [
     {

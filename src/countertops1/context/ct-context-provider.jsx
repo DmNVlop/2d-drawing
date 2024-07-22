@@ -75,7 +75,44 @@ export default function CountetopContextProvider({ children }) {
     }));
   };
 
-  //
+  const setRotationStageOnRootConfigCtx = (rotationStage) => {
+    let rotationValue = Number(rotationStage);
+    if (isNaN(rotationValue)) return;
+
+    console.log(
+      "🚀 ~ setRotationStageOnRootConfigCtx ~ rotationValue:",
+      rotationValue
+    );
+    setCountertops((prevState) => ({
+      ...prevState,
+      [ATTRIB_SETTED]: {
+        ...prevState[ATTRIB_SETTED],
+        rootConfig: {
+          ...prevState[ATTRIB_SETTED].rootConfig,
+          rotationStage: rotationValue,
+        },
+      },
+    }));
+  };
+
+  const setOffsetStageOnRootConfigCtx = (offsetXStage, offsetYStage) => {
+    let offsetXValue = Number(offsetXStage);
+    let offsetYValue = Number(offsetYStage);
+    if (isNaN(offsetXValue) || isNaN(offsetYValue)) return;
+
+    setCountertops((prevState) => ({
+      ...prevState,
+      [ATTRIB_SETTED]: {
+        ...prevState[ATTRIB_SETTED],
+        rootConfig: {
+          ...prevState[ATTRIB_SETTED].rootConfig,
+          offsetXStage: offsetXValue,
+          offsetYStage: offsetYValue,
+        },
+      },
+    }));
+  };
+
   const setOpacityOnPiecesCtx = (indexPart = null) => {
     const opacitySelected = 1;
     const opacityStd = 0.8;
@@ -249,6 +286,8 @@ export default function CountetopContextProvider({ children }) {
         getIdCtx,
         setCountertops,
         setScaleOnRootConfigCtx,
+        setRotationStageOnRootConfigCtx,
+        setOffsetStageOnRootConfigCtx,
         setConfigCtx,
         setPartsCtx,
         setLinesCtx,
