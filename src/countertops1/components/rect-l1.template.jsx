@@ -241,7 +241,7 @@ export default function RectLTemplateL1(props) {
                   x={itemData?.x || 0}
                   y={itemData?.y || 0}
                   points={calcAssemblysHPL(item).line || 0}
-                  stroke={"gray"}
+                  stroke={"#b2b2b2"}
                   strokeWidth={8}
                 />
 
@@ -249,7 +249,7 @@ export default function RectLTemplateL1(props) {
                   x={calcAssemblysHPL(item)?.circleX || 0}
                   y={calcAssemblysHPL(item)?.circleY || 0}
                   radius={20}
-                  fill="gray"
+                  fill="#b2b2b2"
                 />
               </Group>
             );

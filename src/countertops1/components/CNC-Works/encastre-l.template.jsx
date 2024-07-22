@@ -123,8 +123,8 @@ function EncastreWorkL(props) {
         rotation: -90,
         x: pointZeroXP1(),
         y: pointZeroYP1(),
-        offsetX: workData.width + 140,
-        offsetY: 20,
+        offsetX: 0,
+        offsetY: 0,
       };
     }
 
@@ -133,7 +133,7 @@ function EncastreWorkL(props) {
         rotation: 0,
         x: pointZeroXP2(),
         y: pointZeroYP2(),
-        offsetX: workData.width,
+        offsetX: 0,
         offsetY: 0,
       };
     }
@@ -157,19 +157,77 @@ function EncastreWorkL(props) {
     setPieceHeight(pieceSelected.height);
   }, [ATTRIB_SETTED, pieceSelected.width, pieceSelected.height]);
 
-  const initialPositionX = workData.positionLength + GLOBAL_CT_M.xGlobalLayer;
-  const xInit =
-    workData.positionFrom == 1
-      ? initialPositionX + workData.positionLength
-      : workData.positionFrom == 2
-      ? initialPositionX + pieceWidth - workData.positionLength
-      : initialPositionX;
+  // const initialPositionX = workData.positionLength + GLOBAL_CT_M.xGlobalLayer;
+  // const xInit =
+  //   workData.positionFrom == 1
+  //     ? initialPositionX + workData.positionLength
+  //     : workData.positionFrom == 2
+  //     ? initialPositionX + pieceWidth - workData.positionLength
+  //     : initialPositionX;
 
-  const yInit =
-    pieceHeight -
-    workData.height -
-    workData.frontLength +
-    GLOBAL_CT_M.yGlobalLayer;
+  const xInitFn = () => {
+    if (pieceSelected.id == 1) {
+      return workData.positionFrom == 1
+        ? -GLOBAL_CT_M.yGlobalLayer +
+            workData.positionLength -
+            workData.width / 2
+        : pieceSelected.width -
+            GLOBAL_CT_M.yGlobalLayer -
+            workData.positionLength -
+            workData.width / 2;
+    }
+
+    if (pieceSelected.id == 2) {
+      return workData.positionFrom == 1
+        ? GLOBAL_CT_M.xGlobalLayer +
+            workData.positionLength -
+            workData.width / 2
+        : pieceSelected.width -
+            workData.positionLength -
+            workData.width / 2 +
+            GLOBAL_CT_M.xGlobalLayer;
+    }
+
+    if (pieceSelected.id == 3) {
+      return workData.positionFrom == 1
+        ? GLOBAL_CT_M.xGlobalLayer +
+            workData.positionLength +
+            workData.width / 2
+        : GLOBAL_CT_M.xGlobalLayer +
+            pieceWidth -
+            workData.positionLength +
+            workData.width / 2;
+    }
+  };
+
+  const yInitFn = () => {
+    if (pieceSelected.id == 1) {
+      return (
+        GLOBAL_CT_M.xGlobalLayer +
+        pieceHeight -
+        workData.height -
+        workData.frontLength
+      );
+    }
+
+    if (pieceSelected.id == 2) {
+      return (
+        GLOBAL_CT_M.yGlobalLayer +
+        pieceHeight -
+        workData.height -
+        workData.frontLength
+      );
+    }
+
+    if (pieceSelected.id == 3) {
+      return (
+        GLOBAL_CT_M.yGlobalLayer +
+        pieceHeight -
+        workData.height -
+        workData.frontLength
+      );
+    }
+  };
 
   return (
     <Group
@@ -181,11 +239,11 @@ function EncastreWorkL(props) {
     >
       {/* Hueco exterior */}
       <Rect
-        x={xInit}
-        y={yInit}
+        x={xInitFn()}
+        y={yInitFn()}
         width={workData.width}
         height={workData.height}
-        fill="white"
+        fill="red"
         cornerRadius={[
           workData.radius,
           workData.radius,
@@ -197,30 +255,30 @@ function EncastreWorkL(props) {
       {/*  // LEFT */}
       {workData.tapPosition == 1 && workData.hasWaterTap && (
         <Circle
-          x={xInit + workData.tapDiameter}
-          y={yInit - 60}
+          x={xInitFn() + workData.tapDiameter}
+          y={yInitFn() - 60}
           radius={workData.tapDiameter}
-          fill="white"
+          fill="red"
         />
       )}
 
       {/*  // CENTRE */}
       {workData.tapPosition == 2 && workData.hasWaterTap && (
         <Circle
-          x={xInit + workData.width / 2}
-          y={yInit - 60}
+          x={xInitFn() + workData.width / 2}
+          y={yInitFn() - 60}
           radius={workData.tapDiameter}
-          fill="white"
+          fill="red"
         />
       )}
 
       {/*  // RIGHT */}
       {workData.tapPosition == 3 && workData.hasWaterTap && (
         <Circle
-          x={xInit + workData.width - workData.tapDiameter}
-          y={yInit - 60}
+          x={xInitFn() + workData.width - workData.tapDiameter}
+          y={yInitFn() - 60}
           radius={workData.tapDiameter}
-          fill="white"
+          fill="red"
         />
       )}
     </Group>
