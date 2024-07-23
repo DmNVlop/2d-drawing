@@ -174,6 +174,7 @@ export default function UShapedPage(props) {
           <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
             <LineUTemplate
               ATTRIB_SETTED={ATTRIB_SETTED}
+              countertops={countertops}
               getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(ATTRIB_SETTED)}
             />
           </Group>

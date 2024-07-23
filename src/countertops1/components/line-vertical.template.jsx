@@ -1,12 +1,16 @@
-import { Group, Line, Text } from "react-konva";
+import { Group, Line, Rect, Text } from "react-konva";
 import PropTypes from "prop-types";
 import { useCustomURLHandler } from "../helpers/location.hook";
 import { useCountertopContext } from "../context/ct-context";
+import { useRef } from "react";
+import { yBaseMultiplier } from "./Rect-Helpers/base-line-multiplier.helper";
 
 export default function LineTemplateVertical(props) {
   const { itemData } = props;
   const { countertops } = useCountertopContext();
   const { ATTRIB_SETTED } = useCustomURLHandler();
+
+  const textBaseRef = useRef();
 
   const xRefBase = itemData?.width || 0; // (itemData?.xRef || 0);
   const yRefBase = 0; // (itemData?.yRef || 0);
@@ -14,16 +18,12 @@ export default function LineTemplateVertical(props) {
   const levelAdjust = 20; // useState()(itemData?.level == 1 ? 20 : 60);
 
   const textBase = itemData?.height || "";
-  const xBase_multiplier =
-    countertops[ATTRIB_SETTED]?.rootConfig?.scaleX <= 0.5 ? 10 : 4.5;
-  const textX =
-    xRefBase +
-      34 +
-      xBase_multiplier / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1; //itemData?.level == 1 ? xRefBase + 36 : xRefBase + 76
-  const textY =
-    yRefBase +
-      lengthBase / 2 -
-      12 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1;
+  const scaleX = countertops[ATTRIB_SETTED]?.rootConfig?.scaleX;
+  const scaleY = countertops[ATTRIB_SETTED]?.rootConfig?.scaleY;
+
+  // const xBase_multiplier = scaleX <= 0.5 ? 10 : 4.5;
+  const textX = xRefBase + 34 + yBaseMultiplier(scaleX) / scaleX || 1; //itemData?.level == 1 ? xRefBase + 36 : xRefBase + 76
+  const textY = yRefBase + lengthBase / 2 - 12 / scaleX || 1;
 
   const rotation = itemData?.rotation || 90;
 
@@ -38,7 +38,7 @@ export default function LineTemplateVertical(props) {
         ]}
         fill="black"
         stroke="black"
-        strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+        strokeWidth={1 / scaleX || 1}
       />
       <Line
         points={[
@@ -49,7 +49,7 @@ export default function LineTemplateVertical(props) {
         ]}
         fill="black"
         stroke="black"
-        strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+        strokeWidth={1 / scaleX || 1}
       />
       <Line
         points={[
@@ -60,17 +60,35 @@ export default function LineTemplateVertical(props) {
         ]}
         fill="black"
         stroke="black"
-        strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+        strokeWidth={1 / scaleX || 1}
+      />
+      <Rect
+        x={Number.isFinite(textX) ? textX - 6 / scaleX : 0}
+        y={Number.isFinite(textY) ? textY - 6 / scaleX : 0}
+        fill="#f0f0f0"
+        width={textBaseRef?.current?.width() + 12 || 1}
+        height={textBaseRef?.current?.height() + 10 || 1}
+        cornerRadius={[4, 4, 4, 4]}
+        scaleX={1 / scaleX || 1}
+        scaleY={1 / scaleY || 1}
+        rotation={90}
+        offsetX={0}
+        offsetY={textBaseRef?.current?.height() - 2 || 1}
       />
       <Text
+        ref={textBaseRef}
         x={Number.isFinite(textX) ? textX : 0}
         y={Number.isFinite(textY) ? textY : 0}
-        text={textBase}
+        text={
+          Number(textBase) % 1 !== 0
+            ? Number(textBase).toFixed(2)
+            : Number(textBase)
+        }
         rotation={rotation}
         fontSize={16}
         fill={"black"}
-        scaleX={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
-        scaleY={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+        scaleX={1 / scaleX || 1}
+        scaleY={1 / scaleY || 1}
       />
     </Group>
   );
@@ -78,5 +96,4 @@ export default function LineTemplateVertical(props) {
 
 LineTemplateVertical.propTypes = {
   itemData: PropTypes.object,
-  id: PropTypes.number,
 };
