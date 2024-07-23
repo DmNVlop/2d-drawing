@@ -75,7 +75,7 @@ function EncastreWork(props) {
       {workData.tapPosition == 1 && workData.hasWaterTap && (
         <Circle
           x={xInit + workData.tapDiameter}
-          y={yInit - 60}
+          y={yInit - workData.tapSeparation}
           radius={workData.tapDiameter}
           fill="white"
         />
@@ -85,7 +85,7 @@ function EncastreWork(props) {
       {workData.tapPosition == 2 && workData.hasWaterTap && (
         <Circle
           x={xInit + workData.width / 2}
-          y={yInit - 60}
+          y={yInit - workData.tapSeparation}
           radius={workData.tapDiameter}
           fill="white"
         />
@@ -95,7 +95,7 @@ function EncastreWork(props) {
       {workData.tapPosition == 3 && workData.hasWaterTap && (
         <Circle
           x={xInit + workData.width - workData.tapDiameter}
-          y={yInit - 60}
+          y={yInit - workData.tapSeparation}
           radius={workData.tapDiameter}
           fill="white"
         />

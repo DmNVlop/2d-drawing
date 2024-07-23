@@ -161,7 +161,11 @@ export default function LineUTemplate(props) {
           ref={textBaseHRef}
           x={textXHORZ}
           y={textYHORZ}
-          text={lengthBaseHORZ}
+          text={
+            Number(lengthBaseHORZ) % 1 !== 0
+              ? Number(lengthBaseHORZ).toFixed(2)
+              : Number(lengthBaseHORZ)
+          }
           rotation={rotationHORZ}
           fontSize={16}
           scaleX={1 / scaleX || 1}
@@ -221,7 +225,11 @@ export default function LineUTemplate(props) {
           ref={textBaseVRef}
           x={textXVERT}
           y={textYVERT}
-          text={lengthBaseVERT}
+          text={
+            Number(lengthBaseVERT) % 1 !== 0
+              ? Number(lengthBaseVERT).toFixed(2)
+              : Number(lengthBaseVERT)
+          }
           rotation={rotationVERT}
           fontSize={16}
           scaleX={1 / scaleX || 1}
@@ -281,7 +289,11 @@ export default function LineUTemplate(props) {
           ref={textBaseVLRef}
           x={textXVERT_L}
           y={textYVERT_L}
-          text={lengthBaseVERT_L}
+          text={
+            Number(lengthBaseVERT_L) % 1 !== 0
+              ? Number(lengthBaseVERT_L).toFixed(2)
+              : Number(lengthBaseVERT_L)
+          }
           rotation={rotationVERT_L}
           fontSize={16}
           scaleX={1 / scaleX || 1}

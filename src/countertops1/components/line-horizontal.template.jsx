@@ -76,7 +76,11 @@ export default function LineTemplateHorizontal(props) {
         ref={textBaseRef}
         x={Number.isFinite(textX) ? textX : 0}
         y={Number.isFinite(textY) ? textY : 0}
-        text={textBase}
+        text={
+          Number(textBase) % 1 !== 0
+            ? Number(textBase).toFixed(2)
+            : Number(textBase)
+        }
         rotation={rotation}
         fontSize={16}
         scaleX={1 / scaleX || 1}

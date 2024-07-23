@@ -21,6 +21,7 @@ import {
   ColumnHeightOutlined,
   ColumnWidthOutlined,
   RadiusSettingOutlined,
+  ToTopOutlined,
   VerticalAlignBottomOutlined,
 } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
@@ -44,6 +45,7 @@ function SidebarRight() {
   const inputRightBarSeparacionRef = useRef(null);
   const inputRightBarPosicionRef = useRef(null);
   const inputRightBarGrifoDiametroRef = useRef(null);
+  const inputRightBarGrifoSeparationRef = useRef(null);
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
@@ -74,6 +76,7 @@ function SidebarRight() {
   const [hasWaterTapInput, setHasWaterTapInput] = useState(false); // boolean
   const [tapPositionInput, setTapPositionInput] = useState(2); // "left" | "center" | "right"
   const [tapDiameterInput, setTapDiameterInput] = useState(25);
+  const [tapSeparationInput, setTapSeparationInput] = useState(50);
 
   // const [enableGrifo, setEnableGrifo] = useState(false);
 
@@ -272,7 +275,8 @@ function SidebarRight() {
         positionFrom: positionFromInput, // "left 1" | "right 2"
         hasWaterTap: hasWaterTapInput, // boolean
         tapPosition: tapPositionInput, // "left" | "center" | "right"
-        tapDiameter: tapDiameterInput, // number
+        tapDiameter: tapDiameterInput / 2, // number
+        tapSeparation: tapSeparationInput / 2, // number
       };
 
       const currentItem_encastre = { ...currentItem, ...encastreAddData };
@@ -336,6 +340,11 @@ function SidebarRight() {
   const handleTapDiameterChange = (e) => {
     e.preventDefault();
     setTapDiameterInput(Number(parseFloat(e.target.value)));
+  };
+
+  const handleTapSeparationChange = (e) => {
+    e.preventDefault();
+    setTapSeparationInput(Number(parseFloat(e.target.value)));
   };
 
   const showRightBarWidthInput = (_workSelected) => {
@@ -651,6 +660,30 @@ function SidebarRight() {
                               max={120}
                               prefix={<ArrowsAltOutlined />}
                               onChange={handleTapDiameterChange}
+                            />
+                          </Form.Item>
+                        </Col>
+
+                        <Col span={12}>
+                          <Form.Item
+                            name={"GrifoSeparation"}
+                            initialValue={tapSeparationInput}
+                            style={{ marginBottom: 0 }}
+                          >
+                            <Input
+                              ref={inputRightBarGrifoSeparationRef}
+                              onClick={(e) =>
+                                onClickHandleSelectText(
+                                  e,
+                                  inputRightBarGrifoSeparationRef
+                                )
+                              }
+                              placeholder="Grifo, Separacion del Encastre"
+                              title="Grifo, Separacion del Encastre"
+                              min={0}
+                              max={200}
+                              prefix={<ToTopOutlined />}
+                              onChange={handleTapSeparationChange}
                             />
                           </Form.Item>
                         </Col>
