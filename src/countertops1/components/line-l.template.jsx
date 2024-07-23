@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 
 export default function LineLTemplate(props) {
-  const { ATTRIB_SETTED, getPartsDataFromPieceCtx } = props;
+  const { ATTRIB_SETTED, countertops, getPartsDataFromPieceCtx } = props;
 
   // HORIZONTAL
   const xRefBaseHORZ = 0; // itemData?.xRef || 0;
@@ -70,7 +70,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1}
+          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         />
         <Line
           points={[
@@ -81,7 +81,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1}
+          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         />
         <Line
           points={[
@@ -92,7 +92,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1}
+          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         />
         <Text
           x={textXHORZ}
@@ -100,6 +100,8 @@ export default function LineLTemplate(props) {
           text={lengthBaseHORZ}
           rotation={rotationHORZ}
           fontSize={16}
+          scaleX={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          scaleY={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
         />
       </Group>
 
@@ -113,7 +115,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1}
+          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         />
         <Line
           points={[
@@ -124,7 +126,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1}
+          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         />
         <Line
           points={[
@@ -135,7 +137,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1}
+          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
         />
         <Text
           x={textXVERT}
@@ -143,6 +145,8 @@ export default function LineLTemplate(props) {
           text={lengthBaseVERT}
           rotation={rotationVERT}
           fontSize={16}
+          scaleX={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          scaleY={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
         />
       </Group>
     </Group>

@@ -159,6 +159,7 @@ export default function LShapedPage(props) {
 
           <Group x={GLOBAL_CT_M.xGlobalLayer} y={GLOBAL_CT_M.yGlobalLayer}>
             <LineLTemplate
+              countertops={countertops}
               ATTRIB_SETTED={ATTRIB_SETTED}
               getPartsDataFromPieceCtx={getPartsDataFromPieceCtx(ATTRIB_SETTED)}
             />

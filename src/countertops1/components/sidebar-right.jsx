@@ -612,49 +612,50 @@ function SidebarRight() {
                     </>
                   )}
 
-                  {hasWaterTapInput && (
-                    <>
-                      <Col span={24}>
-                        <Form.Item
-                          name={"GrifoRadio"}
-                          initialValue={tapPositionInput}
-                          style={{ marginBottom: 0 }}
-                        >
-                          <Radio.Group onChange={handleTapPositionChange}>
-                            <Space direction="horizontal">
-                              <Radio value={1}>Izquierda</Radio>
-                              <Radio value={2}>Centro</Radio>
-                              <Radio value={3}>Derecha</Radio>
-                            </Space>
-                          </Radio.Group>
-                        </Form.Item>
-                      </Col>
+                  {showRightBarSeparacionInput(workSelected) &&
+                    hasWaterTapInput && (
+                      <>
+                        <Col span={24}>
+                          <Form.Item
+                            name={"GrifoRadio"}
+                            initialValue={tapPositionInput}
+                            style={{ marginBottom: 0 }}
+                          >
+                            <Radio.Group onChange={handleTapPositionChange}>
+                              <Space direction="horizontal">
+                                <Radio value={1}>Izquierda</Radio>
+                                <Radio value={2}>Centro</Radio>
+                                <Radio value={3}>Derecha</Radio>
+                              </Space>
+                            </Radio.Group>
+                          </Form.Item>
+                        </Col>
 
-                      <Col span={12}>
-                        <Form.Item
-                          name={"GrifoDiametro"}
-                          initialValue={tapDiameterInput}
-                          style={{ marginBottom: 0 }}
-                        >
-                          <Input
-                            ref={inputRightBarGrifoDiametroRef}
-                            onClick={(e) =>
-                              onClickHandleSelectText(
-                                e,
-                                inputRightBarGrifoDiametroRef
-                              )
-                            }
-                            placeholder="Grifo Diametro"
-                            title="Grifo Diametro"
-                            min={10}
-                            max={120}
-                            prefix={<ArrowsAltOutlined />}
-                            onChange={handleTapDiameterChange}
-                          />
-                        </Form.Item>
-                      </Col>
-                    </>
-                  )}
+                        <Col span={12}>
+                          <Form.Item
+                            name={"GrifoDiametro"}
+                            initialValue={tapDiameterInput}
+                            style={{ marginBottom: 0 }}
+                          >
+                            <Input
+                              ref={inputRightBarGrifoDiametroRef}
+                              onClick={(e) =>
+                                onClickHandleSelectText(
+                                  e,
+                                  inputRightBarGrifoDiametroRef
+                                )
+                              }
+                              placeholder="Grifo Diametro"
+                              title="Grifo Diametro"
+                              min={10}
+                              max={120}
+                              prefix={<ArrowsAltOutlined />}
+                              onChange={handleTapDiameterChange}
+                            />
+                          </Form.Item>
+                        </Col>
+                      </>
+                    )}
                 </Row>
               </Form>
 
