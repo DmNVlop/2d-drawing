@@ -1,9 +1,20 @@
-import { Group, Line, Text } from "react-konva";
+import { Group, Line, Rect, Text } from "react-konva";
 import PropTypes from "prop-types";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
+import { useRef } from "react";
+import {
+  xBaseMultiplierL,
+  yBaseMultiplierL,
+} from "./Rect-Helpers/base-line-multiplier.helper";
 
 export default function LineLTemplate(props) {
   const { ATTRIB_SETTED, countertops, getPartsDataFromPieceCtx } = props;
+
+  const textBaseHRef = useRef();
+  const textBaseVRef = useRef();
+
+  const scaleX = countertops[ATTRIB_SETTED]?.rootConfig?.scaleX;
+  const scaleY = countertops[ATTRIB_SETTED]?.rootConfig?.scaleY;
 
   // HORIZONTAL
   const xRefBaseHORZ = 0; // itemData?.xRef || 0;
@@ -28,7 +39,7 @@ export default function LineLTemplate(props) {
   const levelAdjustHORZ = 20; //itemData?.level == 1 ? 20 : 60;
 
   const textXHORZ = yRefBaseHORZ + lengthBaseHORZ / 2 - 10;
-  const textYHORZ = xRefBaseHORZ - 34; // itemData?.level == 1 ? xRefBaseHORZ + 36 : xRefBaseHORZ + 76;
+  const textYHORZ = xRefBaseHORZ - xBaseMultiplierL(scaleX); // itemData?.level == 1 ? xRefBaseHORZ + 36 : xRefBaseHORZ + 76;
 
   const rotationHORZ = 0; //itemData?.rotation || 0;
 
@@ -53,7 +64,7 @@ export default function LineLTemplate(props) {
 
   const levelAdjustVERT = 20; // itemData?.level == 1 ? 20 : 60;
 
-  const textXVERT = xRefBaseVERT + 34 + lengthBaseHORZ; // itemData?.level == 1 ? xRefBaseVERT + 36 : xRefBaseVERT + 76;
+  const textXVERT = xRefBaseVERT + yBaseMultiplierL(scaleX) + lengthBaseHORZ; // itemData?.level == 1 ? xRefBaseVERT + 36 : xRefBaseVERT + 76;
   const textYVERT = yRefBaseVERT + lengthBaseVERT / 2 - 10;
 
   const rotationVERT = 90; //itemData?.rotation || 0;
@@ -70,7 +81,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          strokeWidth={1 / scaleX || 1}
         />
         <Line
           points={[
@@ -81,7 +92,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          strokeWidth={1 / scaleX || 1}
         />
         <Line
           points={[
@@ -92,16 +103,30 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          strokeWidth={1 / scaleX || 1}
+        />
+        <Rect
+          x={textXHORZ - 6 / scaleX}
+          y={textYHORZ - 6 / scaleX}
+          fill="#f0f0f0"
+          width={textBaseHRef?.current?.width() + 12 || 1}
+          height={textBaseHRef?.current?.height() + 10 || 1}
+          cornerRadius={[4, 4, 4, 4]}
+          scaleX={1 / scaleX || 1}
+          scaleY={1 / scaleY || 1}
+          rotation={0}
+          offsetX={0}
+          offsetY={0}
         />
         <Text
+          ref={textBaseHRef}
           x={textXHORZ}
           y={textYHORZ}
           text={lengthBaseHORZ}
           rotation={rotationHORZ}
           fontSize={16}
-          scaleX={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
-          scaleY={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+          scaleX={1 / scaleX || 1}
+          scaleY={1 / scaleY || 1}
         />
       </Group>
 
@@ -115,7 +140,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          strokeWidth={1 / scaleX || 1}
         />
         <Line
           points={[
@@ -126,7 +151,7 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          strokeWidth={1 / scaleX || 1}
         />
         <Line
           points={[
@@ -137,16 +162,30 @@ export default function LineLTemplate(props) {
           ]}
           fill="black"
           stroke="black"
-          strokeWidth={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
+          strokeWidth={1 / scaleX || 1}
+        />
+        <Rect
+          x={textXVERT - 6 / scaleX}
+          y={textYVERT - 6 / scaleX}
+          fill="#f0f0f0"
+          width={textBaseVRef?.current?.width() + 12 || 1}
+          height={textBaseVRef?.current?.height() + 10 || 1}
+          cornerRadius={[4, 4, 4, 4]}
+          scaleX={1 / scaleX || 1}
+          scaleY={1 / scaleY || 1}
+          rotation={90}
+          offsetX={0}
+          offsetY={textBaseVRef?.current?.height() - 2 || 1}
         />
         <Text
+          ref={textBaseVRef}
           x={textXVERT}
           y={textYVERT}
           text={lengthBaseVERT}
           rotation={rotationVERT}
           fontSize={16}
-          scaleX={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleX || 1}
-          scaleY={1 / countertops[ATTRIB_SETTED]?.rootConfig?.scaleY || 1}
+          scaleX={1 / scaleX || 1}
+          scaleY={1 / scaleY || 1}
         />
       </Group>
     </Group>
