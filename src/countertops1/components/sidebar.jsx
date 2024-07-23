@@ -341,7 +341,7 @@ const Sidebar = () => {
           <Col span={6} className="guttter-row" style={{ textAlign: "right" }}>
             <figure>
               <img
-                src="/images/logos/oakleaf_200x200.png"
+                src="/images/logos/oakleaf-countertops48x48alpha.png"
                 alt="Logo Encimeras => OakleaF"
                 title="Logo Encimeras => OakleaF"
                 width={"48px"}

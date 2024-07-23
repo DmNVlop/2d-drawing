@@ -82,7 +82,7 @@ function RectoInteriorCNCWork(props) {
           ]}
           closed={true}
           fill="white"
-          rotation={-2.663}
+          rotation={0}
         />
       )}
 
@@ -100,6 +100,7 @@ function RectoInteriorCNCWork(props) {
           ]}
           closed={true}
           fill="white"
+          rotation={0}
         />
       )}
 
@@ -117,6 +118,7 @@ function RectoInteriorCNCWork(props) {
           ]}
           closed={true}
           fill="white"
+          rotation={0}
         />
       )}
 
@@ -134,6 +136,7 @@ function RectoInteriorCNCWork(props) {
           ]}
           closed={true}
           fill="white"
+          rotation={0}
         />
       )}
     </Group>
