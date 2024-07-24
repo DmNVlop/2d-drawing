@@ -154,14 +154,6 @@ function EncastreWorkL(props) {
     setPieceHeight(pieceSelected.height);
   }, [ATTRIB_SETTED, pieceSelected.width, pieceSelected.height]);
 
-  // const initialPositionX = workData.positionLength + GLOBAL_CT_M.xGlobalLayer;
-  // const xInit =
-  //   workData.positionFrom == 1
-  //     ? initialPositionX + workData.positionLength
-  //     : workData.positionFrom == 2
-  //     ? initialPositionX + pieceWidth - workData.positionLength
-  //     : initialPositionX;
-
   const xInitFn = () => {
     if (pieceSelected.id == 1) {
       return workData.positionFrom == 1
