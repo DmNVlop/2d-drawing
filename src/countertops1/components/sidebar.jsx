@@ -276,10 +276,6 @@ const Sidebar = () => {
     return false;
   };
 
-  // Hanlde Dimensions
-  const maxWidth = 1120;
-  const maxHeight = 700;
-
   useMemo(() => {
     const tempCorners =
       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]

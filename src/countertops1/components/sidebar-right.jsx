@@ -9,6 +9,7 @@ import {
   Flex,
   Form,
   Input,
+  message,
   Radio,
   Row,
   Space,
@@ -66,6 +67,7 @@ function SidebarRight() {
   const [_worksCorners, setWorksCorners] = useState([]);
 
   const [workSelected, setWorkSelected] = useState(null);
+  const [workCornerSelected, setWorkCornerSelected] = useState(null);
 
   const [widthInput, setWidthInput] = useState(null);
   const [heightInput, setHeightInput] = useState(null);
@@ -78,12 +80,9 @@ function SidebarRight() {
   const [tapDiameterInput, setTapDiameterInput] = useState(25);
   const [tapSeparationInput, setTapSeparationInput] = useState(50);
 
-  // const [enableGrifo, setEnableGrifo] = useState(false);
-
   const handleCloseSidebarRight = (event) => {
     event.preventDefault();
     onCloseBtn();
-    // setSidebarRightOpenedCtx(false);
   };
 
   const SetSelectedItems = (itemArray, index, cornerIndexReal) => {
@@ -93,7 +92,6 @@ function SidebarRight() {
     });
     itemArray[index].selected = true;
 
-    setWorkSelected(itemArray[index]);
     return itemArray;
   };
 
@@ -101,7 +99,9 @@ function SidebarRight() {
     e.preventDefault();
     setButtomSquareWorks((prev) => {
       let tempWorksClean = [...prev];
-      return SetSelectedItems(tempWorksClean, index);
+      const tempArray = SetSelectedItems(tempWorksClean, index);
+      setWorkSelected(tempArray[index]);
+      return tempArray;
     });
 
     setWorksCorners(() => {
@@ -117,52 +117,30 @@ function SidebarRight() {
 
       return cornersToReturn;
     });
+
+    setWorkCornerSelected(null);
   };
 
   const handleWorkCornerClick = (item, cornerIndex = -1) => {
-    // const cornerIndexReal = index === 2 ? 3 : index === 3 ? 2 : index;
     const cornerIndexReal = () => {
-      // if (!pieceSelected) return;
-
-      // if (pieceSelected.rotation == 0) {
-      //   return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
-      // }
-      // if (pieceSelected.rotation == 90) {
-      //   return cornerIndex === 1
-      //     ? 4
-      //     : cornerIndex === 2
-      //     ? 1
-      //     : cornerIndex === 3
-      //     ? 2
-      //     : cornerIndex === 4
-      //     ? 3
-      //     : cornerIndex;
-      // }
-      // if (pieceSelected.rotation == -90) {
-      //   return cornerIndex === 1
-      //     ? 2
-      //     : cornerIndex === 2
-      //     ? 3
-      //     : cornerIndex === 3
-      //     ? 4
-      //     : cornerIndex === 4
-      //     ? 1
-      //     : cornerIndex;
-      // }
-
       return cornerIndex === 2 ? 3 : cornerIndex === 3 ? 2 : cornerIndex;
     };
 
     const isCornerRadiusDisabled =
       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()]
-        ?.cornerRadiusDisabled[cornerIndexReal];
+        ?.cornerRadiusDisabled[cornerIndexReal()];
 
     if (isCornerRadiusDisabled && item.code !== "ccred4lados-clear") return;
 
     if (cornerIndex >= 0) {
       setWorksCorners((prev) => {
-        const tempWorksCorners = [...prev];
-        return SetSelectedItems(tempWorksCorners, cornerIndex, cornerIndexReal);
+        const tempWorksCorners = SetSelectedItems(
+          [...prev],
+          cornerIndex,
+          cornerIndexReal()
+        );
+        setWorkCornerSelected(tempWorksCorners[cornerIndex]);
+        return tempWorksCorners;
       });
     }
   };
@@ -192,6 +170,9 @@ function SidebarRight() {
       });
     });
     setSidebarRightOpenedCtx(false);
+
+    setWorkSelected(null);
+    setWorkCornerSelected(null);
   };
 
   const handleSetWork = (e) => {
@@ -199,9 +180,19 @@ function SidebarRight() {
 
     const _piece =
       countertops[ATTRIB_SETTED]?.partsData[getSelectedPieceValueCtx()];
-    const currentItem = { ...workSelected };
+    const currentItem =
+      workSelected.type == WORKS_TYPES.ENCASTRE
+        ? { ...workSelected }
+        : { ...workCornerSelected };
 
-    // CCREDIN
+    // Validar esquina seleccionada
+    if (!workCornerSelected && workSelected.type != WORKS_TYPES.ENCASTRE) {
+      console.log("🚧 No hay esquina seleccionada");
+      message.warning("🚧 No hay esquina seleccionada...");
+      return;
+    }
+
+    // -- CCRED
     // limpiar esquinas
     if (
       currentItem.type == WORKS_TYPES.CCRED4LADOS &&
@@ -221,50 +212,88 @@ function SidebarRight() {
       updateCornersCtx(t.corners, getSelectedPieceValueCtx());
     }
 
-    // CCCHAFLAN
+    // -- CCCHAFLAN
     if (currentItem.type == WORKS_TYPES.CCCHAFLAN) {
+      // Validar
       currentItem.id = getIdCtx();
       currentItem.width = widthInput;
       currentItem.height = heightInput;
 
-      if (!currentItem.width || !currentItem.height) {
+      if (
+        workCornerSelected == null ||
+        !currentItem.width ||
+        !currentItem.height
+      ) {
+        console.log(
+          "🚧 Faltan datos en el formulario: ",
+          WORKS_TYPES.CCCHAFLAN
+        );
+        message.warning(
+          "🚧 Faltan datos en el formulario: " + WORKS_TYPES.CCCHAFLAN
+        );
         return;
       }
 
       updateWorkInPieceCtx(currentItem, getSelectedPieceValueCtx());
     }
 
-    // CCFALESC
+    // -- CCFALESC
     if (currentItem.type == WORKS_TYPES.CCFALESC) {
       currentItem.id = getIdCtx();
       currentItem.width = widthInput;
       currentItem.height = null;
 
-      if (!currentItem.width) {
+      if (!workCornerSelected || !currentItem.width) {
+        console.log("🚧 Faltan datos en el formulario: ", WORKS_TYPES.CCFALESC);
+        message.warning(
+          "🚧 Faltan datos en el formulario: " + WORKS_TYPES.CCFALESC
+        );
         return;
       }
 
       updateWorkInPieceCtx(currentItem, getSelectedPieceValueCtx());
     }
 
-    // CCRECIN
+    // -- CCRECIN
     if (currentItem.type == WORKS_TYPES.CCRECIN) {
       currentItem.id = getIdCtx();
       currentItem.width = widthInput;
       currentItem.height = heightInput;
 
-      if (!currentItem.width || !currentItem.height) {
+      if (!workCornerSelected || !currentItem.width || !currentItem.height) {
+        console.log("🚧 Faltan datos en el formulario: ", WORKS_TYPES.CCRECIN);
+        message.warning(
+          "🚧 Faltan datos en el formulario: " + WORKS_TYPES.CCRECIN
+        );
         return;
       }
 
       updateWorkInPieceCtx(currentItem, getSelectedPieceValueCtx());
     }
 
-    // ENCASTRES
+    // -- ENCASTRES
+    // Validar
     if (currentItem.type == WORKS_TYPES.ENCASTRE) {
       currentItem.id = getIdCtx();
       currentItem.width = widthInput;
       currentItem.height = heightInput;
+
+      if (
+        !widthInput ||
+        !heightInput ||
+        radiusInput === "" ||
+        frontLengthInput === "" ||
+        !positionLengthInput ||
+        !positionFromInput ||
+        (hasWaterTapInput &&
+          (!tapPositionInput || !tapDiameterInput || !tapSeparationInput))
+      ) {
+        console.log("🚧 Faltan datos en el formulario: ", WORKS_TYPES.ENCASTRE);
+        message.warning(
+          "🚧 Faltan datos en el formulario: " + WORKS_TYPES.ENCASTRE
+        );
+        return;
+      }
 
       const encastreAddData = {
         width: widthInput, // size
@@ -280,23 +309,6 @@ function SidebarRight() {
       };
 
       const currentItem_encastre = { ...currentItem, ...encastreAddData };
-      if (
-        !currentItem_encastre.width ||
-        !currentItem_encastre.height ||
-        currentItem_encastre.radius === "" ||
-        currentItem_encastre.frontLength === "" ||
-        !currentItem_encastre.positionLength ||
-        !currentItem_encastre.positionFrom
-      ) {
-        return;
-      }
-
-      if (
-        currentItem_encastre.hasWaterTap &&
-        (!currentItem_encastre.tapPosition || !currentItem_encastre.tapDiameter)
-      ) {
-        return;
-      }
 
       updateWorkInPieceCtx(currentItem_encastre, getSelectedPieceValueCtx());
     }
