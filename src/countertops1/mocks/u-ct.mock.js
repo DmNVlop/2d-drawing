@@ -4,6 +4,7 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 export const U1_CT_M = {
   shapeType: SHAPE_TYPES.U1_SHAPED,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,
@@ -127,6 +128,7 @@ export const U1_LINE_CT_M = {
 export const U2_CT_M = {
   shapeType: SHAPE_TYPES.U2_CT_M,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,
@@ -249,6 +251,7 @@ export const U2_LINE_CT_M = {
 export const U3_CT_M = {
   shapeType: SHAPE_TYPES.U2_CT_M,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,
@@ -371,6 +374,7 @@ export const U3_LINE_CT_M = {
 export const U4_CT_M = {
   shapeType: SHAPE_TYPES.U2_CT_M,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,

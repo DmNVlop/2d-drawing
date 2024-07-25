@@ -34,6 +34,7 @@ export const temp_init_state = {
     linesData: SIMPLE_LINE_CT_M.linesData,
     rootConfig: SIMPLE_CT_M.rootConfig,
     assemblyType: SIMPLE_CT_M.assemblyType,
+    selectedToArdis: SIMPLE_CT_M.selectedToArdis,
   },
   square: {
     shapeType: SHAPE_TYPES.SQUARE,
@@ -41,6 +42,7 @@ export const temp_init_state = {
     linesData: SQUARE_LINE_CT_M.linesData,
     rootConfig: SQUARE_CT_M.rootConfig,
     assemblyType: SQUARE_CT_M.assemblyType,
+    selectedToArdis: SQUARE_CT_M.selectedToArdis,
   },
   circle: {
     shapeType: SHAPE_TYPES.CIRCLE,
@@ -48,6 +50,7 @@ export const temp_init_state = {
     linesData: CIRCLE_LINE_CT_M.linesData,
     rootConfig: CIRCLE_CT_M.rootConfig,
     assemblyType: CIRCLE_CT_M.assemblyType,
+    selectedToArdis: CIRCLE_CT_M.selectedToArdis,
   },
   "l-shaped_l1": {
     shapeType: SHAPE_TYPES.LShaped_l1,
@@ -55,6 +58,7 @@ export const temp_init_state = {
     linesData: L1_LINE_CT_M.linesData,
     rootConfig: L1_CT_M.rootConfig,
     assemblyType: L1_CT_M.assemblyType,
+    selectedToArdis: L1_CT_M.selectedToArdis,
   },
   "l-shaped_l2": {
     shapeType: SHAPE_TYPES.LShaped_l2,
@@ -62,6 +66,7 @@ export const temp_init_state = {
     linesData: L2_LINE_CT_M.linesData,
     rootConfig: L2_CT_M.rootConfig,
     assemblyType: L2_CT_M.assemblyType,
+    selectedToArdis: L2_CT_M.selectedToArdis,
   },
   "u-shaped_u1": {
     shapeType: SHAPE_TYPES.UShaped_u1,
@@ -69,6 +74,7 @@ export const temp_init_state = {
     linesData: U1_LINE_CT_M.linesData,
     rootConfig: U1_CT_M.rootConfig,
     assemblyType: U1_CT_M.assemblyType,
+    selectedToArdis: U1_CT_M.selectedToArdis,
   },
   "u-shaped_u2": {
     shapeType: SHAPE_TYPES.UShaped_u1,
@@ -76,6 +82,7 @@ export const temp_init_state = {
     linesData: U2_LINE_CT_M.linesData,
     rootConfig: U2_CT_M.rootConfig,
     assemblyType: U2_CT_M.assemblyType,
+    selectedToArdis: U2_CT_M.selectedToArdis,
   },
   "u-shaped_u3": {
     shapeType: SHAPE_TYPES.UShaped_u1,
@@ -83,6 +90,7 @@ export const temp_init_state = {
     linesData: U3_LINE_CT_M.linesData,
     rootConfig: U3_CT_M.rootConfig,
     assemblyType: U3_CT_M.assemblyType,
+    selectedToArdis: U3_CT_M.selectedToArdis,
   },
   "u-shaped_u4": {
     shapeType: SHAPE_TYPES.UShaped_u1,
@@ -90,6 +98,7 @@ export const temp_init_state = {
     linesData: U4_LINE_CT_M.linesData,
     rootConfig: U4_CT_M.rootConfig,
     assemblyType: U4_CT_M.assemblyType,
+    selectedToArdis: U4_CT_M.selectedToArdis,
   },
 };
 
