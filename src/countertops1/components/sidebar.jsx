@@ -41,6 +41,7 @@ import {
 import { useCustomURLHandler } from "../helpers/location.hook";
 import { SHAPE_TYPES } from "../mocks/SHAPE_TYPES.const";
 import { WORKS_TYPES } from "../mocks/WORKS.types";
+import ActionButtonsLeftSidebar from "./Simple-Componentes/action-buttons-left-sidebar";
 
 const Sidebar = () => {
   const _BUTTON_SQUARE_MODELS = BUTTON_SQUARE_MODELS;
@@ -655,26 +656,7 @@ const Sidebar = () => {
           )}
         </section>
 
-        <section id="nav-countertop">
-          {/* <div>Acciones</div> */}
-          <Typography.Title level={4}>Acciones</Typography.Title>
-          <ul className="list-header">
-            <li>
-              <Link to="/">
-                <img
-                  src="/images/home.jpg"
-                  alt="Ir a Inicio"
-                  title="Ir a Inicio"
-                />
-              </Link>
-            </li>
-            <li>
-              <Link to="#">
-                <img src="/images/guardar.jpg" alt="Guardar" title="Guardar" />
-              </Link>
-            </li>
-          </ul>
-        </section>
+        <ActionButtonsLeftSidebar />
       </div>
     </>
   );

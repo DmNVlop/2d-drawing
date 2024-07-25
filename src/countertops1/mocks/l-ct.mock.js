@@ -4,6 +4,7 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 export const L1_CT_M = {
   shapeType: SHAPE_TYPES.U1_SHAPED,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_MECANIZADO_EMBOQUILLADO,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,
@@ -103,6 +104,7 @@ export const L1_LINE_CT_M = {
 export const L2_CT_M = {
   shapeType: SHAPE_TYPES.U1_SHAPED,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.4,
     scaleY: 0.4,

@@ -5,6 +5,7 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 export const CIRCLE_CT_M = {
   shapeType: SHAPE_TYPES.CIRCLE,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.6,
     scaleY: 0.6,

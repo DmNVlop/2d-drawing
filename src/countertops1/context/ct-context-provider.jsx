@@ -273,6 +273,36 @@ export default function CountetopContextProvider({ children }) {
     });
   };
 
+  // EXPORT ALL DATA DATA STORE
+  const exportAllData = () => {
+    const tempCountertops = { ...countertops };
+
+    function FilterObjectToExport(objectData) {
+      let resultData = [];
+      for (let key in objectData) {
+        if (objectData[key]?.selectedToArdis === true) {
+          objectData[key]["type"] = key;
+          resultData.push(objectData[key]);
+        }
+      }
+      return resultData;
+    }
+
+    let dataToExport = {
+      proyectId: "Project_01",
+      proyectDate: "29/07/2024",
+      clientData: {
+        clientName: "Client Name",
+        clientAddress: "Client Address",
+        clientEmail: "Client Email",
+        clientPhone: "Client Phone",
+      },
+      pieces: FilterObjectToExport(tempCountertops),
+    };
+
+    return dataToExport;
+  };
+
   return (
     <CountertopContext.Provider
       value={{
@@ -302,6 +332,7 @@ export default function CountetopContextProvider({ children }) {
         deleteAllWorksInPieceCtx,
         sidebarRightOpenedCtx,
         setSidebarRightOpenedCtx,
+        exportAllData,
       }}
     >
       <ElementRefContext.Provider value={{ elementRef, setElementRef }}>
