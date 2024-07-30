@@ -33,8 +33,11 @@ function ActionButtonsLeftSidebar() {
     e.preventDefault();
 
     const dataToExport = exportAllData();
-    message.info("⚠️ No hay piezas seleccionadas para exportar.");
-    if (!dataToExport || dataToExport?.pieces?.length === 0) return;
+
+    if (!dataToExport || dataToExport?.pieces?.length === 0) {
+      message.info("⚠️ No hay piezas seleccionadas para exportar.");
+      return;
+    }
 
     downloadXML(getXMLbyJSON(dataToExport), dataToExport.clientData.clientName);
     // descargar(dataToExport, "objetoFiltrado");

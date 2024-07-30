@@ -22,12 +22,24 @@ export const getXMLbyJSON = (jsonData) => {
       // 			<PartRef>costado</PartRef>
 
       xml += `\t\t\t\t<Part Key="${partIndex + 1}">\n`;
-      //   Object.keys(part).forEach((clave) => {
       xml += `\t\t\t\t\t<PartMat>MDF</PartMat>\n`;
+      xml += `\t\t\t\t\t<PartD>1</PartD>\n`;
       xml += `\t\t\t\t\t<PartL>${part.width}</PartL>\n`;
       xml += `\t\t\t\t\t<PartW>${part.height}</PartW>\n`;
       xml += `\t\t\t\t\t<PartQty>1</PartQty>\n`;
-      //   });
+      xml += `\t\t\t\t\t<PartDraw>`;
+      part.works.forEach((work, workIndex) => {
+        if (work.type === "ccchaflan") {
+          xml += `<Draw><FUNCTNAME>LINE</FUNCTNAME><X>${
+            work.width
+          }</X><Y>0</Y><LW>1</LW><LENGTH>0</LENGTH><WIDTH>${
+            work.height
+          }</WIDTH><QUADRANT>${
+            work.cornerPosition.indexOf(1) + 1
+          }</QUADRANT><OPSIDE>2</OPSIDE></Draw>\n`;
+        }
+      });
+      xml += `\t\t\t\t\t</PartDraw>\n`;
       xml += "\t\t\t\t</Part>\n";
     });
 
