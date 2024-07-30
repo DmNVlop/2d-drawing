@@ -20,7 +20,7 @@ import RectLTemplateL2 from "../components/rect-l2.template";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
-import { Col, Row } from "antd";
+import { Checkbox, Col, Row } from "antd";
 import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
 
 export default function LShapedPage(props) {
@@ -38,6 +38,7 @@ export default function LShapedPage(props) {
     onSetSelectedPieceCtx,
     setScaleOnRootConfigCtx,
     setSidebarRightOpenedCtx,
+    setSelectedToArdisCtx,
   } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras L");
@@ -60,6 +61,10 @@ export default function LShapedPage(props) {
 
   const handleClickOnSelectPieceNull = () => {
     onSetSelectedPieceCtx(null);
+  };
+
+  const onChangeExportToArdis = (e) => {
+    setSelectedToArdisCtx(e.target.checked);
   };
 
   useEffect(() => {
@@ -88,6 +93,15 @@ export default function LShapedPage(props) {
               <img src="/images/jobs/L-2.png" alt={pageTitle} />
             )}
           </figure>
+        </Col>
+
+        <Col className="guttter-row" style={{ marginLeft: "24px" }}>
+          <Checkbox
+            onChange={onChangeExportToArdis}
+            checked={countertops[ATTRIB_SETTED].selectedToArdis || false}
+          >
+            Exportar a ARDIS Optimizer
+          </Checkbox>
         </Col>
       </Row>
 

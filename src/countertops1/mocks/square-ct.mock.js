@@ -5,7 +5,7 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 export const SQUARE_CT_M = {
   shapeType: SHAPE_TYPES.SQUARE,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
-  selectedToArdis: true,
+  selectedToArdis: false,
   rootConfig: {
     scaleX: 0.5,
     scaleY: 0.5,

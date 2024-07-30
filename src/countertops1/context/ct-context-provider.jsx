@@ -177,6 +177,16 @@ export default function CountetopContextProvider({ children }) {
     }));
   };
 
+  const setSelectedToArdisCtx = (value) => {
+    setCountertops((prevState) => ({
+      ...prevState,
+      [ATTRIB_SETTED]: {
+        ...prevState[ATTRIB_SETTED],
+        selectedToArdis: value,
+      },
+    }));
+  };
+
   /**
    * @description Function to update the corners, true sizes and production sizes
    *
@@ -322,6 +332,7 @@ export default function CountetopContextProvider({ children }) {
         setPartsCtx,
         setLinesCtx,
         setOpacityOnPiecesCtx,
+        setSelectedToArdisCtx,
         onSetSelectedPieceCtx,
         onSetNumberOfPieceCtx,
         updateCornersCtx,

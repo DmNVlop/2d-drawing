@@ -1,6 +1,7 @@
 import { message, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { useCountertopContext } from "../../context/ct-context";
+import { getXMLbyJSON } from "../../helpers/export-to-ardis";
 
 function ActionButtonsLeftSidebar() {
   const { exportAllData } = useCountertopContext();
@@ -17,15 +18,33 @@ function ActionButtonsLeftSidebar() {
     downloadAnchorNode.remove();
   }
 
+  function downloadXML(xmlData, fileName) {
+    const blob = new Blob([xmlData], { type: "application/xml" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName + "_" + Date.now() + ".xml";
+    document.body.appendChild(link); // required for firefox
+    link.click();
+    link.remove();
+  }
+
   const handleExportAllData = (e) => {
     e.preventDefault();
 
     const dataToExport = exportAllData();
+    message.info("⚠️ No hay piezas seleccionadas para exportar.");
+    if (!dataToExport || dataToExport?.pieces?.length === 0) return;
 
-    descargar(dataToExport, "objetoFiltrado");
+    downloadXML(getXMLbyJSON(dataToExport), dataToExport.clientData.clientName);
+    // descargar(dataToExport, "objetoFiltrado");
 
     console.log("🚀 ~ handleExportAllData ~ exportAllData():", dataToExport);
-    message.info("Guardando..." + JSON.stringify(dataToExport));
+    console.log(
+      "🚀 ~ handleExportAllData ~ getXMLbyJSON(dataToExport):",
+      getXMLbyJSON(dataToExport)
+    );
+    // message.info("Guardando..." + JSON.stringify(dataToExport));
   };
 
   return (
