@@ -13,7 +13,7 @@ import { GLOBAL_CT_M } from "../mocks/global-ct.mock";
 import { useCustomURLHandler } from "../helpers/location.hook";
 import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
-import { Col, Row } from "antd";
+import { Checkbox, Col, Row } from "antd";
 import { SHAPE_TYPES } from "./../mocks/SHAPE_TYPES.const";
 import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
 
@@ -24,6 +24,7 @@ export default function SimpleCTPage(props) {
     countertops,
     getPartsDataFromPieceCtx,
     setScaleOnRootConfigCtx,
+    setSelectedToArdisCtx,
     onSetSelectedPieceCtx,
   } = useCountertopContext();
 
@@ -34,6 +35,10 @@ export default function SimpleCTPage(props) {
 
   const handleClickOnSelectPieceNull = () => {
     onSetSelectedPieceCtx(null);
+  };
+
+  const onChangeExportToArdis = (e) => {
+    setSelectedToArdisCtx(e.target.checked);
   };
 
   return (
@@ -57,6 +62,15 @@ export default function SimpleCTPage(props) {
               <img src="/images/jobs/circle.png" alt={title} />
             )}
           </figure>
+        </Col>
+
+        <Col className="guttter-row" style={{ marginLeft: "24px" }}>
+          <Checkbox
+            onChange={onChangeExportToArdis}
+            checked={countertops[ATTRIB_SETTED].selectedToArdis || false}
+          >
+            Exportar a ARDIS Optimizer
+          </Checkbox>
         </Col>
       </Row>
 

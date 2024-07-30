@@ -2,7 +2,7 @@ import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES.const";
 import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 
 export const U1_CT_M = {
-  shapeType: SHAPE_TYPES.U1_SHAPED,
+  shapeType: SHAPE_TYPES.UShaped_u1,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   selectedToArdis: false,
   rootConfig: {
@@ -126,7 +126,7 @@ export const U1_LINE_CT_M = {
 };
 
 export const U2_CT_M = {
-  shapeType: SHAPE_TYPES.U2_CT_M,
+  shapeType: SHAPE_TYPES.UShaped_u2,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   selectedToArdis: false,
   rootConfig: {
@@ -249,7 +249,7 @@ export const U2_LINE_CT_M = {
 };
 
 export const U3_CT_M = {
-  shapeType: SHAPE_TYPES.U2_CT_M,
+  shapeType: SHAPE_TYPES.UShaped_u3,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   selectedToArdis: false,
   rootConfig: {
@@ -372,7 +372,7 @@ export const U3_LINE_CT_M = {
 };
 
 export const U4_CT_M = {
-  shapeType: SHAPE_TYPES.U2_CT_M,
+  shapeType: SHAPE_TYPES.UShaped_u4,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   selectedToArdis: false,
   rootConfig: {

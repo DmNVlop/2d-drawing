@@ -2,7 +2,7 @@ import { ASSEMBLY_TYPES } from "./ASSEMBLY_TYPES.const";
 import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 
 export const L1_CT_M = {
-  shapeType: SHAPE_TYPES.U1_SHAPED,
+  shapeType: SHAPE_TYPES.LShaped_l1,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_MECANIZADO_EMBOQUILLADO,
   selectedToArdis: false,
   rootConfig: {
@@ -102,7 +102,7 @@ export const L1_LINE_CT_M = {
 };
 
 export const L2_CT_M = {
-  shapeType: SHAPE_TYPES.U1_SHAPED,
+  shapeType: SHAPE_TYPES.LShaped_l2,
   assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
   selectedToArdis: false,
   rootConfig: {

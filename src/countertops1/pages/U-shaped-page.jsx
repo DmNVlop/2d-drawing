@@ -16,7 +16,7 @@ import RectUTemplateU4 from "../components/rect-u4.template";
 import WorksSelectorCNCWorks from "../components/CNC-Works/works-selector";
 import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
-import { Col, Row } from "antd";
+import { Checkbox, Col, Row } from "antd";
 import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
 
 export default function UShapedPage(props) {
@@ -35,6 +35,7 @@ export default function UShapedPage(props) {
     onSetSelectedPieceCtx,
     setScaleOnRootConfigCtx,
     setSidebarRightOpenedCtx,
+    setSelectedToArdisCtx,
   } = useCountertopContext();
 
   const [pageTitle, setPageTitle] = useState(title || "Encimeras U");
@@ -54,6 +55,10 @@ export default function UShapedPage(props) {
 
   const handleClickOnSelectPieceNull = () => {
     onSetSelectedPieceCtx(null);
+  };
+
+  const onChangeExportToArdis = (e) => {
+    setSelectedToArdisCtx(e.target.checked);
   };
 
   useEffect(() => {
@@ -90,6 +95,15 @@ export default function UShapedPage(props) {
               <img src="/images/jobs/U-4.png" alt={pageTitle} />
             )}
           </figure>
+        </Col>
+
+        <Col className="guttter-row" style={{ marginLeft: "24px" }}>
+          <Checkbox
+            onChange={onChangeExportToArdis}
+            checked={countertops[ATTRIB_SETTED].selectedToArdis || false}
+          >
+            Exportar a ARDIS Optimizer
+          </Checkbox>
         </Col>
       </Row>
 
