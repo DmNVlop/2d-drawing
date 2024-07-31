@@ -370,6 +370,7 @@ const Sidebar = () => {
                   >
                     <ButtonSquare
                       inputData={{
+                        item: item,
                         url: item.url,
                         img: item.img,
                         alt: item.alt,
