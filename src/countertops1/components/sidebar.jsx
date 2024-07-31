@@ -349,7 +349,7 @@ const Sidebar = () => {
         </Row>
 
         {/* BUTTONS NAV MODELS */}
-        <div id="nav-countertop">
+        <div className="nav-countertop">
           <h5>Seleccione modelo</h5>
 
           <div id="sidebar-right-features">
@@ -360,10 +360,16 @@ const Sidebar = () => {
                     className="gutter-row"
                     span={6}
                     justify="space-between"
+                    style={
+                      item?.type === ATTRIB_SETTED
+                        ? { opacity: 1 }
+                        : { opacity: 0.3 }
+                    }
                     key={index}
                   >
                     <ButtonSquare
                       inputData={{
+                        item: item,
                         url: item.url,
                         img: item.img,
                         alt: item.alt,
@@ -656,7 +662,7 @@ const Sidebar = () => {
           )}
         </section>
 
-        <ActionButtonsLeftSidebar />
+        <ActionButtonsLeftSidebar showTitle={true} />
       </div>
     </>
   );

@@ -1,3 +1,5 @@
+import { WORKS_TYPES } from "../mocks/WORKS.types";
+
 export const getTheStateAndOrganizeThePieces = () => {};
 
 export const getXMLbyJSON = (jsonData) => {
@@ -15,12 +17,6 @@ export const getXMLbyJSON = (jsonData) => {
     xml += `\t\t<PartFile ID="${piece.shapeType}" format="1.1.1">\n\t\t\t<PartList>\n`;
 
     piece.partsData.forEach((part, partIndex) => {
-      // <PartMat>M/BLANCO SOFT-19,25</PartMat>
-      // 			<PartL>800</PartL>
-      // 			<PartW>580</PartW>
-      // 			<PartQty>2</PartQty>
-      // 			<PartRef>costado</PartRef>
-
       xml += `\t\t\t\t<Part Key="${partIndex + 1}">\n`;
       xml += `\t\t\t\t\t<PartMat>MDF</PartMat>\n`;
       xml += `\t\t\t\t\t<PartD>1</PartD>\n`;
@@ -28,15 +24,90 @@ export const getXMLbyJSON = (jsonData) => {
       xml += `\t\t\t\t\t<PartW>${part.height}</PartW>\n`;
       xml += `\t\t\t\t\t<PartQty>1</PartQty>\n`;
       xml += `\t\t\t\t\t<PartDraw>`;
+
       part.works.forEach((work, workIndex) => {
-        if (work.type === "ccchaflan") {
+        if (work.type === WORKS_TYPES.CCCHAFLAN) {
+          // CHAFLAN
+          // <Draw>
+          //   <FUNCTNAME>LINE</FUNCTNAME>
+          //   <X>320</X>
+          //   <Y>0</Y>
+          //   <LW>1</LW>
+          //   <LENGTH>0</LENGTH>
+          //   <WIDTH>130</WIDTH>
+          //   <QUADRANT>1</QUADRANT>
+          //   <Z1>19</Z1>
+          //   <Z2>19</Z2>
+          //   <ID>1</ID>
+          //   <TOOL>MILL</TOOL>
+          //   <PARAM>T=CHAFLAN</PARAM>
+          //   <OPSIDE>2</OPSIDE>
+          // </Draw>;
           xml += `<Draw><FUNCTNAME>LINE</FUNCTNAME><X>${
             work.width
           }</X><Y>0</Y><LW>1</LW><LENGTH>0</LENGTH><WIDTH>${
             work.height
           }</WIDTH><QUADRANT>${
             work.cornerPosition.indexOf(1) + 1
-          }</QUADRANT><OPSIDE>2</OPSIDE></Draw>\n`;
+          }</QUADRANT><Z1>19</Z1><Z2>19</Z2><ID>${
+            workIndex + 1
+          }</ID><TOOL>MILL</TOOL><PARAM>T=&quot;${
+            work.type
+          }&quot;</PARAM><OPSIDE>2</OPSIDE></Draw>\n`;
+        }
+
+        if (work.type === WORKS_TYPES.CCFALESC) {
+          // FALSA ESCUADRA
+          // <Draw>
+          //   <FUNCTNAME>LINE</FUNCTNAME>
+          //   <X>0</X>
+          //   <Y>LPY</Y>
+          //   <LW>1</LW>
+          //   <LENGTH>230</LENGTH>
+          //   <WIDTH>0</WIDTH>
+          //   <QUADRANT>1</QUADRANT>
+          //   <Z1>19</Z1>
+          //   <Z2>19</Z2>
+          //   <ID>1</ID>
+          //   <TOOL>MILL</TOOL>
+          //   <PARAM>T=CHAFLAN</PARAM>
+          //   <OPSIDE>2</OPSIDE>
+          // </Draw>;
+          xml += `<Draw><FUNCTNAME>LINE</FUNCTNAME><X>0</X><Y>LPY</Y><LW>1</LW><LENGTH>${
+            work.width
+          }</LENGTH><WIDTH>0</WIDTH><QUADRANT>${
+            work.cornerPosition.indexOf(1) + 1
+          }</QUADRANT><Z1>19</Z1><Z2>19</Z2><ID>${
+            workIndex + 1
+          }</ID><TOOL>MILL</TOOL><PARAM>T=&quot;${
+            work.type
+          }&quot;</PARAM><OPSIDE>2</OPSIDE></Draw>\n`;
+        }
+
+        if (work.type === WORKS_TYPES.CCRECIN) {
+          // RECTO INTERIOR
+          // <Draw>
+          // <FUNCTNAME>LINE</FUNCTNAME><X>0</X>
+          // <Y>100</Y><LW>1</LW><LENGTH>280</LENGTH>
+          // <WIDTH>100</WIDTH><QUADRANT>1</QUADRANT>
+          // <Z1>19</Z1><Z2>19</Z2><ID>1</ID>
+          // <TOOL>MILL</TOOL><PARAM>T=&quot;CHAFLAN&quot;</PARAM>
+          // <SEQ>1</SEQ><OPSIDE>2</OPSIDE>
+          // </Draw>
+          // <Draw><FUNCTNAME>LINE</FUNCTNAME><X>280</X><Y>100</Y><LW>1</LW><LENGTH>280</LENGTH><WIDTH>0</WIDTH><QUADRANT>1</QUADRANT><Z1>19</Z1><Z2>19</Z2><ID>1</ID><TOOL>MILL</TOOL><PARAM>T=&quot;CHAFLAN&quot;</PARAM><SEQ>2</SEQ><OPSIDE>2</OPSIDE></Draw>
+          [1, 2].forEach((item) => {
+            xml += `<Draw><FUNCTNAME>LINE</FUNCTNAME><X>${
+              item === 1 ? 0 : work.width
+            }</X><Y>${work.height}</Y><LW>1</LW><LENGTH>${
+              work.width
+            }</LENGTH><WIDTH>${item === 1 ? work.height : 0}</WIDTH><QUADRANT>${
+              work.cornerPosition.indexOf(1) + 1
+            }</QUADRANT><Z1>19</Z1><Z2>19</Z2><ID>${
+              workIndex + 1
+            }</ID><TOOL>MILL</TOOL><PARAM>T=&quot;${
+              work.type
+            }&quot;</PARAM><SEQ>${item}</SEQ><OPSIDE>2</OPSIDE></Draw>\n`;
+          });
         }
       });
       xml += `\t\t\t\t\t</PartDraw>\n`;
