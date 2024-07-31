@@ -16,6 +16,7 @@ import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
 import { Checkbox, Col, Row } from "antd";
 import { SHAPE_TYPES } from "./../mocks/SHAPE_TYPES.const";
 import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
+import ActionButtonsLeftSidebar from "../components/Simple-Componentes/action-buttons-left-sidebar";
 
 export default function SimpleCTPage(props) {
   const { title, shape } = props;
@@ -71,6 +72,10 @@ export default function SimpleCTPage(props) {
           >
             Exportar a ARDIS Optimizer
           </Checkbox>
+        </Col>
+
+        <Col className="guttter-row" style={{ marginLeft: "3em" }}>
+          <ActionButtonsLeftSidebar />
         </Col>
       </Row>
 

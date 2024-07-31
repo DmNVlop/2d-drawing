@@ -349,13 +349,12 @@ const Sidebar = () => {
         </Row>
 
         {/* BUTTONS NAV MODELS */}
-        <div id="nav-countertop">
+        <div className="nav-countertop">
           <h5>Seleccione modelo</h5>
 
           <div id="sidebar-right-features">
             <Row gutter={[8, 8]}>
               {_BUTTON_SQUARE_MODELS.map((item, index) => {
-                console.log("🚀 ~ {_BUTTON_SQUARE_MODELS.map ~ item:", item);
                 return (
                   <Col
                     className="gutter-row"
@@ -663,7 +662,7 @@ const Sidebar = () => {
           )}
         </section>
 
-        <ActionButtonsLeftSidebar />
+        <ActionButtonsLeftSidebar showTitle={true} />
       </div>
     </>
   );

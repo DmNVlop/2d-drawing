@@ -18,6 +18,7 @@ import ZoomStageComponent from "../components/Simple-Componentes/zoom-stage";
 import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
 import { Checkbox, Col, Row } from "antd";
 import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
+import ActionButtonsLeftSidebar from "../components/Simple-Componentes/action-buttons-left-sidebar";
 
 export default function UShapedPage(props) {
   const { title } = props;
@@ -104,6 +105,10 @@ export default function UShapedPage(props) {
           >
             Exportar a ARDIS Optimizer
           </Checkbox>
+        </Col>
+
+        <Col className="guttter-row" style={{ marginLeft: "3em" }}>
+          <ActionButtonsLeftSidebar />
         </Col>
       </Row>
 
