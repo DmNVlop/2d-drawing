@@ -355,11 +355,17 @@ const Sidebar = () => {
           <div id="sidebar-right-features">
             <Row gutter={[8, 8]}>
               {_BUTTON_SQUARE_MODELS.map((item, index) => {
+                console.log("🚀 ~ {_BUTTON_SQUARE_MODELS.map ~ item:", item);
                 return (
                   <Col
                     className="gutter-row"
                     span={6}
                     justify="space-between"
+                    style={
+                      item?.type === ATTRIB_SETTED
+                        ? { opacity: 1 }
+                        : { opacity: 0.3 }
+                    }
                     key={index}
                   >
                     <ButtonSquare

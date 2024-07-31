@@ -15,12 +15,6 @@ export const getXMLbyJSON = (jsonData) => {
     xml += `\t\t<PartFile ID="${piece.shapeType}" format="1.1.1">\n\t\t\t<PartList>\n`;
 
     piece.partsData.forEach((part, partIndex) => {
-      // <PartMat>M/BLANCO SOFT-19,25</PartMat>
-      // 			<PartL>800</PartL>
-      // 			<PartW>580</PartW>
-      // 			<PartQty>2</PartQty>
-      // 			<PartRef>costado</PartRef>
-
       xml += `\t\t\t\t<Part Key="${partIndex + 1}">\n`;
       xml += `\t\t\t\t\t<PartMat>MDF</PartMat>\n`;
       xml += `\t\t\t\t\t<PartD>1</PartD>\n`;
