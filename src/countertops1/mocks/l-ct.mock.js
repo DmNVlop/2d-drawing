@@ -3,7 +3,8 @@ import { SHAPE_TYPES } from "./SHAPE_TYPES.const";
 
 export const L1_CT_M = {
   shapeType: SHAPE_TYPES.LShaped_l1,
-  assemblyType: ASSEMBLY_TYPES.NOVENTA_MECANIZADO_EMBOQUILLADO,
+  assemblyType: ASSEMBLY_TYPES.NOVENTA_SIMPLE,
+  // assemblyType: ASSEMBLY_TYPES.NOVENTA_MECANIZADO_EMBOQUILLADO,
   selectedToArdis: false,
   rootConfig: {
     scaleX: 0.4,

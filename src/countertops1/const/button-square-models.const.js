@@ -73,6 +73,22 @@ const BUTTON_SQUARE_MODELS = [
     title: "Encimera en U - 4",
     selected: false,
   },
+  {
+    type: SHAPE_TYPES.CUSTOM,
+    url: SHAPE_TYPES.CUSTOM,
+    img: "/images/jobs/custom-shape.png",
+    alt: "Encimera Personalizada",
+    title: "Encimera Personalizada",
+    selected: false,
+  },
+  {
+    type: SHAPE_TYPES.IMPORT_DXF,
+    url: SHAPE_TYPES.IMPORT_DXF,
+    img: "/images/jobs/import-DXF.png",
+    alt: "Importador de DXF",
+    title: "Importador de DXF",
+    selected: false,
+  },
 ];
 
 export default BUTTON_SQUARE_MODELS;

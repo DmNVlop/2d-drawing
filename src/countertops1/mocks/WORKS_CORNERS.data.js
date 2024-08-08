@@ -30,8 +30,8 @@ export const WORKS_CORNERS = {
       },
     ],
   },
-  [WORKS_TYPES.CCCRED1LADO]: {
-    work: WORKS_TYPES.CCCRED1LADO,
+  [WORKS_TYPES.CCRED1LADO]: {
+    work: WORKS_TYPES.CCRED1LADO,
     corners: [],
   },
   [WORKS_TYPES.CCRED2LADOS]: {

@@ -48,7 +48,7 @@
 .nav-countertop ul.list-header {
   display: flex;
   /* grid-template-columns: repeat(auto-fit, minmax(42px, 0)); */
-  gap: 1rem;
+  gap: 8px;
   list-style: none;
 }
 
@@ -155,7 +155,9 @@
 /* SIMPLE PAGE */
 #simple-ct-page,
 #l-shaped-page,
-#u-shaped-page {
+#u-shaped-page,
+#custom-shape-page,
+#importdxf-shape-page {
   .ct-figure-on-title {
     position: relative;
 

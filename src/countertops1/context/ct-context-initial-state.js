@@ -21,6 +21,8 @@ import {
   U4_CT_M,
   U4_LINE_CT_M,
 } from "../mocks/u-ct.mock";
+import { CUSTOM_CT_M } from "./../mocks/custom-ct.mock";
+import { IMPORT_DXF_CT_M } from "../mocks/import-dxf-ct.mock";
 
 export const temp_init_state = {
   selectedPiece: null,
@@ -28,7 +30,7 @@ export const temp_init_state = {
   // shapeType: null,
   // partsData: SIMPLE_CT_M.partsData,
   // linesData: SIMPLE_LINE_CT_M.linesData,
-  simple: {
+  [SHAPE_TYPES.SIMPLE]: {
     shapeType: SIMPLE_CT_M.shapeType,
     partsData: SIMPLE_CT_M.partsData,
     linesData: SIMPLE_LINE_CT_M.linesData,
@@ -36,7 +38,7 @@ export const temp_init_state = {
     assemblyType: SIMPLE_CT_M.assemblyType,
     selectedToArdis: SIMPLE_CT_M.selectedToArdis,
   },
-  square: {
+  [SHAPE_TYPES.SQUARE]: {
     shapeType: SQUARE_CT_M.shapeType,
     partsData: SQUARE_CT_M.partsData,
     linesData: SQUARE_LINE_CT_M.linesData,
@@ -44,7 +46,7 @@ export const temp_init_state = {
     assemblyType: SQUARE_CT_M.assemblyType,
     selectedToArdis: SQUARE_CT_M.selectedToArdis,
   },
-  circle: {
+  [SHAPE_TYPES.CIRCLE]: {
     shapeType: CIRCLE_CT_M.shapeType,
     partsData: CIRCLE_CT_M.partsData,
     linesData: CIRCLE_LINE_CT_M.linesData,
@@ -52,7 +54,7 @@ export const temp_init_state = {
     assemblyType: CIRCLE_CT_M.assemblyType,
     selectedToArdis: CIRCLE_CT_M.selectedToArdis,
   },
-  "l-shaped_l1": {
+  [SHAPE_TYPES.LShaped_l1]: {
     shapeType: L1_CT_M.shapeType,
     partsData: L1_CT_M.partsData,
     linesData: L1_LINE_CT_M.linesData,
@@ -60,7 +62,7 @@ export const temp_init_state = {
     assemblyType: L1_CT_M.assemblyType,
     selectedToArdis: L1_CT_M.selectedToArdis,
   },
-  "l-shaped_l2": {
+  [SHAPE_TYPES.LShaped_l2]: {
     shapeType: L2_CT_M.shapeType,
     partsData: L2_CT_M.partsData,
     linesData: L2_LINE_CT_M.linesData,
@@ -68,7 +70,7 @@ export const temp_init_state = {
     assemblyType: L2_CT_M.assemblyType,
     selectedToArdis: L2_CT_M.selectedToArdis,
   },
-  "u-shaped_u1": {
+  [SHAPE_TYPES.UShaped_u1]: {
     shapeType: U1_CT_M.shapeType,
     partsData: U1_CT_M.partsData,
     linesData: U1_LINE_CT_M.linesData,
@@ -76,7 +78,7 @@ export const temp_init_state = {
     assemblyType: U1_CT_M.assemblyType,
     selectedToArdis: U1_CT_M.selectedToArdis,
   },
-  "u-shaped_u2": {
+  [SHAPE_TYPES.UShaped_u2]: {
     shapeType: U2_CT_M.shapeType,
     partsData: U2_CT_M.partsData,
     linesData: U2_LINE_CT_M.linesData,
@@ -84,7 +86,7 @@ export const temp_init_state = {
     assemblyType: U2_CT_M.assemblyType,
     selectedToArdis: U2_CT_M.selectedToArdis,
   },
-  "u-shaped_u3": {
+  [SHAPE_TYPES.UShaped_u3]: {
     shapeType: U3_CT_M.shapeType,
     partsData: U3_CT_M.partsData,
     linesData: U3_LINE_CT_M.linesData,
@@ -92,13 +94,29 @@ export const temp_init_state = {
     assemblyType: U3_CT_M.assemblyType,
     selectedToArdis: U3_CT_M.selectedToArdis,
   },
-  "u-shaped_u4": {
+  [SHAPE_TYPES.UShaped_u4]: {
     shapeType: U4_CT_M.shapeType,
     partsData: U4_CT_M.partsData,
     linesData: U4_LINE_CT_M.linesData,
     rootConfig: U4_CT_M.rootConfig,
     assemblyType: U4_CT_M.assemblyType,
     selectedToArdis: U4_CT_M.selectedToArdis,
+  },
+  [SHAPE_TYPES.CUSTOM]: {
+    shapeType: SHAPE_TYPES.CUSTOM,
+    partsData: [],
+    linesData: [],
+    rootConfig: CUSTOM_CT_M.rootConfig,
+    assemblyType: CUSTOM_CT_M.assemblyType,
+    selectedToArdis: CUSTOM_CT_M.selectedToArdis,
+  },
+  [SHAPE_TYPES.IMPORT_DXF]: {
+    shapeType: SHAPE_TYPES.IMPORT_DXF,
+    partsData: [],
+    linesData: [],
+    rootConfig: IMPORT_DXF_CT_M.rootConfig,
+    assemblyType: IMPORT_DXF_CT_M.assemblyType,
+    selectedToArdis: IMPORT_DXF_CT_M.selectedToArdis,
   },
 };
 

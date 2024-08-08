@@ -48,6 +48,29 @@ export default function CountetopContextProvider({ children }) {
     return countertops[pieceType]?.linesData || [];
   };
 
+  const getIndexWorkOnPieceIfExistCtx = (work) => {
+    const workPosition = work.cornerPosition;
+    const workType = work.type;
+    let resultIndex = null;
+
+    const tempCountertops = { ...countertops };
+    const arrayWorks =
+      tempCountertops[ATTRIB_SETTED].partsData[getSelectedPieceValueCtx()]
+        .works;
+
+    if (Array.isArray(arrayWorks) && arrayWorks.length > 0) {
+      arrayWorks.forEach((work, index) => {
+        if (
+          work.type === workType &&
+          work.cornerPosition[workPosition.indexOf(1)]
+        ) {
+          resultIndex = index;
+        }
+      });
+    }
+    return resultIndex;
+  };
+
   // PIECES CONTROL
   const onSetSelectedPieceCtx = (piece) => {
     setCountertops((prevState) => ({
@@ -226,6 +249,10 @@ export default function CountetopContextProvider({ children }) {
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
       tempCountertops[ATTRIB_SETTED].partsData[indexPart].works.push(work);
+      console.log(
+        "🚀 ~ setCountertops ~ tempCountertops[ATTRIB_SETTED].partsData[indexPart].works:",
+        tempCountertops[ATTRIB_SETTED].partsData[indexPart].works
+      );
       return tempCountertops;
     });
   };
@@ -264,21 +291,50 @@ export default function CountetopContextProvider({ children }) {
     });
   };
 
-  const deleteWorkInPieceCtx = (indexWork, indexPart) => {
+  const deleteWorkInPieceCtx = (indexWork, indexPart = null) => {
+    if (indexWork === null) {
+      return;
+    }
+    console.log("🚀 ~ deleteWorkInPieceCtx ~ DELETE:", indexWork);
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
-      tempCountertops[ATTRIB_SETTED].partsData[indexPart].works.splice(
-        indexWork,
-        1
-      );
+      tempCountertops[ATTRIB_SETTED].partsData[
+        getSelectedPieceValueCtx()
+      ].works.splice(indexWork, 1);
       return tempCountertops;
     });
   };
 
-  const deleteAllWorksInPieceCtx = (indexPart) => {
+  const deleteWorkInPieceByFilterCtx = (indexWork = []) => {
+    if (!indexWork || !Array.isArray(indexWork) || indexWork?.length < 1) {
+      return;
+    }
+    const reOrderIndex = indexWork.sort((a, b) => b - a);
+
     setCountertops((prev) => {
       const tempCountertops = { ...prev };
-      tempCountertops[ATTRIB_SETTED].partsData[indexPart].works = [];
+      let works =
+        tempCountertops[ATTRIB_SETTED].partsData[getSelectedPieceValueCtx()]
+          .works;
+
+      works = works.filter((_, index) => {
+        return !reOrderIndex.includes(index);
+      });
+
+      tempCountertops[ATTRIB_SETTED].partsData[
+        getSelectedPieceValueCtx()
+      ].works = works;
+
+      return tempCountertops;
+    });
+  };
+
+  const deleteAllWorksInPieceCtx = (indexPart = null) => {
+    setCountertops((prev) => {
+      const tempCountertops = { ...prev };
+      tempCountertops[ATTRIB_SETTED].partsData[
+        getSelectedPieceValueCtx()
+      ].works = [];
       return tempCountertops;
     });
   };
@@ -323,6 +379,7 @@ export default function CountetopContextProvider({ children }) {
         getPartsDataFromPieceCtx,
         getLinesDataFromPieceCtx,
         getAssemblyTypeFromPiecesCtx,
+        getIndexWorkOnPieceIfExistCtx,
         getIdCtx,
         setCountertops,
         setScaleOnRootConfigCtx,
@@ -340,6 +397,7 @@ export default function CountetopContextProvider({ children }) {
         onUpdatePartDataCtx,
         onUpdateLineDataCtx,
         deleteWorkInPieceCtx,
+        deleteWorkInPieceByFilterCtx,
         deleteAllWorksInPieceCtx,
         sidebarRightOpenedCtx,
         setSidebarRightOpenedCtx,

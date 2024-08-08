@@ -41,7 +41,10 @@ function ActionButtonsLeftSidebar(props) {
     const dataToExport = exportAllData();
 
     if (!dataToExport || dataToExport?.pieces?.length === 0) {
-      message.info("⚠️ No hay piezas seleccionadas para exportar.");
+      message.info({
+        content: "⚠️ No hay piezas seleccionadas para exportar.",
+        duration: 2,
+      });
       return;
     }
 

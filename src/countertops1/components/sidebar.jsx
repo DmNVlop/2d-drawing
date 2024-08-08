@@ -74,6 +74,8 @@ const Sidebar = () => {
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
+  const [updateCornersValues, setUpdateCornersValues] = useState([0, 0, 0, 0]);
+
   // Length and Width State
   const [inputValueLargo1, setInputValueLargo1] = useState(
     countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
@@ -143,7 +145,12 @@ const Sidebar = () => {
     const finalNewValue = [...cornersState];
     finalNewValue[position] = newValue ? newValue : 0;
 
-    updateCornersCtx(finalNewValue, getSelectedPieceValueCtx());
+    setUpdateCornersValues(finalNewValue);
+  };
+
+  const onBlurCorners = (e, position) => {
+    // console.log("🚀 ~ onBlurCorners ~ position:", position);
+    // console.log("🚀 ~ onFocusCorners ~ e:", e.target.value);
   };
 
   const handleClickResetAllCorners = () => {
@@ -328,6 +335,21 @@ const Sidebar = () => {
     setSizes();
   }, [ATTRIB_SETTED, countertops[ATTRIB_SETTED]?.partsData]);
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (
+        Array.isArray(updateCornersValues) &&
+        updateCornersValues.length > 0
+      ) {
+        updateCornersCtx(updateCornersValues, getSelectedPieceValueCtx());
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [updateCornersValues]);
+
   return (
     <>
       <div id="ct-side-nav" ref={sidenavElementRef}>
@@ -445,6 +467,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 0)}
+                      onBlur={(e) => onBlurCorners(e, 0)}
                       onClick={(e) => onClickHandle(e, inputCornerTLRef)}
                       value={
                         Array.isArray(cornersState) &&
@@ -467,6 +490,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 1)}
+                      onBlur={(e) => onBlurCorners(e, 1)}
                       onClick={(e) => onClickHandle(e, inputCornerTRRef)}
                       value={
                         Array.isArray(cornersState) &&
@@ -492,6 +516,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 3)}
+                      onBlur={(e) => onBlurCorners(e, 3)}
                       onClick={(e) => onClickHandle(e, inputCornerBLRef)}
                       value={
                         Array.isArray(cornersState) &&
@@ -514,6 +539,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 2)}
+                      onBlur={(e) => onBlurCorners(e, 2)}
                       onClick={(e) => onClickHandle(e, inputCornerBRRef)}
                       value={
                         Array.isArray(cornersState) &&
