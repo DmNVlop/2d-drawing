@@ -6,6 +6,10 @@ export const getXMLbyJSON = (jsonData) => {
   console.log("🚀 ~ getXMLbyJSON ~ jsonData:", jsonData);
   if (!jsonData || jsonData?.pieces?.length === 0) return;
 
+  // const reOrderCornerPosition = (cornerPosition) => {
+  //   return cornerPosition.reverse();
+  // };
+
   let xml =
     '<?xml version="1.0" encoding="utf-8"?>\n<ArdisOptimizerProject ID="' +
     jsonData.clientData.clientName +
@@ -26,6 +30,7 @@ export const getXMLbyJSON = (jsonData) => {
       xml += `\t\t\t\t\t<PartDraw>`;
 
       part.works.forEach((work, workIndex) => {
+        work.cornerPosition = work.cornerPosition.reverse();
         if (work.type === WORKS_TYPES.CCCHAFLAN) {
           // CHAFLAN
           // <Draw>
@@ -109,6 +114,20 @@ export const getXMLbyJSON = (jsonData) => {
             }&quot;</PARAM><SEQ>${item}</SEQ><OPSIDE>2</OPSIDE></Draw>\n`;
           });
         }
+        // <Draw>
+        //   <FUNCTNAME>ARC</FUNCTNAME>
+        //   <X>0</X><Y>200</Y><LW>1</LW>
+        //   <LENGTH>200</LENGTH>
+        //   <WIDTH>0</WIDTH>
+        //   <RADIUS>200</RADIUS>
+        //   <DIR>2</DIR>
+        //   <QUADRANT>4</QUADRANT>
+        //   <Z1>19</Z1><Z2>19</Z2>
+        //   <ID>1</ID><TOOL>MILL</TOOL>
+        //   <PARAM>T</PARAM><SEQ>1</SEQ>
+        //   <OPSIDE>2</OPSIDE>
+        // </Draw>
+        // <Draw><FUNCTNAME>ARC</FUNCTNAME><X>200</X><Y>0</Y><LW>1</LW><LENGTH>0</LENGTH><WIDTH>200</WIDTH><RADIUS>200</RADIUS><DIR>2</DIR><QUADRANT>3</QUADRANT><Z1>19</Z1><Z2>19</Z2><ID>2</ID><TOOL>MILL</TOOL><PARAM>T</PARAM><SEQ>2</SEQ><OPSIDE>2</OPSIDE></Draw><Draw><FUNCTNAME>ARC</FUNCTNAME><X>0</X><Y>200</Y><LW>1</LW><LENGTH>200</LENGTH><WIDTH>0</WIDTH><RADIUS>200</RADIUS><DIR>2</DIR><QUADRANT>2</QUADRANT><Z1>19</Z1><Z2>19</Z2><ID>3</ID><TOOL>MILL</TOOL><PARAM>T</PARAM><SEQ>3</SEQ><OPSIDE>2</OPSIDE></Draw><Draw><FUNCTNAME>ARC</FUNCTNAME><X>200</X><Y>0</Y><LW>1</LW><LENGTH>0</LENGTH><WIDTH>200</WIDTH><RADIUS>200</RADIUS><DIR>2</DIR><QUADRANT>1</QUADRANT><Z1>19</Z1><Z2>19</Z2><ID>3</ID><TOOL>MILL</TOOL><PARAM>T</PARAM><SEQ>3</SEQ><OPSIDE>2</OPSIDE></Draw>
       });
       xml += `\t\t\t\t\t</PartDraw>\n`;
       xml += "\t\t\t\t</Part>\n";

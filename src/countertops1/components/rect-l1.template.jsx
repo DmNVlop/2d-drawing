@@ -223,7 +223,7 @@ export default function RectLTemplateL1(props) {
         />
       )}
       {itemData?.id == 2 && canActivateIfHaveLines(2) && (
-        <>
+        <Group>
           <Line
             x={itemData?.x || 0}
             y={itemData?.y || 0}
@@ -232,7 +232,7 @@ export default function RectLTemplateL1(props) {
             strokeWidth={1}
           />
 
-          {[1, 2, 3, 4].map((item, index) => {
+          {/* {[1, 2, 3, 4].map((item, index) => {
             const lineAssemblyKey = `LineAssembly-${item.id}-${index}`;
 
             return (
@@ -253,8 +253,8 @@ export default function RectLTemplateL1(props) {
                 />
               </Group>
             );
-          })}
-        </>
+          })} */}
+        </Group>
       )}
     </Group>
   );

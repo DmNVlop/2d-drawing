@@ -9,18 +9,13 @@ import { useCustomURLHandler } from "../../helpers/location.hook";
 function DimensionsInput(props) {
   const {
     inputValueLargo1,
+    inputValueLargo11,
     inputValueAncho1,
-    setInputValueLargo1,
-    setInputValueAncho1,
     inputValueLargo2,
+    inputValueLargo22,
     inputValueAncho2,
-    setInputValueLargo2,
-    setInputValueAncho2,
     inputValueLargo3,
     inputValueAncho3,
-    setInputValueLargo3,
-    setInputValueAncho3,
-    // onSelectPiezaParent,
     countertops,
     getSelectedPieceCtx,
     onSetSelectedPieceCtx,
@@ -28,7 +23,6 @@ function DimensionsInput(props) {
     getNumberOfPartsCtx,
     onUpdatePartDataCtx,
     updateCornersCtx,
-    // onSetNumberOfPieceCtx,
   } = props;
 
   const _NO_PIEZAS = NO_PIEZAS;
@@ -38,15 +32,19 @@ function DimensionsInput(props) {
   const selectPieceRef = useRef(null);
 
   const input1SizeWidthRef = useRef(null);
+  const input11SizeWidthRef = useRef(null);
   const input1SizeHeightRef = useRef(null);
   const input2SizeWidthRef = useRef(null);
+  const input22SizeWidthRef = useRef(null);
   const input2SizeHeightRef = useRef(null);
   const input3SizeWidthRef = useRef(null);
   const input3SizeHeightRef = useRef(null);
 
   const [localWidth1, setLocalWidth1] = useState(inputValueLargo1);
+  const [localWidth11, setLocalWidth11] = useState(inputValueLargo11);
   const [localHeight1, setLocalHeight1] = useState(inputValueAncho1);
   const [localWidth2, setLocalWidth2] = useState(inputValueLargo2);
+  const [localWidth22, setLocalWidth22] = useState(inputValueLargo22);
   const [localHeight2, setLocalHeight2] = useState(inputValueAncho2);
   const [localWidth3, setLocalWidth3] = useState(inputValueLargo3);
   const [localHeight3, setLocalHeight3] = useState(inputValueAncho3);
@@ -57,7 +55,9 @@ function DimensionsInput(props) {
   const onChangeLargo = (newValue, noPiece) => {
     const setterActionsOn = {
       P1: (nV) => setLocalWidth1(nV),
+      P11: (nV) => setLocalWidth11(nV),
       P2: (nV) => setLocalWidth2(nV),
+      P22: (nV) => setLocalWidth22(nV),
       P3: (nV) => setLocalWidth3(nV),
     };
     // setLocalWidth(newValue);
@@ -87,11 +87,6 @@ function DimensionsInput(props) {
   };
 
   const onSelectPieza = (value) => {
-    // if (!value || value == 7) {
-    //   onSetSelectedPieceCtx(null);
-    //   return null;
-    // }
-
     if (value != piezaSelected?.value) {
       const pS = numeroPiezas.find((item) => {
         return item.value === value;
@@ -106,13 +101,23 @@ function DimensionsInput(props) {
   const handleSetSizesHelper = (index) => {
     if (index == 0) {
       const tempP1 = { ...countertops[ATTRIB_SETTED]?.partsData[index] };
-      tempP1.width = localWidth1;
+      if (countertops[ATTRIB_SETTED]?.shapeType == SHAPE_TYPES.CUSTOM) {
+        tempP1.width1 = localWidth1;
+        tempP1.width2 = localWidth11;
+      } else {
+        tempP1.width = localWidth1;
+      }
       tempP1.height = localHeight1;
       return tempP1;
     }
     if (index == 1) {
       const tempP2 = { ...countertops[ATTRIB_SETTED]?.partsData[index] };
-      tempP2.width = localWidth2;
+      if (countertops[ATTRIB_SETTED]?.shapeType == SHAPE_TYPES.CUSTOM) {
+        tempP2.width1 = localWidth2;
+        tempP2.width2 = localWidth22;
+      } else {
+        tempP2.width = localWidth2;
+      }
       tempP2.height = localHeight2;
       return tempP2;
     }
@@ -134,6 +139,10 @@ function DimensionsInput(props) {
       localWidth1 > 0 &&
       localHeight1 > 0
     ) {
+      if (ATTRIB_SETTED == SHAPE_TYPES.CUSTOM && localWidth11 <= 0) {
+        return;
+      }
+
       if (countertops[ATTRIB_SETTED]?.shapeType == SHAPE_TYPES.CIRCLE) {
         const cornerSize = localWidth1 / 2;
         updateCornersCtx(
@@ -149,6 +158,9 @@ function DimensionsInput(props) {
       localWidth2 > 0 &&
       localHeight2 > 0
     ) {
+      if (ATTRIB_SETTED == SHAPE_TYPES.CUSTOM && localWidth22 <= 0) {
+        return;
+      }
       onUpdatePartDataCtx(1, handleSetSizesHelper(1));
     }
 
@@ -191,8 +203,10 @@ function DimensionsInput(props) {
 
   const setDimensions = () => {
     setLocalWidth1(inputValueLargo1);
+    setLocalWidth11(inputValueLargo11);
     setLocalHeight1(inputValueAncho1);
     setLocalWidth2(inputValueLargo2);
+    setLocalWidth22(inputValueLargo22);
     setLocalHeight2(inputValueAncho2);
     setLocalWidth3(inputValueLargo3);
     setLocalHeight3(inputValueAncho3);
@@ -224,8 +238,10 @@ function DimensionsInput(props) {
     setDimensions();
   }, [
     inputValueLargo1,
+    inputValueLargo11,
     inputValueAncho1,
     inputValueLargo2,
+    inputValueLargo22,
     inputValueAncho2,
     inputValueLargo3,
     inputValueAncho3,
@@ -306,7 +322,10 @@ function DimensionsInput(props) {
               <span>Ancho</span>
             </Col> */}
 
-              <Col className="gutter-row" span={8}>
+              <Col
+                className="gutter-row"
+                span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+              >
                 <InputNumber
                   ref={input1SizeWidthRef}
                   id={"input1SizeWidthRef"}
@@ -316,12 +335,41 @@ function DimensionsInput(props) {
                   readOnly={!(getSelectedPieceValueCtx() === 0)}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeLargo(event, "P1")}
-                  placeholder="Largo P1"
+                  placeholder="L1 P1"
                   value={localWidth1}
-                  onKeyUp={(e) => onKeyUpHandle(e, input1SizeHeightRef)}
+                  onKeyUp={(e) =>
+                    onKeyUpHandle(
+                      e,
+                      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+                        ? input11SizeWidthRef
+                        : input1SizeHeightRef
+                    )
+                  }
                   onClick={(e) => onClickHandle(e, input1SizeWidthRef, 1)}
                 />
               </Col>
+
+              {ATTRIB_SETTED == SHAPE_TYPES.CUSTOM && (
+                <Col
+                  className="gutter-row"
+                  span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+                >
+                  <InputNumber
+                    ref={input11SizeWidthRef}
+                    id={"input11SizeWidthRef"}
+                    min={100}
+                    max={3600}
+                    // disabled={!(getSelectedPieceValueCtx() === 0)}
+                    readOnly={!(getSelectedPieceValueCtx() === 0)}
+                    style={{ width: "100%" }}
+                    onChange={(event) => onChangeLargo(event, "P11")}
+                    placeholder="L2 P1"
+                    value={localWidth11}
+                    onKeyUp={(e) => onKeyUpHandle(e, input1SizeHeightRef)}
+                    onClick={(e) => onClickHandle(e, input11SizeWidthRef, 1)}
+                  />
+                </Col>
+              )}
 
               {/* {getSelectedPieceValueCtx() != 0 && (
                 <Col className="gutter-row" span={8}>
@@ -334,7 +382,10 @@ function DimensionsInput(props) {
                 </Col>
               )} */}
 
-              <Col className="gutter-row" span={8}>
+              <Col
+                className="gutter-row"
+                span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+              >
                 <InputNumber
                   ref={input1SizeHeightRef}
                   min={100}
@@ -350,7 +401,10 @@ function DimensionsInput(props) {
                 />
               </Col>
 
-              <Col className="gutter-row" span={8}>
+              <Col
+                className="gutter-row"
+                span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+              >
                 <Button
                   style={{ width: "100%" }}
                   disabled={!(getSelectedPieceValueCtx() === 0)}
@@ -371,7 +425,10 @@ function DimensionsInput(props) {
               <span>Ancho</span>
             </Col> */}
 
-              <Col className="gutter-row" span={8}>
+              <Col
+                className="gutter-row"
+                span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+              >
                 <InputNumber
                   ref={input2SizeWidthRef}
                   min={100}
@@ -380,15 +437,43 @@ function DimensionsInput(props) {
                   readOnly={getSelectedPieceValueCtx() != 1}
                   style={{ width: "100%" }}
                   onChange={(event) => onChangeLargo(event, "P2")}
-                  placeholder="Largo P2"
+                  placeholder="L1 P2"
                   value={localWidth2}
-                  onKeyUp={(e) => onKeyUpHandle(e, input2SizeHeightRef)}
+                  onKeyUp={(e) =>
+                    onKeyUpHandle(
+                      e,
+                      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+                        ? input22SizeWidthRef
+                        : input2SizeHeightRef
+                    )
+                  }
                   onClick={(e) => onClickHandle(e, input2SizeWidthRef, 2)}
                 />
               </Col>
 
+              {ATTRIB_SETTED == SHAPE_TYPES.CUSTOM && (
+                <Col
+                  className="gutter-row"
+                  span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+                >
+                  <InputNumber
+                    ref={input22SizeWidthRef}
+                    min={100}
+                    max={3600}
+                    // disabled={getSelectedPieceValueCtx() != 1}
+                    readOnly={getSelectedPieceValueCtx() != 1}
+                    style={{ width: "100%" }}
+                    onChange={(event) => onChangeLargo(event, "P22")}
+                    placeholder="L2 P2"
+                    value={localWidth22}
+                    onKeyUp={(e) => onKeyUpHandle(e, input2SizeHeightRef)}
+                    onClick={(e) => onClickHandle(e, input22SizeWidthRef, 2)}
+                  />
+                </Col>
+              )}
+
               {/* {getSelectedPieceValueCtx() != 1 && (
-                <Col className="gutter-row" span={8}>
+                <Col className="gutter-row" span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}>
                   <label
                     htmlFor={"input2SizeWidthRef"}
                     onClick={() => onSelectPieza(2)}
@@ -398,7 +483,10 @@ function DimensionsInput(props) {
                 </Col>
               )} */}
 
-              <Col className="gutter-row" span={8}>
+              <Col
+                className="gutter-row"
+                span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+              >
                 <InputNumber
                   ref={input2SizeHeightRef}
                   min={100}
@@ -414,7 +502,10 @@ function DimensionsInput(props) {
                 />
               </Col>
 
-              <Col className="gutter-row" span={8}>
+              <Col
+                className="gutter-row"
+                span={ATTRIB_SETTED == SHAPE_TYPES.CUSTOM ? 6 : 8}
+              >
                 <Button
                   style={{ width: "100%" }}
                   disabled={getSelectedPieceValueCtx() != 1}

@@ -54,11 +54,13 @@ function SidebarRight() {
     countertops,
     getSelectedPieceCtx,
     getSelectedPieceValueCtx,
+    getIndexWorkOnPieceIfExistCtx,
     updateCornersCtx,
     updateWorkInPieceCtx,
     getIdCtx,
-    sidebarRightOpenedCtx,
     setSidebarRightOpenedCtx,
+    deleteWorkInPieceByFilterCtx,
+    sidebarRightOpenedCtx,
   } = useCountertopContext();
 
   const [_buttomSquareWorks, setButtomSquareWorks] =
@@ -175,6 +177,34 @@ function SidebarRight() {
     setWorkCornerSelected(null);
   };
 
+  const modifyRedINObject = (currentItem) => {
+    const objToReturn = [];
+
+    currentItem.cornerPosition.forEach((item, index) => {
+      if (item) {
+        const tArr = [0, 0, 0, 0];
+        tArr[index] = 1;
+
+        const currectOB = {
+          url: "#",
+          img: "#",
+          alt: "Corte Redondo",
+          title: "Corte Redondo",
+          code: WORKS_TYPES.CCRED1LADO,
+          cornerPosition: tArr,
+          type: WORKS_TYPES.CCRED1LADO,
+          id: getIdCtx(),
+        };
+        objToReturn.push({
+          ...item,
+          ...currectOB,
+        });
+      }
+    });
+
+    return objToReturn || [];
+  };
+
   const handleSetWork = (e) => {
     e.preventDefault();
 
@@ -188,7 +218,10 @@ function SidebarRight() {
     // Validar esquina seleccionada
     if (!workCornerSelected && workSelected.type != WORKS_TYPES.ENCASTRE) {
       console.log("🚧 No hay esquina seleccionada");
-      message.warning("🚧 No hay esquina seleccionada...");
+      message.warning({
+        content: "No hay esquina seleccionada...🚧",
+        duration: 2,
+      });
       return;
     }
 
@@ -199,9 +232,25 @@ function SidebarRight() {
       currentItem.code == "ccred4lados-clear"
     ) {
       updateCornersCtx([0, 0, 0, 0], getSelectedPieceValueCtx());
+
+      currentItem.cornerPosition = [1, 1, 1, 1];
+      const finalCurrentObject = modifyRedINObject(currentItem);
+      if (Array.isArray(finalCurrentObject) && finalCurrentObject?.length > 0) {
+        const indexArrayToDelete = [];
+        finalCurrentObject.forEach((workToSave) => {
+          indexArrayToDelete.push(getIndexWorkOnPieceIfExistCtx(workToSave));
+        });
+
+        if (
+          Array.isArray(indexArrayToDelete) &&
+          indexArrayToDelete.length > 0
+        ) {
+          deleteWorkInPieceByFilterCtx(indexArrayToDelete);
+        }
+      }
     }
 
-    // settear esquinas
+    // settear esquinas REDIN
     if (
       (currentItem.type == WORKS_TYPES.CCRED2LADOS ||
         currentItem.type == WORKS_TYPES.CCRED4LADOS) &&
@@ -228,9 +277,11 @@ function SidebarRight() {
           "🚧 Faltan datos en el formulario: ",
           WORKS_TYPES.CCCHAFLAN
         );
-        message.warning(
-          "🚧 Faltan datos en el formulario: " + WORKS_TYPES.CCCHAFLAN
-        );
+        message.warning({
+          content:
+            "Faltan datos en el formulario: " + WORKS_TYPES.CCCHAFLAN + " 🚧",
+          duration: 2,
+        });
         return;
       }
 

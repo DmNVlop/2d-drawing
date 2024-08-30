@@ -17,9 +17,14 @@ const CountertopPage = lazy(() =>
 const SimpleCTPage = lazy(() => import("./countertops1/pages/simplect-page"));
 const LShapedPage = lazy(() => import("./countertops1/pages/L-shaped-page"));
 const UShapedPage = lazy(() => import("./countertops1/pages/U-shaped-page"));
+const CustomShapePage = lazy(() =>
+  import("./countertops1/pages/custom-shape-page")
+);
+const ImportDXFShapePage = lazy(() =>
+  import("./countertops1/pages/import-dxf-page")
+);
 
 import RectLTemplateTest from "./countertops1/components/TEST/rect-l-test.template";
-import { WORKS_TYPES } from "./countertops1/mocks/WORKS.types";
 import { SHAPE_TYPES } from "./countertops1/mocks/SHAPE_TYPES.const";
 const AppFormTest = lazy(() =>
   import("./countertops1/components/TEST/form-test")
@@ -93,6 +98,24 @@ const RoutersApp = () => {
                 <UShapedPage
                   title="Encimera en U"
                   shape={SHAPE_TYPES.UShaped_u1}
+                />
+              }
+            />
+            <Route
+              path={SHAPE_TYPES.CUSTOM}
+              element={
+                <CustomShapePage
+                  title="Encimera Personalizada"
+                  shape={SHAPE_TYPES.CUSTOM}
+                />
+              }
+            />
+            <Route
+              path={SHAPE_TYPES.IMPORT_DXF}
+              element={
+                <ImportDXFShapePage
+                  title="Importador de DXF"
+                  shape={SHAPE_TYPES.IMPORT_DXF}
                 />
               }
             />

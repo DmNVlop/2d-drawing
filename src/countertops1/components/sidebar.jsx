@@ -74,17 +74,35 @@ const Sidebar = () => {
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
 
+  const [updateCornersValues, setUpdateCornersValues] = useState([0, 0, 0, 0]);
+
   // Length and Width State
   const [inputValueLargo1, setInputValueLargo1] = useState(
-    countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[0]?.width1 || 1
+      : countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+  );
+  const [inputValueLargo11, setInputValueLargo11] = useState(
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[0]?.width2 || 1
+      : 1
   );
   const [inputValueAncho1, setInputValueAncho1] = useState(
     countertops[ATTRIB_SETTED]?.partsData[0]?.height || null
   );
 
   const [inputValueLargo2, setInputValueLargo2] = useState(
-    countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[1]?.width1 || 1
+      : countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
   );
+
+  const [inputValueLargo22, setInputValueLargo22] = useState(
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[1]?.width2 || 1
+      : 1
+  );
+
   const [inputValueAncho2, setInputValueAncho2] = useState(
     countertops[ATTRIB_SETTED]?.partsData[1]?.height || null
   );
@@ -143,7 +161,12 @@ const Sidebar = () => {
     const finalNewValue = [...cornersState];
     finalNewValue[position] = newValue ? newValue : 0;
 
-    updateCornersCtx(finalNewValue, getSelectedPieceValueCtx());
+    setUpdateCornersValues(finalNewValue);
+  };
+
+  const onBlurCorners = (e, position) => {
+    // console.log("🚀 ~ onBlurCorners ~ position:", position);
+    // console.log("🚀 ~ onFocusCorners ~ e:", e.target.value);
   };
 
   const handleClickResetAllCorners = () => {
@@ -231,14 +254,28 @@ const Sidebar = () => {
 
   const setSizes = () => {
     setInputValueLargo1(
-      countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[0]?.width1 || null
+        : countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+    );
+    setInputValueLargo11(
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[0]?.width2 || null
+        : null
     );
     setInputValueAncho1(
       countertops[ATTRIB_SETTED]?.partsData[0]?.height || null
     );
 
     setInputValueLargo2(
-      countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[1]?.width1 || null
+        : countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+    );
+    setInputValueLargo22(
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[1]?.width2 || null
+        : null
     );
     setInputValueAncho2(
       countertops[ATTRIB_SETTED]?.partsData[1]?.height || null
@@ -328,6 +365,21 @@ const Sidebar = () => {
     setSizes();
   }, [ATTRIB_SETTED, countertops[ATTRIB_SETTED]?.partsData]);
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (
+        Array.isArray(updateCornersValues) &&
+        updateCornersValues.length > 0
+      ) {
+        updateCornersCtx(updateCornersValues, getSelectedPieceValueCtx());
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [updateCornersValues]);
+
   return (
     <>
       <div id="ct-side-nav" ref={sidenavElementRef}>
@@ -388,12 +440,16 @@ const Sidebar = () => {
           <DimensionsInput
             inputValueAncho1={inputValueAncho1}
             inputValueLargo1={inputValueLargo1}
+            inputValueLargo11={inputValueLargo11}
             setInputValueAncho1={setInputValueAncho1}
             setInputValueLargo1={setInputValueLargo1}
+            setInputValueLargo11={setInputValueLargo11}
             inputValueAncho2={inputValueAncho2}
             inputValueLargo2={inputValueLargo2}
+            inputValueLargo22={inputValueLargo22}
             setInputValueAncho2={setInputValueAncho2}
             setInputValueLargo2={setInputValueLargo2}
+            setInputValueLargo22={setInputValueLargo22}
             inputValueAncho3={inputValueAncho3}
             inputValueLargo3={inputValueLargo3}
             setInputValueAncho3={setInputValueAncho3}
@@ -445,6 +501,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 0)}
+                      onBlur={(e) => onBlurCorners(e, 0)}
                       onClick={(e) => onClickHandle(e, inputCornerTLRef)}
                       value={
                         Array.isArray(cornersState) &&
@@ -467,6 +524,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 1)}
+                      onBlur={(e) => onBlurCorners(e, 1)}
                       onClick={(e) => onClickHandle(e, inputCornerTRRef)}
                       value={
                         Array.isArray(cornersState) &&
@@ -492,6 +550,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 3)}
+                      onBlur={(e) => onBlurCorners(e, 3)}
                       onClick={(e) => onClickHandle(e, inputCornerBLRef)}
                       value={
                         Array.isArray(cornersState) &&
@@ -514,6 +573,7 @@ const Sidebar = () => {
                         ATTRIB_SETTED == "circle"
                       }
                       onChange={(event) => onChangeCorners(event, 2)}
+                      onBlur={(e) => onBlurCorners(e, 2)}
                       onClick={(e) => onClickHandle(e, inputCornerBRRef)}
                       value={
                         Array.isArray(cornersState) &&

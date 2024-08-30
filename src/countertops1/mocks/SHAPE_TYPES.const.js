@@ -8,4 +8,6 @@ export const SHAPE_TYPES = {
   UShaped_u2: "u-shaped_u2",
   UShaped_u3: "u-shaped_u3",
   UShaped_u4: "u-shaped_u4",
+  CUSTOM: "custom",
+  IMPORT_DXF: "import-dxf",
 };
