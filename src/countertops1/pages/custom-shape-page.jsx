@@ -10,12 +10,12 @@ import useHandleZoomWheel from "../components/Rect-Helpers/zoomHelper";
 import { Checkbox, Col, Row } from "antd";
 import RotationButtonsComponent from "../components/Simple-Componentes/rotation-buttons";
 import ActionButtonsLeftSidebar from "../components/Simple-Componentes/action-buttons-left-sidebar";
+import RectVariable from "../components/RectL-Variable/rect-variable.template";
 
 export default function CustomShapePage(props) {
   const { title } = props;
 
   const { ATTRIB_SETTED } = useCustomURLHandler();
-  console.log("🚀 ~ CustomShapePage ~ ATTRIB_SETTED:", ATTRIB_SETTED);
 
   const {
     countertops,
@@ -36,7 +36,7 @@ export default function CustomShapePage(props) {
   };
 
   const stageWidth = useWindowsSizes().stageWidth;
-  const stageHeight = useWindowsSizes().stageHeight;
+  const stageHeight = useWindowsSizes().stageHeight - 30;
 
   return (
     <section id="custom-shape-page">
@@ -65,6 +65,8 @@ export default function CustomShapePage(props) {
         </Col>
       </Row>
 
+      <div style={{ marginTop: "1em" }}>Componente en Construcción...</div>
+
       <Stage
         width={stageWidth}
         height={stageHeight}
@@ -85,7 +87,8 @@ export default function CustomShapePage(props) {
         onClick={handleClickOnSelectPieceNull}
       >
         <Layer>
-          <Text x={30} y={30} text={"En Construcción... " + pageTitle} />
+          <RectVariable />
+          {/* <RectVariableMOD /> */}
         </Layer>
       </Stage>
 

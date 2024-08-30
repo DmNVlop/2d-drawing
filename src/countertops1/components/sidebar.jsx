@@ -78,15 +78,31 @@ const Sidebar = () => {
 
   // Length and Width State
   const [inputValueLargo1, setInputValueLargo1] = useState(
-    countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[0]?.width1 || 1
+      : countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+  );
+  const [inputValueLargo11, setInputValueLargo11] = useState(
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[0]?.width2 || 1
+      : 1
   );
   const [inputValueAncho1, setInputValueAncho1] = useState(
     countertops[ATTRIB_SETTED]?.partsData[0]?.height || null
   );
 
   const [inputValueLargo2, setInputValueLargo2] = useState(
-    countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[1]?.width1 || 1
+      : countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
   );
+
+  const [inputValueLargo22, setInputValueLargo22] = useState(
+    ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+      ? countertops[ATTRIB_SETTED]?.partsData[1]?.width2 || 1
+      : 1
+  );
+
   const [inputValueAncho2, setInputValueAncho2] = useState(
     countertops[ATTRIB_SETTED]?.partsData[1]?.height || null
   );
@@ -238,14 +254,28 @@ const Sidebar = () => {
 
   const setSizes = () => {
     setInputValueLargo1(
-      countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[0]?.width1 || null
+        : countertops[ATTRIB_SETTED]?.partsData[0]?.width || null
+    );
+    setInputValueLargo11(
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[0]?.width2 || null
+        : null
     );
     setInputValueAncho1(
       countertops[ATTRIB_SETTED]?.partsData[0]?.height || null
     );
 
     setInputValueLargo2(
-      countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[1]?.width1 || null
+        : countertops[ATTRIB_SETTED]?.partsData[1]?.width || null
+    );
+    setInputValueLargo22(
+      ATTRIB_SETTED == SHAPE_TYPES.CUSTOM
+        ? countertops[ATTRIB_SETTED]?.partsData[1]?.width2 || null
+        : null
     );
     setInputValueAncho2(
       countertops[ATTRIB_SETTED]?.partsData[1]?.height || null
@@ -410,12 +440,16 @@ const Sidebar = () => {
           <DimensionsInput
             inputValueAncho1={inputValueAncho1}
             inputValueLargo1={inputValueLargo1}
+            inputValueLargo11={inputValueLargo11}
             setInputValueAncho1={setInputValueAncho1}
             setInputValueLargo1={setInputValueLargo1}
+            setInputValueLargo11={setInputValueLargo11}
             inputValueAncho2={inputValueAncho2}
             inputValueLargo2={inputValueLargo2}
+            inputValueLargo22={inputValueLargo22}
             setInputValueAncho2={setInputValueAncho2}
             setInputValueLargo2={setInputValueLargo2}
+            setInputValueLargo22={setInputValueLargo22}
             inputValueAncho3={inputValueAncho3}
             inputValueLargo3={inputValueLargo3}
             setInputValueAncho3={setInputValueAncho3}

@@ -104,7 +104,7 @@ export const temp_init_state = {
   },
   [SHAPE_TYPES.CUSTOM]: {
     shapeType: SHAPE_TYPES.CUSTOM,
-    partsData: [],
+    partsData: CUSTOM_CT_M.partsData,
     linesData: [],
     rootConfig: CUSTOM_CT_M.rootConfig,
     assemblyType: CUSTOM_CT_M.assemblyType,
